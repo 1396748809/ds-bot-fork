@@ -42746,9 +42746,15 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
     setOpen(null);
     actions.openSettings("schedules", target);
   };
+  const freshBot = roster.byId?.[sessionId];
   const fresh = () => {
     setOpen(null);
-    actions.openNewChat("new");
+    if (freshBot === void 0) return;
+    if (typeof actions.newPart !== "function") {
+      actions.openNewChat("new");
+      return;
+    }
+    void Promise.resolve(actions.newPart(freshBot.id)).then(() => actions.openSession(freshBot.id), (error) => actions.reportError(error, "new-chat"));
   };
   const reference = () => {
     setOpen(null);
@@ -42788,10 +42794,11 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
       canReference ? (0, import_react61.createElement)("button", { type: "button", role: "menuitem", onMouseDown: keepComposerFocus, onClick: reference }, (0, import_react61.createElement)(ChatsIcon), (0, import_react61.createElement)("span", { className: "bt-menu-label" }, t("Reference a chat"))) : null,
       canSetGoal(room2, roster) ? (0, import_react61.createElement)("button", { type: "button", role: "menuitem", onClick: goal }, (0, import_react61.createElement)(GoalIcon), (0, import_react61.createElement)("span", { className: "bt-menu-label" }, t("Set a goal"))) : null,
       (0, import_react61.createElement)("button", { type: "button", role: "menuitem", onClick: schedule }, (0, import_react61.createElement)(ClockIcon), (0, import_react61.createElement)("span", { className: "bt-menu-label" }, t("Scheduled task"))),
-      // A rule splits "add something to this chat" from "leave this chat": the four rows
-      // above change what the next message carries, the row below starts over.
-      (0, import_react61.createElement)("div", { className: "bt-menu-sep", role: "separator" }),
-      (0, import_react61.createElement)("button", { type: "button", role: "menuitem", onClick: fresh }, (0, import_react61.createElement)(PlusIcon), (0, import_react61.createElement)("span", { className: "bt-menu-label" }, t("Start a fresh chat")))
+      // A rule splits "add something to this chat" from "leave this chat": the rows above
+      // change what the next message carries, the row below starts over. Both go together,
+      // since a group chat has no fresh part to move to.
+      freshBot ? (0, import_react61.createElement)("div", { className: "bt-menu-sep", role: "separator" }) : null,
+      freshBot ? (0, import_react61.createElement)("button", { type: "button", role: "menuitem", onClick: fresh }, (0, import_react61.createElement)(PlusIcon), (0, import_react61.createElement)("span", { className: "bt-menu-label" }, t("Start a fresh chat"))) : null
     ), document.body) : null
   );
 }

@@ -75,32 +75,75 @@ test('the + Set a goal entry stores the room id when the Session moved', () => {
 
 // The row labels of the open "+" menu, with any rule reading as 'separator'. The portal
 // stand-in returns the menu node itself, so its direct children are the rows in order.
+const menuRows = (tree) => {
+  const menus = []
+  const walk = (node) => {
+    if (node === null || typeof node !== 'object') return
+    if (Array.isArray(node)) { node.forEach(walk); return }
+    if (String(node.props?.className ?? '').includes('bt-plus-menu')) { menus.push(node); return }
+    if (typeof node.type === 'function') { walk(node.type(node.props)); return }
+    for (const child of node.children ?? []) walk(child)
+  }
+  walk(tree)
+  assert.equal(menus.length, 1)
+  // Rows the roster hides arrive as nulls, so drop them before reading labels.
+  const shown = menus[0].children.filter(Boolean)
+  const label = (child) => {
+    if (child.props?.className === 'bt-menu-sep') return 'separator'
+    return child.children.find(node => node?.props?.className === 'bt-menu-label')?.children[0]
+  }
+  return { shown, rows: shown.map(label) }
+}
+// A chat of one's own: the Bot's id is the session id, as the roster gives it.
+const botRoster = { byId: { a: { id: 'a', name: 'Chief' } }, roomsById: {} }
+const botSession = (actions) => ComposerPlus({
+  sessionId: 'a', useRoster: select => select(botRoster),
+  useInput: select => select({ phase: 'plain', draft: '', attachmentIds: [], queue: [] }),
+  actions,
+})
+
 test('a rule separates the rows that add to this chat from the one that starts over', () => {
   const original = react.useState
   react.useState = initial => [initial === null ? { files: false } : initial, () => {}]
   try {
-    const tree = hooksFor(movedRoster, { canReferenceChat: () => false, composeGoal: () => {} })
-    const menus = []
-    const walk = (node) => {
-      if (node === null || typeof node !== 'object') return
-      if (Array.isArray(node)) { node.forEach(walk); return }
-      if (String(node.props?.className ?? '').includes('bt-plus-menu')) { menus.push(node); return }
-      if (typeof node.type === 'function') { walk(node.type(node.props)); return }
-      for (const child of node.children ?? []) walk(child)
-    }
-    walk(tree)
-    assert.equal(menus.length, 1)
-    // Rows the roster hides arrive as nulls, so drop them before reading labels.
-    const shown = menus[0].children.filter(Boolean)
-    const label = (child) => {
-      if (child.props?.className === 'bt-menu-sep') return 'separator'
-      return child.children.find(node => node?.props?.className === 'bt-menu-label')?.children[0]
-    }
-    const rows = shown.map(label)
-    assert.deepEqual(rows, ['Set a goal', 'Scheduled task', 'separator', 'Start a fresh chat'])
+    const { shown, rows } = menuRows(botSession({ canReferenceChat: () => false }))
+    assert.deepEqual(rows, ['Scheduled task', 'separator', 'Start a fresh chat'])
     // stepMenuFocus reaches rows by `button[role^="menuitem"]`, so the rule must not be one.
     const rule = shown.find(child => child.props?.className === 'bt-menu-sep')
     assert.equal(rule.props.role, 'separator')
+  } finally { react.useState = original }
+})
+
+// A Bot's chat knows whose it is, so the row moves this chat to a fresh part instead of
+// asking whom to talk to. Opening the Bot afterwards lands on the part it now points at.
+test('the fresh row starts a new session of this chat, not a recipient picker', async () => {
+  const original = react.useState
+  react.useState = initial => [initial === null ? { files: false } : initial, () => {}]
+  try {
+    const calls = []
+    const { shown } = menuRows(botSession({
+      canReferenceChat: () => false,
+      newPart: id => { calls.push(['newPart', id]); return Promise.resolve(true) },
+      openSession: id => { calls.push(['openSession', id]) },
+      openNewChat: mode => { calls.push(['openNewChat', mode]) },
+    }))
+    const row = shown.find(child => child.children?.some(node => node?.children?.[0] === 'Start a fresh chat'))
+    assert.ok(row, 'the fresh row is drawn')
+    row.props.onClick()
+    // The click settles on a promise chain, so let every microtask of it run.
+    await new Promise(resolve => setImmediate(resolve))
+    assert.equal(JSON.stringify(calls), JSON.stringify([['newPart', 'a'], ['openSession', 'a']]))
+  } finally { react.useState = original }
+})
+
+// A group has one conversation and no fresh part, so the row and its rule are both gone
+// rather than offering a picker the label does not describe.
+test('a group chat offers neither the fresh row nor a dangling rule', () => {
+  const original = react.useState
+  react.useState = initial => [initial === null ? { files: false } : initial, () => {}]
+  try {
+    const { rows } = menuRows(hooksFor(movedRoster, { canReferenceChat: () => false, composeGoal: () => {} }))
+    assert.deepEqual(rows, ['Set a goal', 'Scheduled task'])
   } finally { react.useState = original }
 })
 

@@ -195,11 +195,18 @@ export function ComposerPlus({ sessionId, inputActions, useInput, useRoster, act
     setOpen(null)
     actions.openSettings('schedules', target)
   }
-  // A chat that has grown heavy is swapped for an empty one; the picker opens at the
-  // same place the rail's own New button does.
+  // A chat that has grown heavy is moved to a fresh part of itself (parts.js does the
+  // move), so there is no recipient to ask for: a Bot's chat knows whose it is. A group
+  // has one conversation and no fresh part, so the row is not offered there at all.
+  const freshBot = roster.byId?.[sessionId]
   const fresh = () => {
     setOpen(null)
-    actions.openNewChat('new')
+    if (freshBot === undefined) return
+    if (typeof actions.newPart !== 'function') { actions.openNewChat('new'); return }
+    // Opening the Bot's chat afterwards lands on the part it now points at, which is the
+    // new one; without it the click would look like nothing happened.
+    void Promise.resolve(actions.newPart(freshBot.id))
+      .then(() => actions.openSession(freshBot.id), error => actions.reportError(error, 'new-chat'))
   }
   // The chats open in the shell's "@" menu at the caret, so the pick lands where the
   // user was typing.
@@ -226,10 +233,11 @@ export function ComposerPlus({ sessionId, inputActions, useInput, useRoster, act
     canReference ? h('button', { type: 'button', role: 'menuitem', onMouseDown: keepComposerFocus, onClick: reference }, h(ChatsIcon), h('span', { className: 'bt-menu-label' }, t('Reference a chat'))) : null,
     canSetGoal(room, roster) ? h('button', { type: 'button', role: 'menuitem', onClick: goal }, h(GoalIcon), h('span', { className: 'bt-menu-label' }, t('Set a goal'))) : null,
     h('button', { type: 'button', role: 'menuitem', onClick: schedule }, h(ClockIcon), h('span', { className: 'bt-menu-label' }, t('Scheduled task'))),
-    // A rule splits "add something to this chat" from "leave this chat": the four rows
-    // above change what the next message carries, the row below starts over.
-    h('div', { className: 'bt-menu-sep', role: 'separator' }),
-    h('button', { type: 'button', role: 'menuitem', onClick: fresh }, h(PlusIcon), h('span', { className: 'bt-menu-label' }, t('Start a fresh chat')))), document.body) : null)
+    // A rule splits "add something to this chat" from "leave this chat": the rows above
+    // change what the next message carries, the row below starts over. Both go together,
+    // since a group chat has no fresh part to move to.
+    freshBot ? h('div', { className: 'bt-menu-sep', role: 'separator' }) : null,
+    freshBot ? h('button', { type: 'button', role: 'menuitem', onClick: fresh }, h(PlusIcon), h('span', { className: 'bt-menu-label' }, t('Start a fresh chat'))) : null), document.body) : null)
 }
 
 const NO_IDS = []
