@@ -13689,7 +13689,7 @@ var ZH = {
   "Waits for this turn to end": "等这轮结束",
   // A bubble the user steered into the running turn, and the tooltip on its chip.
   "Steered mid-turn": "插话",
-  "It cut into the turn that was already running": "这条是插话：打断了正在运行的那一轮，并在这轮里得到回答",
+  "It went in mid-turn, without starting a new one": "这条是插话：在当前这一轮中途送进去，没有另起一轮",
   "View conversation details": "查看对话详情",
   "1 new message": "1 条新消息",
   "{count} new messages": "{count} 条新消息",
@@ -29799,7 +29799,7 @@ function CopyButton({ text }) {
 var clock3 = (time) => typeof time === "number" ? new Date(time).toLocaleTimeString(dateLocale(), { hour: "numeric", minute: "2-digit" }) : void 0;
 var viaOf2 = (source) => typeof source?.rpcId === "string" && source.rpcId.startsWith("im:") ? source.rpcId.split(":")[1] : void 0;
 var ViaTag = ({ via }) => (0, import_react33.createElement)("span", { className: "bt-uvia" }, t("via {platform}", { platform: t(imPlatform(via)?.name ?? via) }));
-var SteerTag = () => (0, import_react33.createElement)("span", { className: "bt-usteer", title: t("It cut into the turn that was already running") }, t("Steered mid-turn"));
+var SteerTag = () => (0, import_react33.createElement)("span", { className: "bt-usteer", title: t("It went in mid-turn, without starting a new one") }, t("Steered mid-turn"));
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
   const { attachments, rest } = contentParts(data.content);
   const referenceLabels = data.referenceLabels ?? [];

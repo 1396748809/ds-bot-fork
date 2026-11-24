@@ -392,7 +392,7 @@ const ZH = {
   'Waits for this turn to end': '等这轮结束',
   // A bubble the user steered into the running turn, and the tooltip on its chip.
   'Steered mid-turn': '插话',
-  'It cut into the turn that was already running': '这条是插话：打断了正在运行的那一轮，并在这轮里得到回答',
+  'It went in mid-turn, without starting a new one': '这条是插话：在当前这一轮中途送进去，没有另起一轮',
   'View conversation details': '查看对话详情',
   '1 new message': '1 条新消息',
   '{count} new messages': '{count} 条新消息',

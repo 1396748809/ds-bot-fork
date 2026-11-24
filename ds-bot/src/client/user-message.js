@@ -152,10 +152,11 @@ const clock = time => (typeof time === 'number' ? new Date(time).toLocaleTimeStr
 // A message that came in over IM names its platform: "via Telegram" by the time.
 export const viaOf = source => (typeof source?.rpcId === 'string' && source.rpcId.startsWith('im:') ? source.rpcId.split(':')[1] : undefined)
 export const ViaTag = ({ via }) => h('span', { className: 'bt-uvia' }, t('via {platform}', { platform: t(imPlatform(via)?.name ?? via) }))
-// A message the user steered into a turn that was already running. It cut that turn's
-// current model call and was answered inside it, so the bubble keeps saying so; without
-// this the two kinds of send look alike once the Bot has read the message.
-export const SteerTag = () => h('span', { className: 'bt-usteer', title: t('It cut into the turn that was already running') }, t('Steered mid-turn'))
+// A message the user steered into a turn that was already running. It was answered inside
+// that turn, so the bubble keeps saying so; without this the two kinds of send look alike
+// once the Bot has read the message. The wording stays neutral: a steer that lands while a
+// tool call runs is inserted at the next step rather than cutting the model call.
+export const SteerTag = () => h('span', { className: 'bt-usteer', title: t('It went in mid-turn, without starting a new one') }, t('Steered mid-turn'))
 
 // Before DSH 0.2.1-alpha.3: DS Bot draws the attachments, the text and the other blocks.
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
