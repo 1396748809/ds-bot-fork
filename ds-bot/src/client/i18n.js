@@ -393,6 +393,8 @@ const ZH = {
   // A bubble the user steered into the running turn, and the tooltip on its chip.
   'Steered mid-turn': '插话',
   'It went in mid-turn, without starting a new one': '这条是插话：在当前这一轮中途送进去，没有另起一轮',
+  'Sent while a reply was being written, so that draft was cut': '这条是插话：你发的时候我正在写回答，那段被打断了',
+  'Sent while a tool was running, so it waited for the tool to finish': '这条是插话：你发的时候我正在跑工具，等它跑完才接住',
   'View conversation details': '查看对话详情',
   '1 new message': '1 条新消息',
   '{count} new messages': '{count} 条新消息',

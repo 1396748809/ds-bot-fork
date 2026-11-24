@@ -579,6 +579,14 @@ export function install(rt) {
       case 'agent/inbox/spliced':
         if (isUserSteer(event)) {
           if (rt.taskOwners?.has(id) || rt.shouldMoveForeground?.(rt.botOf(rt.chatOwners.get(id)), id)) break
+          // What the Bot was doing when the steer arrived. Both cases end in a cut, but
+          // they feel different to the user: a reply being written is thrown away, a
+          // running tool is waited out first. Only the host can tell which one it was, and
+          // the chat node carries the same message id.
+          const arrival = track.phase === 'model' ? 'writing' : 'tools'
+          for (const message of event.data.inserted ?? []) {
+            if (message?.source?.kind === 'user' && message.id !== undefined) rt.markSteerArrival?.(id, message.id, arrival)
+          }
           wake(track.steerWaiters, true)
           scheduleCut(id)
         }

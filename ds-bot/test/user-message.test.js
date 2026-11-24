@@ -240,3 +240,26 @@ test('a steering bubble keeps a mark of its own, a plain send carries none', () 
   const plain = render(current, hostProps([{ type: 'text', text: '你好' }]).props)
   assert.equal(find(plain, node => node.props?.className === 'bt-usteer').length, 0)
 })
+
+// Both paths end in a cut, but they feel different: a reply being written is thrown away,
+// a running tool is waited out. The chip says which one it was, and says nothing it did not
+// hear from the host — a restart leaves no record, so the wording stays neutral then.
+test('the steering chip names what the Bot was doing when the steer landed', () => {
+  const title = (arrival) => {
+    fresh()
+    const { props } = hostProps([{ type: 'text', text: '换成热的' }], { data: { messageId: 'm1' } })
+    props.node.kind = 'steering'
+    props.useWork = select => select({ steerArrivals: { room: { m1: arrival } } })
+    const tree = expand(current.UserMessageCell(props), ['UserText', 'ProjectedContent', 'HostContent', 'SteerTag'])
+    const [tag] = find(tree, node => node.props?.className === 'bt-usteer')
+    assert.ok(tag, 'the chip is drawn')
+    return tag.props.title
+  }
+  const writing = title('writing')
+  const tools = title('tools')
+  const unknown = title(undefined)
+  assert.match(writing, /reply was being written/)
+  assert.match(tools, /tool was running/)
+  assert.match(unknown, /mid-turn/)
+  assert.equal(new Set([writing, tools, unknown]).size, 3)
+})

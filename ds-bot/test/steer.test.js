@@ -475,6 +475,40 @@ test('steer cut: no cut during tools phase or for a non-Bot session', async () =
   await stop()
 })
 
+// The tools-phase steer above is only parked, not delivered: the next step start takes
+// it the same way a model-phase steer is taken, so a private chat never hands a steer to
+// the running model quietly. The wait buys the tool result, not the steer's insertion.
+test('steer cut: a steer parked during tools is cut when the next step starts', async () => {
+  const { emit, stop, agent, calls, rt } = await start()
+  const dm = 'dm-a'
+  await emit(dm, 'turn/start', { turn: 1 })
+  await emit(dm, 'step/start', { turn: 1, step: 1 })
+  await emit(dm, 'assistant/message', { turn: 1, step: 1, message: { role: 'assistant', content: [{ type: 'tool-call' }] } })
+  const steer = userMessage('再等等')
+  agent.inbox.nextStep.push(steer)
+  await emit(dm, 'agent/inbox/spliced', { target: 'next-step', inserted: [steer] })
+  assert.equal(calls.find(c => c[0] === 'cancel'), undefined, 'parked while the tool runs')
+  // The chat bubble says what the Bot was doing when the steer landed.
+  assert.deepEqual(rt.steerArrivalView()[dm], { [steer.id]: 'tools' })
+  await emit(dm, 'step/end', { turn: 1, step: 1 })
+  await emit(dm, 'step/start', { turn: 1, step: 2 })
+  assert.deepEqual(calls.find(c => c[0] === 'cancel')?.[1], { kind: 'hook', reason: STEER_CUT })
+  assert.deepEqual(agent.inbox.nextTurn.map(m => m.id), [steer.id])
+  await stop()
+})
+
+test('steer cut: an arrival during the model call is recorded as a written reply', async () => {
+  const { emit, stop, agent, rt } = await start()
+  const dm = 'dm-a'
+  await emit(dm, 'turn/start', { turn: 1 })
+  await emit(dm, 'step/start', { turn: 1, step: 1 })
+  const steer = userMessage('换成热的')
+  agent.inbox.nextStep.push(steer)
+  await emit(dm, 'agent/inbox/spliced', { target: 'next-step', inserted: [steer] })
+  assert.deepEqual(rt.steerArrivalView()[dm], { [steer.id]: 'writing' })
+  await stop()
+})
+
 test('steer cut: earlier steers and queued next-turn keep order', async () => {
   const { emit, stop, agent } = await start()
   const dm = 'dm-a'

@@ -154,9 +154,14 @@ export const viaOf = source => (typeof source?.rpcId === 'string' && source.rpcI
 export const ViaTag = ({ via }) => h('span', { className: 'bt-uvia' }, t('via {platform}', { platform: t(imPlatform(via)?.name ?? via) }))
 // A message the user steered into a turn that was already running. It was answered inside
 // that turn, so the bubble keeps saying so; without this the two kinds of send look alike
-// once the Bot has read the message. The wording stays neutral: a steer that lands while a
-// tool call runs is inserted at the next step rather than cutting the model call.
-export const SteerTag = () => h('span', { className: 'bt-usteer', title: t('It went in mid-turn, without starting a new one') }, t('Steered mid-turn'))
+// once the Bot has read the message. `arrival` is what the Bot was doing when it landed,
+// which the host records: a reply being generated is cut away, a running tool is waited
+// out first. With no record (a restart, or a chat that never steered) the wording stays
+// neutral rather than claim one of them.
+const steerNote = arrival => (arrival === 'writing'
+  ? 'Sent while a reply was being written, so that draft was cut'
+  : arrival === 'tools' ? 'Sent while a tool was running, so it waited for the tool to finish' : 'It went in mid-turn, without starting a new one')
+export const SteerTag = ({ arrival }) => h('span', { className: 'bt-usteer', title: t(steerNote(arrival)) }, t('Steered mid-turn'))
 
 // Before DSH 0.2.1-alpha.3: DS Bot draws the attachments, the text and the other blocks.
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
@@ -194,12 +199,15 @@ function HostContent({ data, prepared, shown, folded, control, loadImage, render
 }
 
 // A sent message, or one that joined a running turn ("steering").
-export function UserMessageCell({ node, sessionId, useRoster, actions, renderMessageImages, openFile, openSkill, loadImage, renderFactorySlot }) {
+export function UserMessageCell({ node, sessionId, useRoster, useWork, actions, renderMessageImages, openFile, openSkill, loadImage, renderFactorySlot }) {
   const roster = useRoster(value => value)
   const data = node.data ?? {}
   const prepared = projects ? undefined : hostContent(data.content, data)
   const text = prepared?.text ?? contentParts(data.content).text
   const steering = node.kind === 'steering'
+  // The host records what the Bot was doing when a steer landed. The selector answers with
+  // a string or undefined, so a ticking work view redraws only the bubbles it concerns.
+  const steerArrival = useWork?.(work => (steering ? work?.steerArrivals?.[sessionId]?.[String(data.messageId)] : undefined))
   const sentAt = Number.isFinite(data.time) ? messageClock(data.time) : undefined
   const via = viaOf(data.source) ?? roster.imVia?.[sessionId]?.[data.seq]
   const { shown, folded, control } = useFold(text, { markdown: false })
@@ -223,7 +231,7 @@ export function UserMessageCell({ node, sessionId, useRoster, actions, renderMes
       prepared === undefined
         ? h(ProjectedContent, { ...fold, roster, sessionId, actions, renderMessageImages, openFile, openSkill })
         : h(HostContent, { ...fold, prepared, loadImage, renderFactorySlot }),
-      (steering || sentAt || via) ? h('div', { className: 'bt-utime', title: clockLabel(data.time) }, ...(steering ? [h(SteerTag, { key: 'steer' })] : []), ...(via ? [h(ViaTag, { key: 'via', via })] : []), sentAt) : null),
+      (steering || sentAt || via) ? h('div', { className: 'bt-utime', title: clockLabel(data.time) }, ...(steering ? [h(SteerTag, { key: 'steer', arrival: steerArrival })] : []), ...(via ? [h(ViaTag, { key: 'via', via })] : []), sentAt) : null),
     text === '' ? null : h('div', { className: 'bt-utools', 'data-open': toolsOpen || undefined }, h(CopyButton, { text })))
 }
 

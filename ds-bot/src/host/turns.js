@@ -775,6 +775,19 @@ export function install(rt) {
     .filter(([, entry]) => entry.turn !== undefined && entry.steeredAt !== undefined)
     .map(([id, entry]) => [id, entry.steeredAt]))
 
+  // Per Session, what the Bot was doing when each of the user's steers arrived: 'writing'
+  // when the cut was taken out of a reply being generated, 'tools' when a tool ran first.
+  // Live only — a restart forgets it, and the bubbles fall back to the neutral wording
+  // rather than claim something nobody checked.
+  const steerArrivals = new Map()
+  const markSteerArrival = (id, messageId, mode) => {
+    let ids = steerArrivals.get(id)
+    if (ids === undefined) { ids = new Map(); steerArrivals.set(id, ids) }
+    ids.set(String(messageId), mode)
+    while (ids.size > 50) ids.delete(ids.keys().next().value)
+  }
+  const steerArrivalView = () => Object.fromEntries([...steerArrivals].map(([id, ids]) => [id, Object.fromEntries(ids)]))
+
   // Per group, the members whose turn there is running or who move on to a fresh part;
   // the members answering in a round are marked, since the round shows them.
   const roomWorkView = () => {
@@ -1592,5 +1605,5 @@ export function install(rt) {
     }, 'ds-bot: prompt rejection reasons')
   }
 
-  Object.assign(rt, { live, liveOf, roomWaiters, roomProgress, roomInbox, activityView, workView, agentWorkView, roomWorkView, turnsView, steeredView, callDetail, doingOf, stopRoomTurn, stopChat, stopAgent, releaseBot, unblockBots, resumeBot, markSteerCut, clearActivity: id => setActivity(id, undefined), hasSubagents, stopSubagents, adoptLiveWork })
+  Object.assign(rt, { live, liveOf, roomWaiters, roomProgress, roomInbox, activityView, workView, agentWorkView, roomWorkView, turnsView, steeredView, steerArrivalView, callDetail, doingOf, stopRoomTurn, stopChat, stopAgent, releaseBot, unblockBots, resumeBot, markSteerCut, markSteerArrival, clearActivity: id => setActivity(id, undefined), hasSubagents, stopSubagents, adoptLiveWork })
 }

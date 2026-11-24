@@ -13690,6 +13690,8 @@ var ZH = {
   // A bubble the user steered into the running turn, and the tooltip on its chip.
   "Steered mid-turn": "插话",
   "It went in mid-turn, without starting a new one": "这条是插话：在当前这一轮中途送进去，没有另起一轮",
+  "Sent while a reply was being written, so that draft was cut": "这条是插话：你发的时候我正在写回答，那段被打断了",
+  "Sent while a tool was running, so it waited for the tool to finish": "这条是插话：你发的时候我正在跑工具，等它跑完才接住",
   "View conversation details": "查看对话详情",
   "1 new message": "1 条新消息",
   "{count} new messages": "{count} 条新消息",
@@ -29799,7 +29801,8 @@ function CopyButton({ text }) {
 var clock3 = (time) => typeof time === "number" ? new Date(time).toLocaleTimeString(dateLocale(), { hour: "numeric", minute: "2-digit" }) : void 0;
 var viaOf2 = (source) => typeof source?.rpcId === "string" && source.rpcId.startsWith("im:") ? source.rpcId.split(":")[1] : void 0;
 var ViaTag = ({ via }) => (0, import_react33.createElement)("span", { className: "bt-uvia" }, t("via {platform}", { platform: t(imPlatform(via)?.name ?? via) }));
-var SteerTag = () => (0, import_react33.createElement)("span", { className: "bt-usteer", title: t("It went in mid-turn, without starting a new one") }, t("Steered mid-turn"));
+var steerNote = (arrival) => arrival === "writing" ? "Sent while a reply was being written, so that draft was cut" : arrival === "tools" ? "Sent while a tool was running, so it waited for the tool to finish" : "It went in mid-turn, without starting a new one";
+var SteerTag = ({ arrival }) => (0, import_react33.createElement)("span", { className: "bt-usteer", title: t(steerNote(arrival)) }, t("Steered mid-turn"));
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
   const { attachments, rest } = contentParts(data.content);
   const referenceLabels = data.referenceLabels ?? [];
@@ -29839,12 +29842,13 @@ function HostContent({ data, prepared, shown, folded, control, loadImage, render
     referenceLabels.length > 0 ? (0, import_react33.createElement)("div", { className: "bt-urefs" }, t("Referenced {labels}", { labels: referenceLabels.join(t(", ")) })) : null
   );
 }
-function UserMessageCell({ node, sessionId, useRoster, actions, renderMessageImages, openFile, openSkill, loadImage, renderFactorySlot }) {
+function UserMessageCell({ node, sessionId, useRoster, useWork, actions, renderMessageImages, openFile, openSkill, loadImage, renderFactorySlot }) {
   const roster = useRoster((value) => value);
   const data = node.data ?? {};
   const prepared = projects ? void 0 : hostContent(data.content, data);
   const text = prepared?.text ?? contentParts(data.content).text;
   const steering = node.kind === "steering";
+  const steerArrival = useWork?.((work) => steering ? work?.steerArrivals?.[sessionId]?.[String(data.messageId)] : void 0);
   const sentAt = Number.isFinite(data.time) ? messageClock(data.time) : void 0;
   const via = viaOf2(data.source) ?? roster.imVia?.[sessionId]?.[data.seq];
   const { shown, folded, control } = useFold(text, { markdown: false });
@@ -29874,7 +29878,7 @@ function UserMessageCell({ node, sessionId, useRoster, actions, renderMessageIma
       "div",
       { className: "bt-ustack" },
       prepared === void 0 ? (0, import_react33.createElement)(ProjectedContent, { ...fold, roster, sessionId, actions, renderMessageImages, openFile, openSkill }) : (0, import_react33.createElement)(HostContent, { ...fold, prepared, loadImage, renderFactorySlot }),
-      steering || sentAt || via ? (0, import_react33.createElement)("div", { className: "bt-utime", title: clockLabel(data.time) }, ...steering ? [(0, import_react33.createElement)(SteerTag, { key: "steer" })] : [], ...via ? [(0, import_react33.createElement)(ViaTag, { key: "via", via })] : [], sentAt) : null
+      steering || sentAt || via ? (0, import_react33.createElement)("div", { className: "bt-utime", title: clockLabel(data.time) }, ...steering ? [(0, import_react33.createElement)(SteerTag, { key: "steer", arrival: steerArrival })] : [], ...via ? [(0, import_react33.createElement)(ViaTag, { key: "via", via })] : [], sentAt) : null
     ),
     text === "" ? null : (0, import_react33.createElement)("div", { className: "bt-utools", "data-open": toolsOpen || void 0 }, (0, import_react33.createElement)(CopyButton, { text }))
   );
