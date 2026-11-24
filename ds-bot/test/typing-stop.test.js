@@ -99,5 +99,5 @@ test('the square fills most of a tight plate', () => {
   assert.equal(glyph.props.width, 20, 'the glyph is drawn 20px wide')
   assert.equal(square.props.width, 13, 'the square is 13 of those 20 units')
   assert.ok(square.props.width / 20 > 0.6, 'the square covers more than three fifths of the glyph')
-  assert.match(TYPING_STOP_CSS, /\.bt-typing-stop\{[^}]*width:24px/, 'the plate itself stays tight')
+  assert.match(TYPING_STOP_CSS, /\.bt-typing-stop\{[^}]*width:23px/, 'the plate itself stays tight')
 })

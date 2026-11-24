@@ -48,7 +48,7 @@ export function ChatStop({ bot, actions }) {
 // row whose press throws work away. The plate is kept tight and the square wide, so the
 // shape reads as a stop rather than as a dot on a pale disc.
 export const TYPING_STOP_CSS = `
-.bt-typing-stop{flex:none;width:24px;height:24px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
+.bt-typing-stop{flex:none;width:23px;height:23px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
 .bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 16%,transparent);color:var(--bt-danger)}
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}
