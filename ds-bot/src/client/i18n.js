@@ -1477,6 +1477,8 @@ const ZH = {
   'Reference a chat': '引用对话',
   'Chat with {name}': '与 {name} 的对话',
   'Scheduled task': '定时任务',
+  'Start a fresh chat': '新开一个会话',
+  'Context {percent}% in use — a fresh chat starts empty': '上下文已用 {percent}% — 开个新会话能从头开始',
   'Open the scheduled tasks of this chat': '打开这个会话的定时任务',
   'Send to': '发给',
   'Scheduled task: {text}': '定时任务：{text}',

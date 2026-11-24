@@ -14783,6 +14783,8 @@ var ZH = {
   "Reference a chat": "引用对话",
   "Chat with {name}": "与 {name} 的对话",
   "Scheduled task": "定时任务",
+  "Start a fresh chat": "新开一个会话",
+  "Context {percent}% in use — a fresh chat starts empty": "上下文已用 {percent}% — 开个新会话能从头开始",
   "Open the scheduled tasks of this chat": "打开这个会话的定时任务",
   "Send to": "发给",
   "Scheduled task: {text}": "定时任务：{text}",
@@ -17585,6 +17587,8 @@ html[data-bt-collapsing] [class*="_frame"]:has(>[class*="_sidebarCol"]){transiti
 .bt-pill:hover{background:color-mix(in srgb,var(--bt-ink) 5%,var(--bt-glass-bg))}
 .bt-pill:active{transform:scale(.965)}
 .bt-pill-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.bt-pill-ctx{flex:none;display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;background:var(--bt-tag-bg);color:var(--bt-tag-ink);font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.bt-pill-ctx[data-heavy]{background:color-mix(in srgb,var(--bt-warn) 16%,transparent);color:var(--bt-warn)}
 .bt-pill-mem{flex:none;display:inline-flex;width:0;margin-left:-8px;overflow:hidden;transition:${spring(SPRING_SHAPE, "width", "margin-left")}}
 .bt-pill[data-memory=updated] .bt-pill-mem{width:var(--bt-mem-w);margin-left:0;transition:${spring(SPRING_STRETCH, "width", "margin-left")}}
 .bt-pill-mem-in{flex:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;color:var(--bt-ink-2);font-size:13px;font-weight:500;opacity:0;filter:blur(6px);transform:translateX(-8px);transition:opacity .14s ease,filter .18s ease,${spring(SPRING_SHAPE, "transform")}}
@@ -42069,6 +42073,45 @@ function MemoryNotice({ shown }) {
     (0, import_react59.createElement)("span", { className: "bt-pill-mem-in", ref: inner }, (0, import_react59.createElement)("span", { className: "bt-pill-mem-ico" }, (0, import_react59.createElement)(MemoryIcon)), label)
   );
 }
+var CONTEXT_SHOW_AT = 20;
+var CONTEXT_HEAVY_AT = 35;
+var samePressure = (a, b) => a?.projectedTokens === b?.projectedTokens && a?.pressureTokens === b?.pressureTokens && a?.contextWindow === b?.contextWindow;
+function ContextBadge({ bot, running, actions }) {
+  const [pressure, setPressure] = (0, import_react59.useState)(null);
+  const shown = (0, import_react59.useRef)(null);
+  const id = bot?.id;
+  (0, import_react59.useEffect)(() => {
+    if (id === void 0 || !actions?.runStats) return void 0;
+    let live = true;
+    void Promise.resolve(actions.runStats(id)).then(
+      (values) => {
+        if (!live) return;
+        const next = values?.contextPressure ?? null;
+        if (samePressure(shown.current, next)) return;
+        shown.current = next;
+        setPressure(next);
+      },
+      // A failed read leaves the badge as it was.
+      () => {
+      }
+    );
+    return () => {
+      live = false;
+    };
+  }, [id, running, actions]);
+  const used = pressure?.projectedTokens ?? pressure?.pressureTokens;
+  const size = pressure?.contextWindow;
+  if (!Number.isFinite(used) || !Number.isFinite(size) || size <= 0) return null;
+  const percent3 = Math.min(100, Math.round(used / size * 100));
+  if (percent3 < CONTEXT_SHOW_AT) return null;
+  const label = t("Context {percent}% in use — a fresh chat starts empty", { percent: percent3 });
+  return (0, import_react59.createElement)("span", {
+    className: "bt-pill-ctx",
+    "data-heavy": percent3 >= CONTEXT_HEAVY_AT ? "" : void 0,
+    title: label,
+    "aria-label": label
+  }, `${percent3}%`);
+}
 function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus, useSession, useActivity, useMemoryNews, useTurnClock, useUi, useLive, useWork, useComputer, useStore, useConversationViews, selectView, actions, PendingLearning: PendingLearning2 }) {
   const roster = useRoster((value) => value);
   const selectedView = useStore?.((state) => state.view);
@@ -42173,6 +42216,7 @@ function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus, useSe
       (0, import_react59.createElement)("span", { className: "bt-pill-name" }, name)
     ) : (0, import_react59.createElement)("span", { className: "bt-pill-name" }, away ? t("Back to chat") : bot?.name ?? room2?.name ?? (title || t("New chat")), !away && bot?.engine ? (0, import_react59.createElement)(AgentBadge, { engine: bot.engine }) : null),
     goalShown && view?.number !== void 0 ? (0, import_react59.createElement)("span", { className: "bt-pill-count" }, `${view.number}/${view.count}`) : null,
+    (0, import_react59.createElement)(ContextBadge, { bot, running, actions }),
     (0, import_react59.createElement)(MemoryNotice, { shown: memoryNotice }),
     (0, import_react59.createElement)("span", { className: "bt-pill-go", "aria-hidden": true }, (0, import_react59.createElement)(GoArrow))
   );
@@ -42651,6 +42695,10 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
     setOpen(null);
     actions.openSettings("schedules", target);
   };
+  const fresh = () => {
+    setOpen(null);
+    actions.openNewChat("new");
+  };
   const reference = () => {
     setOpen(null);
     actions.referenceChat(sessionId, inputActions?.captureInsertion?.());
@@ -42688,7 +42736,11 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
       shown.files ? (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onClick: attach }, (0, import_react60.createElement)(PaperclipIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Add files"))) : null,
       canReference ? (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onMouseDown: keepComposerFocus, onClick: reference }, (0, import_react60.createElement)(ChatsIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Reference a chat"))) : null,
       canSetGoal(room2, roster) ? (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onClick: goal }, (0, import_react60.createElement)(GoalIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Set a goal"))) : null,
-      (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onClick: schedule }, (0, import_react60.createElement)(ClockIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Scheduled task")))
+      (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onClick: schedule }, (0, import_react60.createElement)(ClockIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Scheduled task"))),
+      // A rule splits "add something to this chat" from "leave this chat": the four rows
+      // above change what the next message carries, the row below starts over.
+      (0, import_react60.createElement)("div", { className: "bt-menu-sep", role: "separator" }),
+      (0, import_react60.createElement)("button", { type: "button", role: "menuitem", onClick: fresh }, (0, import_react60.createElement)(PlusIcon), (0, import_react60.createElement)("span", { className: "bt-menu-label" }, t("Start a fresh chat")))
     ), document.body) : null
   );
 }

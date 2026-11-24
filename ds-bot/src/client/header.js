@@ -47,6 +47,55 @@ function MemoryNotice({ shown }) {
     h('span', { className: 'bt-pill-mem-in', ref: inner }, h('span', { className: 'bt-pill-mem-ico' }, h(MemoryIcon)), label))
 }
 
+// Context in use, so a chat that has grown heavy can be swapped for an empty one.
+// The same projection the details drawer counts, read again whenever a turn ends.
+// A chat is worth trading well before its window fills: at 20% of a 700k window a turn
+// already re-reads some 140k tokens on every call.
+const CONTEXT_SHOW_AT = 20
+const CONTEXT_HEAVY_AT = 35
+
+// Two reads that say the same thing leave the badge's state alone, so a re-render cannot
+// start another read of its own.
+const samePressure = (a, b) => a?.projectedTokens === b?.projectedTokens
+  && a?.pressureTokens === b?.pressureTokens
+  && a?.contextWindow === b?.contextWindow
+
+export function ContextBadge({ bot, running, actions }) {
+  const [pressure, setPressure] = useState(null)
+  // The figure the state was last set from: a read that says the same thing changes
+  // nothing, so a render that re-runs the effect cannot start a loop of reads.
+  const shown = useRef(null)
+  const id = bot?.id
+  useEffect(() => {
+    if (id === undefined || !actions?.runStats) return undefined
+    let live = true
+    // Whatever the read hands back — a promise, a thenable or nothing — the badge keeps
+    // its last figure rather than throwing.
+    void Promise.resolve(actions.runStats(id)).then(
+      (values) => {
+        if (!live) return
+        const next = values?.contextPressure ?? null
+        if (samePressure(shown.current, next)) return
+        shown.current = next
+        setPressure(next)
+      },
+      // A failed read leaves the badge as it was.
+      () => {},
+    )
+    return () => { live = false }
+  }, [id, running, actions])
+  const used = pressure?.projectedTokens ?? pressure?.pressureTokens
+  const size = pressure?.contextWindow
+  if (!Number.isFinite(used) || !Number.isFinite(size) || size <= 0) return null
+  const percent = Math.min(100, Math.round((used / size) * 100))
+  if (percent < CONTEXT_SHOW_AT) return null
+  const label = t('Context {percent}% in use — a fresh chat starts empty', { percent })
+  return h('span', {
+    className: 'bt-pill-ctx', 'data-heavy': percent >= CONTEXT_HEAVY_AT ? '' : undefined,
+    title: label, 'aria-label': label,
+  }, `${percent}%`)
+}
+
 export function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus, useSession, useActivity, useMemoryNews, useTurnClock, useUi, useLive, useWork, useComputer, useStore, useConversationViews, selectView, actions, PendingLearning }) {
   const roster = useRoster(value => value)
   const selectedView = useStore?.(state => state.view)
@@ -168,6 +217,7 @@ export function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus
         h('span', { className: 'bt-pill-name' }, name))
       : h('span', { className: 'bt-pill-name' }, away ? t('Back to chat') : bot?.name ?? room?.name ?? (title || t('New chat')), !away && bot?.engine ? h(AgentBadge, { engine: bot.engine }) : null),
     goalShown && view?.number !== undefined ? h('span', { className: 'bt-pill-count' }, `${view.number}/${view.count}`) : null,
+    h(ContextBadge, { bot, running, actions }),
     h(MemoryNotice, { shown: memoryNotice }),
     h('span', { className: 'bt-pill-go', 'aria-hidden': true }, h(GoArrow)))
   const approvalPod = showApprovals ? h(ApprovalIslandPod, { approvals, open: approvalOpen, room, targetId: approvalTargetId, actions }) : null

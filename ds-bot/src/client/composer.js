@@ -195,6 +195,12 @@ export function ComposerPlus({ sessionId, inputActions, useInput, useRoster, act
     setOpen(null)
     actions.openSettings('schedules', target)
   }
+  // A chat that has grown heavy is swapped for an empty one; the picker opens at the
+  // same place the rail's own New button does.
+  const fresh = () => {
+    setOpen(null)
+    actions.openNewChat('new')
+  }
   // The chats open in the shell's "@" menu at the caret, so the pick lands where the
   // user was typing.
   const reference = () => {
@@ -219,7 +225,11 @@ export function ComposerPlus({ sessionId, inputActions, useInput, useRoster, act
     shown.files ? h('button', { type: 'button', role: 'menuitem', onClick: attach }, h(PaperclipIcon), h('span', { className: 'bt-menu-label' }, t('Add files'))) : null,
     canReference ? h('button', { type: 'button', role: 'menuitem', onMouseDown: keepComposerFocus, onClick: reference }, h(ChatsIcon), h('span', { className: 'bt-menu-label' }, t('Reference a chat'))) : null,
     canSetGoal(room, roster) ? h('button', { type: 'button', role: 'menuitem', onClick: goal }, h(GoalIcon), h('span', { className: 'bt-menu-label' }, t('Set a goal'))) : null,
-    h('button', { type: 'button', role: 'menuitem', onClick: schedule }, h(ClockIcon), h('span', { className: 'bt-menu-label' }, t('Scheduled task')))), document.body) : null)
+    h('button', { type: 'button', role: 'menuitem', onClick: schedule }, h(ClockIcon), h('span', { className: 'bt-menu-label' }, t('Scheduled task'))),
+    // A rule splits "add something to this chat" from "leave this chat": the four rows
+    // above change what the next message carries, the row below starts over.
+    h('div', { className: 'bt-menu-sep', role: 'separator' }),
+    h('button', { type: 'button', role: 'menuitem', onClick: fresh }, h(PlusIcon), h('span', { className: 'bt-menu-label' }, t('Start a fresh chat')))), document.body) : null)
 }
 
 const NO_IDS = []

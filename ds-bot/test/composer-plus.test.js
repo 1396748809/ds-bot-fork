@@ -73,6 +73,37 @@ test('the + Set a goal entry stores the room id when the Session moved', () => {
   } finally { react.useState = original }
 })
 
+// The row labels of the open "+" menu, with any rule reading as 'separator'. The portal
+// stand-in returns the menu node itself, so its direct children are the rows in order.
+test('a rule separates the rows that add to this chat from the one that starts over', () => {
+  const original = react.useState
+  react.useState = initial => [initial === null ? { files: false } : initial, () => {}]
+  try {
+    const tree = hooksFor(movedRoster, { canReferenceChat: () => false, composeGoal: () => {} })
+    const menus = []
+    const walk = (node) => {
+      if (node === null || typeof node !== 'object') return
+      if (Array.isArray(node)) { node.forEach(walk); return }
+      if (String(node.props?.className ?? '').includes('bt-plus-menu')) { menus.push(node); return }
+      if (typeof node.type === 'function') { walk(node.type(node.props)); return }
+      for (const child of node.children ?? []) walk(child)
+    }
+    walk(tree)
+    assert.equal(menus.length, 1)
+    // Rows the roster hides arrive as nulls, so drop them before reading labels.
+    const shown = menus[0].children.filter(Boolean)
+    const label = (child) => {
+      if (child.props?.className === 'bt-menu-sep') return 'separator'
+      return child.children.find(node => node?.props?.className === 'bt-menu-label')?.children[0]
+    }
+    const rows = shown.map(label)
+    assert.deepEqual(rows, ['Set a goal', 'Scheduled task', 'separator', 'Start a fresh chat'])
+    // stepMenuFocus reaches rows by `button[role^="menuitem"]`, so the rule must not be one.
+    const rule = shown.find(child => child.props?.className === 'bt-menu-sep')
+    assert.equal(rule.props.role, 'separator')
+  } finally { react.useState = original }
+})
+
 test('the "+" calls the same hooks whether or not its roster knows the Bot yet', () => {
   const roster = { ready: false }
   const unknown = render(roster)
