@@ -20253,15 +20253,29 @@ body:is([data-bt-effects=reduced],[data-bt-effects=off]) .bt-island::before{disp
 
 // src/client/typing-stop.js
 var import_react8 = require("react");
-function TypingStop({ bot, roomId, actions }) {
+function StopButton({ label, onStop, report }) {
   const [stopping, setStopping] = (0, import_react8.useState)(false);
-  if (typeof actions?.stopMemberWork !== "function") return null;
-  const label = `${t("Stop")} · ${bot.name}`;
-  const stop = () => {
+  const press = () => {
     setStopping(true);
-    void Promise.resolve(actions.stopMemberWork(roomId, bot.id)).catch((error) => actions.reportError?.(error, "stop")).finally(() => setStopping(false));
+    void Promise.resolve(onStop()).catch((error) => report?.(error)).finally(() => setStopping(false));
   };
-  return (0, import_react8.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: stop }, (0, import_react8.createElement)(StopIcon));
+  return (0, import_react8.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react8.createElement)(StopIcon));
+}
+function TypingStop({ bot, roomId, actions }) {
+  if (typeof actions?.stopMemberWork !== "function") return null;
+  return (0, import_react8.createElement)(StopButton, {
+    label: `${t("Stop")} · ${bot.name}`,
+    onStop: () => actions.stopMemberWork(roomId, bot.id),
+    report: (error) => actions.reportError?.(error, "stop")
+  });
+}
+function ChatStop({ bot, actions }) {
+  if (typeof actions?.stopChat !== "function") return null;
+  return (0, import_react8.createElement)(StopButton, {
+    label: `${t("Stop")} · ${bot.name}`,
+    onStop: () => actions.stopChat(bot.id),
+    report: (error) => actions.reportError?.(error, "stop")
+  });
 }
 var TYPING_STOP_CSS = `
 .bt-typing-stop{flex:none;width:22px;height:22px;margin-left:2px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
@@ -32212,14 +32226,17 @@ function ActivityIndicator({ sessionId, useRoster, useSessionStatus, useLive, us
   if (!host || phase === null || !shown) return null;
   return (0, import_react_dom5.createPortal)((0, import_react37.createElement)(
     "div",
-    { className: "bt-typing", "data-exiting": phase === "out" ? "" : void 0, "aria-hidden": true },
+    { className: "bt-typing", "data-exiting": phase === "out" ? "" : void 0, "aria-hidden": bot ? void 0 : true },
     bot ? (0, import_react37.createElement)(BotMark, { bot, size: 28, state: markState.current, live: true, pokeable: true }) : (0, import_react37.createElement)(RoomAvatar, { room: room2, roster, size: 28 }),
+    // The phrase is decoration; the stop beside it is not, so only the text stays hidden
+    // from a screen reader while the row carries a real control.
     (0, import_react37.createElement)(
       "span",
-      { className: "bt-typing-text" },
+      { className: "bt-typing-text", "aria-hidden": true },
       (0, import_react37.createElement)("span", { key: `${shown.key}:${shown.at}`, className: "bt-typing-label" }, (0, import_react37.createElement)(Shimmer, null, `${shown.text}…`)),
       (0, import_react37.createElement)(Elapsed, { at: moveAt !== 0 ? moveAt : Math.max(turnAt ?? runAt.current, inputAt), className: "bt-typing-time" })
-    )
+    ),
+    bot ? (0, import_react37.createElement)(ChatStop, { bot, actions }) : null
   ), host);
 }
 

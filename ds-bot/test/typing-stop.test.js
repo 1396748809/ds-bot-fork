@@ -9,7 +9,7 @@ import { test } from 'node:test'
 // member running long is visible, and the details panel is two clicks away.
 const PLUGIN = dirname(dirname(fileURLToPath(import.meta.url)))
 const { outputFiles } = await build({
-  stdin: { contents: "export { TypingStop, TYPING_STOP_CSS } from './src/client/typing-stop.js'", resolveDir: PLUGIN },
+  stdin: { contents: "export { TypingStop, ChatStop, TYPING_STOP_CSS } from './src/client/typing-stop.js'", resolveDir: PLUGIN },
   bundle: true, format: 'cjs', platform: 'browser', write: false, logLevel: 'silent',
   external: ['react', 'react-dom', '@deepseek-ai/dsh-client-ui-primitives'],
 })
@@ -40,7 +40,7 @@ runInNewContext(outputFiles[0].text, {
     throw new Error(`no platform module ${name}`)
   },
 })
-const { TypingStop } = module.exports
+const { TypingStop, ChatStop } = module.exports
 
 const find = (node, match, found = []) => {
   if (node === null || typeof node !== 'object') return found
@@ -70,4 +70,22 @@ test('the typing row stop calls the member stop with the room and the Bot', asyn
 test('no stop is drawn where the host offers none', () => {
   assert.equal(TypingStop({ bot, roomId: 'room-1', actions: {} }), null)
   assert.equal(TypingStop({ bot, roomId: 'room-1', actions: undefined }), null)
+})
+
+// The same square on a chat of one's own: the composer's send button only turns into a
+// stop while the draft is empty, so a half-written message otherwise has no stop at all.
+test('the chat activity row stop calls stop-chat with the Bot', async () => {
+  const calls = []
+  const actions = { stopChat: botId => { calls.push(botId); return Promise.resolve() } }
+  const tree = ChatStop({ bot, actions })
+  const [button] = find(tree, node => node.props?.className === 'bt-typing-stop')
+  assert.ok(button, 'the stop is drawn')
+  assert.match(button.props['aria-label'], /组长/)
+  button.props.onClick()
+  await Promise.resolve()
+  assert.deepEqual(calls, ['b1'])
+})
+
+test('the chat row draws no stop where the host has no stop-chat', () => {
+  assert.equal(ChatStop({ bot, actions: {} }), null)
 })

@@ -5,6 +5,7 @@ import { Elapsed, Shimmer, PHRASES } from './cells.js'
 import { noteClientError } from './diagnostics.js'
 import { reducedEffects, reducedMotion } from './motion.js'
 import { t } from './i18n.js'
+import { ChatStop } from './typing-stop.js'
 
 // -------------------------------------------------------------------------
 // The activity row: the Bot's mark and a shimmering phrase at the transcript
@@ -202,9 +203,12 @@ export function ActivityIndicator({ sessionId, useRoster, useSessionStatus, useL
   useRowEntrances(() => leaving.current || Date.now() - endedAt.current < 300)
   const host = useRunningHost(running || moveAt !== 0)
   if (!host || phase === null || !shown) return null
-  return createPortal(h('div', { className: 'bt-typing', 'data-exiting': phase === 'out' ? '' : undefined, 'aria-hidden': true },
+  return createPortal(h('div', { className: 'bt-typing', 'data-exiting': phase === 'out' ? '' : undefined, 'aria-hidden': bot ? undefined : true },
     bot ? h(BotMark, { bot, size: 28, state: markState.current, live: true, pokeable: true }) : h(RoomAvatar, { room, roster, size: 28 }),
-    h('span', { className: 'bt-typing-text' },
+    // The phrase is decoration; the stop beside it is not, so only the text stays hidden
+    // from a screen reader while the row carries a real control.
+    h('span', { className: 'bt-typing-text', 'aria-hidden': true },
       h('span', { key: `${shown.key}:${shown.at}`, className: 'bt-typing-label' }, h(Shimmer, null, `${shown.text}…`)),
-      h(Elapsed, { at: moveAt !== 0 ? moveAt : Math.max(turnAt ?? runAt.current, inputAt), className: 'bt-typing-time' }))), host)
+      h(Elapsed, { at: moveAt !== 0 ? moveAt : Math.max(turnAt ?? runAt.current, inputAt), className: 'bt-typing-time' })),
+    bot ? h(ChatStop, { bot, actions }) : null), host)
 }
