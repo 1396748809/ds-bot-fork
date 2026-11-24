@@ -7,9 +7,7 @@ import { SmileIcon, ReplyIcon, DotsIcon, CheckIcon, DownloadIcon, CopyIcon, Goal
 import { ChangesCard } from './changes-card.js'
 import { goalEventText } from './goal.js'
 import { colorOf, toolState, BotMark, RoomAvatar } from './mark.js'
-// member-status imports this module for the row's clock and phrase; the stop control it
-// exports comes back here for the typing row. Both are used at render time only.
-import { TypingStop } from './member-status.js'
+import { TypingStop } from './typing-stop.js'
 import { CellEmpty } from './cell-empty.js'
 import { AskUserCell, SettledQuestion } from './questions.js'
 import { AnsweredReply, ClosedView, WidgetCell } from './widget-cell.js'

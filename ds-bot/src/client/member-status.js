@@ -1,7 +1,7 @@
 import { createElement as h, Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BotMark, colorOf, toolState } from './mark.js'
 import { inkText } from './inks.js'
-import { CheckIcon, ChevronDownIcon, StopIcon } from './icons.js'
+import { CheckIcon, ChevronDownIcon } from './icons.js'
 import { Elapsed, Shimmer, workPhrase } from './cells.js'
 import { SPRING_SHAPE, SPRING_TAP, spring, useLinger } from './motion.js'
 import { t } from './i18n.js'
@@ -230,22 +230,6 @@ export function StopMemberWork({ entry, bot, room, actions }) {
   return h('button', { type: 'button', className: 'bt-member-stop', disabled: stopping, 'aria-label': `${t('Stop')} · ${bot.name}`, onClick: stop }, t('Stop'))
 }
 
-// The same stop on the group's typing row: a member that has been at work too long is
-// stopped from where the user is already looking, without opening the details panel.
-// Drawn only where the action exists, so it is never a button that does nothing.
-export function TypingStop({ bot, roomId, actions }) {
-  const [stopping, setStopping] = useState(false)
-  if (typeof actions?.stopMemberWork !== 'function') return null
-  const label = `${t('Stop')} · ${bot.name}`
-  const stop = () => {
-    setStopping(true)
-    void Promise.resolve(actions.stopMemberWork(roomId, bot.id))
-      .catch(error => actions.reportError?.(error, 'stop'))
-      .finally(() => setStopping(false))
-  }
-  return h('button', { type: 'button', className: 'bt-typing-stop', disabled: stopping, title: label, 'aria-label': label, onClick: stop }, h(StopIcon))
-}
-
 // A member stuck in this group, on an error its own chat cannot reach, starts a fresh
 // part of its group conversation from here, as New session does in its own chat.
 // Only members that already have a group Session here show it.
@@ -425,14 +409,6 @@ export const MEMBER_CSS = `
 .bt-member-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-member-stop:active:not(:disabled){scale:.94}
 .bt-member-stop:disabled{opacity:.5;cursor:default}
-/* The typing row's stop: as wide as the clock beside it and always drawn, since a control
-   that only appears on hover cannot be found at the moment it is needed. Red on hover,
-   because that is the one control there whose press throws work away. */
-.bt-typing-stop{flex:none;width:22px;height:22px;margin-left:2px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,${spring(SPRING_TAP, 'scale')}}
-.bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 12%,transparent);color:var(--bt-danger)}
-.bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
-.bt-typing-stop:active:not(:disabled){scale:.92}
-.bt-typing-stop:disabled{opacity:.5;cursor:default}
 .bt-member-fresh{position:absolute;right:8px;top:0;bottom:0;z-index:1;margin:auto 0;display:inline-flex;align-items:center;gap:4px;box-shadow:inset 0 0 0 .5px var(--bt-line-2),0 2px 8px -1px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);opacity:0;pointer-events:none;transition:opacity .12s ease,background-color .12s ease,color .12s ease,${spring(SPRING_TAP, 'scale')}}
 .bt-member-row:hover>.bt-member-fresh,.bt-member-fresh:focus-visible,.bt-member-fresh[data-state]{opacity:1;pointer-events:auto}
 .bt-member-fresh[data-state=done]{color:var(--bt-ink)}

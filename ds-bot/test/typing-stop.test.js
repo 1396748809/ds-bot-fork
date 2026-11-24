@@ -9,7 +9,7 @@ import { test } from 'node:test'
 // member running long is visible, and the details panel is two clicks away.
 const PLUGIN = dirname(dirname(fileURLToPath(import.meta.url)))
 const { outputFiles } = await build({
-  stdin: { contents: "export { TypingStop } from './src/client/member-status.js'", resolveDir: PLUGIN },
+  stdin: { contents: "export { TypingStop, TYPING_STOP_CSS } from './src/client/typing-stop.js'", resolveDir: PLUGIN },
   bundle: true, format: 'cjs', platform: 'browser', write: false, logLevel: 'silent',
   external: ['react', 'react-dom', '@deepseek-ai/dsh-client-ui-primitives'],
 })

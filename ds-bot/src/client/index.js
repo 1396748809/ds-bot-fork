@@ -66,6 +66,7 @@ import { TASKS_CSS } from './bot-tasks.js'
 import { BotMention, USER_MESSAGE_CSS, UserMessageCell, canDrawUserMessages, installUserBubble } from './user-message.js'
 import { BOT_MENTION_ID, installBotMentionRule } from './user-text-rule.js'
 import { QueueDock, QUEUE_CSS } from './queue-dock.js'
+import { TYPING_STOP_CSS } from './typing-stop.js'
 import { PASTE_CSS, PasteDock, PasteGuard } from './paste-card.js'
 import { pruneDrafts } from './draft-keep.js'
 import { OPENING_CSS, bindOpeningWait } from './opening.js'
@@ -1231,6 +1232,7 @@ export function apply(ctx) {
     [GOAL_CSS, 'goal'],
     [TASKS_CSS, 'tasks'],
     [USER_MESSAGE_CSS, 'user-messages'],
+    [TYPING_STOP_CSS, 'typing-stop'],
     [WIDGET_CSS, 'widgets'],
     [CHANGES_CSS, 'changes'],
     [HANDOFF_CSS, 'handoff'],
