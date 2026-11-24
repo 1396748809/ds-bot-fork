@@ -214,7 +214,7 @@ html[data-bt-collapsing] [class*="_frame"]:has(>[class*="_sidebarCol"]){transiti
 .bt-pill:active{transform:scale(.965)}
 .bt-pill-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
 .bt-pill-ctx{flex:none;display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;background:var(--bt-tag-bg);color:var(--bt-tag-ink);font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
-.bt-pill-ctx[data-heavy]{background:color-mix(in srgb,var(--bt-warn) 16%,transparent);color:var(--bt-warn)}
+.bt-pill-ctx[data-heavy]{background:color-mix(in srgb,var(--bt-star) 30%,transparent);box-shadow:inset 0 0 0 .5px color-mix(in srgb,var(--bt-star) 55%,transparent);color:color-mix(in srgb,var(--bt-star) 30%,var(--bt-ink))}
 .bt-pill-mem{flex:none;display:inline-flex;width:0;margin-left:-8px;overflow:hidden;transition:${spring(SPRING_SHAPE, 'width', 'margin-left')}}
 .bt-pill[data-memory=updated] .bt-pill-mem{width:var(--bt-mem-w);margin-left:0;transition:${spring(SPRING_STRETCH, 'width', 'margin-left')}}
 .bt-pill-mem-in{flex:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;color:var(--bt-ink-2);font-size:13px;font-weight:500;opacity:0;filter:blur(6px);transform:translateX(-8px);transition:opacity .14s ease,filter .18s ease,${spring(SPRING_SHAPE, 'transform')}}

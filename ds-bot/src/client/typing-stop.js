@@ -43,11 +43,12 @@ export function ChatStop({ bot, actions }) {
 }
 
 // Always drawn rather than on hover: a control that only appears once the pointer finds it
-// cannot be found at the moment it is needed. Red on hover, because it is the one control
-// on that row whose press throws work away.
+// cannot be found at the moment it is needed. It carries a faint plate of its own so it
+// reads as a button at rest, and turns red on hover, because it is the one control on that
+// row whose press throws work away.
 export const TYPING_STOP_CSS = `
-.bt-typing-stop{flex:none;width:22px;height:22px;margin-left:2px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
-.bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 12%,transparent);color:var(--bt-danger)}
+.bt-typing-stop{flex:none;width:26px;height:26px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
+.bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 16%,transparent);color:var(--bt-danger)}
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}
 .bt-typing-stop:disabled{opacity:.5;cursor:default}

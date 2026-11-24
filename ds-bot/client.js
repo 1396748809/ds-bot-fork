@@ -17594,7 +17594,7 @@ html[data-bt-collapsing] [class*="_frame"]:has(>[class*="_sidebarCol"]){transiti
 .bt-pill:active{transform:scale(.965)}
 .bt-pill-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
 .bt-pill-ctx{flex:none;display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;background:var(--bt-tag-bg);color:var(--bt-tag-ink);font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
-.bt-pill-ctx[data-heavy]{background:color-mix(in srgb,var(--bt-warn) 16%,transparent);color:var(--bt-warn)}
+.bt-pill-ctx[data-heavy]{background:color-mix(in srgb,var(--bt-star) 30%,transparent);box-shadow:inset 0 0 0 .5px color-mix(in srgb,var(--bt-star) 55%,transparent);color:color-mix(in srgb,var(--bt-star) 30%,var(--bt-ink))}
 .bt-pill-mem{flex:none;display:inline-flex;width:0;margin-left:-8px;overflow:hidden;transition:${spring(SPRING_SHAPE, "width", "margin-left")}}
 .bt-pill[data-memory=updated] .bt-pill-mem{width:var(--bt-mem-w);margin-left:0;transition:${spring(SPRING_STRETCH, "width", "margin-left")}}
 .bt-pill-mem-in{flex:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;color:var(--bt-ink-2);font-size:13px;font-weight:500;opacity:0;filter:blur(6px);transform:translateX(-8px);transition:opacity .14s ease,filter .18s ease,${spring(SPRING_SHAPE, "transform")}}
@@ -19401,7 +19401,7 @@ function ShareIcon() {
 function CloseIcon() {
   return (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 5l10 10M15 5L5 15", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }));
 }
-var StopIcon = () => (0, import_react3.createElement)("svg", { width: 12, height: 12, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: 5, y: 5, width: 10, height: 10, rx: 2.5, fill: "currentColor" }));
+var StopIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: 5, y: 5, width: 10, height: 10, rx: 2.5, fill: "currentColor" }));
 var ChevronLeftIcon = () => (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M12.5 4.5L7 10l5.5 5.5" }));
 var ChevronRightIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M7.5 4.5L13 10l-5.5 5.5" }));
 var ChevronDownIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 7.5L10 12.5L15 7.5" }));
@@ -20278,8 +20278,8 @@ function ChatStop({ bot, actions }) {
   });
 }
 var TYPING_STOP_CSS = `
-.bt-typing-stop{flex:none;width:22px;height:22px;margin-left:2px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
-.bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 12%,transparent);color:var(--bt-danger)}
+.bt-typing-stop{flex:none;width:26px;height:26px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
+.bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 16%,transparent);color:var(--bt-danger)}
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}
 .bt-typing-stop:disabled{opacity:.5;cursor:default}
