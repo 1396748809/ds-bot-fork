@@ -15,7 +15,7 @@ import { SecretToolCell } from './secret-card.js'
 import { ConnectorToolCell, MailToolCell } from './connectors.js'
 import { HandoffCall } from './handoff-card.js'
 import { AppAccessCall, ComputerCallRow, ComputerHandoffCall } from './computer.js'
-import { mdLabels, t } from './i18n.js'
+import { language, mdLabels, t } from './i18n.js'
 import { call } from './api.js'
 import { failureLabel } from './diagnostics.js'
 import { turnReasoning, thinkingStep, opensReply, stepActivity } from './turn-reasoning.js'
@@ -933,14 +933,24 @@ function toolActivity(name, arg, findBot, self) {
   }
 }
 
+// The Bot's own words for the step it is on, as it wrote them.
+export const workRaw = doing => {
+  const { said, note } = typeof doing === 'string' ? {} : doing ?? {}
+  return (said || note)?.replace(/[\s.。…]+$/u, '')
+}
+const CJK = /[\u3400-\u9fff]/
+const chineseUi = () => language().toLowerCase().startsWith('zh')
+
 // What a Bot busy elsewhere is doing: what it said in the step it is on, its running
 // call's own description, else the kind of tool and what it works on. `doing` is a work
 // entry, or just a tool name.
 export function workPhrase(doing) {
-  const { tool, said, note, target, switching, folder } = typeof doing === 'string' ? { tool: doing } : doing ?? {}
+  const { tool, target, switching, folder } = typeof doing === 'string' ? { tool: doing } : doing ?? {}
   if (switching) return folder === true ? t('Switching working folder') : t('Moving to a fresh conversation')
-  const own = (said || note)?.replace(/[\s.。…]+$/u, '')
-  if (own) return own
+  const own = workRaw(doing)
+  // A Chinese row must not fill up with the Bot's English. Its own words stay when they are
+  // already in the interface's language; otherwise the row names the tool, in that language.
+  if (own !== undefined && (!chineseUi() || CJK.test(own))) return own
   if (!tool) return t('Thinking about it')
   const label = toolActivity(tool, () => undefined, () => undefined)?.label ?? t('On it')
   return target ? `${label} · ${target}` : label

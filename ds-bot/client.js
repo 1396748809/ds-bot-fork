@@ -30864,11 +30864,17 @@ function toolActivity(name, arg, findBot, self) {
       return { label: phrase ? t(phrase) : null, state: toolState(name) };
   }
 }
+var workRaw = (doing) => {
+  const { said, note } = typeof doing === "string" ? {} : doing ?? {};
+  return (said || note)?.replace(/[\s.。…]+$/u, "");
+};
+var CJK = /[\u3400-\u9fff]/;
+var chineseUi = () => language().toLowerCase().startsWith("zh");
 function workPhrase(doing) {
-  const { tool, said, note, target, switching, folder } = typeof doing === "string" ? { tool: doing } : doing ?? {};
+  const { tool, target, switching, folder } = typeof doing === "string" ? { tool: doing } : doing ?? {};
   if (switching) return folder === true ? t("Switching working folder") : t("Moving to a fresh conversation");
-  const own = (said || note)?.replace(/[\s.。…]+$/u, "");
-  if (own) return own;
+  const own = workRaw(doing);
+  if (own !== void 0 && (!chineseUi() || CJK.test(own))) return own;
   if (!tool) return t("Thinking about it");
   const label = toolActivity(tool, () => void 0, () => void 0)?.label ?? t("On it");
   return target ? `${label} · ${target}` : label;
@@ -41736,20 +41742,22 @@ function summaryText(busy) {
   const waiting = asks.length === 0 ? "" : asks.length === 1 ? t("{name} is waiting for your approval", { name: names[0] }) : asks.length === 2 ? t("{first} and {second} are waiting for your approval", { first: names[0], second: names[1] }) : t("{first}, {second} and {count} more are waiting for your approval", { first: names[0], second: names[1], count: asks.length - 2, total: asks.length });
   const first = workers[0];
   const doing = first ? `${first.bot.name} · ${workPhrase(first.doing)}…${workers.length > 1 ? ` +${workers.length - 1}` : ""}` : "";
-  return { waiting, doing };
+  const own = first ? workRaw(first.doing) : void 0;
+  return { waiting, doing, ...own !== void 0 && !doing.includes(own) ? { detail: own } : {} };
 }
 function dockModel(sessionId, roster, work, computer) {
   const room2 = roster.roomsById[sessionId];
   if (room2) {
     const busy = dockMembers(busyMembers(room2, work, roster, computer));
     if (busy.length === 0) return null;
-    const { waiting, doing } = summaryText(busy);
+    const { waiting, doing, detail } = summaryText(busy);
     const hasRoomApproval = roomApprovals(room2, work, computer, roster).length > 0;
     return {
       open: hasRoomApproval ? { approval: room2.id, details: room2.id } : { details: room2.id },
       faces: busy.slice(0, FACES_MAX2).map((entry) => ({ id: entry.id, ask: entry.state === "ask", state: workState(entry.doing) })),
       waiting,
-      doing
+      doing,
+      ...detail !== void 0 ? { doingDetail: detail } : {}
     };
   }
   const bot = roster.byId[sessionId];
@@ -41757,11 +41765,13 @@ function dockModel(sessionId, roster, work, computer) {
   const groups = botGroupWork(bot.id, work, roster);
   if (groups.length === 0) return null;
   const [first] = groups;
+  const own = workRaw(first.doing);
   return {
     open: { session: first.room.id },
     faces: [{ id: bot.id, ask: false, state: workState(first.doing) }],
     waiting: "",
-    doing: `${t("in {name}", { name: first.room.name })} · ${workPhrase(first.doing)}…${groups.length > 1 ? ` +${groups.length - 1}` : ""}`
+    doing: `${t("in {name}", { name: first.room.name })} · ${workPhrase(first.doing)}…${groups.length > 1 ? ` +${groups.length - 1}` : ""}`,
+    ...own !== void 0 && !workPhrase(first.doing).includes(own) ? { doingDetail: own } : {}
   };
 }
 function Face({ bot, ask, state }) {
@@ -41806,7 +41816,7 @@ function MemberDock({ sessionId, useRoster, useWork, useComputer, actions }) {
           { key: label, className: "bt-mw-label", "aria-hidden": true },
           model.waiting ? (0, import_react59.createElement)("span", { className: "bt-mw-ask" }, model.waiting) : null,
           model.waiting && model.doing ? (0, import_react59.createElement)("span", { className: "bt-mw-dot" }, "·") : null,
-          model.doing ? (0, import_react59.createElement)("span", { className: "bt-mw-doing" }, (0, import_react59.createElement)(Shimmer, null, model.doing)) : null
+          model.doing ? (0, import_react59.createElement)("span", { className: "bt-mw-doing", title: model.doingDetail || void 0 }, (0, import_react59.createElement)(Shimmer, null, model.doing)) : null
         )
       )
     )
@@ -44841,7 +44851,7 @@ function ExchangeDialog({ pair, paneLeft, roster, actions }) {
 }
 
 // src/client/speech-playback.js
-var CJK = /\p{Script=Han}/u;
+var CJK2 = /\p{Script=Han}/u;
 var EDGE = /^\s+|\s+$/g;
 var ALWAYS_END = /^[!?。！？…；;]/;
 var CLOSER = /^['"”’」』）)\]]/;
@@ -44887,14 +44897,14 @@ function splitSentences(paragraph) {
 var SOFT = /[\s,，、：:—–-][^,，、：:—–-\s]*$/;
 var billedLength = (text) => {
   let count = 0;
-  for (const char of text) count += CJK.test(char) ? 2 : 1;
+  for (const char of text) count += CJK2.test(char) ? 2 : 1;
   return count;
 };
 var billedSlice = (text, limit) => {
   let count = 0;
   let end = 0;
   for (const char of text) {
-    count += CJK.test(char) ? 2 : 1;
+    count += CJK2.test(char) ? 2 : 1;
     if (count > limit) break;
     end += char.length;
   }

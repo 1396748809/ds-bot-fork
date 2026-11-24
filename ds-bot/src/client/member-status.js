@@ -2,7 +2,7 @@ import { createElement as h, Fragment, useEffect, useLayoutEffect, useRef, useSt
 import { BotMark, colorOf, toolState } from './mark.js'
 import { inkText } from './inks.js'
 import { CheckIcon, ChevronDownIcon } from './icons.js'
-import { Elapsed, Shimmer, workPhrase } from './cells.js'
+import { Elapsed, Shimmer, workPhrase, workRaw } from './cells.js'
 import { SPRING_SHAPE, SPRING_TAP, spring, useLinger } from './motion.js'
 import { t } from './i18n.js'
 
@@ -79,7 +79,10 @@ export function summaryText(busy) {
         : t('{first}, {second} and {count} more are waiting for your approval', { first: names[0], second: names[1], count: asks.length - 2, total: asks.length })
   const first = workers[0]
   const doing = first ? `${first.bot.name} · ${workPhrase(first.doing)}…${workers.length > 1 ? ` +${workers.length - 1}` : ''}` : ''
-  return { waiting, doing }
+  // When the row names the tool instead of the Bot's own words, those words stay reachable
+  // as the capsule's tooltip rather than being thrown away.
+  const own = first ? workRaw(first.doing) : undefined
+  return { waiting, doing, ...(own !== undefined && !doing.includes(own) ? { detail: own } : {}) }
 }
 
 // What the capsule shows, as plain data: it outlives the work for its exit.
@@ -88,12 +91,12 @@ function dockModel(sessionId, roster, work, computer) {
   if (room) {
     const busy = dockMembers(busyMembers(room, work, roster, computer))
     if (busy.length === 0) return null
-    const { waiting, doing } = summaryText(busy)
+    const { waiting, doing, detail } = summaryText(busy)
     const hasRoomApproval = roomApprovals(room, work, computer, roster).length > 0
     return {
       open: hasRoomApproval ? { approval: room.id, details: room.id } : { details: room.id },
       faces: busy.slice(0, FACES_MAX).map(entry => ({ id: entry.id, ask: entry.state === 'ask', state: workState(entry.doing) })),
-      waiting, doing,
+      waiting, doing, ...(detail !== undefined ? { doingDetail: detail } : {}),
     }
   }
   const bot = roster.byId[sessionId]
@@ -102,11 +105,13 @@ function dockModel(sessionId, roster, work, computer) {
   const groups = botGroupWork(bot.id, work, roster)
   if (groups.length === 0) return null
   const [first] = groups
+  const own = workRaw(first.doing)
   return {
     open: { session: first.room.id },
     faces: [{ id: bot.id, ask: false, state: workState(first.doing) }],
     waiting: '',
     doing: `${t('in {name}', { name: first.room.name })} · ${workPhrase(first.doing)}…${groups.length > 1 ? ` +${groups.length - 1}` : ''}`,
+    ...(own !== undefined && !workPhrase(first.doing).includes(own) ? { doingDetail: own } : {}),
   }
 }
 
@@ -150,7 +155,7 @@ export function MemberDock({ sessionId, useRoster, useWork, useComputer, actions
         h('span', { key: label, className: 'bt-mw-label', 'aria-hidden': true },
           model.waiting ? h('span', { className: 'bt-mw-ask' }, model.waiting) : null,
           model.waiting && model.doing ? h('span', { className: 'bt-mw-dot' }, '·') : null,
-          model.doing ? h('span', { className: 'bt-mw-doing' }, h(Shimmer, null, model.doing)) : null))))
+          model.doing ? h('span', { className: 'bt-mw-doing', title: model.doingDetail || undefined }, h(Shimmer, null, model.doing)) : null))))
 }
 
 // The clock stays whole at the end; only what comes before it is cut.
