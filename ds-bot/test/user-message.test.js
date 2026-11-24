@@ -224,3 +224,19 @@ test('an older DSH still draws the text through its projection, folded', () => {
   assert.doesNotMatch(words(tree), /第 11 行/)
   assert.equal(find(tree, node => node.props?.['data-folded'] === true).length, 1)
 })
+
+// A steer cut into the turn already running; once the Bot reads it the shell drops its
+// "not read yet" note, so the bubble carries the mark itself or the two sends look alike.
+test('a steering bubble keeps a mark of its own, a plain send carries none', () => {
+  fresh()
+  const steer = hostProps([{ type: 'text', text: '我想吃热一点的' }])
+  steer.props.node.kind = 'steering'
+  const marked = expand(current.UserMessageCell(steer.props), ['UserText', 'ProjectedContent', 'HostContent', 'SteerTag'])
+  const [chip] = find(marked, node => node.props?.className === 'bt-usteer')
+  assert.ok(chip, 'the steering bubble carries a chip')
+  assert.match(words(chip), /Steered mid-turn|插话/)
+  assert.equal(marked.props['data-steering'], true)
+  fresh()
+  const plain = render(current, hostProps([{ type: 'text', text: '你好' }]).props)
+  assert.equal(find(plain, node => node.props?.className === 'bt-usteer').length, 0)
+})

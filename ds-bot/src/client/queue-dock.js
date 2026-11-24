@@ -152,6 +152,9 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
       rowCount > 1 && h('button', { type: 'button', className: 'bt-queue-head', 'aria-controls': listId, 'aria-expanded': expanded, disabled: interactionActive, onClick: () => setCollapsed(value => !value) },
         h('span', { className: 'bt-queue-lead', 'aria-hidden': true }, h(QueueIcon)),
         h('span', { className: 'bt-queue-count' }, t('{n} queued messages', { n: rowCount })),
+        // The other half of the story: a queued row is parked until this turn ends, and
+        // the composer can move it into the turn with Ctrl+Enter or the row's steer button.
+        running && h('span', { className: 'bt-queue-hint' }, t('Waits for this turn to end')),
         !listVisible && pendingQueue.length > 0 && h('span', { className: 'bt-queue-status', role: 'status' }, t('Sending…')),
         h('span', { className: 'bt-queue-chev', 'aria-hidden': true }, expanded ? h(ChevronDownIcon) : h(ChevronUpIcon))),
       h('ul', { id: listId, className: 'bt-queue-list', hidden: !listVisible },
@@ -168,6 +171,8 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
                     ? h(QueueThumb, { key: `${item.attachment.attachmentId}:${index}`, attachment: item.attachment, loadImage, label: t('Queued image') })
                     : h(QueueFile, { key: `${item.attachment.attachmentId}:${item.attachment.name}:${index}`, attachment: item.attachment, label: t('Queued file {name}', { name: item.attachment.name }) }))),
                 h(Preview, { text: row.content.filter(block => block.type === 'text').map(block => block.text).join(''), renderFactorySlot })),
+            // One row renders without the count header, so the parked note rides on the row.
+            rowCount === 1 && running && h('span', { className: 'bt-queue-hint' }, t('Waits for this turn to end')),
             queueMutable && h('div', { className: 'bt-queue-actions' },
               editing?.id === row.id
                 ? h(Fragment, null,
@@ -217,6 +222,7 @@ export const QUEUE_CSS = `
 .bt-queue-edit{min-width:0;flex:auto;box-sizing:border-box;border:0;outline:none;resize:none;background:none;color:var(--bt-ink);font:inherit;font-size:13px;line-height:20px;max-height:120px;padding:4px 0}
 .bt-queue-actions{flex:none;display:flex;align-items:center;gap:10px}
 .bt-queue-status{flex:none;font-size:13px;color:var(--bt-ink-3);white-space:nowrap}
+.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-3);white-space:nowrap}
 .bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);cursor:pointer;display:grid;place-items:center;padding:0}
 .bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink-2)}
 .bt-queue-action:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}

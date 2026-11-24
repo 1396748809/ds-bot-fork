@@ -389,6 +389,10 @@ const ZH = {
   'Couldn’t edit the queued message — it may have started already.': '编辑失败：这条消息可能已经开始发送。',
   'Couldn’t delete the queued message — it may have started already.': '删除失败：这条消息可能已经开始发送。',
   'Couldn’t steer the queued message. Try again.': '插话发送失败，请重试。',
+  'Waits for this turn to end': '等这轮结束',
+  // A bubble the user steered into the running turn, and the tooltip on its chip.
+  'Steered mid-turn': '插话',
+  'It cut into the turn that was already running': '这条是插话：打断了正在运行的那一轮，并在这轮里得到回答',
   'View conversation details': '查看对话详情',
   '1 new message': '1 条新消息',
   '{count} new messages': '{count} 条新消息',

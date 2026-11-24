@@ -13686,6 +13686,10 @@ var ZH = {
   "Couldn’t edit the queued message — it may have started already.": "编辑失败：这条消息可能已经开始发送。",
   "Couldn’t delete the queued message — it may have started already.": "删除失败：这条消息可能已经开始发送。",
   "Couldn’t steer the queued message. Try again.": "插话发送失败，请重试。",
+  "Waits for this turn to end": "等这轮结束",
+  // A bubble the user steered into the running turn, and the tooltip on its chip.
+  "Steered mid-turn": "插话",
+  "It cut into the turn that was already running": "这条是插话：打断了正在运行的那一轮，并在这轮里得到回答",
   "View conversation details": "查看对话详情",
   "1 new message": "1 条新消息",
   "{count} new messages": "{count} 条新消息",
@@ -29795,6 +29799,7 @@ function CopyButton({ text }) {
 var clock3 = (time) => typeof time === "number" ? new Date(time).toLocaleTimeString(dateLocale(), { hour: "numeric", minute: "2-digit" }) : void 0;
 var viaOf2 = (source) => typeof source?.rpcId === "string" && source.rpcId.startsWith("im:") ? source.rpcId.split(":")[1] : void 0;
 var ViaTag = ({ via }) => (0, import_react33.createElement)("span", { className: "bt-uvia" }, t("via {platform}", { platform: t(imPlatform(via)?.name ?? via) }));
+var SteerTag = () => (0, import_react33.createElement)("span", { className: "bt-usteer", title: t("It cut into the turn that was already running") }, t("Steered mid-turn"));
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
   const { attachments, rest } = contentParts(data.content);
   const referenceLabels = data.referenceLabels ?? [];
@@ -29869,7 +29874,7 @@ function UserMessageCell({ node, sessionId, useRoster, actions, renderMessageIma
       "div",
       { className: "bt-ustack" },
       prepared === void 0 ? (0, import_react33.createElement)(ProjectedContent, { ...fold, roster, sessionId, actions, renderMessageImages, openFile, openSkill }) : (0, import_react33.createElement)(HostContent, { ...fold, prepared, loadImage, renderFactorySlot }),
-      sentAt || via ? (0, import_react33.createElement)("div", { className: "bt-utime", title: clockLabel(data.time) }, ...via ? [(0, import_react33.createElement)(ViaTag, { key: "via", via })] : [], sentAt) : null
+      steering || sentAt || via ? (0, import_react33.createElement)("div", { className: "bt-utime", title: clockLabel(data.time) }, ...steering ? [(0, import_react33.createElement)(SteerTag, { key: "steer" })] : [], ...via ? [(0, import_react33.createElement)(ViaTag, { key: "via", via })] : [], sentAt) : null
     ),
     text === "" ? null : (0, import_react33.createElement)("div", { className: "bt-utools", "data-open": toolsOpen || void 0 }, (0, import_react33.createElement)(CopyButton, { text }))
   );
@@ -29898,6 +29903,9 @@ var USER_MESSAGE_CSS = `
 .bt-ufile-meta{font-size:12px;line-height:15px;color:var(--bt-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt-urefs{font-size:13px;line-height:18px;color:var(--bt-ink-3)}
 .bt-uvia{display:inline-block;margin-right:6px;padding:0 6px;border-radius:6px;background:var(--bt-hover);color:var(--bt-ink-3);font-size:11px;line-height:16px;vertical-align:1px}
+/* Tinted, unlike the muted via tag: a steer is a thing the user did to the turn, not a
+   note about where the message came from. */
+.bt-usteer{display:inline-block;margin-right:6px;padding:0 6px;border-radius:6px;background:color-mix(in srgb,var(--bt-accent) 13%,transparent);color:color-mix(in srgb,var(--bt-accent) 78%,var(--bt-ink));font-size:11px;line-height:16px;vertical-align:1px}
 .bt-utools{display:flex;flex:none;gap:2px;opacity:0;visibility:hidden;transition:opacity .12s ease,visibility .12s}
 .bt-umsg:hover .bt-utools,.bt-umsg:focus-within .bt-utools{opacity:1;visibility:visible}
 `;
@@ -49946,6 +49954,9 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
         { type: "button", className: "bt-queue-head", "aria-controls": listId, "aria-expanded": expanded, disabled: interactionActive, onClick: () => setCollapsed((value) => !value) },
         (0, import_react78.createElement)("span", { className: "bt-queue-lead", "aria-hidden": true }, (0, import_react78.createElement)(QueueIcon)),
         (0, import_react78.createElement)("span", { className: "bt-queue-count" }, t("{n} queued messages", { n: rowCount })),
+        // The other half of the story: a queued row is parked until this turn ends, and
+        // the composer can move it into the turn with Ctrl+Enter or the row's steer button.
+        running && (0, import_react78.createElement)("span", { className: "bt-queue-hint" }, t("Waits for this turn to end")),
         !listVisible && pendingQueue.length > 0 && (0, import_react78.createElement)("span", { className: "bt-queue-status", role: "status" }, t("Sending…")),
         (0, import_react78.createElement)("span", { className: "bt-queue-chev", "aria-hidden": true }, expanded ? (0, import_react78.createElement)(ChevronDownIcon) : (0, import_react78.createElement)(ChevronUpIcon))
       ),
@@ -49969,6 +49980,8 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
               ),
               (0, import_react78.createElement)(Preview, { text: row.content.filter((block) => block.type === "text").map((block) => block.text).join(""), renderFactorySlot })
             ),
+            // One row renders without the count header, so the parked note rides on the row.
+            rowCount === 1 && running && (0, import_react78.createElement)("span", { className: "bt-queue-hint" }, t("Waits for this turn to end")),
             queueMutable && (0, import_react78.createElement)(
               "div",
               { className: "bt-queue-actions" },
@@ -50037,6 +50050,7 @@ var QUEUE_CSS = `
 .bt-queue-edit{min-width:0;flex:auto;box-sizing:border-box;border:0;outline:none;resize:none;background:none;color:var(--bt-ink);font:inherit;font-size:13px;line-height:20px;max-height:120px;padding:4px 0}
 .bt-queue-actions{flex:none;display:flex;align-items:center;gap:10px}
 .bt-queue-status{flex:none;font-size:13px;color:var(--bt-ink-3);white-space:nowrap}
+.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-3);white-space:nowrap}
 .bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);cursor:pointer;display:grid;place-items:center;padding:0}
 .bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink-2)}
 .bt-queue-action:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}

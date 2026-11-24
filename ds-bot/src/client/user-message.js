@@ -152,6 +152,10 @@ const clock = time => (typeof time === 'number' ? new Date(time).toLocaleTimeStr
 // A message that came in over IM names its platform: "via Telegram" by the time.
 export const viaOf = source => (typeof source?.rpcId === 'string' && source.rpcId.startsWith('im:') ? source.rpcId.split(':')[1] : undefined)
 export const ViaTag = ({ via }) => h('span', { className: 'bt-uvia' }, t('via {platform}', { platform: t(imPlatform(via)?.name ?? via) }))
+// A message the user steered into a turn that was already running. It cut that turn's
+// current model call and was answered inside it, so the bubble keeps saying so; without
+// this the two kinds of send look alike once the Bot has read the message.
+export const SteerTag = () => h('span', { className: 'bt-usteer', title: t('It cut into the turn that was already running') }, t('Steered mid-turn'))
 
 // Before DSH 0.2.1-alpha.3: DS Bot draws the attachments, the text and the other blocks.
 function ProjectedContent({ data, text, shown, folded, control, roster, sessionId, actions, renderMessageImages, openFile, openSkill, onClick }) {
@@ -218,7 +222,7 @@ export function UserMessageCell({ node, sessionId, useRoster, actions, renderMes
       prepared === undefined
         ? h(ProjectedContent, { ...fold, roster, sessionId, actions, renderMessageImages, openFile, openSkill })
         : h(HostContent, { ...fold, prepared, loadImage, renderFactorySlot }),
-      (sentAt || via) ? h('div', { className: 'bt-utime', title: clockLabel(data.time) }, ...(via ? [h(ViaTag, { key: 'via', via })] : []), sentAt) : null),
+      (steering || sentAt || via) ? h('div', { className: 'bt-utime', title: clockLabel(data.time) }, ...(steering ? [h(SteerTag, { key: 'steer' })] : []), ...(via ? [h(ViaTag, { key: 'via', via })] : []), sentAt) : null),
     text === '' ? null : h('div', { className: 'bt-utools', 'data-open': toolsOpen || undefined }, h(CopyButton, { text })))
 }
 
@@ -246,6 +250,9 @@ export const USER_MESSAGE_CSS = `
 .bt-ufile-meta{font-size:12px;line-height:15px;color:var(--bt-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt-urefs{font-size:13px;line-height:18px;color:var(--bt-ink-3)}
 .bt-uvia{display:inline-block;margin-right:6px;padding:0 6px;border-radius:6px;background:var(--bt-hover);color:var(--bt-ink-3);font-size:11px;line-height:16px;vertical-align:1px}
+/* Tinted, unlike the muted via tag: a steer is a thing the user did to the turn, not a
+   note about where the message came from. */
+.bt-usteer{display:inline-block;margin-right:6px;padding:0 6px;border-radius:6px;background:color-mix(in srgb,var(--bt-accent) 13%,transparent);color:color-mix(in srgb,var(--bt-accent) 78%,var(--bt-ink));font-size:11px;line-height:16px;vertical-align:1px}
 .bt-utools{display:flex;flex:none;gap:2px;opacity:0;visibility:hidden;transition:opacity .12s ease,visibility .12s}
 .bt-umsg:hover .bt-utools,.bt-umsg:focus-within .bt-utools{opacity:1;visibility:visible}
 `

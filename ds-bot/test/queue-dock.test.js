@@ -89,3 +89,19 @@ test('a user send still in flight shows as sending', () => {
   assert.equal(rows.length, 1)
   assert.ok(texts.includes('Sending…'))
 })
+
+// A parked row says what it is waiting for: this turn, not the next question.
+test('a queued row says it waits for the running turn, and says nothing once idle', () => {
+  const parked = collect(dock([row('u1', 'user', 'ship it')], { running: true }))
+  assert.ok(parked.texts.includes('Waits for this turn to end'))
+  const idle = collect(dock([row('u1', 'user', 'ship it')], { running: false }))
+  assert.ok(!idle.texts.includes('Waits for this turn to end'))
+})
+
+// Several rows fold under the count header, so the note rides there instead of each row.
+test('the count header carries the same note when several rows are parked', () => {
+  const { rows, texts } = collect(dock([row('u1', 'user', 'a'), row('u2', 'user', 'b')], { running: true }))
+  assert.equal(rows.length, 0)
+  assert.ok(texts.includes('2 queued messages'))
+  assert.ok(texts.includes('Waits for this turn to end'))
+})
