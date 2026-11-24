@@ -51,6 +51,13 @@ const AVATAR_PARAM = {
 }
 const WORKING_DIRECTORY_TOOL = 'working_directory'
 
+// 四个团队管理工具（建 Bot、停 Bot、建群、删群）只有 Main Bot 调用才会成功。
+// 0.3.9 里它们注册给每个 Bot，靠 execute 里的 isMain 检查在调用时拒绝——代价是
+// 普通 Bot 的每一次请求都白白背着这几段工具定义。这里改为按 Bot 身份决定要不要
+// 挂上去，行为不变，请求变小。上游 0.3.10 用「功能包」做同一件事，我们是 0.3.9，
+// 没有那套结构，所以就在注册处过滤。
+const MAIN_ONLY_TOOLS = new Set(['create_bot', 'stop_bot', 'create_group', 'delete_group'])
+
 export function install(rt) {
   const { ctx, state } = rt
 
@@ -1065,10 +1072,22 @@ export function install(rt) {
     // can move onto or off a local route after its Agent exists.
     const self = owns ? rt.botOf(rt.selfOf(id)) : undefined
     const localBot = rt.isLocalAgentRef?.(self?.model ?? self?.appliedModel) === true
+    // A Main Bot is the only one that may hold the team-admin tools; a group
+    // relay Session never holds them either. Everything else is shared.
+    // Judge by id, not by the bot object: `self` can still be unindexed while
+    // the creation path scopes a fresh Session. Whenever the identity cannot be
+    // told, treat it as Main — giving a Bot one tool too many is harmless, while
+    // taking the team-admin tools off a real Main Bot is not.
+    const selfId = self?.id ?? rt.selfOf(id)
+    const mainBot = owns && (selfId === undefined || rt.isMain(selfId) === true)
+    const toolsFor = (relay, local) =>
+      [...rt.teamTools, ...(local ? (rt.localAgentTools ?? []) : [])].filter(
+        def => (relay ? def.name === 'group_relay' : true) && (mainBot || !MAIN_ONLY_TOOLS.has(def.name)),
+      )
     // A Session that left the team, a scope of the wrong kind, a fresh Agent
     // for one Session, or a Bot that changed between a local route and a model
     // all start over; a wanted scope is registered again below.
-    if (held !== undefined && (!wanted || held.agent !== agent || held.relay !== relayOnly || (held.tools === true && held.local !== localBot))) {
+    if (held !== undefined && (!wanted || held.agent !== agent || held.relay !== relayOnly || (held.tools === true && (held.local !== localBot || held.mainBot !== mainBot)))) {
       unscope(id)
       held = undefined
     }
@@ -1083,8 +1102,7 @@ export function install(rt) {
     // starts, and the tools added after it (memory, secrets, connectors) would never
     // join that scope. Register what it is missing, so the next request is whole.
     if (held?.tools === true) {
-      for (const def of [...rt.teamTools, ...(localBot ? (rt.localAgentTools ?? []) : [])]) {
-        if (relayOnly && def.name !== 'group_relay') continue
+      for (const def of toolsFor(relayOnly, localBot)) {
         if (held.added?.has(def.name) === true) continue
         try {
           const dispose = agent.ctx.tools.register(def)
@@ -1106,7 +1124,7 @@ export function install(rt) {
           rt.warn('ds-bot: team tool %s not added to %s: %s', def.name, id, error)
         }
       }
-      if ([...rt.teamTools, ...(localBot ? (rt.localAgentTools ?? []) : [])].some(def => (!relayOnly || def.name === 'group_relay') && !held.added?.has(def.name))) {
+      if (toolsFor(relayOnly, localBot).some(def => !held.added?.has(def.name))) {
         retryBotTools(agent, held)
       } else {
         clearTimeout(held.retryTimer)
@@ -1125,8 +1143,7 @@ export function install(rt) {
     const disposers = []
     const failed = []
     const registered = []
-    for (const def of [...rt.teamTools, ...(localBot ? (rt.localAgentTools ?? []) : [])]) {
-      if (relayOnly && def.name !== 'group_relay') continue
+    for (const def of toolsFor(relayOnly, localBot)) {
       try {
         const dispose = agent.ctx.tools.register(def)
         if (typeof dispose === 'function') {
@@ -1145,6 +1162,7 @@ export function install(rt) {
     held.relay = relayOnly
     held.tools = true
     held.local = localBot
+    held.mainBot = mainBot
     held.disposers.push(...disposers)
     held.added = new Set(registered)
     scoped.set(id, held)

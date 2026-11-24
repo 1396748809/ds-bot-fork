@@ -258,6 +258,26 @@ test('a Bot Session gets every team tool in its own scope', async (t) => {
   assert.deepEqual(scopedNames(host, 'a').sort(), [...TEAM_TOOLS].filter(name => name !== 'read_browser' && name !== 'read_document').sort())
 })
 
+// 建 Bot、停 Bot、建群、删群只有 Main Bot 调用才会成功，普通 Bot 的每次请求却都为它们
+// 付一份工具定义。作用域里只挂给 Main Bot：这里钉住「Main 有、普通没有」，同时确认
+// 其余团队工具一个不少——别把「去掉四个」做成「去掉一片」。
+test('only a Main Bot holds the four team-admin tools', async (t) => {
+  const host = start()
+  t.after(host.stop)
+  await host.call('state', {})
+  await host.agentCreated('a')
+  await host.agentCreated('b')
+  const main = scopedNames(host, 'a')
+  const ordinary = scopedNames(host, 'b')
+  for (const name of ['create_bot', 'stop_bot', 'create_group', 'delete_group']) {
+    assert.ok(main.includes(name), `the Main Bot keeps ${name}`)
+    assert.ok(!ordinary.includes(name), `an ordinary Bot must not carry ${name}`)
+  }
+  for (const name of ['list_bots', 'message_bot', 'update_bot', 'post_to_group', 'bot_recall']) {
+    assert.ok(ordinary.includes(name), `an ordinary Bot still has ${name}`)
+  }
+})
+
 test('a Bot with no connector off never reads the served schemas for the mask', async (t) => {
   const host = start()
   t.after(host.stop)
