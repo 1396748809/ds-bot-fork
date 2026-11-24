@@ -67,6 +67,7 @@ import { BotMention, USER_MESSAGE_CSS, UserMessageCell, canDrawUserMessages, ins
 import { BOT_MENTION_ID, installBotMentionRule } from './user-text-rule.js'
 import { QueueDock, QUEUE_CSS } from './queue-dock.js'
 import { TYPING_STOP_CSS } from './typing-stop.js'
+import { TEAM_TODO_CSS } from './todo-panel.js'
 import { PASTE_CSS, PasteDock, PasteGuard } from './paste-card.js'
 import { pruneDrafts } from './draft-keep.js'
 import { OPENING_CSS, bindOpeningWait } from './opening.js'
@@ -1233,6 +1234,7 @@ export function apply(ctx) {
     [TASKS_CSS, 'tasks'],
     [USER_MESSAGE_CSS, 'user-messages'],
     [TYPING_STOP_CSS, 'typing-stop'],
+    [TEAM_TODO_CSS, 'team-todo'],
     [WIDGET_CSS, 'widgets'],
     [CHANGES_CSS, 'changes'],
     [HANDOFF_CSS, 'handoff'],

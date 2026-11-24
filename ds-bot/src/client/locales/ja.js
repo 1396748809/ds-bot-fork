@@ -1907,6 +1907,9 @@ export const JA = {
   'It went in mid-turn, without starting a new one': 'ターンの途中で送られ、新しいターンは始まっていません',
   'Sent while a reply was being written, so that draft was cut': '返答を書いている最中に送られたため、その途中までの文面は打ち切られました',
   'Sent while a tool was running, so it waited for the tool to finish': 'ツールの実行中に送られたため、実行が終わってから取り込まれました',
+  'Team to-do': 'チームの ToDo',
+  'Team to-do, {count} open': 'チームの ToDo、未完了 {count} 件',
+  'Nothing open on the team to-do list': 'チームの ToDo に未完了の項目はありません',
 }
 
 export const HOST_ERRORS_JA = [

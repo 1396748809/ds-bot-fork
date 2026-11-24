@@ -1907,6 +1907,9 @@ export const FR = {
   'It went in mid-turn, without starting a new one': 'Ajouté en cours de tour, sans en démarrer un nouveau',
   'Sent while a reply was being written, so that draft was cut': 'Envoyé pendant la rédaction d’une réponse : ce brouillon a été interrompu',
   'Sent while a tool was running, so it waited for the tool to finish': 'Envoyé pendant l’exécution d’un outil : il a attendu la fin de cette exécution',
+  'Team to-do': 'À faire de l’équipe',
+  'Team to-do, {count} open': 'À faire de l’équipe, {count} en attente',
+  'Nothing open on the team to-do list': 'Aucune tâche en attente dans la liste de l’équipe',
 }
 
 export const HOST_ERRORS_FR = [

@@ -1942,6 +1942,9 @@ export const ES = {
   'It went in mid-turn, without starting a new one': 'Entró a mitad del turno, sin iniciar uno nuevo',
   'Sent while a reply was being written, so that draft was cut': 'Enviado mientras se escribía una respuesta, así que ese borrador se cortó',
   'Sent while a tool was running, so it waited for the tool to finish': 'Enviado mientras corría una herramienta, así que esperó a que terminara',
+  'Team to-do': 'Pendientes del equipo',
+  'Team to-do, {count} open': 'Pendientes del equipo, {count} sin terminar',
+  'Nothing open on the team to-do list': 'No hay pendientes abiertos en la lista del equipo',
 }
 
 export const HOST_ERRORS_ES = [

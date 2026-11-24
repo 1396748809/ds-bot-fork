@@ -342,6 +342,8 @@ export function teamActions({ call, after, partFor, roster, ui, live, cards, hel
     usage: () => call('usage', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }),
     // The details panel's status line: turns, speed, cache hits and context for one Bot.
     runStats: botId => call('run-stats', { botId }),
+    // The team's one to-do file, which any Bot appends to with the team-todo skill.
+    teamTodo: () => call('team-todo', {}).catch(() => null),
     // `summarize` starts a summary when the entries changed; `regenerate` always does.
     memoryView: (id, flags = {}) => call('memory-view', { ...memoryOf(id), ...flags }),
     memoryAsk: (id, text) => call('memory-ask', { ...memoryOf(id), text }),

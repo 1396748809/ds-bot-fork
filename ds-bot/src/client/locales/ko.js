@@ -1942,6 +1942,9 @@ export const KO = {
   'It went in mid-turn, without starting a new one': '턴 중간에 전달되었고 새 턴은 시작되지 않았습니다',
   'Sent while a reply was being written, so that draft was cut': '답변을 쓰는 중에 보내서 그 초안은 중단되었습니다',
   'Sent while a tool was running, so it waited for the tool to finish': '도구가 실행 중일 때 보내서 실행이 끝난 뒤에 반영되었습니다',
+  'Team to-do': '팀 할 일',
+  'Team to-do, {count} open': '팀 할 일, 미완료 {count}건',
+  'Nothing open on the team to-do list': '팀 할 일에 미완료 항목이 없습니다',
 }
 
 export const HOST_ERRORS_KO = [

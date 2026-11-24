@@ -1,6 +1,7 @@
 import { createElement as h, Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { FishLogo } from './dsh-primitives.js'
+import { TeamTodoPanel } from './todo-panel.js'
 import { inkFill } from './inks.js'
 import { isMainOf } from './sources.js'
 import { currentPart, previewOf, relativeShort } from './text.js'
@@ -829,6 +830,7 @@ export function TeamSidebar(props) {
         h(PluginsButton, { actions }))
   const content = h('div', { className: wideContent ? 'bt-side' : 'bt-side bt-rail', onKeyDown: typeToSearch },
     top,
+    wideContent ? h(TeamTodoPanel, { actions }) : null,
     wideContent && roster.readOnly ? h('div', { className: 'bt-hint bt-read-only', role: 'status' }, hostText(roster.readOnly)) : null,
     h('div', {
       ref: listRef, className: 'bt-list', role: 'region', 'aria-label': t('Bot list'),
