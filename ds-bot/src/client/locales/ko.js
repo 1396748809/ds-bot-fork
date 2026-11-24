@@ -1934,6 +1934,14 @@ export const KO = {
   "Open this running session": "실행 중인 세션 열기",
   "A running session keeps using model calls in the background.": "실행 중인 세션은 백그라운드에서 모델 호출을 계속 사용합니다.",
   "This session is still running. Wait for it to finish, or stop it.": "이 세션은 아직 실행 중입니다. 끝날 때까지 기다리거나 중지하세요.",
+  'Start a fresh chat': '새 대화 시작',
+  'Context {used} in use — a fresh chat starts empty': '컨텍스트 사용량 {used} 토큰 — 새 대화는 비어 있는 상태로 시작합니다',
+  'Context {used} — past 272k a call bills at double, worth a fresh chat': '컨텍스트 사용량 {used} 토큰 — 27.2만을 넘으면 호출 한 번이 두 배로 과금됩니다. 새 대화를 권합니다',
+  'Waits for this turn to end': '이 턴이 끝날 때까지 대기',
+  'Steered mid-turn': '턴 중간에 추가됨',
+  'It went in mid-turn, without starting a new one': '턴 중간에 전달되었고 새 턴은 시작되지 않았습니다',
+  'Sent while a reply was being written, so that draft was cut': '답변을 쓰는 중에 보내서 그 초안은 중단되었습니다',
+  'Sent while a tool was running, so it waited for the tool to finish': '도구가 실행 중일 때 보내서 실행이 끝난 뒤에 반영되었습니다',
 }
 
 export const HOST_ERRORS_KO = [

@@ -2015,7 +2015,15 @@ var JA = {
   "Open this session": "このセッションを開く",
   "Open this running session": "実行中のセッションを開く",
   "A running session keeps using model calls in the background.": "実行中のセッションはバックグラウンドでモデル呼び出しを続けます。",
-  "This session is still running. Wait for it to finish, or stop it.": "このセッションはまだ実行中です。終了を待つか、停止してください。"
+  "This session is still running. Wait for it to finish, or stop it.": "このセッションはまだ実行中です。終了を待つか、停止してください。",
+  "Start a fresh chat": "新しい会話を開始",
+  "Context {used} in use — a fresh chat starts empty": "コンテキスト使用量 {used} トークン — 新しい会話は空から始まります",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "コンテキスト使用量 {used} トークン — 27.2 万を超えると 1 回の呼び出しが 2 倍の料金になります。新しい会話をおすすめします",
+  "Waits for this turn to end": "このターンの終了を待ちます",
+  "Steered mid-turn": "ターン途中で追加",
+  "It went in mid-turn, without starting a new one": "ターンの途中で送られ、新しいターンは始まっていません",
+  "Sent while a reply was being written, so that draft was cut": "返答を書いている最中に送られたため、その途中までの文面は打ち切られました",
+  "Sent while a tool was running, so it waited for the tool to finish": "ツールの実行中に送られたため、実行が終わってから取り込まれました"
 };
 var HOST_ERRORS_JA = [
   [/^Could not reach the mail server at (.+)\. Check the server address\.$/, "メールサーバー $1 に接続できませんでした。サーバーアドレスを確認してください。"],
@@ -4670,7 +4678,15 @@ var KO = {
   "Open this session": "이 세션 열기",
   "Open this running session": "실행 중인 세션 열기",
   "A running session keeps using model calls in the background.": "실행 중인 세션은 백그라운드에서 모델 호출을 계속 사용합니다.",
-  "This session is still running. Wait for it to finish, or stop it.": "이 세션은 아직 실행 중입니다. 끝날 때까지 기다리거나 중지하세요."
+  "This session is still running. Wait for it to finish, or stop it.": "이 세션은 아직 실행 중입니다. 끝날 때까지 기다리거나 중지하세요.",
+  "Start a fresh chat": "새 대화 시작",
+  "Context {used} in use — a fresh chat starts empty": "컨텍스트 사용량 {used} 토큰 — 새 대화는 비어 있는 상태로 시작합니다",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "컨텍스트 사용량 {used} 토큰 — 27.2만을 넘으면 호출 한 번이 두 배로 과금됩니다. 새 대화를 권합니다",
+  "Waits for this turn to end": "이 턴이 끝날 때까지 대기",
+  "Steered mid-turn": "턴 중간에 추가됨",
+  "It went in mid-turn, without starting a new one": "턴 중간에 전달되었고 새 턴은 시작되지 않았습니다",
+  "Sent while a reply was being written, so that draft was cut": "답변을 쓰는 중에 보내서 그 초안은 중단되었습니다",
+  "Sent while a tool was running, so it waited for the tool to finish": "도구가 실행 중일 때 보내서 실행이 끝난 뒤에 반영되었습니다"
 };
 var HOST_ERRORS_KO = [
   [/^Could not reach the mail server at (.+)\. Check the server address\.$/, "메일 서버 $1에 연결할 수 없습니다. 서버 주소를 확인하세요."],
@@ -7326,7 +7342,15 @@ var ES = {
   "Open this session": "Abrir esta sesión",
   "Open this running session": "Abrir esta sesión en ejecución",
   "A running session keeps using model calls in the background.": "Una sesión en ejecución sigue usando llamadas al modelo en segundo plano.",
-  "This session is still running. Wait for it to finish, or stop it.": "Esta sesión sigue en ejecución. Espera a que termine o detenla."
+  "This session is still running. Wait for it to finish, or stop it.": "Esta sesión sigue en ejecución. Espera a que termine o detenla.",
+  "Start a fresh chat": "Iniciar un chat nuevo",
+  "Context {used} in use — a fresh chat starts empty": "Contexto en uso: {used} tokens — un chat nuevo empieza vacío",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "Contexto en uso: {used} tokens — por encima de 272k cada llamada se factura al doble; conviene un chat nuevo",
+  "Waits for this turn to end": "Espera a que termine este turno",
+  "Steered mid-turn": "Añadido a mitad de turno",
+  "It went in mid-turn, without starting a new one": "Entró a mitad del turno, sin iniciar uno nuevo",
+  "Sent while a reply was being written, so that draft was cut": "Enviado mientras se escribía una respuesta, así que ese borrador se cortó",
+  "Sent while a tool was running, so it waited for the tool to finish": "Enviado mientras corría una herramienta, así que esperó a que terminara"
 };
 var HOST_ERRORS_ES = [
   [/^Could not reach the mail server at (.+)\. Check the server address\.$/, "No se pudo conectar con el servidor de correo en $1. Comprueba la dirección del servidor."],
@@ -9938,7 +9962,15 @@ var FR = {
   "Open this session": "Ouvrir cette session",
   "Open this running session": "Ouvrir cette session en cours",
   "A running session keeps using model calls in the background.": "Une session en cours continue d’utiliser des appels au modèle en arrière-plan.",
-  "This session is still running. Wait for it to finish, or stop it.": "Cette session est toujours en cours. Attendez la fin ou arrêtez-la."
+  "This session is still running. Wait for it to finish, or stop it.": "Cette session est toujours en cours. Attendez la fin ou arrêtez-la.",
+  "Start a fresh chat": "Démarrer une nouvelle conversation",
+  "Context {used} in use — a fresh chat starts empty": "Contexte utilisé : {used} tokens — une nouvelle conversation repart de zéro",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "Contexte utilisé : {used} tokens — au-delà de 272k chaque appel est facturé double ; une nouvelle conversation s’impose",
+  "Waits for this turn to end": "Attend la fin de ce tour",
+  "Steered mid-turn": "Ajouté en cours de tour",
+  "It went in mid-turn, without starting a new one": "Ajouté en cours de tour, sans en démarrer un nouveau",
+  "Sent while a reply was being written, so that draft was cut": "Envoyé pendant la rédaction d’une réponse : ce brouillon a été interrompu",
+  "Sent while a tool was running, so it waited for the tool to finish": "Envoyé pendant l’exécution d’un outil : il a attendu la fin de cette exécution"
 };
 var HOST_ERRORS_FR = [
   [/^Could not reach the mail server at (.+)\. Check the server address\.$/, "Impossible de joindre le serveur de messagerie à l’adresse $1. Vérifiez l’adresse du serveur."],
@@ -12593,7 +12625,15 @@ var DE = {
   "Open this session": "Diese Sitzung öffnen",
   "Open this running session": "Diese laufende Sitzung öffnen",
   "A running session keeps using model calls in the background.": "Eine laufende Sitzung verbraucht weiterhin Modellaufrufe im Hintergrund.",
-  "This session is still running. Wait for it to finish, or stop it.": "Diese Sitzung läuft noch. Warte, bis sie endet, oder stoppe sie."
+  "This session is still running. Wait for it to finish, or stop it.": "Diese Sitzung läuft noch. Warte, bis sie endet, oder stoppe sie.",
+  "Start a fresh chat": "Neuen Chat starten",
+  "Context {used} in use — a fresh chat starts empty": "Kontext belegt: {used} Token — ein neuer Chat startet leer",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "Kontext belegt: {used} Token — über 272k wird jeder Aufruf doppelt berechnet, ein neuer Chat lohnt sich",
+  "Waits for this turn to end": "Wartet, bis dieser Zug endet",
+  "Steered mid-turn": "Mitten im Zug ergänzt",
+  "It went in mid-turn, without starting a new one": "Mitten im Zug eingegangen, ohne einen neuen zu starten",
+  "Sent while a reply was being written, so that draft was cut": "Während einer laufenden Antwort gesendet, daher wurde dieser Entwurf abgebrochen",
+  "Sent while a tool was running, so it waited for the tool to finish": "Während ein Werkzeug lief gesendet, daher wurde auf dessen Ende gewartet"
 };
 var HOST_ERRORS_DE = [
   [/^Could not reach the mail server at (.+)\. Check the server address\.$/, "Mailserver unter $1 nicht erreichbar. Bitte prüfe die Serveradresse."],
@@ -14790,7 +14830,8 @@ var ZH = {
   "Chat with {name}": "与 {name} 的对话",
   "Scheduled task": "定时任务",
   "Start a fresh chat": "新开一个会话",
-  "Context {percent}% in use — a fresh chat starts empty": "上下文已用 {percent}% — 开个新会话能从头开始",
+  "Context {used} in use — a fresh chat starts empty": "上下文已用 {used} token — 开个新会话能从头开始",
+  "Context {used} — past 272k a call bills at double, worth a fresh chat": "上下文已用 {used} token — 已过 27.2 万，整单按双倍价计费，建议换段",
   "Open the scheduled tasks of this chat": "打开这个会话的定时任务",
   "Send to": "发给",
   "Scheduled task: {text}": "定时任务：{text}",
@@ -42134,8 +42175,9 @@ function MemoryNotice({ shown }) {
     (0, import_react60.createElement)("span", { className: "bt-pill-mem-in", ref: inner }, (0, import_react60.createElement)("span", { className: "bt-pill-mem-ico" }, (0, import_react60.createElement)(MemoryIcon)), label)
   );
 }
-var CONTEXT_SHOW_AT = 20;
-var CONTEXT_HEAVY_AT = 35;
+var CONTEXT_SHOW_TOKENS = 18e4;
+var CONTEXT_HEAVY_TOKENS = 22e4;
+var CONTEXT_DOUBLE_TOKENS = 272e3;
 var samePressure = (a, b) => a?.projectedTokens === b?.projectedTokens && a?.pressureTokens === b?.pressureTokens && a?.contextWindow === b?.contextWindow;
 function ContextBadge({ bot, running, actions }) {
   const [pressure, setPressure] = (0, import_react60.useState)(null);
@@ -42161,17 +42203,15 @@ function ContextBadge({ bot, running, actions }) {
     };
   }, [id, running, actions]);
   const used = pressure?.projectedTokens ?? pressure?.pressureTokens;
-  const size = pressure?.contextWindow;
-  if (!Number.isFinite(used) || !Number.isFinite(size) || size <= 0) return null;
-  const percent3 = Math.min(100, Math.round(used / size * 100));
-  if (percent3 < CONTEXT_SHOW_AT) return null;
-  const label = t("Context {percent}% in use — a fresh chat starts empty", { percent: percent3 });
+  if (!Number.isFinite(used) || used < CONTEXT_SHOW_TOKENS) return null;
+  const wan = Math.round(used / 1e4);
+  const label = used >= CONTEXT_DOUBLE_TOKENS ? t("Context {used} — past 272k a call bills at double, worth a fresh chat", { used: `${wan}万` }) : t("Context {used} in use — a fresh chat starts empty", { used: `${wan}万` });
   return (0, import_react60.createElement)("span", {
     className: "bt-pill-ctx",
-    "data-heavy": percent3 >= CONTEXT_HEAVY_AT ? "" : void 0,
+    "data-heavy": used >= CONTEXT_HEAVY_TOKENS ? "" : void 0,
     title: label,
     "aria-label": label
-  }, `${percent3}%`);
+  }, `${wan}万`);
 }
 function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus, useSession, useActivity, useMemoryNews, useTurnClock, useUi, useLive, useWork, useComputer, useStore, useConversationViews, selectView, actions, PendingLearning: PendingLearning2 }) {
   const roster = useRoster((value) => value);

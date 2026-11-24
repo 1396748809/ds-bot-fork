@@ -1899,6 +1899,14 @@ export const JA = {
   "Open this running session": "実行中のセッションを開く",
   "A running session keeps using model calls in the background.": "実行中のセッションはバックグラウンドでモデル呼び出しを続けます。",
   "This session is still running. Wait for it to finish, or stop it.": "このセッションはまだ実行中です。終了を待つか、停止してください。",
+  'Start a fresh chat': '新しい会話を開始',
+  'Context {used} in use — a fresh chat starts empty': 'コンテキスト使用量 {used} トークン — 新しい会話は空から始まります',
+  'Context {used} — past 272k a call bills at double, worth a fresh chat': 'コンテキスト使用量 {used} トークン — 27.2 万を超えると 1 回の呼び出しが 2 倍の料金になります。新しい会話をおすすめします',
+  'Waits for this turn to end': 'このターンの終了を待ちます',
+  'Steered mid-turn': 'ターン途中で追加',
+  'It went in mid-turn, without starting a new one': 'ターンの途中で送られ、新しいターンは始まっていません',
+  'Sent while a reply was being written, so that draft was cut': '返答を書いている最中に送られたため、その途中までの文面は打ち切られました',
+  'Sent while a tool was running, so it waited for the tool to finish': 'ツールの実行中に送られたため、実行が終わってから取り込まれました',
 }
 
 export const HOST_ERRORS_JA = [

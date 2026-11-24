@@ -49,10 +49,13 @@ function MemoryNotice({ shown }) {
 
 // Context in use, so a chat that has grown heavy can be swapped for an empty one.
 // The same projection the details drawer counts, read again whenever a turn ends.
-// A chat is worth trading well before its window fills: at 20% of a 700k window a turn
-// already re-reads some 140k tokens on every call.
-const CONTEXT_SHOW_AT = 20
-const CONTEXT_HEAVY_AT = 35
+// Counted in tokens rather than as a share of the window: the window is wide enough that a
+// percentage says little, and the number that matters is fixed — a request past 272k tokens
+// bills every token in it at twice the rate. So the badge counts tokens, turns orange well
+// before that line, and names the line once a call has crossed it.
+const CONTEXT_SHOW_TOKENS = 180_000
+const CONTEXT_HEAVY_TOKENS = 220_000
+const CONTEXT_DOUBLE_TOKENS = 272_000
 
 // Two reads that say the same thing leave the badge's state alone, so a re-render cannot
 // start another read of its own.
@@ -85,15 +88,15 @@ export function ContextBadge({ bot, running, actions }) {
     return () => { live = false }
   }, [id, running, actions])
   const used = pressure?.projectedTokens ?? pressure?.pressureTokens
-  const size = pressure?.contextWindow
-  if (!Number.isFinite(used) || !Number.isFinite(size) || size <= 0) return null
-  const percent = Math.min(100, Math.round((used / size) * 100))
-  if (percent < CONTEXT_SHOW_AT) return null
-  const label = t('Context {percent}% in use — a fresh chat starts empty', { percent })
+  if (!Number.isFinite(used) || used < CONTEXT_SHOW_TOKENS) return null
+  const wan = Math.round(used / 10_000)
+  const label = used >= CONTEXT_DOUBLE_TOKENS
+    ? t('Context {used} — past 272k a call bills at double, worth a fresh chat', { used: `${wan}万` })
+    : t('Context {used} in use — a fresh chat starts empty', { used: `${wan}万` })
   return h('span', {
-    className: 'bt-pill-ctx', 'data-heavy': percent >= CONTEXT_HEAVY_AT ? '' : undefined,
+    className: 'bt-pill-ctx', 'data-heavy': used >= CONTEXT_HEAVY_TOKENS ? '' : undefined,
     title: label, 'aria-label': label,
-  }, `${percent}%`)
+  }, `${wan}万`)
 }
 
 export function HeaderPill({ sessionId, useRoster, useSessions, useSessionStatus, useSession, useActivity, useMemoryNews, useTurnClock, useUi, useLive, useWork, useComputer, useStore, useConversationViews, selectView, actions, PendingLearning }) {

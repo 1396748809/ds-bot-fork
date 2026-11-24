@@ -1899,6 +1899,14 @@ export const FR = {
   "Open this running session": "Ouvrir cette session en cours",
   "A running session keeps using model calls in the background.": "Une session en cours continue d’utiliser des appels au modèle en arrière-plan.",
   "This session is still running. Wait for it to finish, or stop it.": "Cette session est toujours en cours. Attendez la fin ou arrêtez-la.",
+  'Start a fresh chat': 'Démarrer une nouvelle conversation',
+  'Context {used} in use — a fresh chat starts empty': 'Contexte utilisé : {used} tokens — une nouvelle conversation repart de zéro',
+  'Context {used} — past 272k a call bills at double, worth a fresh chat': 'Contexte utilisé : {used} tokens — au-delà de 272k chaque appel est facturé double ; une nouvelle conversation s’impose',
+  'Waits for this turn to end': 'Attend la fin de ce tour',
+  'Steered mid-turn': 'Ajouté en cours de tour',
+  'It went in mid-turn, without starting a new one': 'Ajouté en cours de tour, sans en démarrer un nouveau',
+  'Sent while a reply was being written, so that draft was cut': 'Envoyé pendant la rédaction d’une réponse : ce brouillon a été interrompu',
+  'Sent while a tool was running, so it waited for the tool to finish': 'Envoyé pendant l’exécution d’un outil : il a attendu la fin de cette exécution',
 }
 
 export const HOST_ERRORS_FR = [
