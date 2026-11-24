@@ -40,7 +40,7 @@ runInNewContext(outputFiles[0].text, {
     throw new Error(`no platform module ${name}`)
   },
 })
-const { TypingStop, ChatStop } = module.exports
+const { TypingStop, ChatStop, TYPING_STOP_CSS } = module.exports
 
 const find = (node, match, found = []) => {
   if (node === null || typeof node !== 'object') return found
@@ -88,4 +88,16 @@ test('the chat activity row stop calls stop-chat with the Bot', async () => {
 
 test('the chat row draws no stop where the host has no stop-chat', () => {
   assert.equal(ChatStop({ bot, actions: {} }), null)
+})
+
+// The square has to fill most of the plate: a small square on a wide pale disc reads as a
+// dot, not as stop. The plate was tightened and the square widened for exactly that.
+test('the square fills most of a tight plate', () => {
+  const tree = TypingStop({ bot, roomId: 'room-1', actions: { stopMemberWork: () => Promise.resolve() } })
+  const [glyph] = find(tree, node => node.type === 'svg')
+  const [square] = find(tree, node => node.type === 'rect')
+  assert.equal(glyph.props.width, 20, 'the glyph is drawn 20px wide')
+  assert.equal(square.props.width, 13, 'the square is 13 of those 20 units')
+  assert.ok(square.props.width / 20 > 0.6, 'the square covers more than three fifths of the glyph')
+  assert.match(TYPING_STOP_CSS, /\.bt-typing-stop\{[^}]*width:24px/, 'the plate itself stays tight')
 })

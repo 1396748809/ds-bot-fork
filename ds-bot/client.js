@@ -19442,7 +19442,7 @@ function ShareIcon() {
 function CloseIcon() {
   return (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 5l10 10M15 5L5 15", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }));
 }
-var StopIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: 5, y: 5, width: 10, height: 10, rx: 2.5, fill: "currentColor" }));
+var StopIcon = ({ size = 14, inset = 5 } = {}) => (0, import_react3.createElement)("svg", { width: size, height: size, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx: 2.5, fill: "currentColor" }));
 var ChevronLeftIcon = () => (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M12.5 4.5L7 10l5.5 5.5" }));
 var ChevronRightIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M7.5 4.5L13 10l-5.5 5.5" }));
 var ChevronDownIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 7.5L10 12.5L15 7.5" }));
@@ -20300,7 +20300,7 @@ function StopButton({ label, onStop, report }) {
     setStopping(true);
     void Promise.resolve(onStop()).catch((error) => report?.(error)).finally(() => setStopping(false));
   };
-  return (0, import_react8.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react8.createElement)(StopIcon));
+  return (0, import_react8.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react8.createElement)(StopIcon, { size: 20, inset: 3.5 }));
 }
 function TypingStop({ bot, roomId, actions }) {
   if (typeof actions?.stopMemberWork !== "function") return null;
@@ -20319,7 +20319,7 @@ function ChatStop({ bot, actions }) {
   });
 }
 var TYPING_STOP_CSS = `
-.bt-typing-stop{flex:none;width:26px;height:26px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
+.bt-typing-stop{flex:none;width:24px;height:24px;margin-left:2px;border:0;border-radius:999px;background:color-mix(in srgb,var(--bt-ink) 7%,transparent);color:var(--bt-ink-2);display:grid;place-items:center;padding:0;cursor:pointer;touch-action:manipulation;transition:background-color .12s ease,color .12s ease,scale .12s ease}
 .bt-typing-stop:hover:not(:disabled){background:color-mix(in srgb,var(--bt-danger) 16%,transparent);color:var(--bt-danger)}
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}

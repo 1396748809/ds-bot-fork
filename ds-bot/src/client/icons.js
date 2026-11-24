@@ -37,8 +37,10 @@ export function CloseIcon() {
   return h('svg', { width: 16, height: 16, viewBox: '0 0 20 20', 'aria-hidden': true }, h('path', { d: 'M5 5l10 10M15 5L5 15', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round' }))
 }
 // A filled square: the shape recorders and players use for stop, so the typing row's
-// button reads as one before anyone hovers it.
-export const StopIcon = () => h('svg', { width: 14, height: 14, viewBox: '0 0 20 20', 'aria-hidden': true }, h('rect', { x: 5, y: 5, width: 10, height: 10, rx: 2.5, fill: 'currentColor' }))
+// button reads as one before anyone hovers it. The plate-to-square ratio is what the
+// control is read by, so both are adjustable: a narrow square suits a small glyph, a
+// wider one a tighter plate.
+export const StopIcon = ({ size = 14, inset = 5 } = {}) => h('svg', { width: size, height: size, viewBox: '0 0 20 20', 'aria-hidden': true }, h('rect', { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx: 2.5, fill: 'currentColor' }))
 
 export const ChevronLeftIcon = () => h('svg', { width: 16, height: 16, viewBox: '0 0 20 20', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }, h('path', { d: 'M12.5 4.5L7 10l5.5 5.5' }))
 export const ChevronRightIcon = () => h('svg', { width: 14, height: 14, viewBox: '0 0 20 20', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }, h('path', { d: 'M7.5 4.5L13 10l-5.5 5.5' }))
