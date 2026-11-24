@@ -7,6 +7,9 @@ import { SmileIcon, ReplyIcon, DotsIcon, CheckIcon, DownloadIcon, CopyIcon, Goal
 import { ChangesCard } from './changes-card.js'
 import { goalEventText } from './goal.js'
 import { colorOf, toolState, BotMark, RoomAvatar } from './mark.js'
+// member-status imports this module for the row's clock and phrase; the stop control it
+// exports comes back here for the typing row. Both are used at render time only.
+import { TypingStop } from './member-status.js'
 import { CellEmpty } from './cell-empty.js'
 import { AskUserCell, SettledQuestion } from './questions.js'
 import { AnsweredReply, ClosedView, WidgetCell } from './widget-cell.js'
@@ -1135,7 +1138,8 @@ function GroupReplies({ sessionId, callId, done, content, roster, actions, useUi
       const [tool, phrase] = doing[at] ?? []
       return h('div', { key: `pending-${id}`, className: 'bt-activity' },
         h(BotMark, { bot: bot, size: 22, state: tool ? toolState(tool) : 'thinking' }),
-        h(Shimmer, null, phrase ? `${bot.name} · ${phrase}…` : t('{name} is typing…', { name: bot.name })))
+        h(Shimmer, null, phrase ? `${bot.name} · ${phrase}…` : t('{name} is typing…', { name: bot.name })),
+        h(TypingStop, { bot, roomId: room?.id ?? sessionId, actions }))
     }))
 }
 
