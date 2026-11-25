@@ -623,7 +623,7 @@ export function TeamTodoPanel({ actions }) {
 }
 
 export const TEAM_TODO_CSS = `
-.bt-side-block{display:flex;flex-direction:column;min-height:0;flex:none;height:220px}
+.bt-side-block{display:flex;flex-direction:column;min-height:0;flex:none;height:var(--bt-side-block-h,220px)}
 .bt-tabs-row{display:flex;align-items:center;gap:6px;flex:none;margin:7px 8px 3px}
 /* The sidebar's own view tabs. They carry their own names (bt-stab*) so they cannot reach
    the details drawer's tablist, which uses bt-tabs/bt-tab inside the same document. */

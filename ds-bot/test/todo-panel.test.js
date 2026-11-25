@@ -611,3 +611,13 @@ test('the tab the user left open comes back after a reload', async () => {
   assert.equal(tabs[1].props['aria-selected'], 'true', 'the tab the user left open is selected')
   assert.equal(byClass(draw(), 'bt-quick-pane').length, 1, 'and its pane is the one drawn')
 })
+
+// The block's height comes from the resizer wrapped around it: sidebar.js writes the dragged
+// height into --bt-side-block-h. A fixed height here silently ignored that drag — the boundary
+// simply would not move, which is exactly how "the split does not work" looked.
+test('the top block takes its height from the resizer above it', () => {
+  assert.match(
+    module.exports.TEAM_TODO_CSS,
+    /\.bt-side-block\{[^}]*height:var\(--bt-side-block-h,220px\)/u,
+    'the height is the resizer variable, with the default as its fallback')
+})
