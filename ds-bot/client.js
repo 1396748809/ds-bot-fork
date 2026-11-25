@@ -21524,6 +21524,19 @@ function CellEmpty({ className }) {
   return (0, import_react10.createElement)("span", { ref, className, hidden: true, "data-bt-empty": true });
 }
 
+// src/client/memory-notice.js
+var MEMORY_SAVED = /^(Saved to|Updated in|Removed from) /;
+var MEMORY_ALREADY = /^Already in /;
+var MEMORY_WRITES = ["bot_remember", "remember", "bot_forget", "forget"];
+var MEMORY_PERMISSION = ["memory/refused", "memory/denied"];
+function memoryChanged(writes) {
+  return (Array.isArray(writes) ? writes : []).some((write) => write?.failed !== true && MEMORY_SAVED.test(String(write?.result ?? "")));
+}
+function failureRowStays({ code, landed } = {}) {
+  if (landed !== true) return true;
+  return MEMORY_PERMISSION.includes(String(code ?? ""));
+}
+
 // src/client/enter-key.js
 var sendsOnEnter = (prefs) => prefs?.enterToSend !== false;
 var isImeComposing = (event) => Boolean(
@@ -31615,8 +31628,6 @@ function GroupEvent({ prefix, room: room2, name, roster, actions }) {
     room2 ? (0, import_react36.createElement)("button", { type: "button", onClick: () => actions.openSession(room2.id) }, (0, import_react36.createElement)(RoomAvatar, { room: room2, roster, size: 16 }), room2.name) : name ? (0, import_react36.createElement)("span", null, name) : null
   );
 }
-var MEMORY_SAVED = /^(Saved to|Updated in|Removed from) /;
-var MEMORY_ALREADY = /^Already in /;
 var MEMORY_TEAM = /^(team|团队|共享)$/i;
 var MEMORY_OWN = /^(own|me|mine|self|yours?|自己|我)$/i;
 var MEMORY_GROUP = /^(group|this group|群|本群|群聊)$/i;
@@ -32360,7 +32371,7 @@ function useShownCards(actions, sessionId, callIds) {
     return () => actions.noteCards(sessionId, ids, -1);
   }, [sessionId, key]);
 }
-function renderCall(call2, { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks }) {
+function renderCall(call2, { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks, memoryLanded }) {
   const tool = toolName(call2);
   const done = call2.kind === "tool-result";
   const { text: arg, value: argValue } = toolArgs(call2);
@@ -32440,8 +32451,11 @@ function renderCall(call2, { sessionId, roster, actions, useUi, useWork, findBot
     case "bot_remember":
     case "remember":
     case "bot_forget":
-    case "forget":
-      return done ? (0, import_react36.createElement)(MemoryEvent, { sessionId, scope: arg("scope"), tool, result: contentText(call2.content), failed: call2.isError === true, code: call2.error?.code, roster, actions, findBot }) : (0, import_react36.createElement)(CellEmpty);
+    case "forget": {
+      if (!done) return (0, import_react36.createElement)(CellEmpty);
+      if (call2.isError === true && failureRowStays({ code: call2.error?.code, landed: memoryLanded }) === false) return (0, import_react36.createElement)(CellEmpty);
+      return (0, import_react36.createElement)(MemoryEvent, { sessionId, scope: arg("scope"), tool, result: contentText(call2.content), failed: call2.isError === true, code: call2.error?.code, roster, actions, findBot });
+    }
     default:
       if (isComputerCall(tool)) {
         return (0, import_react36.createElement)(
@@ -32469,7 +32483,8 @@ function ToolCell({ node, sessionId, useRoster, useUi, useWork, useHeldCards, us
   useLiveNote(actions, sessionId, `tool:${root.callId ?? node.key}`, note);
   useShownCards(actions, sessionId, drawn.filter((call2) => (CARDS.has(toolName(call2)) || isComputerCall(toolName(call2))) && call2.callId).map((call2) => call2.callId));
   if (drawn.length === 0) return (0, import_react36.createElement)(CellEmpty);
-  const env = { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks: { useBrowserHolds, useBrowserTabs, useBrowserPages, useComputer } };
+  const memoryLanded = memoryChanged(calls.filter((call2) => MEMORY_WRITES.includes(toolName(call2))).map((call2) => ({ failed: call2.isError === true, result: contentText(call2.content) })));
+  const env = { sessionId, roster, actions, useUi, useWork, findBot, heldCards, memoryLanded, hooks: { useBrowserHolds, useBrowserTabs, useBrowserPages, useComputer } };
   return (0, import_react36.createElement)(import_react36.Fragment, null, drawn.map((call2, index) => (0, import_react36.createElement)(import_react36.Fragment, { key: call2.callId ?? index }, renderCall(call2, env))));
 }
 

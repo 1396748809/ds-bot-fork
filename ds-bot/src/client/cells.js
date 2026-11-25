@@ -9,6 +9,7 @@ import { goalEventText } from './goal.js'
 import { colorOf, toolState, BotMark, RoomAvatar } from './mark.js'
 import { TypingStop } from './typing-stop.js'
 import { CellEmpty } from './cell-empty.js'
+import { MEMORY_ALREADY, MEMORY_SAVED, MEMORY_WRITES, failureRowStays, memoryChanged } from './memory-notice.js'
 import { AskUserCell, SettledQuestion } from './questions.js'
 import { AnsweredReply, ClosedView, WidgetCell } from './widget-cell.js'
 import { SecretToolCell } from './secret-card.js'
@@ -437,10 +438,9 @@ function GroupEvent({ prefix, room, name, roster, actions }) {
       : name ? h('span', null, name) : null)
 }
 
-// The results a memory write answers with when it changed the memory, and the
-// one that says the entry was there already.
-const MEMORY_SAVED = /^(Saved to|Updated in|Removed from) /
-const MEMORY_ALREADY = /^Already in /
+// The results a memory write answers with when it changed the memory, and the one that says
+// the entry was there already, live in memory-notice.js: the same step can hold several of
+// them, and one refused entry must not sit as an error above the entries that did land.
 
 // The words the memory tools take for a scope.
 const MEMORY_TEAM = /^(team|团队|共享)$/i
@@ -1191,7 +1191,7 @@ function useShownCards(actions, sessionId, callIds) {
   }, [sessionId, key])
 }
 
-function renderCall(call, { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks }) {
+function renderCall(call, { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks, memoryLanded }) {
   const tool = toolName(call)
   const done = call.kind === 'tool-result'
   const { text: arg, value: argValue } = toolArgs(call)
@@ -1268,8 +1268,14 @@ function renderCall(call, { sessionId, roster, actions, useUi, useWork, findBot,
     case 'bot_remember':
     case 'remember':
     case 'bot_forget':
-    case 'forget':
-      return done ? h(MemoryEvent, { sessionId, scope: arg('scope'), tool, result: contentText(call.content), failed: call.isError === true, code: call.error?.code, roster, actions, findBot }) : h(CellEmpty)
+    case 'forget': {
+      if (!done) return h(CellEmpty)
+      // A memory review writes several entries at once. An entry it refused does not get an error
+      // row above the "memory updated" lines that did land — unless the refusal is about who may
+      // write, which those lines do not answer. The tool record keeps the host's own words.
+      if (call.isError === true && failureRowStays({ code: call.error?.code, landed: memoryLanded }) === false) return h(CellEmpty)
+      return h(MemoryEvent, { sessionId, scope: arg('scope'), tool, result: contentText(call.content), failed: call.isError === true, code: call.error?.code, roster, actions, findBot })
+    }
     default:
       if (isComputerCall(tool)) {
         return h(Fragment, null,
@@ -1301,6 +1307,11 @@ export function ToolCell({ node, sessionId, useRoster, useUi, useWork, useHeldCa
   useLiveNote(actions, sessionId, `tool:${root.callId ?? node.key}`, note)
   useShownCards(actions, sessionId, drawn.filter(call => (CARDS.has(toolName(call)) || isComputerCall(toolName(call))) && call.callId).map(call => call.callId))
   if (drawn.length === 0) return h(CellEmpty)
-  const env = { sessionId, roster, actions, useUi, useWork, findBot, heldCards, hooks: { useBrowserHolds, useBrowserTabs, useBrowserPages, useComputer } }
+  // Whether this step's own memory writes changed anything: the memory review answers with one
+  // result per entry, and a refused entry is not worth an error row when others landed.
+  const memoryLanded = memoryChanged(calls
+    .filter(call => MEMORY_WRITES.includes(toolName(call)))
+    .map(call => ({ failed: call.isError === true, result: contentText(call.content) })))
+  const env = { sessionId, roster, actions, useUi, useWork, findBot, heldCards, memoryLanded, hooks: { useBrowserHolds, useBrowserTabs, useBrowserPages, useComputer } }
   return h(Fragment, null, drawn.map((call, index) => h(Fragment, { key: call.callId ?? index }, renderCall(call, env))))
 }
