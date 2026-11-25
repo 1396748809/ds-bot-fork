@@ -33,6 +33,18 @@ test('a yielded panel gets its room back from the rail', () => {
   assert.equal(layout.room, 1000 - RAIL_WIDTH)
 })
 
+test('a yielded panel narrows beside the chat instead of covering it', () => {
+  // 88 + 320 + 420 = 828 > 800, but the room left, 712, still holds the chat and a
+  // narrowed panel: the panel keeps its own side and the chat keeps its own room.
+  const squeezed = at(800, 280, { panel: details(true) })
+  assert.deepEqual({ left: squeezed.left, panel: squeezed.panel }, { left: 'rail', panel: 'squeezed' })
+  assert.equal(squeezed.room, 800 - RAIL_WIDTH)
+  // A window wide enough for the panel's usual width simply shows it.
+  assert.equal(at(900, 280, { panel: details(true) }).panel, 'shown')
+  // Below the chat plus the narrowest panel, covering the chat is the only way left.
+  assert.equal(at(760, 280, { panel: details(true) }).panel, 'overlay')
+})
+
 test('a yielded browser panel shows beside the rail, and only covers the chat below its minimum', () => {
   // 88 + 360 + 420 = 868.
   assert.equal(at(1000, 280, { panel: browser(true) }).panel, 'shown')

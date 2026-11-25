@@ -8,7 +8,7 @@ import { handoffReply, questionReply, viewReply } from './parts.js'
 import { threadCurrentOfPart, threadOfPart } from './threads.js'
 import { validateViewAnswer } from 'deep-view/core'
 import { BACKGROUND_AFTER_MAX_SEC, COLORS, EXTRA_COLORS, ROUTE } from './constants.js'
-import { readTeamTodo } from './team-todo.js'
+import { addTeamTodo, clearTeamTodoDone, clearTeamTodoItem, readTeamTodo, setTeamTodoDone } from './team-todo.js'
 
 const STAGED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
 const STAGED_MS = 30 * 60_000
@@ -359,6 +359,28 @@ export function install(rt) {
         // The team's one to-do file: every Bot appends to it, the sidebar reads it here.
         case 'team-todo':
           return ok(await readTeamTodo())
+        // The one write a person makes from the sidebar: ticking an item off. It stays out
+        // of READS, so a host that may only read this team never writes the list.
+        case 'team-todo-check': {
+          const id = String(body.id ?? '')
+          if (id === '') return fail('Which to-do item?', 'bot/invalid')
+          return ok(await setTeamTodoDone(id, body.done !== false))
+        }
+        // The user's own clean-up: every ticked item leaves the list at once, on one click.
+        case 'team-todo-clear':
+          return ok(await clearTeamTodoDone())
+        // One ticked row leaving by itself, from that row's own menu.
+        case 'team-todo-clear-one': {
+          const id = String(body.id ?? '')
+          if (id === '') return fail('Which to-do item?', 'bot/invalid')
+          return ok(await clearTeamTodoItem(id))
+        }
+        // An item the user adds here, without going through a Bot.
+        case 'team-todo-add': {
+          const text = String(body.text ?? '').trim()
+          if (text === '') return fail('What needs doing?', 'bot/invalid')
+          return ok(await addTeamTodo(text.slice(0, 500), 'user'))
+        }
         // DSH's own whole-log figures for the current part of a Bot's chat, the ones its
         // status bar shows; a window without that bar shows them in the Bot's details.
         case 'run-stats': {

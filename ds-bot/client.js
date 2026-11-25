@@ -119,6 +119,40 @@ function convertHostErrors(pairs) {
 
 // src/client/locales/ja.js
 var JA = {
+  "Add a to-do": "ToDo を追加",
+  "What needs doing?": "何をやりますか？",
+  "New group chat": "新しいグループチャット",
+  "Remove from the top bar": "上部バーから外す",
+  "Add to the top bar": "上部バーに追加",
+  "Forwarded from {name}": "{name} からの転送",
+  "Copy text": "テキストをコピー",
+  "Forward to": "転送先",
+  "Forward to {name}": "{name} に転送",
+  "Add to-do": "ToDo を追加",
+  "Type a to-do and press Enter": "ToDo を入力して Enter で追加",
+  "Saving keeps the text only — the attachment goes": "保存すると本文だけが残り、添付は外れます",
+  "Resize the to-do area": "ToDo 領域の高さを調整",
+  "Not done": "未完了",
+  "Put it back": "ToDo に戻す",
+  "Clear done": "完了をすべて消す",
+  "Clear item": "消す",
+  "Continue this chat": "このチャットを続ける",
+  "Common actions": "よく使う操作",
+  "Local model chat": "ローカルモデルのチャット",
+  "Type a web address": "ウェブアドレスを入力",
+  "Open in the browser": "ブラウザで開く",
+  "Sidebar views": "サイドバーの表示",
+  "WeChat saved knowledge base": "WeChat 保存ナレッジベース",
+  "Goofish monitor": "Goofish モニター",
+  "Floorplan report site": "間取りレポートサイト",
+  "Not running": "未稼働",
+  "Starting…": "起動中…",
+  "Status unknown": "状態不明",
+  "Start service": "起動",
+  "Stop service": "停止",
+  "Stopping…": "停止中…",
+  "Service stopped": "サービスを停止しました",
+  "Could not stop the service": "サービスを停止できませんでした",
   "Background work": "バックグラウンド作業",
   "Background commands after (seconds)": "コマンドをバックグラウンドへ（秒後）",
   "A new reply is waiting": "新しい返信があります",
@@ -179,6 +213,7 @@ var JA = {
   "Back to chat": "チャットに戻る",
   "New…": "新規…",
   "New section": "新しいセクション",
+  "Ungrouped": "未分類",
   "Rename section": "セクション名を変更",
   "Section color": "セクションの色",
   "Move section up": "セクションを上へ移動",
@@ -2741,6 +2776,40 @@ var DSH_JA = {
 
 // src/client/locales/ko.js
 var KO = {
+  "Add a to-do": "할 일 추가",
+  "What needs doing?": "무엇을 할까요?",
+  "New group chat": "새 그룹 채팅",
+  "Remove from the top bar": "상단 표시줄에서 빼기",
+  "Add to the top bar": "상단 표시줄에 추가",
+  "Forwarded from {name}": "{name}에서 전달됨",
+  "Copy text": "텍스트 복사",
+  "Forward to": "전달 대상",
+  "Forward to {name}": "{name}에게 전달",
+  "Add to-do": "할 일 추가",
+  "Type a to-do and press Enter": "할 일을 입력하고 Enter로 추가",
+  "Saving keeps the text only — the attachment goes": "저장하면 본문만 남고 첨부는 빠집니다",
+  "Resize the to-do area": "할 일 영역 높이 조정",
+  "Not done": "미완료",
+  "Put it back": "할 일로 되돌리기",
+  "Clear done": "완료 항목 모두 지우기",
+  "Clear item": "지우기",
+  "Continue this chat": "이 대화 계속하기",
+  "Common actions": "자주 쓰는 작업",
+  "Local model chat": "로컬 모델 채팅",
+  "Type a web address": "웹 주소 입력",
+  "Open in the browser": "브라우저에서 열기",
+  "Sidebar views": "사이드바 보기",
+  "WeChat saved knowledge base": "위챗 저장 지식 베이스",
+  "Goofish monitor": "Goofish 모니터",
+  "Floorplan report site": "평면도 리포트 사이트",
+  "Not running": "미실행",
+  "Starting…": "시작 중…",
+  "Status unknown": "상태 알 수 없음",
+  "Start service": "시작",
+  "Stop service": "중지",
+  "Stopping…": "중지 중…",
+  "Service stopped": "서비스를 중지했습니다",
+  "Could not stop the service": "서비스를 중지하지 못했습니다",
   "Background work": "백그라운드 작업",
   "Background commands after (seconds)": "명령 백그라운드 전환(초)",
   "A new reply is waiting": "새 답변이 도착했습니다",
@@ -2802,6 +2871,7 @@ var KO = {
   "Back to chat": "대화로 돌아가기",
   "New…": "새로 만들기…",
   "New section": "새 섹션",
+  "Ungrouped": "미분류",
   "Rename section": "섹션 이름 변경",
   "Section color": "섹션 색상",
   "Move section up": "섹션 위로 이동",
@@ -5408,6 +5478,40 @@ var DSH_KO = {
 
 // src/client/locales/es.js
 var ES = {
+  "Add a to-do": "Añadir una tarea",
+  "What needs doing?": "¿Qué hay que hacer?",
+  "New group chat": "Nuevo chat de grupo",
+  "Remove from the top bar": "Quitar de la barra superior",
+  "Add to the top bar": "Añadir a la barra superior",
+  "Forwarded from {name}": "Reenviado de {name}",
+  "Copy text": "Copiar texto",
+  "Forward to": "Reenviar a",
+  "Forward to {name}": "Reenviar a {name}",
+  "Add to-do": "Añadir tarea",
+  "Type a to-do and press Enter": "Escribe una tarea y pulsa Intro",
+  "Saving keeps the text only — the attachment goes": "Al guardar solo queda el texto: el adjunto se pierde",
+  "Resize the to-do area": "Ajustar la altura de las tareas",
+  "Not done": "Sin hacer",
+  "Put it back": "Devolver a la lista",
+  "Clear done": "Borrar las hechas",
+  "Clear item": "Borrar",
+  "Continue this chat": "Continuar esta conversación",
+  "Common actions": "Acciones frecuentes",
+  "Local model chat": "Chat del modelo local",
+  "Type a web address": "Escribe una dirección web",
+  "Open in the browser": "Abrir en el navegador",
+  "Sidebar views": "Vistas de la barra lateral",
+  "WeChat saved knowledge base": "Base de conocimiento guardada de WeChat",
+  "Goofish monitor": "Monitor de Goofish",
+  "Floorplan report site": "Sitio de informes de planos",
+  "Not running": "Sin ejecutar",
+  "Starting…": "Iniciando…",
+  "Status unknown": "Estado desconocido",
+  "Start service": "Iniciar",
+  "Stop service": "Detener",
+  "Stopping…": "Deteniendo…",
+  "Service stopped": "Servicio detenido",
+  "Could not stop the service": "No se pudo detener el servicio",
   "Background work": "Trabajo en segundo plano",
   "Background commands after (seconds)": "Pasar comandos a segundo plano tras (segundos)",
   "A new reply is waiting": "Tienes una nueva respuesta",
@@ -5469,6 +5573,7 @@ var ES = {
   "Back to chat": "Volver al chat",
   "New…": "Nuevo…",
   "New section": "Nueva sección",
+  "Ungrouped": "Sin grupo",
   "Rename section": "Renombrar sección",
   "Section color": "Color de la sección",
   "Move section up": "Subir sección",
@@ -8075,6 +8180,40 @@ var DSH_ES = {
 
 // src/client/locales/fr.js
 var FR = {
+  "Add a to-do": "Ajouter une tâche",
+  "What needs doing?": "Qu'y a-t-il à faire ?",
+  "New group chat": "Nouvelle conversation de groupe",
+  "Remove from the top bar": "Retirer de la barre du haut",
+  "Add to the top bar": "Ajouter à la barre du haut",
+  "Forwarded from {name}": "Transféré de {name}",
+  "Copy text": "Copier le texte",
+  "Forward to": "Transférer à",
+  "Forward to {name}": "Transférer à {name}",
+  "Add to-do": "Ajouter une tâche",
+  "Type a to-do and press Enter": "Saisissez une tâche puis Entrée",
+  "Saving keeps the text only — the attachment goes": "L'enregistrement ne garde que le texte : la pièce jointe disparaît",
+  "Resize the to-do area": "Ajuster la hauteur des tâches",
+  "Not done": "À faire",
+  "Put it back": "Remettre dans la liste",
+  "Clear done": "Effacer les faites",
+  "Clear item": "Effacer",
+  "Continue this chat": "Continuer cette conversation",
+  "Common actions": "Actions courantes",
+  "Local model chat": "Chat du modèle local",
+  "Type a web address": "Saisissez une adresse web",
+  "Open in the browser": "Ouvrir dans le navigateur",
+  "Sidebar views": "Vues de la barre latérale",
+  "WeChat saved knowledge base": "Base de connaissances enregistrées WeChat",
+  "Goofish monitor": "Moniteur Goofish",
+  "Floorplan report site": "Site de rapports de plans",
+  "Not running": "À l'arrêt",
+  "Starting…": "Démarrage…",
+  "Status unknown": "État inconnu",
+  "Start service": "Démarrer",
+  "Stop service": "Arrêter",
+  "Stopping…": "Arrêt en cours…",
+  "Service stopped": "Service arrêté",
+  "Could not stop the service": "Impossible d’arrêter le service",
   "Background work": "Travail en arrière-plan",
   "Background commands after (seconds)": "Passer les commandes en arrière-plan après (secondes)",
   "A new reply is waiting": "Une nouvelle réponse vous attend",
@@ -8135,6 +8274,7 @@ var FR = {
   "Back to chat": "Retour à la discussion",
   "New…": "Nouveau…",
   "New section": "Nouvelle section",
+  "Ungrouped": "Sans groupe",
   "Rename section": "Renommer la section",
   "Section color": "Couleur de la section",
   "Move section up": "Monter la section",
@@ -10697,6 +10837,40 @@ var DSH_FR = {
 
 // src/client/locales/de.js
 var DE = {
+  "Add a to-do": "Aufgabe hinzufügen",
+  "What needs doing?": "Was ist zu tun?",
+  "New group chat": "Neuer Gruppenchat",
+  "Remove from the top bar": "Aus der oberen Leiste entfernen",
+  "Add to the top bar": "Zur oberen Leiste hinzufügen",
+  "Forwarded from {name}": "Weitergeleitet von {name}",
+  "Copy text": "Text kopieren",
+  "Forward to": "Weiterleiten an",
+  "Forward to {name}": "An {name} weiterleiten",
+  "Add to-do": "Aufgabe hinzufügen",
+  "Type a to-do and press Enter": "Aufgabe eingeben und Enter drücken",
+  "Saving keeps the text only — the attachment goes": "Beim Speichern bleibt nur der Text – der Anhang entfällt",
+  "Resize the to-do area": "Höhe des Aufgabenbereichs ändern",
+  "Not done": "Offen",
+  "Put it back": "Zurück in die Liste",
+  "Clear done": "Erledigte löschen",
+  "Clear item": "Löschen",
+  "Continue this chat": "Diesen Chat fortsetzen",
+  "Common actions": "Häufige Aktionen",
+  "Local model chat": "Chat mit lokalem Modell",
+  "Type a web address": "Webadresse eingeben",
+  "Open in the browser": "Im Browser öffnen",
+  "Sidebar views": "Seitenleisten-Ansichten",
+  "WeChat saved knowledge base": "Gespeicherte WeChat-Wissensdatenbank",
+  "Goofish monitor": "Goofish-Überwachung",
+  "Floorplan report site": "Grundriss-Berichtsseite",
+  "Not running": "Nicht gestartet",
+  "Starting…": "Wird gestartet…",
+  "Status unknown": "Status unbekannt",
+  "Start service": "Starten",
+  "Stop service": "Beenden",
+  "Stopping…": "Wird beendet…",
+  "Service stopped": "Dienst beendet",
+  "Could not stop the service": "Der Dienst konnte nicht beendet werden",
   "Background work": "Hintergrundarbeit",
   "Background commands after (seconds)": "Befehle in den Hintergrund nach (Sekunden)",
   "A new reply is waiting": "Eine neue Antwort wartet auf dich",
@@ -10758,6 +10932,7 @@ var DE = {
   "Back to chat": "Zurück zum Chat",
   "New…": "Neu…",
   "New section": "Neuer Abschnitt",
+  "Ungrouped": "Ohne Gruppe",
   "Rename section": "Abschnitt umbenennen",
   "Section color": "Abschnittsfarbe",
   "Move section up": "Abschnitt nach oben",
@@ -13378,6 +13553,7 @@ var ZH = {
   "Back to chat": "返回对话",
   "New…": "新建",
   "New section": "新建分组",
+  "Ungrouped": "未分组",
   "Rename section": "重命名分组",
   "Section color": "分组颜色",
   "Move section up": "上移分组",
@@ -13733,6 +13909,7 @@ var ZH = {
   "Queued file {name}": "排队文件 {name}",
   "Edit queued message": "编辑排队消息",
   "Contains non-text content, so editing is not supported yet": "包含非文本内容，暂不支持编辑",
+  "Saving keeps the text only — the attachment goes": "保存后只留文字，附件会被去掉",
   "Save queued message": "保存排队消息",
   "Cancel editing": "取消编辑",
   "Delete queued message": "删除排队消息",
@@ -14182,6 +14359,9 @@ var ZH = {
   "The code works once. It stops working in {count} min.": "这个码只能用一次，{count} 分钟后失效。",
   "Show a QR code": "显示二维码",
   "Open in a browser": "在浏览器中打开",
+  "Open in its own window": "在新窗口打开",
+  "Open these details in a window of their own": "把这份详情放到独立窗口",
+  "Close this window": "关闭这个窗口",
   "Web browser": "网页浏览器",
   "Copy browser link": "复制浏览器链接",
   "Clipboard is not available": "剪贴板不可用",
@@ -14197,6 +14377,12 @@ var ZH = {
   "Mark as Unread": "标为未读",
   "Mute notifications": "静音通知",
   "Unmute notifications": "取消静音",
+  "Add to the top bar": "加入顶部任务栏",
+  "Remove from the top bar": "取消任务栏展示",
+  "Copy text": "复制文字",
+  "Forward to": "转发给",
+  "Forward to {name}": "转发给 {name}",
+  "Forwarded from {name}": "转发自 {name}",
   Notifications: "通知",
   "Tell me when a Bot answers while I am looking elsewhere.": "Bot 在你没看着时回复，提醒我。",
   "System notifications are turned off for DS Bot. Unread marks still show them.": "DS Bot 的系统通知已被关闭，仍会用未读标记提示。",
@@ -14492,6 +14678,14 @@ var ZH = {
   "Saved {name}": "已保存 {name}",
   Canceled: "已取消",
   Done: "完成",
+  "Not done": "未完成",
+  "Put it back": "重新放回待办",
+  "Sidebar views": "侧栏视图",
+  "Clear done": "一键清理",
+  "Clear item": "清理",
+  "Continue this chat": "继续此对话",
+  "Add a to-do": "添加待办",
+  "What needs doing?": "要做什么？",
   "{bot} is using {name}": "{bot} 正在使用 {name}",
   "{bot} could not ask for a key: this window can only view the team": "{bot} 没能要密钥：这个窗口只能查看团队",
   "a saved key": "一个已保存的密钥",
@@ -14846,8 +15040,27 @@ var ZH = {
   "Scheduled task": "定时任务",
   "Start a fresh chat": "新开一个会话",
   "Team to-do": "总待办",
+  "Resize the to-do area": "调整待办区高度",
+  "Common actions": "常用操作",
+  "Type a web address": "输入网址",
+  "Open in the browser": "用浏览器打开",
+  "Local model chat": "本机模型聊天",
+  "WeChat saved knowledge base": "微信收藏知识库",
+  "Goofish monitor": "闲鱼监控",
+  "Floorplan report site": "户型报告站",
+  "Not running": "未运行",
+  "Starting…": "正在启动…",
+  "Status unknown": "状态未知",
+  "Start service": "开启",
+  "Stop service": "关闭",
+  "Stopping…": "正在关闭…",
+  "Service stopped": "服务已关闭",
+  "Could not stop the service": "没能关闭这个服务",
+  "New group chat": "新建群聊",
   "Team to-do, {count} open": "总待办，{count} 项未完成",
   "Nothing open on the team to-do list": "总待办里没有未完成的事",
+  "Add to-do": "添加待办",
+  "Type a to-do and press Enter": "输入待办内容，按回车添加",
   "Context {used} in use — a fresh chat starts empty": "上下文已用 {used} token — 开个新会话能从头开始",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "上下文已用 {used} token — 已过 27.2 万，整单按双倍价计费，建议换段",
   "Open the scheduled tasks of this chat": "打开这个会话的定时任务",
@@ -15595,14 +15808,14 @@ function noteClientError(where, error) {
   const message = String(error?.message ?? error ?? "error").slice(0, 300);
   const code = typeof error?.code === "string" ? error.code : void 0;
   const text = `${where}: ${message}`;
-  const now = Date.now();
+  const now2 = Date.now();
   const last = entries.at(-1);
-  if (last && last.text === text && now - last.time < REPEAT_MS) {
-    last.time = now;
+  if (last && last.text === text && now2 - last.time < REPEAT_MS) {
+    last.time = now2;
     last.count = (last.count ?? 1) + 1;
     return;
   }
-  entries.push({ time: now, level: "error", text, ...code ? { code } : {} });
+  entries.push({ time: now2, level: "error", text, ...code ? { code } : {} });
   if (entries.length > MAX) entries.splice(0, entries.length - MAX);
 }
 var quietly = (where) => (error) => noteClientError(where, error);
@@ -16260,6 +16473,14 @@ function teamActions({ call: call2, after, partFor, roster, ui, live, cards, hel
     runStats: (botId) => call2("run-stats", { botId }),
     // The team's one to-do file, which any Bot appends to with the team-todo skill.
     teamTodo: () => call2("team-todo", {}).catch(() => null),
+    // Ticking one off from the sidebar: the host writes the same file the skill writes.
+    teamTodoCheck: (id, done) => call2("team-todo-check", { id, done: done !== false }),
+    // Taking every ticked item out of the list in one click.
+    teamTodoClear: () => call2("team-todo-clear", {}),
+    // Taking one ticked item out, from that row's own menu.
+    teamTodoClearOne: (id) => call2("team-todo-clear-one", { id }),
+    // An item of the user's own, added from the sidebar.
+    teamTodoAdd: (text) => call2("team-todo-add", { text }),
     // `summarize` starts a summary when the entries changed; `regenerate` always does.
     memoryView: (id, flags = {}) => call2("memory-view", { ...memoryOf(id), ...flags }),
     memoryAsk: (id, text) => call2("memory-ask", { ...memoryOf(id), text }),
@@ -16812,24 +17033,24 @@ function clock(ms) {
   return new Date(ms).toLocaleTimeString(dateLocale(), { hour: "numeric", minute: "2-digit" });
 }
 var midnight = (value) => new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
-var daysBefore = (date, now) => Math.round((midnight(new Date(now)) - midnight(date)) / 864e5);
+var daysBefore = (date, now2) => Math.round((midnight(new Date(now2)) - midnight(date)) / 864e5);
 function dayLabel(ms) {
   const date = new Date(ms);
   const today = /* @__PURE__ */ new Date();
   const sameDay = date.toDateString() === today.toDateString();
   return sameDay ? t("Today {time}", { time: clock(ms) }) : `${date.toLocaleDateString(dateLocale(), { weekday: "short", month: "short", day: "numeric" })} ${clock(ms)}`;
 }
-function clockLabel(time, now = Date.now()) {
+function clockLabel(time, now2 = Date.now()) {
   const date = new Date(time);
-  const days = daysBefore(date, now);
+  const days = daysBefore(date, now2);
   const stamp = clock(time);
   if (days === 0) return t("Today {time}", { time: stamp });
   if (days === 1) return t("Yesterday {time}", { time: stamp });
-  const sameYear = date.getFullYear() === new Date(now).getFullYear();
+  const sameYear = date.getFullYear() === new Date(now2).getFullYear();
   return `${date.toLocaleDateString(dateLocale(), { weekday: "short", month: "short", day: "numeric", ...sameYear ? {} : { year: "numeric" } })} ${stamp}`;
 }
-function messageClock(time, now = Date.now()) {
-  return daysBefore(new Date(time), now) === 0 ? clock(time) : clockLabel(time, now);
+function messageClock(time, now2 = Date.now()) {
+  return daysBefore(new Date(time), now2) === 0 ? clock(time) : clockLabel(time, now2);
 }
 function relativeShort(ms) {
   const diff = Math.max(0, Date.now() - ms);
@@ -17087,9 +17308,9 @@ function liveSprings(apply2) {
   const current2 = {};
   let frame2 = 0;
   let last = 0;
-  const step = (now) => {
-    const dt = Math.min(0.5, Math.max(1e-3, (now - last) / 1e3));
-    last = now;
+  const step = (now2) => {
+    const dt = Math.min(0.5, Math.max(1e-3, (now2 - last) / 1e3));
+    last = now2;
     const steps = Math.ceil(dt * 240);
     const h79 = dt / steps;
     let moving = false;
@@ -17334,6 +17555,10 @@ var STORAGE = {
   browserWidth: "ds-bot:browser-width",
   browserImportSource: "ds-bot:browser-import-source",
   sidebar: "ds-bot:sidebar",
+  strip: "ds-bot:strip",
+  stripHidden: "ds-bot:strip-hidden",
+  stripRooms: "ds-bot:strip-rooms",
+  stripMain: "ds-bot:strip-main",
   browsers: "ds-bot.browser.v2",
   drafts: "ds-bot:drafts"
 };
@@ -17394,7 +17619,9 @@ function migrateStorage(storage = globalThis.localStorage) {
 // src/client/frame-layout.js
 var MIN_CHAT = 420;
 var RAIL_WIDTH = 88;
+var STRIP_H = 48;
 var PANEL_MIN = { details: 320, browser: 360, side: 320 };
+var PANEL_TIGHT = 260;
 var DSH_NARROW = 1024;
 var trackRoom = ({ width, right }) => Math.max(0, Math.min(width, right));
 var SIDEBAR_MIN = 264;
@@ -17420,7 +17647,7 @@ function frameLayout({ viewport, sidebarWidth, pref, drawer = false, panel = nul
         left = "rail";
         occupied = RAIL_WIDTH;
       }
-      panelState = occupied + need <= viewport ? "shown" : "overlay";
+      panelState = occupied + need <= viewport ? "shown" : viewport - occupied >= MIN_CHAT + PANEL_TIGHT ? "squeezed" : "overlay";
     } else panelState = "folded";
   }
   return { left, panel: panelState, column: occupied, room: Math.max(0, viewport - occupied) };
@@ -17559,7 +17786,66 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-stack-more{font-size:11px;line-height:16px;color:var(--bt-ink-3);margin-left:3px!important}
 
 .bt-side{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;gap:2px;padding:0 12px 8px 0;color:var(--bt-ink);font-family:var(--bt-font)}
-.bt-side-top{display:flex;flex-wrap:wrap;container-type:inline-size;container-name:bt-side-top;justify-content:flex-start;align-items:center;gap:8px;padding:6px 5px 0 0}
+.bt-side-top{display:flex;flex-wrap:wrap;container-type:inline-size;container-name:bt-side-top;justify-content:flex-start;align-items:center;gap:8px;padding:0 5px 0 0}
+/* The band's colours are Firefox's own tab strip, sampled off a screenshot of it: a flat
+   #ebe4f7 across the first 44% of the window, then a straight warm run to #f4e3de. They live on
+   the page, not on the band, because the band and the column's own title strip are two pieces of
+   one window-wide picture: both paint the same gradient pinned to the window, so the colour runs
+   on past the column without a seam. The dark theme keeps both hues at a night lightness.
+   The opaque edge colour is not decoration: the app samples the surface under the Windows
+   caption buttons and paints that solid colour behind them (Windows ignores the alpha of that
+   colour), so a band that were only a gradient left a white block in the corner. It carries the
+   ramp's right end, which is what sits under those buttons. */
+body{--bt-strip-grad:linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%);--bt-strip-fill:#f0e4ea;--bt-strip-edge:#f4e3de}
+/* The shell gives the conversation 64% of the chat area (clamped to 680..920), so on a wide window
+   most of the width goes to two empty margins. This is the column's width instead: the whole area
+   less a 30px gutter on each side, up to a cap so a very wide window does not stretch a line out of
+   reading range. The shell's own width handle still wins wherever the user has dragged one, because
+   that width is written inline on a closer element and this is only the inherited default. */
+:root{--dsh-chat-user-width:min(calc(100% - 60px),1180px)}
+body[data-ds-dark-theme]{--bt-strip-grad:linear-gradient(90deg,#2b2542 0%,#2b2542 44%,#3d2925 100%);--bt-strip-fill:#332a36;--bt-strip-edge:#3d2925}
+.bt-topstrip{position:fixed;top:var(--dsh-frame-chrome-top,0px);right:0;height:48px;z-index:35;display:flex;align-items:center;gap:0;padding:0 10px;background-color:var(--bt-strip-edge);background-image:var(--bt-strip-grad,linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%));background-size:100vw 100%;background-attachment:fixed;background-repeat:no-repeat;box-shadow:inset 0 -.5px 0 var(--bt-line);overflow:visible;pointer-events:none;font-family:var(--bt-font);user-select:none;-webkit-user-select:none}
+/* The band is a picture, not a surface: it no longer takes the window's drag, so a press
+   reaches whatever lies under it — the sidebar's own buttons sit in that strip of screen.
+   Only the faces are pressable, so nothing under an empty stretch of band is blocked. */
+.bt-topstrip .bt-topstrip-btn{-webkit-app-region:no-drag;app-region:no-drag;pointer-events:auto}
+/* Windows ignores the alpha of the caption buttons' colour and fills their background with the
+   colour it samples under them. The band is a gradient, which samples as transparent, so the
+   corner came out as the frame's white. This hit-testable patch at the band's right end carries
+   the ramp's end colour, so those buttons sit on the band's own colour; the faces above it are
+   the ones that take the presses. */
+.bt-topstrip-tint{position:absolute;top:0;right:0;width:180px;height:100%;z-index:0;background-color:var(--bt-strip-edge);pointer-events:auto}
+.bt-topstrip-row{position:relative;z-index:1}
+/* The face under the pointer names itself below the band, in the same clothes as the header's
+   name capsule: a card of its own, its own face leading the name. */
+.bt-topstrip-name{position:absolute;top:calc(100% + 12px);transform:translateX(-50%);z-index:40;display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);color:var(--bt-ink);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;pointer-events:none;border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow)}
+.bt-topstrip-name-mark{display:inline-flex;flex:none;align-items:center;justify-content:center}
+/* While that name names the conversation on screen, the header's own capsule steps aside:
+   one name at a time, in the place the eye already is. */
+body[data-bt-strip-hover=active] .bt-pill{opacity:0;pointer-events:none}
+/* The Main Bot has no slot in the strip; it closes the sidebar header row instead. */
+.bt-topstrip-row{flex:1 1 auto;min-width:0;height:100%;display:flex;align-items:center;justify-content:safe center;gap:11px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;pointer-events:none}
+.bt-topstrip-row::-webkit-scrollbar{display:none}
+/* The plate goes on with the growth: the face under the pointer sits on a soft disc rather
+   than floating over its neighbours. Every face keeps its own slot, so nothing else moves. */
+.bt-topstrip-btn{position:relative;flex:none;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:none;color:var(--bt-ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transform-origin:50% 55%;transition:transform .13s cubic-bezier(.2,.7,.3,1.1),background-color .12s ease-out,box-shadow .12s ease-out;-webkit-user-drag:element}
+/* On the grey band the open Bot reads as a neutral keycap with a quiet accent rim, rather
+   than a white card that competes with the character. */
+.bt-topstrip-btn[data-active=true]{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 76%,transparent),inset 0 -1px 2px color-mix(in srgb,var(--bt-ink) 8%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 42%,transparent),0 3px 8px -4px rgba(20,20,20,.3)}
+@media (hover:hover){
+.bt-topstrip-btn:hover:not([data-active=true]){z-index:3;transform:scale(1.24);background:color-mix(in srgb,var(--bt-card) 85%,transparent);box-shadow:0 3px 10px -2px rgba(20,20,20,.24)}
+.bt-topstrip-btn[data-active=true]:hover{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 12%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 82%,transparent),inset 0 -1px 2px color-mix(in srgb,var(--bt-ink) 10%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 68%,transparent),0 4px 10px -4px rgba(20,20,20,.34)}
+.bt-topstrip-btn[data-active=true]:active{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 15%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 72%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 82%,transparent),0 1px 4px -1px rgba(20,20,20,.32)}
+}
+.bt-topstrip-btn:active{background:color-mix(in srgb,var(--bt-ink) 16%,transparent)}
+/* A Bot at work wears the same badge its row wears — a breathing green disc at the lower
+   right — rather than a bar under the face. */
+.bt-topstrip-btn .bt-badge{box-shadow:0 0 0 1.5px var(--bt-strip-fill,var(--bt-main))}
+.bt-topstrip-btn[data-running=true] .bt-badge-working{animation:bt-work-breathe 2s ease-in-out infinite}
+@keyframes bt-work-breathe{0%,100%{opacity:.5;transform:scale(.78)}50%{opacity:1;transform:scale(1)}}
+body:is([data-bt-motion=quiet],[data-bt-effects=reduced],[data-bt-effects=off]) .bt-topstrip-btn .bt-badge-working{animation:none;opacity:1;transform:none}
+.bt-topstrip-btn .bt-badge-main path{stroke:var(--bt-strip-fill,var(--bt-main))}
+.bt-topstrip-btn[data-unread=true]::after{content:'';position:absolute;right:2px;top:2px;width:7px;height:7px;border-radius:50%;background:var(--bt-star);box-shadow:0 0 0 2px var(--bt-main)}
 .bt-brand{display:inline-flex;align-items:center;gap:6px;margin-right:auto;padding:4px 8px 4px 4px;border:0;border-radius:8px;background:none;cursor:pointer;font-family:inherit;font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.01em;color:var(--bt-ink);white-space:nowrap}
 .bt-brand-whale{display:inline-flex;color:var(--bt-accent)}
 .bt-round{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--bt-line);background:var(--bt-main);color:var(--bt-ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background-color .12s ease,transform .12s ease}
@@ -17568,12 +17854,19 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-round:hover{background:var(--bt-hover)}
 .bt-round:active{transform:scale(.94)}
 .bt-list{display:flex;flex-direction:column;gap:3px;overflow-y:auto;min-height:0;flex:1 1 auto}
-/* Chromium ignores ::-webkit-scrollbar when scrollbar-width or scrollbar-color (inherited) is non-auto. */
-.bt-side:not(.bt-rail)>.bt-list{margin-right:-12px;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-color:auto}
+/* Chromium ignores ::-webkit-scrollbar when scrollbar-width or scrollbar-color (inherited) is non-auto.
+   The list bleeds through both right insets above it — the side's 12px and the column's own 12px —
+   and puts the row's 12px back as padding, so the scrollbar's gutter ends on the column's edge
+   instead of a whole gutter short of it. */
+.bt-side:not(.bt-rail)>.bt-list{margin-right:-24px;padding-right:12px;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-color:auto}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar{width:12px}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar-track{background:transparent}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar-thumb{border:4px solid transparent;border-radius:6px;background:color-mix(in srgb,var(--bt-ink) 16%,transparent) padding-box}
 .bt-side:not(.bt-rail)>.bt-list:hover::-webkit-scrollbar-thumb{background-color:color-mix(in srgb,var(--bt-ink) 30%,transparent)}
+/* The Main Bot's row stands directly above the list, outside its scroll box: it cannot move,
+   and the list's own top fade dissolves the rows passing under it at its lower edge. */
+.bt-list-pin{flex:none;margin-right:-12px}
+.bt-list-pin[data-shadow]{box-shadow:0 7px 10px -9px rgba(20,20,20,.45)}
 .bt-tile-wrap{display:flex;justify-content:center;padding:20px 0 15px}
 .bt-tile{display:flex;flex-direction:column;align-items:center;gap:4px;width:95px;padding:6px 8px 4px;border-radius:16px;border:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:inherit;transition:background-color .12s ease}
 .bt-tile:hover{background:var(--bt-hover)}
@@ -17593,12 +17886,37 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-row-preview{font-size:13px;line-height:18px;color:var(--bt-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt-unread{width:8px;height:8px;border-radius:50%;background:var(--bt-accent);flex:none;margin-right:2px;animation:bt-fade .13s cubic-bezier(.22,1,.36,1)}
 .bt-unread-wait{background:var(--bt-star)}
-/* Our own left column, portalled over the shell's collapsed sidebar. It reaches
-   the window's top edge so the title band and the column share one fill (under
-   Mica the app styles DSH's sidebar the same way, via --bt-leftcol-fill there);
-   it stays under the shell's title-bar switch (z 30) and the popovers (z 60),
-   and the floating drawer keeps the opaque fill over the conversation. */
-.bt-leftcol{position:fixed;left:0;top:0;bottom:0;z-index:25;display:flex;--bt-lc-clear:var(--dsh-frame-top-clearance,var(--dsh-windows-titlebar-height,0px));background:var(--bt-leftcol-fill,var(--bt-sidebar));border-right:.5px solid var(--bt-line);box-sizing:border-box;padding:calc(var(--bt-lc-clear) + 6px) 12px 6px;color:var(--bt-ink);font-family:var(--bt-font)}
+/* Our own left column, portalled over the shell's collapsed sidebar. It sits above the shell's
+   title-bar switch (z 30) so the column's own top row answers the press, and under the popovers
+   (z 60) and the right-hand panes. The floating drawer keeps the opaque fill over the
+   conversation. */
+.bt-leftcol{position:fixed;left:0;top:0;bottom:0;z-index:31;display:flex;--bt-lc-clear:var(--dsh-frame-top-clearance,var(--dsh-windows-titlebar-height,0px));background:var(--bt-leftcol-fill,var(--bt-sidebar));border-right:.5px solid var(--bt-line);box-sizing:border-box;padding:7px 12px 6px;color:var(--bt-ink);font-family:var(--bt-font)}
+/* The shell paints the window's drag band across the whole top of the frame (its own
+   frame::before carries -webkit-app-region:drag), and this column lies over it. Without a
+   hole punched here the band swallows every press on the column's top row — the switch,
+   the new-section, search and new buttons all looked dead. The column is ours and is not a
+   drag handle: the window is still dragged from the band over the conversation. */
+html[data-windows-titlebar] .bt-leftcol{-webkit-app-region:no-drag;app-region:no-drag}
+/* The window's own top bar: the column's title row belongs to the window edge, not to the
+   column, so dragging the column wider or narrower never moves it and the band above the
+   conversation and the band above the column are one picture. It paints that picture itself —
+   the same gradient pinned to the window — so the split below never shows through it and the
+   column's edge does not cut it in two. It is a layer, not a surface: only the controls inside it
+   take a press, so the band still drags the window elsewhere. */
+.bt-topbar{position:fixed;top:var(--dsh-frame-chrome-top,0px);left:0;right:0;height:48px;z-index:34;display:flex;align-items:center;gap:8px;box-sizing:border-box;padding:0 12px;pointer-events:none;font-family:var(--bt-font);background-color:var(--bt-strip-edge,#f4e3de);background-image:var(--bt-strip-grad,linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%));background-size:100vw 100%;background-attachment:fixed;background-repeat:no-repeat;box-shadow:inset 0 -.5px 0 var(--bt-line)}
+.bt-topbar>.bt-side-top{flex:0 1 auto;min-width:0;padding:0;container-type:normal;width:auto;flex-wrap:nowrap}
+.bt-topbar :is(button,a,[role=button]){pointer-events:auto;-webkit-app-region:no-drag;app-region:no-drag}
+/* The caption buttons' background is sampled at the window's top-right corner, and this bar is
+   click-through, so it is invisible to that sampling. This sliver at its right end is the sample:
+   the ramp's end colour, standing where those buttons are drawn. */
+.bt-topbar-tint{position:absolute;top:0;right:0;width:6px;height:100%;background-color:var(--bt-strip-edge,#f4e3de);pointer-events:auto}
+/* The column begins under that bar instead of painting a title row of its own: its top edge, its
+   fill and its divider all start below the band, so the bar is one strip across the window and
+   the split below it is only the split below it. */
+.bt-leftcol[data-topbar]{top:calc(var(--dsh-frame-chrome-top,0px) + 48px);padding-top:7px}
+/* The column's top row sits at the very top of the window on Windows; on macOS the traffic
+   lights own that corner, so the clearance stays there. */
+html[data-platform=darwin] .bt-leftcol{padding-top:var(--bt-lc-clear)}
 html[data-windows-titlebar] .bt-leftcol,html[data-platform=darwin] .bt-leftcol{border-right:none}
 .bt-leftcol{animation:bt-leftcol-in ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
 .bt-leftcol[data-leaving]{transform:translateX(-100%);transition:transform ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing};pointer-events:none}
@@ -17650,7 +17968,10 @@ html[data-bt-collapsing] [class*="_frame"]:has(>[class*="_sidebarCol"]){transiti
 .bt-dot-wait{background:var(--bt-star)}
 
 .bt-head{position:relative;display:flex;justify-content:center;align-items:center;height:40px;flex:none;pointer-events:none}
-.bt-pill{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;min-width:0;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow);color:var(--bt-ink);font-family:inherit;font-size:14px;line-height:20px;cursor:pointer;max-width:70%;box-sizing:border-box;transition:background-color .12s ease,transform ${SPRING_TAP.duration}ms ${SPRING_TAP.easing}}
+.bt-pill{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;min-width:0;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow);color:var(--bt-ink);font-family:inherit;font-size:14px;line-height:20px;cursor:pointer;max-width:70%;box-sizing:border-box;transition:background-color .12s ease,opacity .12s ease,transform ${SPRING_TAP.duration}ms ${SPRING_TAP.easing}}
+/* The strip's name is the label while it is shown; the centred capsule would say the same
+   thing twice. */
+body:has(.bt-topstrip-name) .bt-head>.bt-pill{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px) scale(.97);transition:opacity .12s ease,transform .12s ease,visibility 0s .12s}
 .bt-pill:hover{background:color-mix(in srgb,var(--bt-ink) 5%,var(--bt-glass-bg))}
 .bt-pill:active{transform:scale(.965)}
 .bt-pill-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
@@ -17869,12 +18190,14 @@ body[data-ds-dark-theme] .bt-q.bt-q-settled[data-expandable]:not([data-open]):ho
 .bt-send:disabled{opacity:.35;cursor:default}
 .bt-error{padding:0 14px 10px;color:var(--bt-danger);font-size:12px}
 
-/* Side panels keep their content clear of the Windows caption buttons. A host may set the
-   chrome top to 0 so that dialog masks also cover the caption band; the panel then reaches
+/* Side panes keep their content clear of the Windows caption buttons. A host may set the
+   chrome top to 0 so that dialog masks also cover the caption band; the pane then reaches
    the top edge, its own surface under the buttons, and the band over it still drags the
-   window. Where the chrome top already clears the title bar the band is 0. */
-html[data-windows-titlebar]:not([data-fullscreen]) :is(.bt-pane,.bt-panel){--bt-caption-band:calc(var(--dsh-windows-titlebar-height,0px) - var(--dsh-frame-chrome-top,0px));padding-top:var(--bt-caption-band)}
-html[data-windows-titlebar]:not([data-fullscreen]) :is(.bt-pane,.bt-panel)::before{content:"";position:absolute;top:0;left:0;right:0;height:var(--bt-caption-band);-webkit-app-region:drag}
+   window. Where the chrome top already clears the title bar the band is 0.
+   The Bot panel is not one of these any more: it starts under the window bar, so it never sits
+   under the caption buttons and opening it cannot move what they stand on. */
+html[data-windows-titlebar]:not([data-fullscreen]) .bt-pane{--bt-caption-band:calc(var(--dsh-windows-titlebar-height,0px) - var(--dsh-frame-chrome-top,0px));padding-top:var(--bt-caption-band)}
+html[data-windows-titlebar]:not([data-fullscreen]) .bt-pane::before{content:"";position:absolute;top:0;left:0;right:0;height:var(--bt-caption-band);-webkit-app-region:drag}
 /* On macOS a side panel reaches the window's top edge, where the window drag strip is.
    Its top row (either .bt-ptabs or, when no strip is shown, the drawer's own top row) is
    that strip: it drags where no chip or button covers it, and controls stay no-drag. The
@@ -17918,7 +18241,10 @@ html[data-platform=darwin] .bt-panel [data-window-drag] :is(a,button,input,texta
 .bt-soft:hover{background:var(--bt-active)}
 .bt-time{display:block;text-align:center;font-size:12px;line-height:16px;color:var(--bt-ink-2);padding:6px 0}
 
-.bt-panel{position:fixed;top:var(--dsh-frame-chrome-top,0px);right:0;bottom:0;width:var(--bt-panel-w,320px);pointer-events:auto;z-index:40;background:var(--bt-main);border-left:.5px solid var(--bt-line-2);display:flex;flex-direction:column;color:var(--bt-ink);font-family:var(--bt-font);box-sizing:border-box;animation:bt-pane-in .3s cubic-bezier(.2,0,0,1);transition:width ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
+/* The panel hangs under the window bar: the band above it stays the band, whole and untouched,
+   so the caption buttons and the bar itself never move because a panel opened, and the panel's
+   own top row (settings, more, share, close) keeps its place. */
+.bt-panel{position:fixed;top:calc(var(--dsh-frame-chrome-top,0px) + 48px);right:0;bottom:0;width:var(--bt-panel-w,320px);pointer-events:auto;z-index:40;background:var(--bt-main);border-left:.5px solid var(--bt-line-2);display:flex;flex-direction:column;color:var(--bt-ink);font-family:var(--bt-font);box-sizing:border-box;animation:bt-pane-in .3s cubic-bezier(.2,0,0,1);transition:width ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
 .bt-panel[data-leaving]{transform:translateX(100%);transition:transform .3s cubic-bezier(.2,0,0,1);pointer-events:none}
 .bt-panel[data-instant]{transition:none}
 @keyframes bt-pane-in{from{transform:translateX(100%)}}
@@ -18231,7 +18557,7 @@ button.bt-set-row:hover .bt-chevron{transform:translateX(2px);color:var(--bt-ink
    logo row stays, flattened to nothing. */
 html:not([data-windows-titlebar]) :not([class*="_collapsed"])>[class*="_logoRow"]{display:none!important}
 html[data-windows-titlebar] :not([class*="_collapsed"])>[class*="_logoRow"]{height:0!important;margin:0!important}
-html[data-windows-titlebar] .bt-side-collapse{display:none}
+html[data-windows-titlebar] .bt-side-collapse{display:inline-flex}
 /* The sidebar switch is always the team view's own, so the shell's is hidden wherever it
    sits: in the logo row, or in the top strip of a macOS desktop window. The strip stays,
    as the window's drag area. Left showing, the shell's toggle expands the shell sidebar
@@ -18241,7 +18567,7 @@ html[data-windows-titlebar] .bt-side-collapse{display:none}
 /* Under a Windows title bar our own switch takes the shell's place in the band. A host
    whose window controls stand at the band's left (the macOS traffic lights) sets
    --bt-caption-start to the room they take. */
-html[data-windows-titlebar] .bt-title-toggle{position:fixed;left:calc(12px + var(--bt-caption-start,0px));top:calc((var(--dsh-windows-titlebar-height,0px) - 28px) / 2);width:28px;height:28px;z-index:30;-webkit-app-region:no-drag;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:6px;padding:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:var(--bt-font)}
+html[data-windows-titlebar] .bt-title-toggle{position:fixed;left:calc(12px + var(--bt-caption-start,0px));top:calc((var(--dsh-windows-titlebar-height,0px) - 28px) / 2);width:28px;height:28px;z-index:40;-webkit-app-region:no-drag;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:6px;padding:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:var(--bt-font)}
 html[data-windows-titlebar] .bt-title-toggle:hover{background:var(--bt-hover)}
 /* Elsewhere the switch shows only while the column is hidden, where the column's
    own top row had it. */
@@ -18346,6 +18672,7 @@ button:hover .bt-you{background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-side
 .bt-you-wrap{display:inline-flex;padding:0}
 
 .bt-menu{position:fixed;pointer-events:auto;z-index:60;min-width:200px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;padding:6px;border-radius:12px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow),0 0 0 1px rgba(228,228,228,.04);display:flex;flex-direction:column;gap:2px;transform-origin:var(--bt-origin,top left);animation:bt-pop-drop ${SPRING_TAP.duration}ms ${SPRING_TAP.easing},bt-veil-in .14s ease-out;font-family:var(--bt-font);box-sizing:border-box}
+.bt-menu-scroll{flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:2px;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--bt-ink) 26%,transparent) transparent}
 .bt-menu button{display:flex;align-items:center;gap:4px;width:100%;min-height:30px;text-align:left;border:0;background:none;border-radius:6px;padding:6px 8px;font:inherit;font-size:13px;line-height:18px;color:var(--bt-ink);cursor:pointer;box-sizing:border-box}
 .bt-menu button:hover{background:var(--bt-hover)}
 .bt-menu button svg{flex:none;width:16px;height:16px;margin:0 1px}
@@ -18354,6 +18681,7 @@ button:hover .bt-you{background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-side
 .bt-menu-up{--bt-origin:bottom left;animation-name:bt-pop-lift,bt-veil-in}
 .bt-menu[data-leaving]{pointer-events:none;animation:bt-pop-out .12s cubic-bezier(.4,0,1,1) forwards}
 .bt-menu-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-menu-caption{padding:6px 10px 2px;font-size:11px;line-height:15px;color:var(--bt-ink-3);white-space:nowrap}
 .bt-menu-hint{flex:none;color:var(--bt-ink-3);font-size:12px;font-variant-numeric:tabular-nums}
 .bt-palette-layer{position:fixed;inset:var(--dsh-frame-chrome-top,0px) 0 0;z-index:70;pointer-events:auto;font-family:var(--bt-font)}
 .bt-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.46);animation:bt-fade .22s ease-out}
@@ -19462,7 +19790,7 @@ function ShareIcon() {
 function CloseIcon() {
   return (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 5l10 10M15 5L5 15", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }));
 }
-var StopIcon = ({ size = 14, inset = 5 } = {}) => (0, import_react3.createElement)("svg", { width: size, height: size, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx: 2.5, fill: "currentColor" }));
+var StopIcon = ({ size = 14, inset = 5, rx = 2.5 } = {}) => (0, import_react3.createElement)("svg", { width: size, height: size, viewBox: "0 0 20 20", "aria-hidden": true }, (0, import_react3.createElement)("rect", { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx, fill: "currentColor" }));
 var ChevronLeftIcon = () => (0, import_react3.createElement)("svg", { width: 16, height: 16, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M12.5 4.5L7 10l5.5 5.5" }));
 var ChevronRightIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M7.5 4.5L13 10l-5.5 5.5" }));
 var ChevronDownIcon = () => (0, import_react3.createElement)("svg", { width: 14, height: 14, viewBox: "0 0 20 20", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react3.createElement)("path", { d: "M5 7.5L10 12.5L15 7.5" }));
@@ -19542,14 +19870,20 @@ var GoalIcon = lineIcon(["M15.1 8.8A6.5 6.5 0 1 1 11.2 4.9", "M9 8a3 3 0 1 0 0 6
 var ChatsIcon = lineIcon(["M3.5 5.5A1.5 1.5 0 0 1 5 4h7a1.5 1.5 0 0 1 1.5 1.5V10A1.5 1.5 0 0 1 12 11.5H8L5 14v-2.5A1.5 1.5 0 0 1 3.5 10z", "M13.5 7.5H15A1.5 1.5 0 0 1 16.5 9v4.5A1.5 1.5 0 0 1 15 15v2l-2.5-2h-3A1.5 1.5 0 0 1 8 13.5V13"]);
 var ImIcon = lineIcon(["M6.5 3.5h7A1.5 1.5 0 0 1 15 5v10a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 5 15V5a1.5 1.5 0 0 1 1.5-1.5z", "M8 15.8h4", "M8 6.5h4A1 1 0 0 1 13 7.5v2a1 1 0 0 1-1 1h-2.5L8 12v-5.5A1 1 0 0 1 8 6.5z"]);
 var QueueIcon = lineIcon(["M4 6h12", "M4 10h12", "M4 14h8", "M14 12.5l2 1.5-2 1.5"]);
+var PopoutIcon = lineIcon(["M11.5 3.5h5v5", "M16.5 3.5 9.5 10.5", "M8.5 5.5H5A1.5 1.5 0 0 0 3.5 7v8A1.5 1.5 0 0 0 5 16.5h8A1.5 1.5 0 0 0 14.5 15v-3.5"]);
 var SETTINGS_ICONS = { general: GearIcon, bots: PeopleIcon, groups: ChatsIcon, im: ImIcon, usage: GaugeIcon };
 
 // src/client/todo-panel.js
 var import_react4 = require("react");
+var import_react_dom = require("react-dom");
 var POLL_MS = 3e4;
-function TeamTodoPanel({ actions }) {
+var rowsOf = (list, key) => Array.isArray(list?.[key]) ? list[key] : [];
+var countOf = (list) => {
+  const items = rowsOf(list, "items");
+  return Number.isFinite(list?.open) ? list.open : items.filter((item) => item.done !== true).length;
+};
+function useTodo(actions) {
   const [list, setList] = (0, import_react4.useState)(null);
-  const [open, setOpen] = (0, import_react4.useState)(false);
   (0, import_react4.useEffect)(() => {
     if (typeof actions?.teamTodo !== "function") return void 0;
     let live = true;
@@ -19564,15 +19898,643 @@ function TeamTodoPanel({ actions }) {
     };
     read();
     const timer = setInterval(read, POLL_MS);
+    const asked = () => read();
+    if (typeof window !== "undefined" && typeof window.addEventListener === "function") window.addEventListener("bt-todo-changed", asked);
     return () => {
       live = false;
       clearInterval(timer);
+      if (typeof window !== "undefined" && typeof window.removeEventListener === "function") window.removeEventListener("bt-todo-changed", asked);
     };
   }, [actions]);
+  const settle = (promise) => {
+    void Promise.resolve(promise).then(
+      (next) => {
+        if (next && typeof next === "object") setList(next);
+      },
+      () => {
+      }
+    );
+  };
+  const tick = (item, done) => {
+    if (typeof actions?.teamTodoCheck !== "function") return;
+    setList((previous) => {
+      if (previous === null || previous === void 0) return previous;
+      const live = rowsOf(previous, "items");
+      const at = live.findIndex((row) => row.id === item.id);
+      if (at >= 0) {
+        const next = live.slice();
+        next[at] = { ...next[at], done, doneAt: done ? next[at].doneAt : "" };
+        return {
+          ...previous,
+          open: next.filter((row) => row.done !== true).length,
+          done: next.filter((row) => row.done === true).length,
+          items: next
+        };
+      }
+      const history = rowsOf(previous, "history").filter((row) => row.id !== item.id);
+      const back = { ...item, done: false };
+      const added = String(back.at ?? "");
+      const before = live.findIndex((row) => String(row.at ?? "") < added);
+      return {
+        ...previous,
+        open: (Number(previous.open) || 0) + (done ? 0 : 1),
+        done: Math.max(0, (Number(previous.done) || 0) - (done ? 1 : 0)),
+        items: done ? live : before < 0 ? [...live, back] : [...live.slice(0, before), back, ...live.slice(before)],
+        history: done ? history : history.filter((row) => row.id !== item.id)
+      };
+    });
+    settle(actions.teamTodoCheck(item.id, done));
+  };
+  const clear = () => {
+    if (typeof actions?.teamTodoClear !== "function") return;
+    setList((previous) => {
+      if (previous === null || previous === void 0) return previous;
+      const live = rowsOf(previous, "items");
+      const leaving = live.filter((row) => row.done === true);
+      if (leaving.length === 0) return previous;
+      return {
+        ...previous,
+        open: live.filter((row) => row.done !== true).length,
+        done: 0,
+        items: live.filter((row) => row.done !== true),
+        history: [...leaving.map((row) => ({ ...row, clearedAt: "" })), ...rowsOf(previous, "history")]
+      };
+    });
+    settle(actions.teamTodoClear());
+  };
+  const add = (text) => {
+    const clean = String(text ?? "").trim();
+    if (clean === "" || typeof actions?.teamTodoAdd !== "function") return;
+    settle(actions.teamTodoAdd(clean));
+  };
+  const clearOne = (item) => {
+    if (typeof actions?.teamTodoClearOne !== "function") return;
+    setList((previous) => {
+      if (previous === null || previous === void 0) return previous;
+      const live = rowsOf(previous, "items");
+      const leaving = live.find((row) => row.id === item.id);
+      if (leaving === void 0) return previous;
+      return {
+        ...previous,
+        open: live.filter((row) => row.done !== true).length,
+        done: Math.max(0, (Number(previous.done) || 0) - 1),
+        items: live.filter((row) => row.id !== item.id),
+        history: [{ ...leaving, clearedAt: "" }, ...rowsOf(previous, "history")]
+      };
+    });
+    settle(actions.teamTodoClearOne(item.id));
+  };
+  return { list, tick, clear, clearOne, add };
+}
+function TodoRow({ item, done, onTick, onMenu, onPeek }) {
+  return (0, import_react4.createElement)(
+    "li",
+    {
+      key: item.id || item.text,
+      className: "bt-todo-item",
+      "data-done": done ? "" : void 0,
+      onContextMenu: onMenu ? (event) => {
+        event.preventDefault();
+        onMenu(event, item);
+      } : void 0,
+      // A left press opens the whole line: the row is cut to one line, the card holds all of
+      // it. The box is the one place a press means something else.
+      onClick: onPeek ? (event) => {
+        if (event.target?.closest?.("input")) return;
+        onPeek(event, item);
+      } : void 0
+    },
+    (0, import_react4.createElement)("input", {
+      type: "checkbox",
+      className: "bt-todo-box",
+      checked: done,
+      "aria-label": `${done ? t("Done") : t("Not done")} · ${item.text}`,
+      title: done ? t("Put it back") : t("Done"),
+      onChange: () => onTick(item, !done)
+    }),
+    (0, import_react4.createElement)("span", { className: "bt-todo-text" }, item.text),
+    item.from ? (0, import_react4.createElement)("span", { className: "bt-todo-from" }, item.from) : null
+  );
+}
+var portal = (node, key) => typeof import_react_dom.createPortal === "function" && typeof document !== "undefined" ? (0, import_react_dom.createPortal)(node, document.body, key) : node;
+var stampLabel = (stamp) => {
+  const text = String(stamp ?? "");
+  return text.length >= 16 ? `${text.slice(0, 10)} ${text.slice(11, 16)}` : "";
+};
+function TodoLists({ list, showDone, onShowDone, tick, clear, onMenu }) {
+  const rows2 = rowsOf(list, "items");
+  const history = rowsOf(list, "history");
+  const doneCount = rows2.filter((row) => row.done === true).length;
+  const archived = Number.isFinite(list?.done) ? rowsOf(list, "history").length : history.length;
+  const [peek, setPeek] = (0, import_react4.useState)(null);
+  const [copied, setCopied] = (0, import_react4.useState)(false);
+  (0, import_react4.useEffect)(() => {
+    if (peek === null || typeof window === "undefined") return void 0;
+    const hide = () => {
+      setPeek(null);
+      setCopied(false);
+    };
+    const onKey = (event) => {
+      if (event.key === "Escape") hide();
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", hide, true);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", hide, true);
+    };
+  }, [peek]);
+  const openPeek = (event, item) => {
+    if (peek !== null && peek.item.id === item.id) {
+      setPeek(null);
+      setCopied(false);
+      return;
+    }
+    const view = typeof window === "undefined" ? { innerWidth: 1280, innerHeight: 800 } : window;
+    const box = event.currentTarget.getBoundingClientRect();
+    const width = Math.min(320, view.innerWidth - 24);
+    const lines = Math.ceil(String(item.text ?? "").length / 26) + 1;
+    const height = Math.min(300, 62 + Math.min(lines, 12) * 18);
+    const left = Math.max(12, Math.min(box.left, view.innerWidth - width - 12));
+    const below = box.bottom + 6;
+    setCopied(false);
+    setPeek({ item, left, width, top: below + height > view.innerHeight - 12 ? Math.max(12, box.top - 6 - height) : below });
+  };
+  const copyButton = copied ? (0, import_react4.createElement)("button", { type: "button", className: "bt-todo-card-copy", onClick: () => {
+    void (0, import_dsh_client_ui_primitives.writeClipboard)(peek.item.text);
+  } }, t("Copied")) : (0, import_react4.createElement)("button", { type: "button", className: "bt-todo-card-copy", onClick: () => {
+    void (0, import_dsh_client_ui_primitives.writeClipboard)(peek.item.text);
+    setCopied(true);
+  } }, t("Copy"));
+  const peekCard = peek === null ? null : portal((0, import_react4.createElement)(
+    "div",
+    {
+      className: "bt-todo-card",
+      role: "dialog",
+      "aria-label": peek.item.text,
+      style: { left: `${peek.left}px`, top: `${peek.top}px`, width: `${peek.width}px` },
+      onMouseLeave: () => {
+        const picked = typeof window === "undefined" ? "" : window.getSelection?.()?.toString?.() ?? "";
+        if (picked !== "") return;
+        setPeek(null);
+        setCopied(false);
+      }
+    },
+    (0, import_react4.createElement)("div", { className: "bt-todo-card-meta" }, [peek.item.from, stampLabel(peek.item.at)].filter(Boolean).join(" · ")),
+    (0, import_react4.createElement)("div", { className: "bt-todo-card-text" }, peek.item.text),
+    copyButton
+  ), "peek");
+  return [
+    rows2.length > 0 ? (0, import_react4.createElement)(
+      "ul",
+      { key: "rows", className: "bt-todo-list" },
+      rows2.map((item) => (0, import_react4.createElement)(TodoRow, { key: item.id || item.text, item, done: item.done === true, onTick: tick, onMenu, onPeek: openPeek }))
+    ) : (0, import_react4.createElement)("div", { key: "empty", className: "bt-todo-empty" }, t("Nothing open on the team to-do list")),
+    doneCount > 0 ? (0, import_react4.createElement)(
+      "button",
+      { key: "clear", type: "button", className: "bt-todo-clear", onClick: clear },
+      `${t("Clear done")} · ${doneCount}`
+    ) : null,
+    archived > 0 ? (0, import_react4.createElement)(
+      "button",
+      {
+        key: "done-head",
+        type: "button",
+        className: "bt-todo-history-head",
+        "aria-expanded": showDone ? "true" : "false",
+        onClick: onShowDone
+      },
+      (0, import_react4.createElement)("span", null, `${t("Done")} · ${archived}`),
+      (0, import_react4.createElement)("span", { className: "bt-todo-chev", "data-open": showDone ? "" : void 0 }, (0, import_react4.createElement)(ChevronDownIcon))
+    ) : null,
+    showDone && history.length > 0 ? (0, import_react4.createElement)(
+      "ul",
+      { key: "done", className: "bt-todo-list bt-todo-history" },
+      history.map((item) => (0, import_react4.createElement)(TodoRow, { key: item.id || item.text, item, done: true, onTick: tick, onPeek: openPeek }))
+    ) : null,
+    peekCard
+  ];
+}
+function TodoMenu({ menu, onClose, onOpen, onClear, onCopy }) {
+  if (menu === null) return null;
+  const own = String(menu.item?.from ?? "") === "user";
+  const kind = menu.item?.done === true ? "clear" : own ? "copy" : "open";
+  const usable = kind === "clear" ? typeof onClear === "function" : kind === "copy" ? typeof onCopy === "function" : menu.canOpen === true;
+  const label = kind === "clear" ? t("Clear item") : kind === "copy" ? t("Copy") : t("Continue this chat");
+  const run2 = () => {
+    onClose();
+    if (kind === "clear") onClear(menu.item);
+    else if (kind === "copy") onCopy(menu.item);
+    else onOpen(menu.item);
+  };
+  return [
+    (0, import_react4.createElement)("div", { key: "scrim", className: "bt-todo-scrim", onClick: onClose, onContextMenu: (event) => {
+      event.preventDefault();
+      onClose();
+    } }),
+    (0, import_react4.createElement)(
+      "div",
+      {
+        key: "menu",
+        className: "bt-todo-menu",
+        role: "menu",
+        style: { left: `${menu.x}px`, top: `${menu.y}px` }
+      },
+      (0, import_react4.createElement)("button", {
+        type: "button",
+        role: "menuitem",
+        className: "bt-todo-menu-item",
+        disabled: !usable,
+        onClick: run2
+      }, label)
+    )
+  ];
+}
+function AddTodoMenu({ menu, onClose, onAdd }) {
+  if (menu === null) return null;
+  return [
+    (0, import_react4.createElement)("div", { key: "scrim", className: "bt-todo-scrim", onClick: onClose, onContextMenu: (event) => {
+      event.preventDefault();
+      onClose();
+    } }),
+    (0, import_react4.createElement)(
+      "div",
+      {
+        key: "menu",
+        className: "bt-todo-menu",
+        role: "menu",
+        style: { left: `${menu.x}px`, top: `${menu.y}px` }
+      },
+      (0, import_react4.createElement)("button", {
+        type: "button",
+        role: "menuitem",
+        className: "bt-todo-menu-item",
+        onClick: () => {
+          onClose();
+          onAdd();
+        }
+      }, t("Add to-do"))
+    )
+  ];
+}
+var VIEWS = [
+  { id: "todo", label: () => t("Team to-do") },
+  { id: "quick", label: () => t("Common actions") }
+];
+var VIEW_KEY = "ds-bot:side-view";
+function readSavedView() {
+  try {
+    const stored = globalThis.localStorage?.getItem(VIEW_KEY);
+    return VIEWS.some((entry) => entry.id === stored) ? stored : null;
+  } catch {
+    return null;
+  }
+}
+function rememberView(id) {
+  try {
+    globalThis.localStorage?.setItem(VIEW_KEY, id);
+  } catch {
+  }
+}
+var LAUNCHER_BASE = "http://127.0.0.1:18920";
+var SERVICE_START_WAIT_MS = 45e3;
+var LAUNCHER = `${LAUNCHER_BASE}/open/`;
+var QUICK_SERVICES = [
+  { id: "anythingllm", label: () => t("WeChat saved knowledge base"), url: "http://localhost:3001/" },
+  { id: "goofish", label: () => t("Goofish monitor"), url: "http://127.0.0.1:8000/" },
+  { id: "freemodel", label: () => t("Local model chat"), url: "http://127.0.0.1:18901/" },
+  { id: "floorplan", label: () => t("Floorplan report site"), url: "http://127.0.0.1:8123/" }
+];
+var SERVICE_POLL_MS = 8e3;
+function useServiceStatus(watching) {
+  const [state, setState] = (0, import_react4.useState)({});
+  const [revision, setRevision] = (0, import_react4.useState)(0);
+  (0, import_react4.useEffect)(() => {
+    if (!watching) return void 0;
+    let live = true;
+    let timer = 0;
+    const read = async () => {
+      try {
+        const answer = await fetch(`${LAUNCHER_BASE}/api/list`, { cache: "no-store" });
+        const body = await answer.json();
+        if (!live) return;
+        const next = {};
+        for (const service2 of body?.services ?? []) next[service2.id] = service2.running === true;
+        setState(next);
+      } catch {
+        if (live) setState({});
+      }
+      if (live) timer = setTimeout(read, SERVICE_POLL_MS);
+    };
+    read();
+    return () => {
+      live = false;
+      clearTimeout(timer);
+    };
+  }, [watching, revision]);
+  return [state, () => setRevision((value) => value + 1)];
+}
+function webAddress(text) {
+  const raw = String(text ?? "").trim();
+  if (raw === "") return null;
+  const scheme = /^[a-z][a-z\d+.-]*:/i.test(raw) ? "" : /^(?:localhost|127\.\d|\d+\.\d+\.\d+\.\d+|\[::1\])(?::\d+)?(?:[/?#]|$)/i.test(raw) ? "http://" : "https://";
+  try {
+    const url = new URL(`${scheme}${raw}`);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+function ServiceMenu({ menu, onClose, onStart, onStop }) {
+  if (menu === null) return null;
+  const running = menu.state === "running";
+  const busy = menu.state === "starting" || menu.state === "stopping";
+  return [
+    (0, import_react4.createElement)("div", { key: "scrim", className: "bt-todo-scrim", onClick: onClose, onContextMenu: (event) => {
+      event.preventDefault();
+      onClose();
+    } }),
+    (0, import_react4.createElement)(
+      "div",
+      {
+        key: "menu",
+        className: "bt-todo-menu",
+        role: "menu",
+        "data-service-menu": menu.id,
+        style: { left: `${menu.x}px`, top: `${menu.y}px` }
+      },
+      (0, import_react4.createElement)("button", {
+        type: "button",
+        role: "menuitem",
+        className: "bt-todo-menu-item",
+        disabled: running || busy,
+        onClick: () => onStart(menu.id)
+      }, t("Start service")),
+      (0, import_react4.createElement)("button", {
+        type: "button",
+        role: "menuitem",
+        className: "bt-todo-menu-item",
+        disabled: !running || busy,
+        onClick: () => onStop(menu.id)
+      }, t("Stop service"))
+    )
+  ];
+}
+function QuickActions({ text, setText, running, onStarted, notice }) {
+  const typed = String(text ?? "").trim();
+  const href = webAddress(typed);
+  const usable = href !== null;
+  const link = (0, import_react4.useRef)(null);
+  const [starting, setStarting] = (0, import_react4.useState)(null);
+  const [stopping, setStopping] = (0, import_react4.useState)(null);
+  const [menu, setMenu] = (0, import_react4.useState)(null);
+  const start = async (id) => {
+    if (running?.[id] === true) return;
+    setStarting(id);
+    let timer = 0;
+    try {
+      await Promise.race([
+        fetch(`${LAUNCHER_BASE}/api/start/${id}`, { cache: "no-store" }),
+        new Promise((resolve2) => {
+          timer = setTimeout(resolve2, SERVICE_START_WAIT_MS);
+        })
+      ]);
+    } catch {
+    } finally {
+      clearTimeout(timer);
+    }
+    setStarting(null);
+    onStarted?.();
+  };
+  const stop = async (id) => {
+    setStopping(id);
+    let answer = null;
+    try {
+      answer = await fetch(`${LAUNCHER_BASE}/api/stop/${id}`, { cache: "no-store" }).then((response) => response.json());
+    } catch {
+      answer = null;
+    }
+    setStopping(null);
+    onStarted?.();
+    if (answer?.ok === true) notice?.(t("Service stopped"));
+    else notice?.(t("Could not stop the service"));
+  };
+  const stateOf2 = (id) => starting === id ? "starting" : stopping === id ? "stopping" : running?.[id] === true ? "running" : running?.[id] === false ? "stopped" : "unknown";
+  const sayOf = (state) => state === "running" ? t("Running") : state === "starting" ? t("Starting…") : state === "stopping" ? t("Stopping…") : state === "stopped" ? t("Not running") : t("Status unknown");
+  return (0, import_react4.createElement)(
+    "div",
+    { className: "bt-quick-pane", role: "tabpanel", id: "bt-side-body", "aria-labelledby": "bt-tab-quick" },
+    (0, import_react4.createElement)(
+      "div",
+      { className: "bt-quick-url" },
+      (0, import_react4.createElement)("input", {
+        className: "bt-quick-input",
+        type: "text",
+        value: text,
+        spellCheck: false,
+        placeholder: t("Type a web address"),
+        "aria-label": t("Type a web address"),
+        onChange: (event) => setText(event.target.value),
+        onKeyDown: (event) => {
+          if (event.key === "Enter" && !event.nativeEvent?.isComposing && event.keyCode !== 229) {
+            event.preventDefault();
+            if (usable) link.current?.click();
+          }
+        }
+      }),
+      (0, import_react4.createElement)("a", {
+        ref: link,
+        className: "bt-quick-go",
+        href: href ?? void 0,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-disabled": usable ? void 0 : "true",
+        title: t("Open in the browser"),
+        "aria-label": t("Open in the browser")
+      }, t("Open"))
+    ),
+    QUICK_SERVICES.map((service2) => {
+      const state = stateOf2(service2.id);
+      return (0, import_react4.createElement)(
+        "a",
+        {
+          key: service2.id,
+          className: "bt-quick-row",
+          "data-quick": service2.id,
+          "data-service-state": state,
+          "data-starting": state === "starting" ? "true" : void 0,
+          "data-stopping": state === "stopping" ? "true" : void 0,
+          // The launcher's address, not the service's: pressing it starts the service first.
+          href: `${LAUNCHER}${service2.id}`,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          title: `${service2.url} · ${sayOf(state)}`,
+          // The tab still opens; this is the row's own answer that the service is coming up.
+          onClick: () => {
+            void start(service2.id);
+          },
+          // A right-click asks the launcher to close the service instead of opening it.
+          onContextMenu: (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setMenu({ x: event.clientX, y: event.clientY, id: service2.id, state });
+          }
+        },
+        state === "starting" || state === "stopping" ? (0, import_react4.createElement)("span", { className: "bt-quick-spin", "aria-hidden": true }) : (0, import_react4.createElement)(ResumeIcon),
+        (0, import_react4.createElement)("span", { className: "bt-quick-label" }, service2.label()),
+        (0, import_react4.createElement)("span", { className: "bt-quick-dot", "data-state": state, "aria-hidden": true }),
+        (0, import_react4.createElement)("span", { className: "bt-quick-arrow", "aria-hidden": true }, "↗")
+      );
+    }),
+    (0, import_react4.createElement)(ServiceMenu, {
+      menu,
+      onClose: () => setMenu(null),
+      onStart: (id) => {
+        setMenu(null);
+        void start(id);
+      },
+      onStop: (id) => {
+        setMenu(null);
+        void stop(id);
+      }
+    })
+  );
+}
+function TeamTodoSide({ actions, view, onView, openFrom }) {
+  const { list, tick, clear, clearOne, add } = useTodo(actions);
+  const [showDone, setShowDone] = (0, import_react4.useState)(false);
+  const [picked, setPicked] = (0, import_react4.useState)(readSavedView());
+  const [menu, setMenu] = (0, import_react4.useState)(null);
+  const [tabMenu, setTabMenu] = (0, import_react4.useState)(null);
+  const [writing, setWriting] = (0, import_react4.useState)(false);
+  const [draft, setDraft] = (0, import_react4.useState)("");
+  const writer = (0, import_react4.useRef)(null);
+  (0, import_react4.useEffect)(() => {
+    if (writing) writer.current?.focus();
+  }, [writing]);
+  const [address, setAddress] = (0, import_react4.useState)("");
+  const count = countOf(list);
+  const openMenu = (event, item) => setMenu({ x: event.clientX, y: event.clientY, item, canOpen: typeof openFrom === "function" && openFrom(item.from, true) === true });
+  const copy2 = (item) => {
+    const text = String(item?.text ?? "");
+    if (text === "" || typeof import_dsh_client_ui_primitives.writeClipboard !== "function") return;
+    const announce = (ok) => {
+      if (ok !== false) actions?.notice?.(t("Copied"));
+    };
+    try {
+      const answer = (0, import_dsh_client_ui_primitives.writeClipboard)(text);
+      if (answer && typeof answer.then === "function") void Promise.resolve(answer).then(announce, () => {
+      });
+      else announce(answer);
+    } catch {
+    }
+  };
+  const wanted = picked ?? view;
+  const active = VIEWS.some((entry) => entry.id === wanted) ? wanted : VIEWS[0].id;
+  const [serviceStatus, refreshServices] = useServiceStatus(active === "quick");
+  const select = (id) => {
+    setPicked(id);
+    rememberView(id);
+    onView?.(id);
+  };
+  const write = () => {
+    const text = draft.trim();
+    if (text === "") return;
+    add(text);
+    setDraft("");
+  };
+  const startWriting = () => {
+    select("todo");
+    setWriting(true);
+  };
+  return (0, import_react4.createElement)(
+    "div",
+    { className: "bt-side-block" },
+    (0, import_react4.createElement)(
+      "div",
+      { className: "bt-tabs-row" },
+      (0, import_react4.createElement)(
+        "div",
+        { className: "bt-stabs", role: "tablist", "aria-label": t("Sidebar views") },
+        VIEWS.map((entry) => (0, import_react4.createElement)(
+          "button",
+          {
+            key: entry.id,
+            type: "button",
+            role: "tab",
+            className: "bt-stab",
+            id: `bt-tab-${entry.id}`,
+            "aria-selected": active === entry.id ? "true" : "false",
+            "aria-controls": "bt-side-body",
+            onClick: () => select(entry.id),
+            // The to-do tab answers a right-click with the one thing it offers before it is open.
+            onContextMenu: entry.id === "todo" ? (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              setTabMenu({ x: event.clientX, y: event.clientY });
+            } : void 0
+          },
+          (0, import_react4.createElement)("span", { className: "bt-stab-label" }, entry.label()),
+          entry.id === "todo" && count > 0 ? (0, import_react4.createElement)("span", { className: "bt-stab-count" }, String(count)) : null
+        ))
+      )
+    ),
+    active === "todo" && writing ? (0, import_react4.createElement)(
+      "div",
+      { className: "bt-todo-new" },
+      (0, import_react4.createElement)("input", {
+        ref: writer,
+        className: "bt-todo-new-input",
+        type: "text",
+        value: draft,
+        spellCheck: false,
+        placeholder: t("What needs doing?"),
+        "aria-label": t("Add to-do"),
+        onChange: (event) => setDraft(event.target.value),
+        onKeyDown: (event) => {
+          if (event.nativeEvent?.isComposing || event.keyCode === 229) return;
+          if (event.key === "Enter") {
+            event.preventDefault();
+            write();
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            setDraft("");
+            setWriting(false);
+          }
+        }
+      }),
+      (0, import_react4.createElement)("button", { type: "button", className: "bt-todo-new-go", disabled: draft.trim() === "", onClick: write }, t("Add to-do")),
+      (0, import_react4.createElement)("button", { type: "button", className: "bt-todo-new-cancel", onClick: () => {
+        setDraft("");
+        setWriting(false);
+      } }, t("Cancel"))
+    ) : null,
+    active === "todo" ? (0, import_react4.createElement)(
+      "div",
+      { className: "bt-todo-pane", role: "tabpanel", id: "bt-side-body", "aria-labelledby": "bt-tab-todo" },
+      (0, import_react4.createElement)(TodoLists, { list, showDone, onShowDone: () => setShowDone((value) => !value), tick, clear, onMenu: openMenu })
+    ) : (0, import_react4.createElement)(QuickActions, { text: address, setText: setAddress, running: serviceStatus, onStarted: refreshServices, notice: actions?.notice }),
+    (0, import_react4.createElement)(TodoMenu, {
+      menu,
+      onClose: () => setMenu(null),
+      onOpen: (item) => {
+        if (typeof openFrom === "function") openFrom(item.from, false);
+      },
+      onClear: clearOne,
+      onCopy: copy2
+    }),
+    (0, import_react4.createElement)(AddTodoMenu, { menu: tabMenu, onClose: () => setTabMenu(null), onAdd: startWriting })
+  );
+}
+function TeamTodoPanel({ actions }) {
+  const { list, tick, clear } = useTodo(actions);
+  const [open, setOpen] = (0, import_react4.useState)(false);
+  const [showDone, setShowDone] = (0, import_react4.useState)(false);
   if (list === null || list === void 0) return null;
-  const items = Array.isArray(list.items) ? list.items : [];
-  const count = Number.isFinite(list.open) ? list.open : items.length;
+  const rows2 = rowsOf(list, "items");
+  const count = countOf(list);
   const label = t("Team to-do, {count} open", { count });
+  const newest = open ? void 0 : rows2.filter((row) => row.done !== true)[0]?.text;
   return (0, import_react4.createElement)(
     "div",
     { className: "bt-todo" },
@@ -19586,38 +20548,150 @@ function TeamTodoPanel({ actions }) {
         "aria-expanded": open ? "true" : "false",
         onClick: () => setOpen((value) => !value)
       },
-      (0, import_react4.createElement)("span", { className: "bt-todo-title" }, t("Team to-do")),
-      count > 0 ? (0, import_react4.createElement)("span", { className: "bt-todo-count" }, String(count)) : null,
-      (0, import_react4.createElement)("span", { className: "bt-todo-chev", "data-open": open ? "" : void 0 }, (0, import_react4.createElement)(ChevronDownIcon))
+      (0, import_react4.createElement)(
+        "span",
+        { className: "bt-todo-line" },
+        (0, import_react4.createElement)("span", { className: "bt-todo-title" }, t("Team to-do")),
+        count > 0 ? (0, import_react4.createElement)("span", { className: "bt-todo-count" }, String(count)) : null,
+        (0, import_react4.createElement)("span", { className: "bt-todo-chev", "data-open": open ? "" : void 0 }, (0, import_react4.createElement)(ChevronDownIcon))
+      ),
+      newest ? (0, import_react4.createElement)("span", { className: "bt-todo-peek", title: newest }, newest) : null
     ),
-    open ? items.length > 0 ? (0, import_react4.createElement)(
-      "ul",
-      { className: "bt-todo-list" },
-      items.map((item) => (0, import_react4.createElement)(
-        "li",
-        { key: item.id || item.text, className: "bt-todo-item" },
-        (0, import_react4.createElement)("span", { className: "bt-todo-text", title: item.text }, item.text),
-        item.from ? (0, import_react4.createElement)("span", { className: "bt-todo-from" }, item.from) : null
-      ))
-    ) : (0, import_react4.createElement)("div", { className: "bt-todo-empty" }, t("Nothing open on the team to-do list")) : items.length > 0 ? (0, import_react4.createElement)("div", { className: "bt-todo-peek", title: items[0].text }, items[0].text) : null
+    open ? (0, import_react4.createElement)(
+      "div",
+      { className: "bt-todo-pop" },
+      (0, import_react4.createElement)(TodoLists, { list, showDone, onShowDone: () => setShowDone((value) => !value), tick, clear })
+    ) : null
   );
 }
 var TEAM_TODO_CSS = `
-.bt-todo{margin:6px 8px 2px;border-radius:10px;background:color-mix(in srgb,var(--bt-ink) 4%,transparent);overflow:hidden}
-.bt-todo-head{display:flex;align-items:center;gap:6px;width:100%;padding:6px 8px;border:0;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer;text-align:left}
+.bt-side-block{display:flex;flex-direction:column;min-height:0;flex:none;height:220px}
+.bt-tabs-row{display:flex;align-items:center;gap:6px;flex:none;margin:7px 8px 3px}
+/* The sidebar's own view tabs. They carry their own names (bt-stab*) so they cannot reach
+   the details drawer's tablist, which uses bt-tabs/bt-tab inside the same document. */
+.bt-stabs{display:flex;gap:4px;flex:1 1 auto;min-width:0;padding:3px;border-radius:10px;background:color-mix(in srgb,var(--bt-ink) 5%,transparent)}
+.bt-todo-add{flex:none;width:26px;height:26px;padding:0;border:0;border-radius:8px;background:none;color:var(--bt-ink-2);font:inherit;font-size:18px;line-height:1;cursor:pointer;transition:background-color .12s ease,color .12s ease}
+.bt-todo-add:hover{background:var(--bt-hover);color:var(--bt-ink)}
+.bt-todo-add[aria-expanded=true]{background:var(--bt-active);color:var(--bt-ink)}
+.bt-todo-add-glyph{display:block;margin-top:-1px}
+.bt-todo-new{display:flex;align-items:center;gap:6px;flex:none;margin:0 8px 6px}
+.bt-todo-new-input{flex:1 1 auto;min-width:0;height:28px;padding:0 9px;border:1px solid var(--bt-line-2);border-radius:8px;background:var(--bt-main);color:var(--bt-ink);font:inherit;font-size:12.5px}
+.bt-todo-new-input:focus{outline:none;border-color:var(--bt-accent)}
+.bt-todo-new-go,.bt-todo-new-cancel{flex:none;height:28px;padding:0 10px;border:0;border-radius:8px;font:inherit;font-size:12px;cursor:pointer}
+.bt-todo-new-go{background:var(--bt-accent);color:var(--bt-accent-ink)}
+.bt-todo-new-go:disabled{opacity:.5;cursor:default}
+.bt-todo-new-cancel{background:var(--bt-hover);color:var(--bt-ink-2)}
+.bt-stab{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;height:26px;padding:0 8px;border:0;border-radius:7px;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background-color .12s ease,color .12s ease}
+.bt-stab:hover{color:var(--bt-ink)}
+.bt-stab[aria-selected=true]{background:var(--bt-card);color:var(--bt-ink);box-shadow:0 1px 3px rgba(20,20,20,.1)}
+.bt-stab-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-stab-count{flex:none;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:color-mix(in srgb,var(--bt-star) 30%,transparent);color:color-mix(in srgb,var(--bt-star) 30%,var(--bt-ink));font-size:11px;line-height:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.bt-todo-pane{flex:1 1 auto;min-height:0;overflow-y:auto;margin:0 8px 6px;padding:2px 0;border-radius:10px}
+.bt-quick-pane{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none;box-sizing:border-box;margin:0 8px 6px;padding:2px 0;border-radius:10px;display:flex;flex-direction:column;gap:2px}
+.bt-quick-pane::-webkit-scrollbar{width:0;height:0}
+.bt-quick-url{flex:none;display:flex;align-items:center;gap:6px;box-sizing:border-box;width:100%;min-width:0;padding:2px 0 4px}
+.bt-quick-input{flex:1 1 auto;min-width:0;box-sizing:border-box;height:28px;padding:0 9px;border:1px solid var(--bt-line-2);border-radius:8px;background:var(--bt-main);color:var(--bt-ink);font:inherit;font-size:12.5px}
+.bt-quick-input::placeholder{color:var(--bt-ink-3)}
+.bt-quick-input:focus{outline:none;border-color:var(--bt-accent)}
+.bt-quick-go{flex:none;display:inline-flex;align-items:center;box-sizing:border-box;height:28px;padding:0 11px;border-radius:8px;background:var(--bt-accent);color:var(--bt-accent-ink);font:inherit;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer}
+.bt-quick-go[aria-disabled=true]{opacity:.45;cursor:default;pointer-events:none}
+.bt-quick-arrow{flex:none;font-size:11px;color:var(--bt-ink-3)}
+.bt-quick-row:hover .bt-quick-arrow{color:var(--bt-ink-2)}
+.bt-quick-row{display:flex;align-items:center;gap:8px;box-sizing:border-box;width:100%;min-width:0;min-height:28px;padding:0 8px;border-radius:8px;background:none;color:var(--bt-ink);font:inherit;font-size:12.5px;font-weight:500;text-align:left;text-decoration:none;cursor:pointer;transition:background-color .12s ease}
+.bt-quick-row:hover{background:var(--bt-hover)}
+.bt-quick-row svg{flex:none;width:16px;height:16px;color:var(--bt-ink-2)}
+.bt-quick-label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* A service that is up glows green, one that is closed is a hollow ring, and one the launcher
+   has not answered for yet stays a faint dot rather than claiming either. */
+.bt-quick-dot{flex:none;width:7px;height:7px;border-radius:50%;corner-shape:round;background:var(--bt-ink-3);transition:background-color .14s ease,box-shadow .14s ease}
+.bt-quick-dot[data-state=running]{background:var(--bt-green);box-shadow:0 0 0 2px color-mix(in srgb,var(--bt-green) 20%,transparent)}
+.bt-quick-dot[data-state=stopped]{background:transparent;box-shadow:inset 0 0 0 1.5px var(--bt-ink-3)}
+.bt-quick-dot[data-state=unknown]{opacity:.35}
+/* A pressed row spins in place of its play mark until the launcher says the service is up. */
+.bt-quick-dot[data-state=starting]{background:var(--bt-accent);animation:bt-quick-beat 1s ease-in-out infinite}
+/* A row the menu just asked to close beats the same way until the port is gone. */
+.bt-quick-dot[data-state=stopping]{background:var(--bt-ink-2);animation:bt-quick-beat 1s ease-in-out infinite}
+.bt-quick-spin{flex:none;box-sizing:border-box;width:16px;height:16px;border:1.6px solid color-mix(in srgb,var(--bt-ink-3) 40%,transparent);border-top-color:var(--bt-accent);border-radius:50%;animation:bt-quick-spin .72s linear infinite}
+@keyframes bt-quick-spin{to{transform:rotate(360deg)}}
+@keyframes bt-quick-beat{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.bt-quick-spin{animation:none;border-top-color:var(--bt-ink-3)}.bt-quick-dot[data-state=starting]{animation:none}}
+.bt-todo-clear{display:block;width:calc(100% - 8px);margin:2px 4px 4px;padding:5px 8px;border:0;border-radius:7px;background:var(--bt-hover);color:#000;font:inherit;font-size:11px;cursor:pointer;text-align:center}
+.bt-todo-clear:hover{background:var(--bt-active);color:#000}
+.bt-todo-scrim{position:fixed;inset:0;z-index:90}
+.bt-todo-menu{position:fixed;z-index:91;min-width:150px;padding:4px;border-radius:9px;border:1px solid var(--bt-line);background:var(--bt-card);box-shadow:0 12px 30px -10px rgba(20,20,20,.32)}
+.bt-todo-menu-item{display:block;width:100%;padding:7px 10px;border:0;border-radius:6px;background:none;color:var(--bt-ink);font:inherit;font-size:12.5px;text-align:left;cursor:pointer}
+.bt-todo-menu-item:hover:not(:disabled){background:var(--bt-hover)}
+.bt-todo-menu-item:disabled{color:var(--bt-ink-3);cursor:default}
+.bt-todo{position:relative;margin:2px 8px 2px;border-radius:10px;background:color-mix(in srgb,var(--bt-ink) 4%,transparent);flex:none}
+.bt-todo-pop{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:40;max-height:300px;overflow-y:auto;padding:4px;border-radius:10px;border:1px solid var(--bt-line);background:var(--bt-card);box-shadow:0 14px 32px -12px rgba(20,20,20,.3),0 2px 8px -2px rgba(20,20,20,.12)}
+.bt-todo-head{display:flex;flex-direction:column;align-items:stretch;gap:2px;width:100%;padding:6px 8px;border:0;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer;text-align:left}
 .bt-todo-head:hover{color:var(--bt-ink)}
+.bt-todo-line{display:flex;align-items:center;gap:6px;min-width:0}
 .bt-todo-title{flex:none}
 .bt-todo-count{flex:none;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:color-mix(in srgb,var(--bt-star) 30%,transparent);color:color-mix(in srgb,var(--bt-star) 30%,var(--bt-ink));font-size:11px;line-height:16px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
 .bt-todo-chev{flex:none;margin-left:auto;display:inline-flex;opacity:.55;transition:rotate .14s ease}
 .bt-todo-chev[data-open]{rotate:180deg}
-.bt-todo-peek{padding:0 8px 7px;font-size:12px;line-height:1.35;color:var(--bt-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bt-todo-list{margin:0;padding:0 4px 4px;list-style:none;max-height:220px;overflow-y:auto}
-.bt-todo-item{display:flex;gap:6px;align-items:baseline;padding:4px;border-radius:6px;font-size:12px;line-height:1.35;color:var(--bt-ink-2)}
+.bt-todo-peek{display:block;font-weight:400;font-size:12px;line-height:1.35;color:var(--bt-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt-todo-list{margin:0;padding:0 4px 4px;list-style:none;max-height:none;overflow:visible}
+.bt-todo-item{display:flex;gap:6px;align-items:baseline;padding:4px;border-radius:6px;font-size:12px;line-height:1.35;color:var(--bt-ink)}
 .bt-todo-item:hover{background:var(--bt-hover)}
+.bt-todo-box{flex:none;width:13px;height:13px;margin:0;align-self:center;accent-color:var(--bt-accent);cursor:pointer}
 .bt-todo-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt-todo-from{flex:none;font-size:11px;color:var(--bt-ink-3)}
+.bt-todo-from{flex:none;font-size:11px;color:var(--bt-ink-2)}
+.bt-todo-item[data-done]{opacity:.55}
+.bt-todo-item[data-done] .bt-todo-text{text-decoration:line-through}
+.bt-todo-history-head{display:flex;align-items:center;gap:6px;width:100%;padding:5px 8px;border:0;border-top:1px solid var(--bt-line);background:none;color:var(--bt-ink-3);font:inherit;font-size:11px;cursor:pointer;text-align:left}
+.bt-todo-history-head:hover{color:var(--bt-ink-2)}
+.bt-todo-history{max-height:none}
 .bt-todo-empty{padding:0 8px 7px;font-size:12px;line-height:1.35;color:var(--bt-ink-3)}
+/* The card a pressed row opens: the whole line, selectable, with copy one press away. */
+.bt-todo-card{position:fixed;z-index:70;display:flex;flex-direction:column;gap:7px;padding:10px 12px;border-radius:10px;border:1px solid var(--bt-line);background:var(--bt-card);box-shadow:0 14px 32px -12px rgba(20,20,20,.3),0 2px 8px -2px rgba(20,20,20,.12);color:var(--bt-ink);font-family:var(--bt-font);font-size:12.5px;line-height:1.45;box-sizing:border-box}
+.bt-todo-card-meta{font-size:11px;line-height:15px;color:var(--bt-ink-3)}
+.bt-todo-card-text{max-height:220px;overflow-y:auto;white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;cursor:text}
+.bt-todo-card-copy{align-self:flex-start;padding:2px 10px;border:1px solid var(--bt-line-2);border-radius:999px;background:transparent;color:var(--bt-ink-2);font:inherit;font-size:11px;line-height:18px;cursor:pointer}
+.bt-todo-card-copy:hover{background:var(--bt-hover);color:var(--bt-ink)}
 `;
+
+// src/client/strip-bar.js
+var BOTS_OFF = STORAGE.stripHidden;
+var ROOMS_ON = STORAGE.stripRooms;
+var MAIN_ON = STORAGE.stripMain;
+var EVENT = "ds-bot:strip-changed";
+var readIds = (key) => {
+  try {
+    const saved = JSON.parse(globalThis.localStorage?.getItem(key) ?? "[]");
+    return Array.isArray(saved) ? saved.filter((id) => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+};
+var writeIds = (key, ids) => {
+  try {
+    globalThis.localStorage?.setItem(key, JSON.stringify(ids));
+    if (typeof window !== "undefined") window.dispatchEvent(new Event(EVENT));
+  } catch {
+  }
+};
+var toggle = (key, id, shown) => {
+  const next = readIds(key).filter((other) => other !== id);
+  if (shown) next.push(id);
+  writeIds(key, next);
+};
+var readStripHidden = () => readIds(BOTS_OFF);
+var isOnStrip = (id) => !readStripHidden().includes(id);
+var setStripShown = (id, shown) => toggle(BOTS_OFF, id, !shown);
+var readStripRooms = () => readIds(ROOMS_ON);
+var isRoomOnStrip = (id) => readStripRooms().includes(id);
+var setRoomStripShown = (id, shown) => toggle(ROOMS_ON, id, shown);
+var readStripMain = () => readIds(MAIN_ON);
+var isMainOnStrip = (id) => readStripMain().includes(id);
+var setMainStripShown = (id, shown) => toggle(MAIN_ON, id, shown);
+var onStripChange = (run2) => {
+  if (typeof window === "undefined") return () => {
+  };
+  window.addEventListener(EVENT, run2);
+  return () => window.removeEventListener(EVENT, run2);
+};
 
 // src/client/agent-logos.js
 var AGENT_LOGOS = {
@@ -20395,7 +21469,7 @@ function StopButton({ label, onStop, report }) {
     setStopping(true);
     void Promise.resolve(onStop()).catch((error) => report?.(error)).finally(() => setStopping(false));
   };
-  return (0, import_react9.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react9.createElement)(StopIcon, { size: 20, inset: 3.5 }));
+  return (0, import_react9.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react9.createElement)(StopIcon, { size: 20, inset: 5.5, rx: 2 }));
 }
 function TypingStop({ bot, roomId, actions }) {
   if (typeof actions?.stopMemberWork !== "function") return null;
@@ -20651,11 +21725,11 @@ var justAnswered = /* @__PURE__ */ new Map();
 var answerKey = (kind, id) => `${kind}:${id}`;
 function noteJustAnswered(kind, id, height) {
   if (!id || typeof height !== "number" || height <= 0) return;
-  const now = Date.now();
+  const now2 = Date.now();
   for (const [key, entry] of justAnswered) {
-    if (now - entry.at >= JUST_ANSWERED_TTL) justAnswered.delete(key);
+    if (now2 - entry.at >= JUST_ANSWERED_TTL) justAnswered.delete(key);
   }
-  justAnswered.set(answerKey(kind, id), { height, at: now });
+  justAnswered.set(answerKey(kind, id), { height, at: now2 });
 }
 function clearJustAnswered(kind, id) {
   if (id) justAnswered.delete(answerKey(kind, id));
@@ -20706,7 +21780,7 @@ function useFoldCard(cardRef, bodyRef, hasDetail) {
     const timer = setTimeout(() => setLeaving(false), 150);
     return () => clearTimeout(timer);
   }, [open, leaving]);
-  const toggle = () => {
+  const toggle2 = () => {
     if (!hasDetail) return;
     if (open && bodyRef.current) foldTopRef.current = bodyRef.current.offsetTop;
     if (open && !reducedMotion() && typeof setTimeout === "function") setLeaving(true);
@@ -20725,7 +21799,7 @@ function useFoldCard(cardRef, bodyRef, hasDetail) {
     showBody: (open || leaving) && hasDetail,
     leaving: !open && leaving && hasDetail,
     foldTop: foldTopRef.current,
-    toggle,
+    toggle: toggle2,
     onCardClick
   };
 }
@@ -20831,8 +21905,8 @@ function SettledQuestion({ question, answer, closed }) {
   );
 }
 function QuestionCard({ matched }) {
-  const pending = matched;
-  const questions = pending.questions ?? [];
+  const pending2 = matched;
+  const questions = pending2.questions ?? [];
   const [index, setIndex] = (0, import_react12.useState)(0);
   const [answers, setAnswers] = (0, import_react12.useState)([]);
   const question = questions[index];
@@ -20844,9 +21918,9 @@ function QuestionCard({ matched }) {
       setIndex(index + 1);
       return;
     }
-    pending.answer({ answers: next });
+    pending2.answer({ answers: next });
   };
-  return (0, import_react12.createElement)(QuestionView, { key: index, question, onAnswer, onDismiss: () => pending.dismiss(), ownAnswer: true, raised: true });
+  return (0, import_react12.createElement)(QuestionView, { key: index, question, onAnswer, onDismiss: () => pending2.dismiss(), ownAnswer: true, raised: true });
 }
 function PendingQuestion({ sessionId, question, actions, inline, enterToSend = true, bare: bare2 = false }) {
   const [answered, setAnswered] = (0, import_react12.useState)(null);
@@ -22824,7 +23898,7 @@ function WidgetChart({ node, lookup, registerChart, refreshCharts }) {
   const table = (0, import_react16.useRef)(asTable);
   table.current = asTable;
   const shown = series.map((_, index) => !hidden.includes(index));
-  const toggle = (index) => {
+  const toggle2 = (index) => {
     if (hidden.includes(index)) setHidden(hidden.filter((item) => item !== index));
     else if (shown.filter(Boolean).length > 1) setHidden([...hidden, index]);
   };
@@ -22890,7 +23964,7 @@ function WidgetChart({ node, lookup, registerChart, refreshCharts }) {
     type: "button",
     className: "dv-chart-key",
     "aria-pressed": shown[index],
-    onClick: () => toggle(index)
+    onClick: () => toggle2(index)
   }, (0, import_react16.createElement)("i", { style: { background: item.color } }), item.name || `${ui.t("Series")} ${index + 1}`))) : null;
   const plot = (0, import_react16.createElement)(
     "div",
@@ -24588,7 +25662,7 @@ function SecretDock({ sessionId, useRoster, useCards, useHeldCards, actions }) {
 function ScopeEditor({ secret, roster, onSave }) {
   const [mode, setMode] = (0, import_react21.useState)(secret.scope === "all" ? "all" : "some");
   const [picked, setPicked] = (0, import_react21.useState)(secret.scope === "all" ? [] : secret.scope);
-  const toggle = (id) => setPicked((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
+  const toggle2 = (id) => setPicked((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
   const same = mode === "all" ? secret.scope === "all" : secret.scope !== "all" && [...picked].sort().join() === [...secret.scope].sort().join();
   return (0, import_react21.createElement)(
     "div",
@@ -24609,7 +25683,7 @@ function ScopeEditor({ secret, roster, onSave }) {
       type: "button",
       className: "bt-secret-bot",
       "aria-pressed": picked.includes(bot.id),
-      onClick: () => toggle(bot.id)
+      onClick: () => toggle2(bot.id)
     }, (0, import_react21.createElement)(BotAvatar, { bot, size: 20, badge: false, live: false }), bot.name, picked.includes(bot.id) ? (0, import_react21.createElement)(CheckIcon) : null))) : null,
     (0, import_react21.createElement)(
       "div",
@@ -24918,7 +25992,7 @@ var SECRET_CSS = `
 
 // src/client/model-menu.js
 var import_react22 = require("react");
-var import_react_dom = require("react-dom");
+var import_react_dom2 = require("react-dom");
 var MENU_EXIT_MS = 120;
 function groupModels(models) {
   const groups = /* @__PURE__ */ new Map();
@@ -25461,7 +26535,7 @@ function PopupModelMenu({ bot, roster, actions, run: run2, wide = false, onPick,
   const { isOpen, shownPlace, leaving, button, menu, open, close } = useAnchoredMenu();
   const picker = useModelPicker({ bot, roster, actions, run: run2, onPick, onPickEffort, withEfforts });
   const { manage, hasEfforts } = picker;
-  const toggle = () => {
+  const toggle2 = () => {
     if (isOpen) {
       close();
       return;
@@ -25476,8 +26550,8 @@ function PopupModelMenu({ bot, roster, actions, run: run2, wide = false, onPick,
   return (0, import_react22.createElement)(
     import_react22.Fragment,
     null,
-    modelTrigger(picker, { wide, button, isOpen, onClick: toggle }),
-    shownPlace ? (0, import_react_dom.createPortal)((0, import_react22.createElement)(
+    modelTrigger(picker, { wide, button, isOpen, onClick: toggle2 }),
+    shownPlace ? (0, import_react_dom2.createPortal)((0, import_react22.createElement)(
       "div",
       { ref: menu, className: `bt-menu bt-model-menu${shownPlace.bottom !== void 0 ? " bt-menu-up" : ""}`, role: "menu", "aria-label": modelMenuLabel(bot), style: shownPlace, "data-leaving": leaving || void 0 },
       modelSearch(picker, menu),
@@ -25496,7 +26570,7 @@ function InlineModelMenu({ bot, roster, actions, run: run2, wide = false, onPick
   const { isOpen, root, button, menu, open, close } = useInlineMenu();
   const picker = useModelPicker({ bot, roster, actions, run: run2, onPick, onPickEffort, withEfforts });
   const { manage, hasEfforts } = picker;
-  const toggle = () => {
+  const toggle2 = () => {
     if (isOpen) {
       close();
       return;
@@ -25512,7 +26586,7 @@ function InlineModelMenu({ bot, roster, actions, run: run2, wide = false, onPick
   return (0, import_react22.createElement)(
     "div",
     { ref: root, className: "bt-model-inline" },
-    modelTrigger(picker, { wide, button, isOpen, onClick: toggle }),
+    modelTrigger(picker, { wide, button, isOpen, onClick: toggle2 }),
     (0, import_react22.createElement)(
       Collapse,
       { open: isOpen },
@@ -25983,7 +27057,7 @@ var AGENT_CARDS_CSS = `
 
 // src/client/folder-menu.js
 var import_react24 = require("react");
-var import_react_dom2 = require("react-dom");
+var import_react_dom3 = require("react-dom");
 var folderName = (path2) => String(path2).replace(/[\\/]+$/, "").split(/[\\/]/).pop() || String(path2);
 var Tick = ({ on }) => (0, import_react24.createElement)("span", { className: "bt-model-tick", "aria-hidden": true }, on ? (0, import_react24.createElement)(CheckIcon) : null);
 function FolderMenu({ value, group = false, team = false, actions, run: run2, onPick, wide = false, disabled = false }) {
@@ -25994,7 +27068,7 @@ function FolderMenu({ value, group = false, team = false, actions, run: run2, on
   const [listing, setListing] = (0, import_react24.useState)(null);
   const [problem, setProblem] = (0, import_react24.useState)("");
   const fallback = group ? t("Each Bot's own folder") : t("Team workspace");
-  const toggle = () => {
+  const toggle2 = () => {
     if (isOpen) {
       close();
       return;
@@ -26102,7 +27176,7 @@ function FolderMenu({ value, group = false, team = false, actions, run: run2, on
         "aria-expanded": isOpen,
         "aria-label": team ? t("Team workspace: {folder}", { folder: value ?? "" }) : t("Working folder: {folder}", { folder: value ?? fallback }),
         title: value,
-        onClick: toggle,
+        onClick: toggle2,
         disabled
       },
       (0, import_react24.createElement)(
@@ -26113,7 +27187,7 @@ function FolderMenu({ value, group = false, team = false, actions, run: run2, on
       ),
       (0, import_react24.createElement)(Caret)
     ),
-    shownPlace ? (0, import_react_dom2.createPortal)((0, import_react24.createElement)(
+    shownPlace ? (0, import_react_dom3.createPortal)((0, import_react24.createElement)(
       "div",
       { ref: menu, className: `bt-menu bt-model-menu bt-folder-menu${shownPlace.bottom !== void 0 ? " bt-menu-up" : ""}`, role: "menu", "aria-label": team ? t("Team workspace") : t("Working folder"), style: shownPlace, "data-leaving": leaving || void 0 },
       shownView,
@@ -26236,7 +27310,7 @@ function TaskRow2({ task, actions, onView, showBot, roster, canPause }) {
     void actions.scheduleDelete(task.sessionId, task.id).then(onView, () => setBusy(false));
   };
   const [failed, setFailed] = (0, import_react25.useState)("");
-  const toggle = () => {
+  const toggle2 = () => {
     setBusy(true);
     setFailed("");
     void actions.schedulePause(task.sessionId, task.id, task.status !== "active").then((next) => {
@@ -26272,7 +27346,7 @@ function TaskRow2({ task, actions, onView, showBot, roster, canPause }) {
         disabled: busy,
         "aria-label": task.status === "active" ? t("Pause task") : t("Resume task"),
         title: task.status === "active" ? t("Pause task") : t("Resume task"),
-        onClick: toggle
+        onClick: toggle2
       }, task.status === "active" ? (0, import_react25.createElement)(PauseIcon) : (0, import_react25.createElement)(ResumeIcon)) : null,
       (0, import_react25.createElement)("button", {
         type: "button",
@@ -27009,8 +28083,8 @@ function MemoryRow({ owner, actions }) {
     )
   );
 }
-function ago(at, now) {
-  const seconds = Math.max(0, Math.round((now - at) / 1e3));
+function ago(at, now2) {
+  const seconds = Math.max(0, Math.round((now2 - at) / 1e3));
   if (seconds < 60) return null;
   const format = new Intl.RelativeTimeFormat(dateLocale(), { numeric: "auto" });
   const minutes = Math.round(seconds / 60);
@@ -27211,7 +28285,7 @@ function historyLine(row) {
   if (row.op === "replace") return t("Updated: {text}", { text });
   return row.scope === "team" ? t("Added to team memory: {text}", { text }) : t("Added: {text}", { text });
 }
-function HistoryRow({ row, undo, now }) {
+function HistoryRow({ row, undo, now: now2 }) {
   const [confirming, setConfirming] = (0, import_react28.useState)(false);
   const [busy, setBusy] = (0, import_react28.useState)(false);
   (0, import_react28.useEffect)(() => {
@@ -27219,7 +28293,7 @@ function HistoryRow({ row, undo, now }) {
     const timer = setTimeout(() => setConfirming(false), 3e3);
     return () => clearTimeout(timer);
   }, [confirming]);
-  const when3 = ago(Date.parse(row.time), now) ?? t("just now");
+  const when3 = ago(Date.parse(row.time), now2) ?? t("just now");
   const meta = [when3, row.by === "user" ? t("by you") : t("by {name}", { name: row.by })].join(" · ");
   const click = async () => {
     if (!confirming) {
@@ -27249,7 +28323,7 @@ function HistoryRow({ row, undo, now }) {
     }, t("Undo"))
   );
 }
-function History({ owner, actions, undo, now }) {
+function History({ owner, actions, undo, now: now2 }) {
   const [rows2, setRows] = (0, import_react28.useState)(null);
   const [more, setMore] = (0, import_react28.useState)(null);
   const [paging, setPaging] = (0, import_react28.useState)(false);
@@ -27288,7 +28362,7 @@ function History({ owner, actions, undo, now }) {
   return (0, import_react28.createElement)(
     "div",
     { className: "bt-mem-entries" },
-    (0, import_react28.createElement)("ul", { className: "bt-mem-list" }, rows2.map((row) => (0, import_react28.createElement)(HistoryRow, { key: row.id, row, undo: undoRow, now }))),
+    (0, import_react28.createElement)("ul", { className: "bt-mem-list" }, rows2.map((row) => (0, import_react28.createElement)(HistoryRow, { key: row.id, row, undo: undoRow, now: now2 }))),
     more ? (0, import_react28.createElement)("button", { type: "button", className: "bt-soft bt-soft-sm", disabled: paging, onClick: () => void moreClick() }, t("Load more")) : null
   );
 }
@@ -27349,12 +28423,12 @@ function useMemoryView(id, actions) {
   return { view, error, load, show: show2 };
 }
 function useNow(every) {
-  const [now, setNow] = (0, import_react28.useState)(Date.now());
+  const [now2, setNow] = (0, import_react28.useState)(Date.now());
   (0, import_react28.useEffect)(() => {
     const id = setInterval(() => setNow(Date.now()), every);
     return () => clearInterval(id);
   }, [every]);
-  return now;
+  return now2;
 }
 function MemoryDialog({ owner, actions, leaving = false }) {
   const { view, error, load, show: show2 } = useMemoryView(owner.id, actions);
@@ -27371,7 +28445,7 @@ function MemoryDialog({ owner, actions, leaving = false }) {
   const menuRef = (0, import_react28.useRef)(null);
   const dotsRef = (0, import_react28.useRef)(null);
   const inputRef = (0, import_react28.useRef)(null);
-  const now = useNow(3e4);
+  const now2 = useNow(3e4);
   const close = (0, import_react28.useCallback)(() => actions.closeMemory(), []);
   useEscape(close, !leaving);
   useMenuDismiss(menu, menuRef, dotsRef, () => setMenu(false));
@@ -27481,7 +28555,7 @@ function MemoryDialog({ owner, actions, leaving = false }) {
     inputRef.current?.focus();
   };
   const count = view?.entries.length ?? 0;
-  const when3 = view?.summary ? ago(view.summary.at, now) : null;
+  const when3 = view?.summary ? ago(view.summary.at, now2) : null;
   const status = view === null ? "" : page === "entries" ? count === 1 ? t("1 entry") : t("{count} entries", { count }) : view.summarizing && view.summary ? t("Updating…") : view.summary && view.fresh ? when3 ? t("Updated {time}", { time: when3 }) : t("Updated just now") : "";
   const busy = answer?.pending === true;
   return (0, import_react28.createElement)(
@@ -27525,7 +28599,7 @@ function MemoryDialog({ owner, actions, leaving = false }) {
         "div",
         { className: "bt-mem-body" },
         error ? (0, import_react28.createElement)("div", { className: "bt-error", role: "alert", style: { padding: 0 } }, hostText(error)) : null,
-        view === null ? error ? null : (0, import_react28.createElement)(Skeleton) : page === "entries" ? (0, import_react28.createElement)(Entries, { owner, view, remove, pin, layer, openMove, undoTidy }) : page === "history" ? (0, import_react28.createElement)(History, { owner, actions, undo, now }) : (0, import_react28.createElement)(Summary, { owner, view, regenerate })
+        view === null ? error ? null : (0, import_react28.createElement)(Skeleton) : page === "entries" ? (0, import_react28.createElement)(Entries, { owner, view, remove, pin, layer, openMove, undoTidy }) : page === "history" ? (0, import_react28.createElement)(History, { owner, actions, undo, now: now2 }) : (0, import_react28.createElement)(Summary, { owner, view, regenerate })
       ),
       (0, import_react28.createElement)(
         "div",
@@ -28339,10 +29413,10 @@ function TokenPanel({ connector, actions, run: run2, onDone }) {
   );
 }
 var openSignIn = (win, id, view) => {
-  const pending = view?.connectors?.find((entry) => entry.id === id)?.pending;
-  if (pending?.kind === "browser") return void win.go(pending.url);
-  if (pending?.kind === "device") {
-    return void Promise.resolve(copyCode(pending.userCode)).then(() => win.go(pending.verificationUri));
+  const pending2 = view?.connectors?.find((entry) => entry.id === id)?.pending;
+  if (pending2?.kind === "browser") return void win.go(pending2.url);
+  if (pending2?.kind === "device") {
+    return void Promise.resolve(copyCode(pending2.userCode)).then(() => win.go(pending2.verificationUri));
   }
   win.close();
 };
@@ -28361,9 +29435,9 @@ function ConnectorRow({ connector, actions }) {
     }).finally(() => setBusy(false));
   };
   const on = connector.state !== "off" && connector.state !== "needs-client";
-  const pending = connector.pending;
+  const pending2 = connector.pending;
   const row = (0, import_react31.useRef)(null);
-  useMorph(row, `${form}:${error !== null}:${connector.state}:${pending?.kind ?? ""}`);
+  useMorph(row, `${form}:${error !== null}:${connector.state}:${pending2?.kind ?? ""}`);
   const signIn = () => {
     const win = reserveWindow();
     void run2(actions.connectorConnect(connector.id, {}), (view) => openSignIn(win, connector.id, view), () => win.close());
@@ -28376,7 +29450,7 @@ function ConnectorRow({ connector, actions }) {
   };
   const button = (label, onClick) => (0, import_react31.createElement)("button", { type: "button", className: "bt-soft bt-soft-sm", disabled: busy, onClick }, label);
   let actionsNode = null;
-  if (pending || form || connector.state === "needs-client") actionsNode = null;
+  if (pending2 || form || connector.state === "needs-client") actionsNode = null;
   else if (connector.state === "needs-sign-in") actionsNode = [button(t("Sign in again"), signIn), button(t("Disconnect"), () => void run2(actions.connectorDisconnect(connector.id)))];
   else if (connector.state === "error") actionsNode = [button(t("Try again"), () => void run2(actions.connectorRetry(connector.id))), button(connector.custom ? t("Remove") : t("Disconnect"), () => void run2(actions.connectorDisconnect(connector.id)))];
   else if (on) actionsNode = button(connector.custom ? t("Remove") : t("Disconnect"), () => void run2(actions.connectorDisconnect(connector.id)));
@@ -28409,7 +29483,7 @@ function ConnectorRow({ connector, actions }) {
       (0, import_react31.createElement)(SwitchRow, { label: t("Read-only"), on: connector.readOnly === true, onChange: (checked) => void run2(actions.connectorSet(connector.id, { readOnly: checked })) })
     ) : null,
     (0, import_react31.createElement)(SignInPanel, { connector, actions, run: run2, onUseToken: () => setForm("token") }),
-    connector.state === "needs-client" && !pending?.kind ? (0, import_react31.createElement)(ClientPanel, { connector, actions, run: run2 }) : null,
+    connector.state === "needs-client" && !pending2?.kind ? (0, import_react31.createElement)(ClientPanel, { connector, actions, run: run2 }) : null,
     form === "token" ? (0, import_react31.createElement)(TokenPanel, { connector, actions, run: run2, onDone: () => {
       setForm(null);
       setError(null);
@@ -28489,7 +29563,7 @@ function MailAccount({ account, actions, run: run2 }) {
     )
   );
 }
-function MailPending({ pending }) {
+function MailPending({ pending: pending2 }) {
   return (0, import_react31.createElement)(
     "div",
     { className: "bt-connector", "data-state": "connecting" },
@@ -28500,13 +29574,13 @@ function MailPending({ pending }) {
       (0, import_react31.createElement)(
         "span",
         { className: "bt-connector-text" },
-        (0, import_react31.createElement)("span", { className: "bt-connector-name" }, pending.address ?? "Gmail"),
+        (0, import_react31.createElement)("span", { className: "bt-connector-name" }, pending2.address ?? "Gmail"),
         (0, import_react31.createElement)("span", { className: "bt-connector-status" }, t("Finish signing in in your browser."))
       ),
       (0, import_react31.createElement)(
         "span",
         { className: "bt-connector-actions" },
-        (0, import_react31.createElement)("button", { type: "button", className: "bt-connector-link", onClick: () => openPage(pending.url) }, t("Open again"))
+        (0, import_react31.createElement)("button", { type: "button", className: "bt-connector-link", onClick: () => openPage(pending2.url) }, t("Open again"))
       )
     )
   );
@@ -29245,7 +30319,7 @@ function useFold(text, { limit = FOLD_AT, whole, live = false, markdown = true }
 
 // src/client/reading.js
 var import_react33 = require("react");
-var import_react_dom3 = require("react-dom");
+var import_react_dom4 = require("react-dom");
 var GAP = 8;
 var PILL = 28;
 var MAX_WIDTH = 360;
@@ -29421,7 +30495,7 @@ function ReplyGuide({ box, active }) {
     if (heading) glide(scroller, heading.getBoundingClientRect().top - shown.top - PILL - GAP);
   };
   const label = outline[shown.current]?.text ?? t("Contents");
-  return (0, import_react_dom3.createPortal)(
+  return (0, import_react_dom4.createPortal)(
     (0, import_react33.createElement)(
       "div",
       { className: "bt-reading", "data-leaving": leaving || void 0, style: { top: shown.top, left: shown.left, maxWidth: shown.maxWidth } },
@@ -29624,8 +30698,8 @@ function ownerSegment(card, content) {
 var btwRow = (card) => ({ kind: "btw", card });
 function withBtwRows(items, cards) {
   const list = Array.isArray(items) ? items : [];
-  const pending = (Array.isArray(cards) ? cards : []).filter((card) => card && card.id !== void 0 && card.id !== null);
-  if (pending.length === 0) return list;
+  const pending2 = (Array.isArray(cards) ? cards : []).filter((card) => card && card.id !== void 0 && card.id !== null);
+  if (pending2.length === 0) return list;
   const segments = segmentsOf(list);
   const content = segments.filter((segment) => segment.kind === "rows");
   let floor;
@@ -29635,7 +30709,7 @@ function withBtwRows(items, cards) {
   }
   const buckets = /* @__PURE__ */ new Map();
   const aside = [];
-  for (const card of pending) {
+  for (const card of pending2) {
     const owner = ownerSegment(card, content);
     if (owner) {
       const bucket = buckets.get(owner) ?? [];
@@ -30044,7 +31118,17 @@ function UserMessageCell({ node, sessionId, useRoster, useWork, actions, renderM
   const fold = { data, text, shown, folded, control, onClick: tapTools };
   return (0, import_react35.createElement)(
     "div",
-    { ref: row, className: "bt-umsg", "data-steering": steering || void 0 },
+    {
+      ref: row,
+      className: "bt-umsg",
+      "data-steering": steering || void 0,
+      // The user's own line offers the same hand-on: copy it, or send it to another Bot.
+      onContextMenu: (event) => {
+        if (typeof actions.openMenu !== "function" || text === "") return;
+        event.preventDefault();
+        actions.openMenu({ kind: "message", text, from: "", x: event.clientX, y: event.clientY });
+      }
+    },
     (0, import_react35.createElement)(
       "div",
       { className: "bt-ustack" },
@@ -30087,7 +31171,7 @@ var USER_MESSAGE_CSS = `
 
 // src/client/cells.js
 var import_react36 = require("react");
-var import_react_dom4 = require("react-dom");
+var import_react_dom5 = require("react-dom");
 function Bubbles({ texts: texts2, roster, selfId, actions, streaming, sessionId, msgKey, useUi, lead, mentions, fold = FOLD_AT, whole, time, textInteractionSource }) {
   const onClick = (event) => {
     const target = mentionTarget(event);
@@ -30163,9 +31247,14 @@ function Bubble({ text, index, roster, selfId, actions, sessionId, msgKey, menti
   };
   const bubble = (0, import_react36.useRef)(null);
   const area = foldArea(body, code, codeHead, actions);
+  const openMessageMenu = (event) => {
+    if (typeof actions.openMenu !== "function") return;
+    event.preventDefault();
+    actions.openMenu({ kind: "message", text, from: roster.byId[selfId]?.name ?? "", selfId, x: event.clientX, y: event.clientY });
+  };
   return (0, import_react36.createElement)(
     "div",
-    { ref: row, className: "bt-msg", onClick: tapTools },
+    { ref: row, className: "bt-msg", onClick: tapTools, onContextMenu: openMessageMenu },
     (0, import_react36.createElement)(
       "div",
       { className: "bt-msg-line" },
@@ -30256,7 +31345,7 @@ function MessageTools({ text, name, sessionId, react, actions, open: tapped }) {
     react ? (0, import_react36.createElement)("button", { type: "button", className: "bt-tool", "aria-label": t("Add reaction"), title: t("Add reaction"), "aria-expanded": panel?.kind === "react", onClick: (event) => open("react", event) }, (0, import_react36.createElement)(SmileIcon)) : null,
     sessionId ? (0, import_react36.createElement)("button", { type: "button", className: "bt-tool", "aria-label": t("Reply"), title: t("Reply"), onClick: () => actions.quote(sessionId, text) }, (0, import_react36.createElement)(ReplyIcon)) : null,
     (0, import_react36.createElement)("button", { type: "button", className: "bt-tool", "aria-label": t("More message actions"), title: t("More"), "aria-haspopup": "menu", "aria-expanded": panel?.kind === "more", onClick: (event) => open("more", event) }, copied ? (0, import_react36.createElement)(CheckIcon) : (0, import_react36.createElement)(DotsIcon)),
-    panel?.kind === "react" ? (0, import_react_dom4.createPortal)((0, import_react36.createElement)(
+    panel?.kind === "react" ? (0, import_react_dom5.createPortal)((0, import_react36.createElement)(
       "div",
       { ref: pop, className: "bt-react-strip", role: "menu", "aria-label": t("Reactions"), style: place },
       REACTIONS.map((emoji) => (0, import_react36.createElement)("button", { key: emoji, type: "button", role: "menuitem", "aria-label": emoji, onClick: () => {
@@ -30264,7 +31353,7 @@ function MessageTools({ text, name, sessionId, react, actions, open: tapped }) {
         react(emoji);
       } }, emoji))
     ), document.body) : null,
-    panel?.kind === "more" ? (0, import_react_dom4.createPortal)((0, import_react36.createElement)(
+    panel?.kind === "more" ? (0, import_react_dom5.createPortal)((0, import_react36.createElement)(
       "div",
       { ref: pop, className: "bt-menu", role: "menu", "aria-label": t("Message actions"), style: place },
       item(t("Copy"), CopyIcon, copy2),
@@ -30308,7 +31397,7 @@ function ThinkingRow({ text, live, at, ms, viewKey, textInteractionSource }) {
     const above = el.scrollTop > 0;
     setFade(above && !atEnd.current ? "both" : above ? "top" : !atEnd.current ? "bottom" : void 0);
   };
-  const toggle = (event) => {
+  const toggle2 = (event) => {
     const next = event.currentTarget.open;
     if (next) atEnd.current = true;
     remember({ open: next });
@@ -30326,7 +31415,7 @@ function ThinkingRow({ text, live, at, ms, viewKey, textInteractionSource }) {
   const title = live ? t("Thinking") : t("Thought it through");
   return (0, import_react36.createElement)(
     "details",
-    { className: "bt-think", open, onToggle: toggle },
+    { className: "bt-think", open, onToggle: toggle2 },
     (0, import_react36.createElement)(
       "summary",
       null,
@@ -30652,9 +31741,9 @@ function EarlierParts({ sessionId, roster, actions }) {
     };
   }, [sessionId, closedEarlier]);
   (0, import_react36.useLayoutEffect)(() => {
-    const pending = restore.current;
+    const pending2 = restore.current;
     restore.current = null;
-    if (pending) pending.scroller.scrollTop = pending.scroller.scrollHeight - pending.fromEnd;
+    if (pending2) pending2.scroller.scrollTop = pending2.scroller.scrollHeight - pending2.fromEnd;
   }, [view.pages]);
   (0, import_react36.useEffect)(() => {
     const node = top.current;
@@ -30925,7 +32014,7 @@ function Shimmer({ children }) {
   return (0, import_react36.createElement)("span", { className: "bt-shimmer" }, children);
 }
 function Elapsed({ at, className }) {
-  const [now, setNow] = (0, import_react36.useState)(Date.now);
+  const [now2, setNow] = (0, import_react36.useState)(Date.now);
   (0, import_react36.useEffect)(() => {
     let timer = 0;
     const tick = () => {
@@ -30936,7 +32025,7 @@ function Elapsed({ at, className }) {
     tick();
     return () => clearTimeout(timer);
   }, [at]);
-  return (0, import_react36.createElement)("span", { className }, `· ${elapsedLabel(Math.max(1e3, now - at))}`);
+  return (0, import_react36.createElement)("span", { className }, `· ${elapsedLabel(Math.max(1e3, now2 - at))}`);
 }
 var PHRASES2 = {
   thinking: ["Thinking about it", "Weighing the options", "Working out a plan", "Sorting out the details"],
@@ -31197,12 +32286,12 @@ function GroupReplies({ sessionId, callId, done, content, roster, actions, useUi
       broken = parsed.broken;
     }
   }
-  const pending = range !== void 0 ? view?.open ? view.speaking ?? [] : [] : done ? [] : live.speaking;
-  const doing = JSON.parse(useWork?.((work) => JSON.stringify(pending.map((id) => {
+  const pending2 = range !== void 0 ? view?.open ? view.speaking ?? [] : [] : done ? [] : live.speaking;
+  const doing = JSON.parse(useWork?.((work) => JSON.stringify(pending2.map((id) => {
     const tool = work.bots?.[id]?.tool;
     return tool ? [tool, workPhrase(work.bots[id])] : [];
   }))) ?? "[]");
-  if (replies.length === 0 && pending.length === 0) {
+  if (replies.length === 0 && pending2.length === 0) {
     return broken ? (0, import_react36.createElement)("div", { className: "bt-group-replies" }, (0, import_react36.createElement)("div", { className: "bt-event" }, t("The group replies could not be shown"))) : (0, import_react36.createElement)(CellEmpty);
   }
   const room2 = roster.roomsById[sessionId];
@@ -31232,7 +32321,7 @@ function GroupReplies({ sessionId, callId, done, content, roster, actions, useUi
       }
       return (0, import_react36.createElement)(GroupMessage, { key: `${reply.botId}-${index}`, bot, texts: texts2, room: room2, sessionId, roster, actions, msgKey: callId ? `${sessionId}:${callId}:${index}` : void 0, useUi, time, duration, claims, changes });
     }),
-    pending.map((id, at) => {
+    pending2.map((id, at) => {
       const bot = roster.byId[id];
       if (!bot) return null;
       const [tool, phrase] = doing[at] ?? [];
@@ -32056,7 +33145,7 @@ var TASKS_CSS = `
 .bt-task-bar:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
 .bt-task-bar[data-approval]{color:var(--bt-ink);font-weight:500}
 .bt-task-bar-label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt-task-bar-time{flex:none;font-size:11px;line-height:16px;color:var(--bt-ink-3);font-variant-numeric:tabular-nums}
+.bt-task-bar-time{flex:none;font-size:12px;line-height:16px;color:var(--bt-ink-2);font-variant-numeric:tabular-nums}
 .bt-task-bar-count{flex:none;min-width:18px;height:18px;padding:0 6px;border-radius:999px;background:color-mix(in srgb,var(--bt-accent) 12%,transparent);color:var(--bt-accent);font-size:11px;line-height:18px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .bt-task-bar[data-approval] .bt-task-bar-count{background:color-mix(in srgb,var(--bt-star) 16%,transparent);color:var(--bt-warn)}
 .bt-task-bar[aria-expanded=true] .bt-task-bar-count,.bt-task-bar[aria-expanded=true] .bt-task-bar-time{display:none}
@@ -32076,7 +33165,7 @@ var TASKS_CSS = `
 .bt-btask-status[data-status=completed]{color:var(--bt-green)}
 .bt-btask-status[data-status=failed]{color:var(--bt-danger)}
 .bt-btask-sep{color:var(--bt-ink-3);opacity:.65}
-.bt-btask-time{color:var(--bt-ink-3);font-variant-numeric:tabular-nums}
+.bt-btask-time{color:var(--bt-ink-2);font-size:12.5px;font-variant-numeric:tabular-nums}
 
 /* Unified Left/Right glass stepper pill */
 .bt-task-stepper{flex:none;display:inline-flex;align-items:center;gap:1px;height:24px;padding:1px;border-radius:999px;border:.5px solid var(--bt-line-2);background:var(--bt-island-well)}
@@ -32188,7 +33277,7 @@ body[data-ds-dark-theme] .bt-btask-btn.is-danger:hover:not(:disabled){background
 
 // src/client/activity-row.js
 var import_react38 = require("react");
-var import_react_dom5 = require("react-dom");
+var import_react_dom6 = require("react-dom");
 var PHRASE_HOLD_MS = 800;
 var drawPhrase = (pool) => t(pool[Math.min(pool.length - 1, Math.floor(Math.random() * pool.length))]);
 var rowVisible = ({ running, streaming, tools, relaying, bot, room: room2 }) => running && (!streaming || tools.length > 0) && !relaying && (bot !== void 0 || room2 !== void 0);
@@ -32366,7 +33455,7 @@ function ActivityIndicator({ sessionId, useRoster, useSessionStatus, useLive, us
   useRowEntrances(() => leaving.current || Date.now() - endedAt.current < 300);
   const host = useRunningHost(running || moveAt !== 0);
   if (!host || phase === null || !shown) return null;
-  return (0, import_react_dom5.createPortal)((0, import_react38.createElement)(
+  return (0, import_react_dom6.createPortal)((0, import_react38.createElement)(
     "div",
     { className: "bt-typing", "data-exiting": phase === "out" ? "" : void 0, "aria-hidden": bot ? void 0 : true },
     bot ? (0, import_react38.createElement)(BotMark, { bot, size: 28, state: markState.current, live: true, pokeable: true }) : (0, import_react38.createElement)(RoomAvatar, { room: room2, roster, size: 28 }),
@@ -32390,6 +33479,130 @@ function showsDshRow(dsh, app) {
   if (!dsh?.verified || !dsh.current || sameVersion(dsh.verified, dsh.current)) return false;
   if (dsh.kind === "npm") return true;
   return dsh.kind === "app" && APP_OFFER.has(app?.phase) && sameVersion(app.version, dsh.verified);
+}
+
+// src/client/window-grow.js
+var grown = 0;
+var pending = 0;
+var unreported = 0;
+var expected2 = 0;
+var pendingUntil = 0;
+var SETTLE_MS = 240;
+var now = () => Number(globalThis.performance?.now?.() ?? Date.now());
+function roomOnScreen(win = globalThis.window, screen = globalThis.screen) {
+  const outer = Number(win?.outerWidth);
+  const left = Number(win?.screenX);
+  const avail = Number(screen?.availWidth);
+  if (!Number.isFinite(outer) || !Number.isFinite(left) || !Number.isFinite(avail)) return Infinity;
+  return Math.max(0, avail - left - outer);
+}
+var grownBy = () => grown;
+var growInFlight = () => pending !== 0 && now() <= pendingUntil;
+function markPending(change, target) {
+  pending = change;
+  expected2 = target;
+  pendingUntil = now() + SETTLE_MS;
+}
+function growWindow(by) {
+  if (!(by > 0)) return 0;
+  const win = globalThis.window;
+  if (typeof win?.resizeTo !== "function") return 0;
+  const before = Number(win.outerWidth);
+  if (!Number.isFinite(before)) return 0;
+  const inner = Number(win.innerWidth);
+  const from = Number.isFinite(inner) ? inner : before;
+  const step = Math.round(Math.min(by, roomOnScreen()));
+  if (step < 1) return 0;
+  const height = Number(win.outerHeight);
+  try {
+    if (Number.isFinite(height)) win.resizeTo(before + step, height);
+    else win.resizeTo(before + step);
+  } catch {
+    return 0;
+  }
+  const after = Number(win.outerWidth);
+  const reported = Number.isFinite(after) ? Math.max(0, Math.round(after - before)) : 0;
+  grown += reported;
+  unreported = reported > 0 ? 0 : step;
+  const counted = reported > 0 ? reported : step;
+  markPending(counted, from + counted);
+  return counted;
+}
+function pendingGrow(measured) {
+  if (pending === 0) return 0;
+  const seen = Number(measured);
+  const caughtUp = Number.isFinite(seen) && (pending > 0 ? seen >= expected2 : seen <= expected2);
+  if (caughtUp) {
+    grown += unreported;
+    unreported = 0;
+    pending = 0;
+    return 0;
+  }
+  if (now() > pendingUntil) {
+    unreported = 0;
+    pending = 0;
+    return 0;
+  }
+  return pending;
+}
+var forgetPendingGrow = () => {
+  pending = 0;
+  unreported = 0;
+};
+function restoreWindow() {
+  const step = grown + unreported;
+  grown = 0;
+  unreported = 0;
+  pending = 0;
+  if (!(step > 0)) return 0;
+  const win = globalThis.window;
+  if (typeof win?.resizeTo !== "function") return 0;
+  const before = Number(win.outerWidth);
+  if (!Number.isFinite(before)) return 0;
+  const inner = Number(win.innerWidth);
+  const from = Number.isFinite(inner) ? inner : before;
+  const height = Number(win.outerHeight);
+  try {
+    if (Number.isFinite(height)) win.resizeTo(Math.max(1, before - step), height);
+    else win.resizeTo(Math.max(1, before - step));
+  } catch {
+    return 0;
+  }
+  markPending(-step, from - step);
+  return step;
+}
+
+// src/client/room-hold.js
+function createRoomHold({ write, inFlight }) {
+  let held;
+  return {
+    /** Take a margin. Returns true when it is waiting for the window instead of written. */
+    set(width) {
+      if (inFlight()) {
+        held = width;
+        return true;
+      }
+      held = void 0;
+      write(width);
+      return false;
+    },
+    /** Write the margin that was waiting, if any. Returns true when one was written. */
+    flush() {
+      if (held === void 0) return false;
+      const width = held;
+      held = void 0;
+      write(width);
+      return true;
+    },
+    /** True while a margin waits for the window. */
+    get waiting() {
+      return held !== void 0;
+    },
+    /** The margin that is waiting, or undefined. */
+    get pending() {
+      return held;
+    }
+  };
 }
 
 // src/client/frame-watch.js
@@ -32427,14 +33640,35 @@ var margin = (side, width, style) => {
   else style.removeProperty("width");
 };
 var roomHold = 0;
+var rightHold = createRoomHold({
+  write: (width) => {
+    margin("right", width, roomRule().style);
+  },
+  inFlight: () => growInFlight()
+});
+var holdTick = () => {
+};
+var holdRaf = 0;
 var chatRoom = {
   /** The margin the Bot panel takes on the right, in px, or null for the shell's own. */
   setRight(width) {
-    margin("right", width, roomRule().style);
+    chatRoom.hold(true);
+    if (rightHold.set(width)) {
+      holdTick();
+      return;
+    }
+    chatRoom.hold(false);
   },
   /** The margin our own left column takes while the shell sidebar is collapsed. */
   setLeft(width) {
     margin("left", width, roomRule().style);
+  },
+  /** Room above the conversation for the Bot strip: padding, so the column keeps its size
+      and nothing under it overflows the window. */
+  setTop(height) {
+    const style = roomRule().style;
+    if (height === null) style.removeProperty("padding-top");
+    else style.setProperty("padding-top", `${height}px`, "important");
   },
   /** While on, a margin change lands at once instead of gliding. */
   hold(on) {
@@ -32453,6 +33687,9 @@ var chatRoom = {
     return room.selector ? [...document.querySelectorAll(room.selector)] : [];
   }
 };
+var readFrame = () => {
+};
+var readFrameNow = () => readFrame();
 function installFrameWatch(frame2) {
   let collapsedWidth = collapsedTrackWidth();
   let raf = 0;
@@ -32464,9 +33701,27 @@ function installFrameWatch(frame2) {
     const width = animating ? null : sidebarTrackWidth();
     const collapsed = dshCollapsed();
     collapsedWidth = nextCollapsedWidth({ measured: width, collapsed, animating, last: collapsedWidth });
+    const measured = window.innerWidth;
+    const pendingWidth = pendingGrow(measured);
+    const viewport = Math.max(0, measured + pendingWidth);
     frame2.set((state) => {
-      const next = { ...state, viewport: window.innerWidth, collapsedWidth, collapsed: collapsed === true };
+      const next = { ...state, viewport, collapsedWidth, collapsed: collapsed === true };
       return state.viewport === next.viewport && state.collapsedWidth === next.collapsedWidth && state.collapsed === next.collapsed ? state : next;
+    });
+    if (pendingWidth === 0 && rightHold.waiting) {
+      chatRoom.hold(true);
+      rightHold.flush();
+      chatRoom.hold(false);
+    }
+  };
+  readFrame = read;
+  holdTick = () => {
+    if (holdRaf !== 0) return;
+    holdRaf = requestAnimationFrame(() => {
+      holdRaf = 0;
+      if (!rightHold.waiting) return;
+      read();
+      if (rightHold.waiting) holdTick();
     });
   };
   const measure = () => {
@@ -32500,15 +33755,21 @@ function installFrameWatch(frame2) {
   window.addEventListener("resize", schedule);
   return () => {
     cancelAnimationFrame(raf);
+    cancelAnimationFrame(holdRaf);
+    holdRaf = 0;
+    holdTick = () => {
+    };
     mutations.disconnect();
     observer?.disconnect();
     window.removeEventListener("resize", schedule);
+    readFrame = () => {
+    };
   };
 }
 
 // src/client/sidebar.js
 var import_react39 = require("react");
-var import_react_dom6 = require("react-dom");
+var import_react_dom7 = require("react-dom");
 function useMarkedUnread(id, active, marked2, actions) {
   (0, import_react39.useEffect)(() => {
     if (active && marked2) actions.clearUnread(id);
@@ -32537,7 +33798,7 @@ var waitingFor = (roster, waits) => {
   const names = [...(waits?.bots ?? []).map((id) => roster.byId[id]?.name), ...(waits?.rooms ?? []).map((id) => roster.roomsById[id]?.name)].filter(Boolean);
   return names.length === 0 ? "" : t("Waiting for {names}", { names: names.join(t(" and ")) });
 };
-function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessionRetainInfo, useActivity, useWork, useComputer, wide, marked: marked2, onDragStart }) {
+function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessionRetainInfo, useActivity, useWork, useComputer, wide, marked: marked2, onDragStart, chip, plain }) {
   const id = bot.id;
   const part = currentPart(bot);
   const preview = useSessions((list) => previewOf(list, part, roster.exchangeTurns[part]));
@@ -32571,7 +33832,24 @@ function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessio
     actions.openTaskDeck?.(id);
   };
   const label = [bot.name, main ? t("Main Bot") : "", pinned ? t("Pinned") : "", running || away ? t("Working") : "", taskCounts.active > 0 ? t("{count} background tasks running", { count: taskCounts.active }) : "", waitsFor, approval ? t("Waiting for your approval") : alert ? t("Waiting for your answer") : "", unread ? t("Unread activity") : ""].filter(Boolean).join(", ");
-  if (tile && wide) {
+  if (tile && wide && chip) {
+    return (0, import_react39.createElement)(
+      "button",
+      {
+        type: "button",
+        className: "bt-main-chip",
+        "aria-label": label,
+        "aria-current": active ? "page" : void 0,
+        "data-bot-id": id,
+        title: preview ? `${bot.name} · ${preview}` : bot.name,
+        onClick: () => actions.openSession(id),
+        onContextMenu
+      },
+      (0, import_react39.createElement)(BotAvatar, { bot, size: 32, state, main: true }),
+      taskCounts.active > 0 ? (0, import_react39.createElement)("span", { className: "bt-main-chip-tasks", "aria-hidden": true }, String(taskCounts.active)) : unread && !active ? (0, import_react39.createElement)("span", { className: "bt-main-chip-dot", "aria-hidden": true }) : null
+    );
+  }
+  if (tile && wide && !plain) {
     return (0, import_react39.createElement)("div", { className: "bt-tile-wrap" }, (0, import_react39.createElement)(
       "button",
       {
@@ -32816,9 +34094,180 @@ function AgentRow({ agent, actions, useSessions, useSessionStatus, useUi, wide, 
 function renderSidebarEntry(entry, rowProps, markedUnread, onDragStart) {
   return entry.kind === "bot" ? (0, import_react39.createElement)(BotRow, { key: entry.item.id, ...rowProps, bot: entry.item, marked: markedUnread[entry.item.id] === true, onDragStart }) : entry.kind === "room" ? (0, import_react39.createElement)(RoomRow, { key: entry.item.id, ...rowProps, room: entry.item, marked: markedUnread[entry.item.id] === true, onDragStart }) : (0, import_react39.createElement)(AgentRow, { key: entry.item.id, ...rowProps, agent: entry.item, marked: markedUnread[entry.item.id] === true, onDragStart });
 }
-function SectionBlock({ section, entries: entries2, rowProps, markedUnread, renaming, dropTarget, onDragStart, onDragOverSec, onDropSec }) {
+var readStripOrder = () => {
+  try {
+    const saved = JSON.parse(globalThis.localStorage?.getItem(STORAGE.strip) ?? "[]");
+    return Array.isArray(saved) ? saved.filter((id) => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+};
+var writeStripOrder = (ids) => {
+  try {
+    globalThis.localStorage?.setItem(STORAGE.strip, JSON.stringify(ids));
+  } catch {
+  }
+};
+function TopBotStrip({ roster, markedUnread, actions, left, useSessions, useWork }) {
+  const dragId = (0, import_react39.useRef)("");
+  const pressed = (0, import_react39.useRef)(null);
+  const watch = typeof useSessions === "function" ? useSessions : null;
+  const shownSession = watch === null ? "" : watch((list2) => Object.values(list2.byId ?? {}).find((session) => (session?.retainedBy?.mainView ?? 0) > 0)?.id ?? "");
+  const activeId = shownSession === "" || shownSession === void 0 ? void 0 : roster.bots.find((bot) => currentPart(bot) === shownSession)?.id;
+  const [order, setOrder] = (0, import_react39.useState)(readStripOrder);
+  const [offStrip, setOffStrip] = (0, import_react39.useState)(readStripHidden);
+  const [roomIds, setRoomIds] = (0, import_react39.useState)(readStripRooms);
+  const [mainIds, setMainIds] = (0, import_react39.useState)(readStripMain);
+  (0, import_react39.useEffect)(() => onStripChange(() => {
+    setOffStrip(readStripHidden());
+    setRoomIds(readStripRooms());
+    setMainIds(readStripMain());
+  }), []);
+  const stripRef = (0, import_react39.useRef)(null);
+  const [named, setNamed] = (0, import_react39.useState)(null);
+  const nameFace = (event, id, entry) => {
+    const box = event.currentTarget.getBoundingClientRect();
+    const host = stripRef.current?.getBoundingClientRect();
+    setNamed({ entry, x: box.left + box.width / 2 - (host?.left ?? 0) });
+    if (typeof document !== "undefined") {
+      if (id === activeId) document.body.dataset.btStripHover = "active";
+      else delete document.body.dataset.btStripHover;
+    }
+  };
+  const clearName = () => {
+    setNamed(null);
+    if (typeof document !== "undefined") delete document.body.dataset.btStripHover;
+  };
+  const partsRun = roster.partsRunning ?? {};
+  const roomWorkRaw = useWork ? useWork((work) => JSON.stringify(Object.values(work.rooms ?? {}).flatMap((entries3) => entries3.map((entry) => entry.botId)).filter(Boolean))) : "[]";
+  const busyInRooms = (0, import_react39.useMemo)(() => new Set(JSON.parse(roomWorkRaw)), [roomWorkRaw]);
+  const atWork = (bot) => {
+    const ids = [currentPart(bot), ...(bot.openParts ?? []).map((entry) => entry.sessionId)].filter(Boolean);
+    return ids.some((id) => partsRun[id] === true) || busyInRooms.has(bot.id);
+  };
+  const bots = roster.bots.filter((bot) => {
+    if (bot.hidden === true) return false;
+    if (bot.id === roster.mainBotId) return mainIds.includes(bot.id);
+    return !offStrip.includes(bot.id);
+  });
+  const rooms = (roster.rooms ?? []).filter((room2) => room2.hidden !== true && roomIds.includes(room2.id));
+  const entries2 = [
+    ...bots.map((bot) => ({ kind: "bot", id: bot.id, item: bot })),
+    ...rooms.map((room2) => ({ kind: "room", id: room2.id, item: room2 }))
+  ];
+  const known = order.map((id) => entries2.find((entry) => entry.id === id)).filter(Boolean);
+  const list = [...known, ...entries2.filter((entry) => !order.includes(entry.id))];
+  if (list.length === 0) return null;
+  const place = (from, to) => {
+    if (from === "" || to === "" || from === to) return;
+    const ids = list.map((entry) => entry.id);
+    const next = ids.slice();
+    next.splice(next.indexOf(from), 1);
+    next.splice(next.indexOf(to), 0, from);
+    setOrder(next);
+    writeStripOrder(next);
+  };
+  const working = (entry) => entry.kind === "bot" ? atWork(entry.item) : partsRun[entry.item.sessionId ?? entry.id] === true;
+  const face = (entry, movable) => {
+    const id = entry.id;
+    const name = entry.item.name;
+    const at = working(entry);
+    return (0, import_react39.createElement)("button", {
+      key: id,
+      type: "button",
+      className: "bt-topstrip-btn",
+      draggable: movable || void 0,
+      // No title: the band names the face itself, at once, and two tooltips would overlap.
+      "aria-label": at ? `${name}, ${t("Working")}` : name,
+      "data-name": name,
+      "data-id": id,
+      "data-kind": entry.kind,
+      "data-active": id === activeId ? "true" : void 0,
+      "data-running": at ? "true" : void 0,
+      "data-unread": markedUnread[id] === true ? "true" : void 0,
+      onMouseEnter: (event) => nameFace(event, id, entry),
+      onMouseLeave: clearName,
+      // The same menu the row in the list opens, from the same call: one Bot, one menu,
+      // wherever the user right-clicked it.
+      onContextMenu: (event) => {
+        event.preventDefault();
+        pressed.current = null;
+        actions.openMenu({ kind: entry.kind, id, from: "strip", x: event.clientX, y: event.clientY });
+      },
+      // Keyboard activation only: a pointer press is handled on pointerup, above.
+      onClick: (event) => {
+        if (event.detail === 0) actions.openSession(id);
+      },
+      onPointerDown: (event) => {
+        pressed.current = event.button === 0 ? { id, x: event.clientX, y: event.clientY } : null;
+      },
+      onPointerUp: (event) => {
+        const start = pressed.current;
+        pressed.current = null;
+        if (start === null || start.id !== id) return;
+        if (Math.abs(event.clientX - start.x) > 4 || Math.abs(event.clientY - start.y) > 4) return;
+        actions.openSession(id);
+      },
+      onDragStart: movable ? (event) => {
+        dragId.current = id;
+        event.dataTransfer?.setData("text/plain", id);
+        if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+      } : void 0,
+      onDragOver: movable ? (event) => {
+        event.preventDefault();
+        if (dragId.current !== "") place(dragId.current, id);
+      } : void 0,
+      onDragEnd: movable ? () => {
+        dragId.current = "";
+      } : void 0
+    }, entry.kind === "room" ? (0, import_react39.createElement)(RoomAvatar, { room: entry.item, roster, size: 26 }) : (0, import_react39.createElement)(BotAvatar, { bot: entry.item, size: 26, state: botState(at, void 0, false), main: id === roster.mainBotId, live: false }));
+  };
+  return (0, import_react_dom7.createPortal)((0, import_react39.createElement)(
+    "div",
+    {
+      className: "bt-topstrip",
+      role: "group",
+      "aria-label": t("Bot list"),
+      ref: stripRef,
+      style: { left: `${Math.max(0, left)}px` },
+      onDragOver: (event) => event.preventDefault(),
+      // The band takes no presses of its own any more, so a double-click on it never reaches
+      // the window's title strip either. Kept as the guard for the faces' own row.
+      onDoubleClick: (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      },
+      onMouseLeave: clearName
+    },
+    // The Main Bot has its own place in the sidebar's header; this row is the rest of the team.
+    (0, import_react39.createElement)("div", { className: "bt-topstrip-row" }, list.map((entry) => face(entry, true))),
+    // The band's right end is where the Windows caption buttons stand. The app fills their
+    // background with the colour it samples under them, and the band itself is a gradient with
+    // no surface to sample, so this patch carries the ramp's end colour instead of the white
+    // the frame would otherwise offer. It takes presses only where nothing of ours sits above it.
+    (0, import_react39.createElement)("div", { className: "bt-topstrip-tint", "aria-hidden": true }),
+    // The name of the face under the pointer, hung off the bottom edge of the band, its own
+    // face leading it.
+    named === null ? null : (0, import_react39.createElement)(
+      "span",
+      { className: "bt-topstrip-name", style: { left: `${named.x}px` } },
+      (0, import_react39.createElement)(
+        "span",
+        { className: "bt-topstrip-name-mark", "aria-hidden": true },
+        named.entry.kind === "room" ? (0, import_react39.createElement)(RoomAvatar, { room: named.entry.item, roster, size: 24 }) : (0, import_react39.createElement)(BotMark, { bot: named.entry.item, size: 24 })
+      ),
+      named.entry.item.name
+    )
+  ), document.body);
+}
+function SectionBlock({ section, entries: entries2, rowProps, markedUnread, renaming, dropTarget, onDragStart, onDragOverSec, onDropSec, secDrag, secOver, onSecDragStart, onSecDragOver, onSecDrop, onSecDragEnd }) {
   const { roster, actions, useSessions, useSessionStatus, useWork, useComputer, wide } = rowProps;
   const input = (0, import_react39.useRef)(null);
+  const [wish, setWish] = (0, import_react39.useState)(null);
+  const collapsed = wish === null ? section.collapsed : wish;
+  (0, import_react39.useEffect)(() => {
+    if (wish !== null && section.collapsed === wish) setWish(null);
+  }, [section.collapsed, wish]);
   (0, import_react39.useLayoutEffect)(() => {
     if (!renaming) return;
     input.current?.focus();
@@ -32876,19 +34325,24 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
   const hasWorking = hasRoomWork || parsedStatuses.some(([, run2]) => run2 === 1);
   const hasUnread = parsedStatuses.some(([id, , unread]) => unread === 1 && id !== activeSession) || entries2.some((entry) => markedUnread[entry.item.id] === true && entry !== activeEntry);
   const statusKind = hasAlert ? "alert" : hasWorking ? "working" : hasUnread ? "unread" : null;
-  const toggle = () => {
-    void Promise.resolve(actions.saveSection({ id: section.id, collapsed: !section.collapsed })).catch((error) => actions.reportError(error, "section"));
+  const toggle2 = () => {
+    const next = !collapsed;
+    setWish(next);
+    void Promise.resolve(actions.saveSection({ id: section.id, collapsed: next })).catch((error) => {
+      setWish(null);
+      actions.reportError(error, "section");
+    });
   };
   const openSecMenu = (kind, x, y) => actions.openMenu({ kind, id: section.id, x, y });
   if (!wide) {
-    if (section.collapsed) {
+    if (collapsed) {
       const folderRoom = { id: section.id, name: section.name, members: botsInSec.map((bot) => bot.id) };
       return (0, import_react39.createElement)(
         "div",
         { className: "bt-rail-sec", "data-sec-id": section.id },
         (0, import_react39.createElement)(
           "div",
-          { className: "bt-rail-sec-div", title: section.name, onClick: toggle },
+          { className: "bt-rail-sec-div", title: section.name, onClick: toggle2 },
           (0, import_react39.createElement)("span", { className: "bt-rail-sec-pill", style: section.color ? { background: inkFill(section.color) } : void 0 })
         ),
         (0, import_react39.createElement)(
@@ -32899,7 +34353,7 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
             "aria-label": section.name,
             title: `${section.name} (${visibleEntries.length})`,
             "aria-current": activeEntry ? "page" : void 0,
-            onClick: toggle,
+            onClick: toggle2,
             onContextMenu: (event) => {
               event.preventDefault();
               openSecMenu("section", event.clientX, event.clientY);
@@ -32915,7 +34369,7 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
       null,
       (0, import_react39.createElement)(
         "div",
-        { className: "bt-rail-sec-div", "data-sec-id": section.id, title: section.name, onClick: toggle },
+        { className: "bt-rail-sec-div", "data-sec-id": section.id, title: section.name, onClick: toggle2 },
         (0, import_react39.createElement)("span", { className: "bt-rail-sec-pill", style: section.color ? { background: inkFill(section.color) } : void 0 })
       ),
       entries2.map((entry) => renderSidebarEntry(entry, rowProps, markedUnread))
@@ -32932,10 +34386,19 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
     {
       className: "bt-sec",
       "data-sec-id": section.id,
-      "data-collapsed": section.collapsed ? "true" : "false",
+      "data-collapsed": collapsed ? "true" : "false",
       "data-drop": dropTarget === section.id ? "true" : void 0,
-      onDragOver: onDragOverSec ? (event) => onDragOverSec(event, section.id) : void 0,
-      onDrop: onDropSec ? (event) => onDropSec(event, section.id) : void 0
+      // A section being dragged, and the edge the one under the pointer would put it on.
+      "data-sec-dragging": secDrag === section.id ? "true" : void 0,
+      "data-sec-drop": secOver?.id === section.id ? secOver.after ? "after" : "before" : void 0,
+      onDragOver: (event) => {
+        if (secDrag) onSecDragOver?.(event, section.id);
+        else onDragOverSec?.(event, section.id);
+      },
+      onDrop: (event) => {
+        if (secDrag) onSecDrop?.(event, section.id);
+        else onDropSec?.(event, section.id);
+      }
     },
     renaming ? (0, import_react39.createElement)(
       "div",
@@ -32960,8 +34423,14 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
         {
           type: "button",
           className: "bt-sec-head",
-          "aria-expanded": !section.collapsed,
-          onClick: toggle,
+          "aria-expanded": !collapsed,
+          draggable: true,
+          onDragStart: (event) => {
+            event.stopPropagation();
+            onSecDragStart?.(event, section.id);
+          },
+          onDragEnd: () => onSecDragEnd?.(),
+          onClick: toggle2,
           onDoubleClick: (event) => {
             event.stopPropagation();
             actions.beginSectionRename(section.id);
@@ -32975,17 +34444,17 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
         (0, import_react39.createElement)("span", { className: "bt-sec-chev", "aria-hidden": true }, (0, import_react39.createElement)(ChevronRightIcon)),
         section.color ? (0, import_react39.createElement)("span", { className: "bt-sec-dot", style: { background: inkFill(section.color) }, "aria-hidden": true }) : null,
         (0, import_react39.createElement)("span", { className: "bt-sec-title" }, section.name),
-        (0, import_react39.createElement)("span", { className: `bt-sec-count${!section.collapsed ? " bt-sec-count-hide" : ""}` }, visibleEntries.length),
+        (0, import_react39.createElement)("span", { className: `bt-sec-count${!collapsed ? " bt-sec-count-hide" : ""}` }, visibleEntries.length),
         (0, import_react39.createElement)(
           "span",
           { className: "bt-sec-tail" },
-          section.collapsed && botsInSec.length > 0 ? (0, import_react39.createElement)(
+          collapsed && botsInSec.length > 0 ? (0, import_react39.createElement)(
             "span",
             { className: "bt-sec-pile", "aria-hidden": true },
             botsInSec.slice(0, 3).map((bot) => (0, import_react39.createElement)("span", { key: bot.id, className: "bt-sec-pile-item" }, (0, import_react39.createElement)(BotMark, { bot, size: 18 }))),
             botsInSec.length > 3 ? (0, import_react39.createElement)("span", { className: "bt-sec-pile-more" }, `+${botsInSec.length - 3}`) : null
           ) : null,
-          section.collapsed && statusKind ? (0, import_react39.createElement)("span", { className: "bt-sec-status", "data-kind": statusKind, "aria-hidden": true }, statusKind === "alert" ? "?" : null) : null
+          collapsed && statusKind ? (0, import_react39.createElement)("span", { className: "bt-sec-status", "data-kind": statusKind, "aria-hidden": true }, statusKind === "alert" ? "?" : null) : null
         )
       ),
       (0, import_react39.createElement)(
@@ -33019,8 +34488,8 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
       "div",
       {
         className: "bt-sec-body",
-        inert: section.collapsed ? true : void 0,
-        "aria-hidden": section.collapsed ? true : void 0
+        inert: collapsed ? true : void 0,
+        "aria-hidden": collapsed ? true : void 0
       },
       (0, import_react39.createElement)(
         "div",
@@ -33029,6 +34498,98 @@ function SectionBlock({ section, entries: entries2, rowProps, markedUnread, rena
       )
     )
   );
+}
+var UNGROUPED_KEY = "ds-bot:ungrouped-collapsed";
+function ungroupedFolded() {
+  try {
+    return globalThis.localStorage?.getItem(UNGROUPED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function UngroupedBlock({ entries: entries2, children, dropTarget, onDragOverSec, onDropSec }) {
+  const [collapsed, setCollapsed] = (0, import_react39.useState)(ungroupedFolded());
+  const name = t("Ungrouped");
+  const toggle2 = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    try {
+      globalThis.localStorage?.setItem(UNGROUPED_KEY, next ? "1" : "0");
+    } catch {
+    }
+  };
+  return (0, import_react39.createElement)(
+    "div",
+    {
+      className: "bt-sec bt-sec-ungrouped",
+      "data-ungrouped": "true",
+      "data-collapsed": collapsed ? "true" : "false",
+      "data-drop": dropTarget === "__none__" ? "true" : void 0,
+      onDragOver: (event) => onDragOverSec?.(event, "__none__"),
+      onDrop: (event) => onDropSec?.(event, null)
+    },
+    (0, import_react39.createElement)(
+      "div",
+      { className: "bt-sec-head-wrap" },
+      (0, import_react39.createElement)(
+        "button",
+        {
+          type: "button",
+          className: "bt-sec-head",
+          "aria-expanded": !collapsed,
+          title: name,
+          onClick: toggle2
+        },
+        (0, import_react39.createElement)("span", { className: "bt-sec-chev", "aria-hidden": true }, (0, import_react39.createElement)(ChevronRightIcon)),
+        (0, import_react39.createElement)("span", { className: "bt-sec-title" }, name),
+        (0, import_react39.createElement)("span", { className: `bt-sec-count${!collapsed ? " bt-sec-count-hide" : ""}` }, entries2.length),
+        (0, import_react39.createElement)(
+          "span",
+          { className: "bt-sec-tail" },
+          collapsed && entries2.length > 0 ? (0, import_react39.createElement)(
+            "span",
+            { className: "bt-sec-pile", "aria-hidden": true },
+            entries2.slice(0, 3).map((entry) => (0, import_react39.createElement)("span", { key: entry.item.id, className: "bt-sec-pile-item" }, (0, import_react39.createElement)(BotMark, { bot: entry.item, size: 18 }))),
+            entries2.length > 3 ? (0, import_react39.createElement)("span", { className: "bt-sec-pile-more" }, `+${entries2.length - 3}`) : null
+          ) : null
+        )
+      )
+    ),
+    (0, import_react39.createElement)(
+      "div",
+      {
+        className: "bt-sec-body",
+        inert: collapsed ? true : void 0,
+        "aria-hidden": collapsed ? true : void 0
+      },
+      (0, import_react39.createElement)("div", { className: "bt-sec-body-in" }, children)
+    )
+  );
+}
+function useEdgeFade(listRef) {
+  (0, import_react39.useEffect)(() => {
+    const list = listRef.current;
+    if (!list) return void 0;
+    const paint = () => {
+      const overTop = list.scrollTop > 1;
+      const pin = list.previousElementSibling;
+      if (pin?.classList?.contains("bt-list-pin")) {
+        if (overTop) pin.dataset.shadow = "";
+        else delete pin.dataset.shadow;
+      }
+    };
+    paint();
+    list.addEventListener("scroll", paint, { passive: true });
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(paint) : null;
+    if (observer) {
+      observer.observe(list);
+      for (const child of Array.from(list.children)) observer.observe(child);
+    }
+    return () => {
+      list.removeEventListener("scroll", paint);
+      if (observer) observer.disconnect();
+    };
+  });
 }
 function useListGlide(listRef, layout, key) {
   const tops = (0, import_react39.useRef)({ layout, map: /* @__PURE__ */ new Map() });
@@ -33050,20 +34611,33 @@ function useListGlide(listRef, layout, key) {
     tops.current = { layout, map: next };
   }, [layout, key]);
 }
-function LeftColumn({ mode, width, onGrip, leaving, children }) {
-  return (0, import_react_dom6.createPortal)((0, import_react39.createElement)(
+function WindowBar({ children }) {
+  if (typeof document === "undefined" || typeof import_react_dom7.createPortal !== "function") return null;
+  return (0, import_react_dom7.createPortal)((0, import_react39.createElement)(
     "div",
-    { className: "bt-leftcol", "data-left": mode, "data-leaving": leaving || void 0, "aria-hidden": leaving || void 0, style: { width: `${width}px` } },
+    { className: "bt-topbar" },
+    children,
+    // The window's caption buttons sit at this bar's right end, and the app fills their background
+    // with the colour it samples there. This sliver is what it can sample: the measured point is
+    // the window's top-right corner, and the bar itself is click-through and so invisible to that
+    // sampling. Narrow enough that it takes no press worth having.
+    (0, import_react39.createElement)("div", { className: "bt-topbar-tint", "aria-hidden": true })
+  ), document.body);
+}
+function LeftColumn({ mode, width, onGrip, leaving, topbar, children }) {
+  return (0, import_react_dom7.createPortal)((0, import_react39.createElement)(
+    "div",
+    { className: "bt-leftcol", "data-left": mode, "data-topbar": topbar ? "" : void 0, "data-leaving": leaving || void 0, "aria-hidden": leaving || void 0, style: { width: `${width}px` } },
     children,
     (0, import_react39.createElement)("div", { className: "bt-leftcol-grip", role: "separator", "aria-orientation": "vertical", "aria-label": t("Resize sidebar"), title: t("Resize sidebar"), onPointerDown: onGrip })
   ), document.body);
 }
 function TitleToggle({ hidden, onToggle }) {
   if (typeof document === "undefined") return null;
+  if (!hidden) return null;
   const titlebar = document.documentElement.hasAttribute("data-windows-titlebar");
-  if (!titlebar && !hidden) return null;
   const label = t(hidden ? "Expand sidebar" : "Collapse sidebar");
-  return (0, import_react_dom6.createPortal)((0, import_react39.createElement)("button", {
+  return (0, import_react_dom7.createPortal)((0, import_react39.createElement)("button", {
     type: "button",
     className: titlebar ? "bt-title-toggle" : "bt-round bt-title-toggle",
     "aria-label": label,
@@ -33081,6 +34655,88 @@ function BootFailed({ actions }) {
     { className: "bt-hint bt-boot-failed", role: "alert" },
     (0, import_react39.createElement)("div", null, bootHint()),
     typeof actions.setSurface === "function" ? (0, import_react39.createElement)("button", { type: "button", className: "bt-soft bt-soft-sm", onClick: () => actions.setSurface("agent") }, t("Switch to classic Agent mode")) : null
+  );
+}
+var BLOCK_HEIGHT_KEY = "ds-bot:side-block-h";
+var BLOCK_HEIGHT_MIN = 96;
+var BLOCK_HEIGHT_DEFAULT = 220;
+var blockHeightMax = () => Math.max(BLOCK_HEIGHT_MIN + 80, (typeof window === "undefined" ? 800 : window.innerHeight) - 320);
+function readBlockHeight() {
+  if (typeof localStorage === "undefined") return BLOCK_HEIGHT_DEFAULT;
+  try {
+    const saved = Number(localStorage.getItem(BLOCK_HEIGHT_KEY));
+    if (!Number.isFinite(saved) || saved <= 0) return BLOCK_HEIGHT_DEFAULT;
+    return Math.min(Math.max(Math.round(saved), BLOCK_HEIGHT_MIN), blockHeightMax());
+  } catch {
+    return BLOCK_HEIGHT_DEFAULT;
+  }
+}
+function saveBlockHeight(value) {
+  try {
+    localStorage.setItem(BLOCK_HEIGHT_KEY, String(Math.round(value)));
+  } catch {
+  }
+}
+function SideBlockResizer({ children }) {
+  const [height, setHeight] = (0, import_react39.useState)(readBlockHeight());
+  const [dragging, setDragging] = (0, import_react39.useState)(false);
+  const live = (0, import_react39.useRef)(height);
+  live.current = height;
+  const clamp = (value) => Math.min(Math.max(Math.round(value), BLOCK_HEIGHT_MIN), blockHeightMax());
+  const apply2 = (value) => {
+    const next = clamp(value);
+    setHeight(next);
+    return next;
+  };
+  const onDown = (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    const startY = event.clientY;
+    const startHeight = live.current;
+    setDragging(true);
+    const onMove = (move) => {
+      live.current = apply2(startHeight + (move.clientY - startY));
+    };
+    const onUp = () => {
+      setDragging(false);
+      saveBlockHeight(live.current);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+  };
+  const onKey = (event) => {
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault();
+      saveBlockHeight(live.current + (event.key === "ArrowUp" ? -16 : 16));
+      apply2(live.current + (event.key === "ArrowUp" ? -16 : 16));
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      saveBlockHeight(BLOCK_HEIGHT_DEFAULT);
+      apply2(BLOCK_HEIGHT_DEFAULT);
+    }
+  };
+  return (0, import_react39.createElement)(
+    "div",
+    {
+      className: "bt-side-resize",
+      "data-dragging": dragging ? "" : void 0,
+      style: { "--bt-side-block-h": `${height}px` }
+    },
+    children,
+    (0, import_react39.createElement)("div", {
+      className: "bt-side-grip",
+      role: "separator",
+      "aria-orientation": "horizontal",
+      "aria-label": t("Resize the to-do area"),
+      "aria-valuenow": height,
+      tabIndex: 0,
+      onPointerDown: onDown,
+      onKeyDown: onKey
+    })
   );
 }
 function TeamSidebar(props) {
@@ -33109,11 +34765,13 @@ function TeamSidebar(props) {
   const [held, leaving] = useLinger(mode === "hidden" ? null : mode, SPRING_SHAPE.duration);
   const shown = held ?? mode;
   const wideContent = shown !== "rail";
+  const stripOn = wideContent && shown !== "hidden";
   const updated = useSessions((list) => {
     const stamps = {};
     for (const id of list.ids) stamps[id] = list.byId[id]?.updatedAt ?? 0;
     return JSON.stringify(stamps);
   });
+  const [moveWish, setMoveWish] = (0, import_react39.useState)(null);
   const order = (0, import_react39.useMemo)(() => {
     const stamps = JSON.parse(updated);
     const entries2 = [
@@ -33122,9 +34780,29 @@ function TeamSidebar(props) {
       // The Agent sorts by its most recent Session, falling back to when it was added.
       ...(roster.agents ?? []).map((agent) => ({ kind: "agent", item: agent, at: Math.max(0, ...agent.sessions.map((id) => stamps[id] ?? 0)) || agent.createdAt }))
     ];
-    return entries2.sort((a, b) => Number(Boolean(b.item.pinned)) - Number(Boolean(a.item.pinned)) || b.at - a.at);
-  }, [roster, updated]);
-  const sections = roster.sections ?? [];
+    const sorted = entries2.sort((a, b) => Number(Boolean(b.item.pinned)) - Number(Boolean(a.item.pinned)) || b.at - a.at);
+    if (moveWish === null) return sorted;
+    return sorted.map((entry) => entry.item.id === moveWish.id ? { ...entry, item: { ...entry.item, sectionId: moveWish.sectionId } } : entry);
+  }, [roster, updated, moveWish]);
+  (0, import_react39.useEffect)(() => {
+    if (moveWish === null) return;
+    const entry = roster.byId[moveWish.id] ?? roster.roomsById?.[moveWish.id];
+    if (entry !== void 0 && (entry.sectionId ?? null) === (moveWish.sectionId ?? null)) setMoveWish(null);
+  }, [moveWish, roster]);
+  const [sectionWish, setSectionWish] = (0, import_react39.useState)(null);
+  const sections = (0, import_react39.useMemo)(() => {
+    const stored = roster.sections ?? [];
+    if (sectionWish === null) return stored;
+    const byId = new Map(stored.map((sec) => [sec.id, sec]));
+    const moved = sectionWish.map((id) => byId.get(id)).filter(Boolean);
+    const rest = stored.filter((sec) => !sectionWish.includes(sec.id));
+    return [...moved, ...rest];
+  }, [roster.sections, sectionWish]);
+  (0, import_react39.useEffect)(() => {
+    if (sectionWish === null) return;
+    const stored = (roster.sections ?? []).map((sec) => sec.id);
+    if (stored.length === sectionWish.length && stored.every((id, index) => id === sectionWish[index])) setSectionWish(null);
+  }, [sectionWish, roster.sections]);
   const sectionSet = (0, import_react39.useMemo)(() => new Set(sections.map((sec) => sec.id)), [sections]);
   const ungrouped = (0, import_react39.useMemo)(
     () => order.filter((entry) => !entry.item.sectionId || !sectionSet.has(entry.item.sectionId)),
@@ -33132,18 +34810,62 @@ function TeamSidebar(props) {
   );
   const main = roster.byId[roster.mainBotId];
   const glideKey = (0, import_react39.useMemo)(
-    () => `${sections.map((s) => `${s.id}:${s.collapsed ? 1 : 0}`).join(",")}|${order.map((entry) => `${entry.item.id}:${entry.item.sectionId ?? ""}`).join(",")}`,
+    () => `${sections.map((s) => s.id).join(",")}|${order.map((entry) => `${entry.item.id}:${entry.item.sectionId ?? ""}`).join(",")}`,
     [sections, order]
   );
   useListGlide(listRef, wideContent, glideKey);
+  useEdgeFade(listRef);
   useLandOnMainBot(roster, useSessions, actions);
   useReportReady(roster.ready, roster);
   const [dragId, setDragId] = (0, import_react39.useState)(null);
   const [dropTarget, setDropTarget] = (0, import_react39.useState)(null);
+  const openFromTodo = (name, probe) => {
+    const bot = roster.bots.find((candidate) => candidate.name === name);
+    if (bot === void 0) return false;
+    if (probe !== true) actions.openSession(bot.id);
+    return true;
+  };
   const onDragStart = (event, id) => {
     setDragId(id);
     event.dataTransfer?.setData?.("text/plain", id);
     if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+  };
+  const [secDrag, setSecDrag] = (0, import_react39.useState)(null);
+  const [secOver, setSecOver] = (0, import_react39.useState)(null);
+  const onSecDragStart = (event, id) => {
+    setSecDrag(id);
+    setDragId(null);
+    setDropTarget(null);
+    event.dataTransfer?.setData?.("text/plain", `section:${id}`);
+    if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+  };
+  const onSecDragOver = (event, id) => {
+    if (!secDrag || secDrag === id) return;
+    event.preventDefault();
+    const box = event.currentTarget.getBoundingClientRect();
+    const after = event.clientY > box.top + box.height / 2;
+    setSecOver((previous) => previous?.id === id && previous?.after === after ? previous : { id, after });
+  };
+  const onSecDrop = (event, id) => {
+    if (!secDrag) return;
+    event.preventDefault();
+    const moving = secDrag;
+    const after = secOver?.id === id ? secOver.after : false;
+    setSecDrag(null);
+    setSecOver(null);
+    if (moving === id) return;
+    const ids = sections.map((sec) => sec.id).filter((one) => one !== moving);
+    const at = ids.indexOf(id);
+    ids.splice(at < 0 ? ids.length : at + (after ? 1 : 0), 0, moving);
+    setSectionWish(ids);
+    void Promise.resolve(actions.reorderSections(ids)).catch((error) => {
+      setSectionWish(null);
+      actions.reportError(error, "section-order");
+    });
+  };
+  const onSecDragEnd = () => {
+    setSecDrag(null);
+    setSecOver(null);
   };
   const onDragOverSec = (event, secId) => {
     if (!dragId) return;
@@ -33156,7 +34878,11 @@ function TeamSidebar(props) {
     setDragId(null);
     setDropTarget(null);
     if (!id) return;
-    void Promise.resolve(actions.setFlags(id, { sectionId: secId })).catch((error) => actions.reportError(error, "section"));
+    setMoveWish({ id, sectionId: secId ?? null });
+    void Promise.resolve(actions.setFlags(id, { sectionId: secId })).catch((error) => {
+      setMoveWish(null);
+      actions.reportError(error, "section");
+    });
     if (secId && sections.find((s) => s.id === secId)?.collapsed) {
       void Promise.resolve(actions.saveSection({ id: secId, collapsed: false })).catch(() => {
       });
@@ -33174,8 +34900,14 @@ function TeamSidebar(props) {
     if (typeof document === "undefined") return;
     chatRoom.setLeft(Math.max(0, pushed - (frameSnap.collapsedWidth ?? 0)));
   }, [pushed, frameSnap.collapsedWidth]);
+  (0, import_react39.useLayoutEffect)(() => {
+    if (typeof document === "undefined") return;
+    chatRoom.setTop(stripOn ? STRIP_H : null);
+  }, [stripOn]);
   (0, import_react39.useEffect)(() => () => {
-    if (typeof document !== "undefined") chatRoom.setLeft(null);
+    if (typeof document === "undefined") return;
+    chatRoom.setLeft(null);
+    chatRoom.setTop(null);
   }, []);
   const settleTimer = (0, import_react39.useRef)(0);
   const springTimer = (0, import_react39.useRef)(0);
@@ -33360,20 +35092,21 @@ function TeamSidebar(props) {
     document.addEventListener("keydown", onKey, true);
     return () => document.removeEventListener("keydown", onKey, true);
   }, []);
-  const top = wideContent ? (0, import_react39.createElement)(
+  const switchLabel = t(mode === "hidden" ? "Expand sidebar" : "Collapse sidebar");
+  const top = (0, import_react39.createElement)(
     "div",
     { className: "bt-side-top" },
+    // The switch leads the row, level with the buttons across from it.
+    (0, import_react39.createElement)("button", { type: "button", className: "bt-round bt-side-collapse", "aria-label": switchLabel, title: switchLabel, onClick: onToggle }, (0, import_react39.createElement)(SidebarIcon)),
     (0, import_react39.createElement)("span", { className: "bt-brand" }, (0, import_react39.createElement)(BrandName)),
     (0, import_react39.createElement)(UpdateButton, { useUpdate: props.useUpdate, actions }),
     (0, import_react39.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("New section"), title: t("New section"), onClick: createNewSection }, (0, import_react39.createElement)(FolderIcon)),
     (0, import_react39.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("Search"), title: t("Search"), onClick: () => actions.openPalette() }, (0, import_react39.createElement)(SearchIcon)),
-    (0, import_react39.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("New…"), title: t("New…"), onClick: () => actions.openNewChat("new") }, (0, import_react39.createElement)(PlusIcon)),
-    (0, import_react39.createElement)("button", { type: "button", className: "bt-round bt-side-collapse", "aria-label": t("Collapse sidebar"), title: t("Collapse sidebar"), onClick: onToggle }, (0, import_react39.createElement)(SidebarIcon))
-  ) : (0, import_react39.createElement)(
+    (0, import_react39.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("New…"), title: t("New…"), onClick: () => actions.openNewChat("new") }, (0, import_react39.createElement)(PlusIcon))
+  );
+  const railTop = (0, import_react39.createElement)(
     "div",
     { className: "bt-rail-top" },
-    (0, import_react39.createElement)(UpdateButton, { useUpdate: props.useUpdate, actions }),
-    (0, import_react39.createElement)("button", { type: "button", className: "bt-round bt-side-collapse", "aria-label": t("Collapse sidebar"), title: t("Collapse sidebar"), onClick: onToggle }, (0, import_react39.createElement)(SidebarIcon)),
     main ? (0, import_react39.createElement)(BotRow, { ...rowProps, bot: main, marked: markedUnread[main.id] === true }) : roster.ready ? null : bootFailed ? (0, import_react39.createElement)(BootFailed, { actions }) : (0, import_react39.createElement)("div", { className: "bt-hint" }, t("Setting up your Main Bot…")),
     (0, import_react39.createElement)("span", { className: "bt-rail-sep", "aria-hidden": true })
   );
@@ -33384,12 +35117,19 @@ function TeamSidebar(props) {
     (0, import_react39.createElement)(AccountLauncher, { seat: false, actions }),
     (0, import_react39.createElement)(PluginsButton, { actions })
   );
+  const windowBar = true;
   const content = (0, import_react39.createElement)(
     "div",
     { className: wideContent ? "bt-side" : "bt-side bt-rail", onKeyDown: typeToSearch },
-    top,
-    wideContent ? (0, import_react39.createElement)(TeamTodoPanel, { actions }) : null,
+    wideContent ? null : railTop,
+    wideContent ? (0, import_react39.createElement)(SideBlockResizer, null, (0, import_react39.createElement)(TeamTodoSide, { actions, openFrom: openFromTodo })) : null,
+    // The resizer's own line is the boundary: a second hairline under it only spent height
+    // the Bot list needs.
     wideContent && roster.readOnly ? (0, import_react39.createElement)("div", { className: "bt-hint bt-read-only", role: "status" }, hostText(roster.readOnly)) : null,
+    // The Main Bot keeps an ordinary row of its own above the list: it stands outside the
+    // scroll box, so it cannot move, and the list's own top fade dissolves the rows passing
+    // beneath it at its lower edge.
+    wideContent && main ? (0, import_react39.createElement)("div", { className: "bt-list-pin" }, (0, import_react39.createElement)(BotRow, { ...rowProps, bot: main, plain: true, marked: markedUnread[main.id] === true })) : null,
     (0, import_react39.createElement)(
       "div",
       {
@@ -33405,13 +35145,12 @@ function TeamSidebar(props) {
           if (!event.currentTarget.contains(event.relatedTarget)) setDropTarget(null);
         }
       },
-      wideContent ? main ? (0, import_react39.createElement)(BotRow, { ...rowProps, bot: main, marked: markedUnread[main.id] === true }) : roster.ready ? null : bootFailed ? (0, import_react39.createElement)(BootFailed, { actions }) : (0, import_react39.createElement)("div", { className: "bt-hint" }, t("Setting up your Main Bot…")) : null,
-      sections.length > 0 && wideContent ? (0, import_react39.createElement)("div", {
-        className: "bt-sec-ungrouped",
-        "data-dragging": dragId ? "true" : void 0,
-        "data-drop": dropTarget === "__none__" ? "true" : void 0,
-        onDragOver: (event) => onDragOverSec(event, "__none__"),
-        onDrop: (event) => onDropSec(event, null)
+      wideContent ? main || roster.ready ? null : bootFailed ? (0, import_react39.createElement)(BootFailed, { actions }) : (0, import_react39.createElement)("div", { className: "bt-hint" }, t("Setting up your Main Bot…")) : null,
+      wideContent && (sections.length > 0 || ungrouped.length > 0) ? (0, import_react39.createElement)(UngroupedBlock, {
+        entries: ungrouped,
+        dropTarget,
+        onDragOverSec,
+        onDropSec
       }, ungrouped.map((entry) => renderSidebarEntry(entry, rowProps, markedUnread, onDragStart))) : ungrouped.map((entry) => renderSidebarEntry(entry, rowProps, markedUnread, onDragStart)),
       sections.map((section) => (0, import_react39.createElement)(SectionBlock, {
         key: section.id,
@@ -33423,7 +35162,13 @@ function TeamSidebar(props) {
         dropTarget,
         onDragStart,
         onDragOverSec,
-        onDropSec
+        onDropSec,
+        secDrag,
+        secOver,
+        onSecDragStart,
+        onSecDragOver,
+        onSecDrop,
+        onSecDragEnd
       }))
     ),
     foot
@@ -33431,8 +35176,11 @@ function TeamSidebar(props) {
   return (0, import_react39.createElement)(
     import_react39.Fragment,
     null,
-    (0, import_react39.createElement)(TitleToggle, { hidden: mode === "hidden", onToggle }),
-    shown === "hidden" ? null : (0, import_react39.createElement)(LeftColumn, { mode: shown, width: ourWidth, onGrip: startDrag, leaving }, content)
+    (0, import_react39.createElement)(TitleToggle, { hidden: mode === "hidden" && !windowBar, onToggle }),
+    shown === "hidden" ? null : (0, import_react39.createElement)(LeftColumn, { mode: shown, width: ourWidth, onGrip: startDrag, leaving, topbar: windowBar }, content),
+    windowBar ? (0, import_react39.createElement)(WindowBar, null, top) : null,
+    // The strip starts where the column ends, the same edge the conversation is pushed to.
+    stripOn ? (0, import_react39.createElement)(TopBotStrip, { roster, markedUnread, actions: rowActions, useSessions, useWork: props.useWork, left: Math.max(0, ourWidth - (frameSnap.collapsedWidth ?? 0)) }) : null
   );
 }
 function UpdateButton({ useUpdate, actions }) {
@@ -33475,7 +35223,7 @@ function UpdateButton({ useUpdate, actions }) {
   }, [open, tick]);
   if (!update?.available && !dshRow && phase === "idle" && dshPhase === "idle") return null;
   const cloudPhase = phase === "installing" || dshPhase === "installing" ? "installing" : phase !== "idle" ? phase : dshPhase;
-  const toggle = () => setOpen((value) => !value);
+  const toggle2 = () => setOpen((value) => !value);
   const start = () => {
     setError("");
     void actions.installUpdate().catch((failure) => setError(hostText(failure?.message ?? String(failure))));
@@ -33500,9 +35248,9 @@ function UpdateButton({ useUpdate, actions }) {
       title: label,
       "aria-haspopup": "dialog",
       "aria-expanded": open,
-      onClick: toggle
+      onClick: toggle2
     }, (0, import_react39.createElement)(CloudDownloadIcon, { done: phase === "installed" || phase === "updated" }), phase === "failed" || dshPhase === "failed" ? (0, import_react39.createElement)("span", { className: "bt-update-dot", "aria-hidden": true }) : null),
-    shown && box ? (0, import_react_dom6.createPortal)((0, import_react39.createElement)(
+    shown && box ? (0, import_react_dom7.createPortal)((0, import_react39.createElement)(
       "div",
       { className: "bt-update-pop", role: "dialog", "aria-label": update?.available || phase !== "idle" ? t("DS Bot update") : t("DSH update"), style: box, "data-leaving": leaving || void 0 },
       update?.available || phase !== "idle" ? (0, import_react39.createElement)(
@@ -33647,7 +35395,7 @@ function AccountLauncher({ seat = true, settingsOpen, actions }) {
   (0, import_react39.useLayoutEffect)(() => {
     if (open) anchor();
   }, [open, tick]);
-  const toggle = () => {
+  const toggle2 = () => {
     if (!open) anchor();
     setOpen((value) => !value);
   };
@@ -33675,10 +35423,10 @@ function AccountLauncher({ seat = true, settingsOpen, actions }) {
     null,
     (0, import_react39.createElement)(
       "button",
-      { ref: button, type: "button", className: "bt-account", "aria-label": t("Account"), "aria-haspopup": "menu", "aria-expanded": open, onClick: toggle },
+      { ref: button, type: "button", className: "bt-account", "aria-label": t("Account"), "aria-haspopup": "menu", "aria-expanded": open, onClick: toggle2 },
       (0, import_react39.createElement)("span", { className: "bt-you", "aria-hidden": true }, (0, import_react39.createElement)(GearIcon))
     ),
-    open && box ? (0, import_react_dom6.createPortal)((0, import_react39.createElement)(
+    open && box ? (0, import_react_dom7.createPortal)((0, import_react39.createElement)(
       "div",
       { ref: menuRef, className: "bt-menu bt-menu-up bt-account-menu", role: "menu", "aria-label": t("Account"), style: box },
       confirm !== null ? (0, import_react39.createElement)(
@@ -33758,9 +35506,9 @@ function restingBox(mark2) {
   const box = mark2.getBoundingClientRect();
   const column = mark2.closest?.(".bt-leftcol");
   if (!column) return box;
-  const now = column.getBoundingClientRect();
-  const dx = column.offsetLeft - now.left;
-  const dy = column.offsetTop - now.top;
+  const now2 = column.getBoundingClientRect();
+  const dx = column.offsetLeft - now2.left;
+  const dy = column.offsetTop - now2.top;
   return { left: box.left + dx, top: box.top + dy, width: box.width, height: box.height };
 }
 var GLIDE_MS = 460;
@@ -33868,8 +35616,9 @@ function BrandMark({ size = 24 }) {
   return (0, import_react39.createElement)("span", { className: "bt-brand-whale" }, (0, import_react39.createElement)(BotMark, { look: MAIN_LOOK, size }));
 }
 function BrandName() {
-  return (0, import_react39.createElement)("span", { style: { fontWeight: 600, fontSize: 14 } }, "DS Bot");
+  return (0, import_react39.createElement)("span", { style: { fontWeight: 600, fontSize: 14 } }, "DS Bot-C");
 }
+var FOLD_MS = 150;
 var SIDEBAR_CSS = `
 .bt-confirm{width:100%;max-width:260px;box-sizing:border-box;padding:10px 12px 12px;display:flex;flex-direction:column;gap:10px}
 .bt-confirm-text{margin:0;font-size:13px;line-height:19px;color:var(--bt-ink-2)}
@@ -33880,8 +35629,22 @@ var SIDEBAR_CSS = `
 .bt-confirm-go:hover:not(:disabled){opacity:.9}
 .bt-confirm-go:disabled{opacity:.6;cursor:default}
 .bt-side-top .bt-brand{cursor:default;padding-left:6px}
+/* A hairline between the tab area and the list: it fades at both ends so it reads as a
+   separation rather than a box edge. */
+.bt-side-resize{flex:none;display:flex;flex-direction:column;min-height:0}
+.bt-side-grip{position:relative;flex:none;height:9px;margin:-4px 10px 0;cursor:ns-resize;touch-action:none;border-radius:6px}
+.bt-side-grip::before{content:"";position:absolute;left:14%;right:14%;top:50%;height:1px;margin-top:-.5px;border-radius:2px;background:color-mix(in srgb,var(--bt-ink) 13%,transparent);transition:background-color .12s ease,height .12s ease}
+.bt-side-grip:hover::before,.bt-side-grip:focus-visible::before,.bt-side-resize[data-dragging] .bt-side-grip::before{height:2px;margin-top:-1px;background:color-mix(in srgb,var(--bt-ink) 26%,transparent)}
+.bt-side-grip:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-3px}
+.bt-side-resize[data-dragging]{cursor:ns-resize}
 .bt-side-top .bt-brand:hover{background:none}
 .bt-brand .bt-mark{flex:none}
+.bt-main-chip{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;transition:background-color .12s ease,scale .12s ease}
+.bt-main-chip:hover{background:var(--bt-hover)}
+.bt-main-chip:active{scale:.94}
+.bt-main-chip[aria-current=page]{background:var(--bt-active)}
+.bt-main-chip-dot{position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--bt-green);box-shadow:0 0 0 2px var(--bt-sidebar)}
+.bt-main-chip-tasks{position:absolute;top:-2px;right:-3px;min-width:14px;height:14px;padding:0 3px;border-radius:7px;background:var(--bt-accent);color:var(--bt-accent-ink);font-size:9px;line-height:14px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .bt-pin{flex:none;display:inline-flex;color:var(--bt-ink-3)}
 .bt-rail .bt-row{position:relative}
 .bt-rail .bt-pin{position:absolute;top:1px;left:calc(50% + 14px)}
@@ -33930,7 +35693,7 @@ var SIDEBAR_CSS = `
 /* .bt-agent-sub-in clips for the expand animation and the rows touch its edges, so the ring goes inside. */
 .bt-agent-sub-row:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
 .bt-agent-sub-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt-agent-sub-time{flex:none;font-size:11px;color:var(--bt-ink-3)}
+.bt-agent-sub-time{flex:none;font-size:12.5px;color:var(--bt-ink-2);font-variant-numeric:tabular-nums}
 .bt-agent-new{color:var(--bt-ink-3)}
 .bt-agent-new svg{width:14px;height:14px;flex:none}
 .bt-agent-edit{padding:3px 10px 3px 4px}
@@ -33944,13 +35707,20 @@ var SIDEBAR_CSS = `
 .bt-sec-ungrouped{display:flex;flex-direction:column;gap:3px;border-radius:10px;transition:min-height .14s ease,background-color .14s ease,box-shadow .14s ease}
 .bt-sec-ungrouped[data-dragging=true]:empty{min-height:28px;margin-bottom:2px;box-shadow:inset 0 0 0 1px var(--bt-line-2)}
 .bt-sec-ungrouped[data-drop=true]{background:color-mix(in srgb,var(--bt-accent) 9%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--bt-accent) 65%,transparent)}
+/* The Ungrouped header has no rename, colour or add buttons behind it, so nothing needs the
+   room those usually take: the count and the pile stay where they are on hover. */
+.bt-sec-ungrouped .bt-sec-head-wrap:is(:hover,:focus-within) .bt-sec-tail{padding-right:0}
 .bt-sec{display:flex;flex-direction:column;margin-top:6px;border-radius:12px;transition:background-color .14s ease,box-shadow .14s ease}
+/* A section in flight, and the edge the one under the pointer would take it. */
+.bt-sec[data-sec-dragging=true]{opacity:.55}
+.bt-sec[data-sec-drop=before]{box-shadow:inset 0 2px 0 var(--bt-accent)}
+.bt-sec[data-sec-drop=after]{box-shadow:inset 0 -2px 0 var(--bt-accent)}
 .bt-sec[data-drop=true]{background:color-mix(in srgb,var(--bt-accent) 9%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--bt-accent) 65%,transparent)}
 .bt-sec-head-wrap{position:relative;display:flex;align-items:center}
 .bt-sec-head{display:flex;align-items:center;gap:6px;height:30px;padding:0 8px 0 6px;border:0;border-radius:8px;background:transparent;color:var(--bt-ink-2);font-family:var(--bt-font);font-size:12px;line-height:16px;font-weight:600;cursor:pointer;width:100%;text-align:left;transition:background-color .12s ease,color .12s ease}
 .bt-sec-head-wrap:hover .bt-sec-head{background:var(--bt-hover);color:var(--bt-ink)}
 .bt-sec-head:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
-.bt-sec-chev{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex:none;color:var(--bt-ink-3);transition:transform ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing},color .12s ease}
+.bt-sec-chev{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex:none;color:var(--bt-ink-3);transition:transform ${FOLD_MS}ms ease-out,color .12s ease}
 .bt-sec-head-wrap:hover .bt-sec-chev{color:var(--bt-ink-2)}
 .bt-sec[data-collapsed=false] .bt-sec-chev{transform:rotate(90deg)}
 .bt-sec-chev svg{width:12px;height:12px}
@@ -33979,9 +35749,9 @@ var SIDEBAR_CSS = `
 .bt-sec-act svg{width:13px;height:13px}
 .bt-sec-edit{display:flex;align-items:center;height:30px;padding:0 4px}
 .bt-sec-edit input{width:100%;height:24px;padding:0 8px;border:0;border-radius:6px;background:var(--bt-card);color:var(--bt-ink);font:inherit;font-size:12px;line-height:16px;font-weight:600;outline:none;box-shadow:inset 0 0 0 1.5px var(--bt-accent)}
-.bt-sec-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
+.bt-sec-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows ${FOLD_MS}ms ease-out}
 .bt-sec[data-collapsed=true] .bt-sec-body{grid-template-rows:0fr}
-.bt-sec-body-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;position:relative}
+.bt-sec-body-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;position:relative;contain:layout paint}
 .bt-sec[data-collapsed=false] .bt-sec-body-in{padding-top:2px}
 .bt-sec[data-collapsed=false]:hover .bt-sec-body-in::before{content:'';position:absolute;left:10px;top:6px;bottom:6px;width:1.5px;border-radius:999px;background:var(--bt-line-2);opacity:.55;pointer-events:none}
 .bt-rail-sec{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}
@@ -34013,12 +35783,12 @@ var DANGER = /* @__PURE__ */ new Set(["danger-full-access"]);
 var presetDanger = (value) => DANGER.has(value);
 var presetName = (value, catalog) => LABELS[value] ? t(LABELS[value]) : catalog?.options?.find((option) => option.value === value)?.name ?? value;
 function PermissionPicker({ catalog, saved, onPick, repick = false }) {
-  const [pending, setPending] = (0, import_react40.useState)(null);
+  const [pending2, setPending] = (0, import_react40.useState)(null);
   const flight = (0, import_react40.useRef)({ value: void 0, latest: void 0 });
   (0, import_react40.useEffect)(() => {
     const flying = flight.current.value;
-    if (pending === saved && (flying === void 0 || flying === pending)) setPending(null);
-  }, [pending, saved]);
+    if (pending2 === saved && (flying === void 0 || flying === pending2)) setPending(null);
+  }, [pending2, saved]);
   const send = (value) => {
     flight.current.value = value;
     void Promise.resolve(onPick(value)).then((done) => done !== false, () => false).then((ok) => {
@@ -34032,7 +35802,7 @@ function PermissionPicker({ catalog, saved, onPick, repick = false }) {
       if (!ok) setPending(null);
     });
   };
-  const current2 = pending ?? saved;
+  const current2 = pending2 ?? saved;
   const pick2 = (value) => {
     if (value === current2 && !repick) return;
     setPending(value);
@@ -34283,7 +36053,7 @@ function NewGroupForm({ roster, actions, run: run2, onCreated, onCancel }) {
   const [members, setMembers] = (0, import_react41.useState)([]);
   const [name, setName] = (0, import_react41.useState)("");
   const [busy, setBusy] = (0, import_react41.useState)(false);
-  const toggle = (id) => setMembers((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
+  const toggle2 = (id) => setMembers((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
   const pickAdmin = (id) => {
     setAdmin(id);
     setMembers((list) => list.filter((item) => item !== id));
@@ -34326,7 +36096,7 @@ function NewGroupForm({ roster, actions, run: run2, onCreated, onCancel }) {
       (0, import_react41.createElement)(
         "div",
         { className: "bt-ng-picks", role: "group", "aria-label": t("Members") },
-        roster.bots.filter((bot) => bot.id !== admin).map((bot) => chip(bot, members.includes(bot.id), () => toggle(bot.id), "checkbox"))
+        roster.bots.filter((bot) => bot.id !== admin).map((bot) => chip(bot, members.includes(bot.id), () => toggle2(bot.id), "checkbox"))
       )
     ),
     admin === null || members.length === 0 ? null : (0, import_react41.createElement)(
@@ -34632,15 +36402,15 @@ function spanBuckets(range) {
   }
   return buckets;
 }
-function spanOf(range, now) {
+function spanOf(range, now2) {
   if (range.from) {
     return { buckets: spanBuckets(range), from: `${range.from} 00`, to: `${range.to} 23`, before: hourKey(hourMs(range.from) - range.days * DAY_MS) };
   }
-  const buckets = bucketsOf(range, now);
-  return { buckets: buckets.slice(range.count), from: hourKey(buckets[range.count].start), to: now, before: hourKey(buckets[0].start) };
+  const buckets = bucketsOf(range, now2);
+  return { buckets: buckets.slice(range.count), from: hourKey(buckets[range.count].start), to: now2, before: hourKey(buckets[0].start) };
 }
-function bucketsOf(range, now) {
-  const end = hourMs(now);
+function bucketsOf(range, now2) {
+  const end = hourMs(now2);
   const today = end - end % DAY_MS;
   const buckets = [];
   for (let back = range.count * 2 - 1; back >= 0; back -= 1) {
@@ -34799,9 +36569,9 @@ function useTween(value, rangeKey) {
     const started = performance.now();
     let active = true;
     let frame2;
-    const step = (now) => {
+    const step = (now2) => {
       if (!active) return;
-      const progress = Math.min(1, Math.max(0, (now - started) / 650));
+      const progress = Math.min(1, Math.max(0, (now2 - started) / 650));
       from.current = begin + (value - begin) * (1 - (1 - progress) ** 3);
       setShown(from.current);
       if (progress < 1) frame2 = requestAnimationFrame(step);
@@ -37749,14 +39519,14 @@ function statusText4(mcp) {
   return mcp.status === "on" ? t("On. Agents with a token can reach DS Bot at {url}", { url: mcp.url }) : t("Connecting…");
 }
 function ScopePicker({ client, bots, rooms, busy, onChange }) {
-  const toggle = (key, id) => {
+  const toggle2 = (key, id) => {
     const list = client[key].includes(id) ? client[key].filter((entry) => entry !== id) : [...client[key], id];
     onChange({ [key]: list });
   };
   const box = (key, entry) => (0, import_react47.createElement)(
     "label",
     { key: `${key}:${entry.id}`, className: "bt-mcp-scope" },
-    (0, import_react47.createElement)("input", { type: "checkbox", checked: client[key].includes(entry.id), disabled: busy, onChange: () => toggle(key, entry.id) }),
+    (0, import_react47.createElement)("input", { type: "checkbox", checked: client[key].includes(entry.id), disabled: busy, onChange: () => toggle2(key, entry.id) }),
     (0, import_react47.createElement)("span", null, entry.name)
   );
   return (0, import_react47.createElement)("div", { className: "bt-mcp-scopes" }, ...bots.map((entry) => box("bots", entry)), ...rooms.map((entry) => box("rooms", entry)));
@@ -37843,7 +39613,7 @@ function McpPage({ roster, actions, Section: Section2, Row: Row4 }) {
 
 // src/client/im-page.js
 var import_react48 = require("react");
-var import_react_dom7 = require("react-dom");
+var import_react_dom8 = require("react-dom");
 var BRAND = { telegram: "telegram", weixin: "wechat", qq: "qq", discord: "discord", slack: "slack" };
 var MONO = { feishu: "飞", dingtalk: "钉", wecom: "企" };
 var GUIDES = {
@@ -37932,7 +39702,7 @@ function TargetMenu({ value, roster, rooms = false, label, onPick, disabled = fa
       (0, import_react48.createElement)("span", { className: "bt-model-name" }, bot?.name ?? room2?.name ?? t("Not bound")),
       (0, import_react48.createElement)(Caret)
     ),
-    shownPlace ? (0, import_react_dom7.createPortal)((0, import_react48.createElement)(
+    shownPlace ? (0, import_react_dom8.createPortal)((0, import_react48.createElement)(
       "div",
       { ref: menu, className: `bt-menu bt-model-menu bt-im-menu${shownPlace.bottom !== void 0 ? " bt-menu-up" : ""}`, role: "menu", "aria-label": label, style: shownPlace, "data-leaving": leaving || void 0 },
       rooms ? (0, import_react48.createElement)("button", { type: "button", role: "menuitemradio", "aria-checked": !bot && !room2, onClick: () => pick2(null) }, (0, import_react48.createElement)("span", { className: "bt-menu-label" }, t("Not bound")), (0, import_react48.createElement)(Tick2, { on: !bot && !room2 })) : null,
@@ -38710,14 +40480,14 @@ function BrowserPage({ roster, actions, run: run2, Section: Section2, Row: Row4 
   const add = (event) => {
     event.preventDefault();
     if (!selectedBot || kinds.length === 0 || busy) return;
-    const now = Date.now();
+    const now2 = Date.now();
     let until;
-    if (duration === "hour") until = now + 60 * 60 * 1e3;
+    if (duration === "hour") until = now2 + 60 * 60 * 1e3;
     else if (duration === "today") {
-      const end = new Date(now);
+      const end = new Date(now2);
       end.setHours(23, 59, 59, 999);
       until = end.getTime();
-    } else if (duration === "week") until = now + 7 * 24 * 60 * 60 * 1e3;
+    } else if (duration === "week") until = now2 + 7 * 24 * 60 * 60 * 1e3;
     const grant = { site: siteValue(site), kinds: [...kinds], ...until !== void 0 ? { until } : {} };
     setBusy(true);
     void run2(actions.updateBot(selectedBot.id, {
@@ -39397,7 +41167,7 @@ function ProviderRow({ provider, apply: apply2, actions, roster, revision, open,
       setDraft({ ...draftFrom(fresh, list), revision: view.revision, provider: fresh });
     })()).catch((error) => setRefreshError(error?.message ?? String(error))).finally(() => setRefreshing(false));
   };
-  const toggle = (id) => {
+  const toggle2 = (id) => {
     setConfirmRemove(false);
     setDraft((current2) => current2 === null ? current2 : {
       ...current2,
@@ -39436,7 +41206,7 @@ function ProviderRow({ provider, apply: apply2, actions, roster, revision, open,
         onClick: refresh
       }, refreshing ? t("Refreshing…") : t("Refresh models")) : null
     ),
-    draft !== null ? (0, import_react53.createElement)(ModelDraft, { provider, draft, roster, onToggle: toggle, onSave: save, onCancel: () => {
+    draft !== null ? (0, import_react53.createElement)(ModelDraft, { provider, draft, roster, onToggle: toggle2, onSave: save, onCancel: () => {
       setDraft(null);
       setConfirmRemove(false);
     }, confirmRemove }) : [
@@ -39644,7 +41414,7 @@ function CustomForm({ view, apply: apply2, actions, onDone }) {
       setPicked([]);
     })).finally(() => setAsking(false));
   };
-  const toggle = (id) => setPicked((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
+  const toggle2 = (id) => setPicked((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
   const add = () => {
     if (!ready) return;
     void apply2(actions.addProvider({ custom: true, provider: draft.provider.trim(), name: draft.name, baseURL: draft.baseURL, api: draft.api, key: draft.key, models })).then((ok) => {
@@ -39696,7 +41466,7 @@ function CustomForm({ view, apply: apply2, actions, onDone }) {
         className: "bt-secret-bot",
         "aria-pressed": picked.includes(model.id),
         title: model.name && model.name !== model.id ? model.name : void 0,
-        onClick: () => toggle(model.id)
+        onClick: () => toggle2(model.id)
       }, (0, import_react53.createElement)("code", null, model.id), picked.includes(model.id) ? (0, import_react53.createElement)(CheckIcon) : null))) : null,
       input("typed", t("Model ids"), t("Model ids, separated by commas"))
     ),
@@ -39980,7 +41750,7 @@ function BotModelsPage({ roster, actions, run: run2, Section: Section2 }) {
   const [busy, setBusy] = (0, import_react55.useState)(false);
   const eligible = bots.filter((bot) => !isLocalRoute(modelRefOf(bot)));
   const resultsById = new Map((results ?? []).map((entry) => [entry.id, entry]));
-  const toggle = (id) => {
+  const toggle2 = (id) => {
     if (busy) return;
     setSelected((previous) => {
       const next = new Set(previous);
@@ -40053,7 +41823,7 @@ function BotModelsPage({ roster, actions, run: run2, Section: Section2 }) {
               checked: selected.has(bot.id),
               disabled: local || busy,
               "aria-label": t("Select {name}", { name: bot.name }),
-              onChange: () => toggle(bot.id)
+              onChange: () => toggle2(bot.id)
             })
           ),
           (0, import_react55.createElement)(BotAvatar, { bot, size: 28, badge: false, live: false }),
@@ -40096,7 +41866,7 @@ var BOT_MODELS_CSS = `
 
 // src/client/settings-preferences.js
 var import_react56 = require("react");
-var import_react_dom8 = require("react-dom");
+var import_react_dom9 = require("react-dom");
 var PREFERENCE_ITEMS = /* @__PURE__ */ new Set(["language", "transcript-view", "link-opening", "composer-enter", "performance-usage", "permission"]);
 var CHAT_CHOICES = {
   transcriptView: ["compact", "standard", "detailed", "verbose"],
@@ -40160,7 +41930,7 @@ function PreferenceSelect({ label, value, options, disabled, pick: pick2 }) {
         }
       }
     }, selected?.label ?? (options.length === 0 ? t("Loading…") : value ?? "")),
-    menu.shownPlace ? (0, import_react_dom8.createPortal)((0, import_react56.createElement)("div", {
+    menu.shownPlace ? (0, import_react_dom9.createPortal)((0, import_react56.createElement)("div", {
       ref: menu.menu,
       role: "menu",
       "aria-label": label,
@@ -40342,9 +42112,9 @@ function PermissionPreference({ preferences }) {
       },
       onConfirm: () => {
         if (!acknowledged || !confirmation) return;
-        const pending = confirmation;
+        const pending2 = confirmation;
         setConfirmation(null);
-        savePreference(form, "defaultPreset", pending.value).then(pending.resolve, pending.reject);
+        savePreference(form, "defaultPreset", pending2.value).then(pending2.resolve, pending2.reject);
       }
     })
   );
@@ -40458,16 +42228,16 @@ function Choice2({ label, value, options, pick: pick2 }) {
 }
 function WidthSlider({ label, value, save }) {
   const [width, setWidth] = (0, import_react57.useState)(value);
-  const pending = (0, import_react57.useRef)(null);
+  const pending2 = (0, import_react57.useRef)(null);
   const timer = (0, import_react57.useRef)(0);
   const saveRef = (0, import_react57.useRef)(save);
   saveRef.current = save;
   (0, import_react57.useEffect)(() => {
-    if (pending.current === null) setWidth(value);
+    if (pending2.current === null) setWidth(value);
   }, [value]);
   const flush = () => {
-    const next = pending.current;
-    pending.current = null;
+    const next = pending2.current;
+    pending2.current = null;
     if (next !== null) saveRef.current(next);
   };
   (0, import_react57.useEffect)(() => () => {
@@ -40476,7 +42246,7 @@ function WidthSlider({ label, value, save }) {
   }, []);
   const pick2 = (next) => {
     setWidth(next);
-    pending.current = next;
+    pending2.current = next;
     clearTimeout(timer.current);
     timer.current = setTimeout(flush, 350);
   };
@@ -41122,7 +42892,7 @@ function createConnectionFeedback(onChange, {
   graceMs = CONNECTION_GRACE_MS,
   minimumVisibleMs = CONNECTING_MIN_VISIBLE_MS,
   recoveryMs = RECOVERY_CONFIRMATION_MS,
-  now = Date.now,
+  now: now2 = Date.now,
   schedule = setTimeout,
   clear = clearTimeout
 } = {}) {
@@ -41160,7 +42930,7 @@ function createConnectionFeedback(onChange, {
   };
   const showOutage = () => {
     if (suspended || !OUTAGE_STATES.has(state)) return;
-    visibleAt = now();
+    visibleAt = now2();
     publish2(state);
   };
   const recover = () => {
@@ -41173,7 +42943,7 @@ function createConnectionFeedback(onChange, {
     }, recoveryMs);
   };
   const reconcile = () => {
-    const current2 = now();
+    const current2 = now2();
     if (state === "connected") {
       if (visibleAt === void 0) {
         reset();
@@ -41220,7 +42990,7 @@ function createConnectionFeedback(onChange, {
 
 // src/client/settings-shell.js
 var import_react59 = require("react");
-var import_react_dom9 = require("react-dom");
+var import_react_dom10 = require("react-dom");
 var SETTINGS_CHILDREN = {
   "settings.launcher": { kind: "single", scope: "root" },
   "settings.trigger": { kind: "single", scope: "root" },
@@ -41490,7 +43260,7 @@ function SettingsShell(props) {
       }),
       wide ? (0, import_react59.createElement)(DesktopUpdatePill, { view: update, hidden: indicator !== void 0 && !installing, onOpen: openDesktopUpdate }) : null
     ),
-    kept ? (0, import_react_dom9.createPortal)((0, import_react59.createElement)(SettingsDialog, {
+    kept ? (0, import_react_dom10.createPortal)((0, import_react59.createElement)(SettingsDialog, {
       page: kept.page,
       id: kept.id,
       roster,
@@ -42242,7 +44012,7 @@ var MEMBER_CSS = `
 
 // src/client/header.js
 var import_react61 = require("react");
-var import_react_dom10 = require("react-dom");
+var import_react_dom11 = require("react-dom");
 var GoArrow = () => (0, import_react61.createElement)("svg", { width: 14, height: 14, viewBox: "-12 -12 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true }, (0, import_react61.createElement)("path", { d: "M-7 0H7M2 -5L7 0L2 5" }));
 var MEMORY_NOTICE_MS = 3200;
 var noNews = (select) => select({});
@@ -42565,7 +44335,7 @@ function NewMessagePills({ sessionId, useSessions, useUi, useTurnClock }) {
     else scroller?.scrollTo({ top: scroller.scrollHeight, behavior: "smooth" });
   };
   const toDivider = () => document.querySelector("[data-conversation-scroll] .bt-new-sep")?.scrollIntoView({ block: "center", behavior: "smooth" });
-  return (0, import_react_dom10.createPortal)(
+  return (0, import_react_dom11.createPortal)(
     (0, import_react61.createElement)(
       import_react61.Fragment,
       null,
@@ -42686,7 +44456,7 @@ function forgetKeptFiles() {
 
 // src/client/composer.js
 var import_react62 = require("react");
-var import_react_dom11 = require("react-dom");
+var import_react_dom12 = require("react-dom");
 var speechApi = () => window.SpeechRecognition ?? window.webkitSpeechRecognition;
 var keepComposerFocus = (event) => event.preventDefault();
 function useDictation(onText) {
@@ -42877,7 +44647,7 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
   const target = roster.byId?.[sessionId]?.id ?? roster.roomsById?.[sessionId]?.id;
   if (sessionId === void 0 || target === void 0) return null;
   const fileInput = () => button.current?.closest("[data-composer-card]")?.querySelector("input[type=file]");
-  const toggle = () => {
+  const toggle2 = () => {
     if (open) {
       setOpen(null);
       return;
@@ -42924,9 +44694,9 @@ function ComposerPlus({ sessionId, inputActions, useInput, useRoster, actions })
       "aria-haspopup": "menu",
       "aria-expanded": Boolean(open),
       onMouseDown: keepComposerFocus,
-      onClick: toggle
+      onClick: toggle2
     }, (0, import_react62.createElement)(PlusIcon)),
-    shown ? (0, import_react_dom11.createPortal)((0, import_react62.createElement)(
+    shown ? (0, import_react_dom12.createPortal)((0, import_react62.createElement)(
       "div",
       {
         ref: menu,
@@ -42958,7 +44728,7 @@ function DraftKeeper({ sessionId, inputActions, useInput, useRoster, actions }) 
   const phase = useInput?.((state) => state.phase) ?? "plain";
   const frozen = FROZEN_PHASES.has(phase);
   const restored = (0, import_react62.useRef)("");
-  const pending = (0, import_react62.useRef)({ text: false, files: false });
+  const pending2 = (0, import_react62.useRef)({ text: false, files: false });
   (0, import_react62.useEffect)(() => {
     if (!current2 || frozen || inputActions === void 0) return;
     const key = `${chatId}:${sessionId}`;
@@ -42990,7 +44760,7 @@ function DraftKeeper({ sessionId, inputActions, useInput, useRoster, actions }) 
       ok = false;
       console.warn("[ds-bot] could not put the draft back", error);
     }
-    pending.current = { text: restoredText, files: restoredFiles };
+    pending2.current = { text: restoredText, files: restoredFiles };
     restored.current = key;
     if (!ok && back.files.length > 0) actions.notice?.(t("The files attached to this draft could not be put back."));
   }, [current2, frozen, chatId, sessionId, inputActions]);
@@ -43000,9 +44770,9 @@ function DraftKeeper({ sessionId, inputActions, useInput, useRoster, actions }) 
       keepDraft({ chatId, part: sessionId, text: "", files: [] });
       return;
     }
-    if (pending.current.text && draft === "") return;
-    if (pending.current.files && ids.length === 0) return;
-    pending.current = { text: false, files: false };
+    if (pending2.current.text && draft === "") return;
+    if (pending2.current.files && ids.length === 0) return;
+    pending2.current = { text: false, files: false };
     keepDraft({ chatId, part: sessionId, text: draft, files: actions.draftFiles(ids) });
   }, [current2, frozen, chatId, sessionId, draft, ids]);
   return null;
@@ -43547,15 +45317,15 @@ function closingReplyText(chat, turn) {
 function turnDetector({ loud = 0.12, quiet = 0.06, quietMs = 1200 } = {}) {
   let spokeAt = 0;
   let quietSince = 0;
-  return (level, now) => {
+  return (level, now2) => {
     if (level >= loud) {
-      spokeAt ||= now;
+      spokeAt ||= now2;
       quietSince = 0;
       return "speech";
     }
     if (!spokeAt) return "waiting";
-    if (level < quiet) quietSince ||= now;
-    return quietSince && now - quietSince >= quietMs ? "done" : "speech";
+    if (level < quiet) quietSince ||= now2;
+    return quietSince && now2 - quietSince >= quietMs ? "done" : "speech";
   };
 }
 
@@ -43713,7 +45483,7 @@ function presentedFileTarget(actionUrl) {
 
 // src/client/file-save.js
 var import_react64 = require("react");
-function SaveFileAction({ actionUrl, available = true, pending = false }) {
+function SaveFileAction({ actionUrl, available = true, pending: pending2 = false }) {
   const [busy, setBusy] = (0, import_react64.useState)(false);
   const [error, setError] = (0, import_react64.useState)(null);
   const target = presentedFileTarget(actionUrl);
@@ -43741,7 +45511,7 @@ function SaveFileAction({ actionUrl, available = true, pending = false }) {
     { className: "bt-file-save" },
     (0, import_react64.createElement)(
       "button",
-      { type: "button", className: "bt-soft bt-soft-sm", disabled: busy || pending || available !== true, onClick: save },
+      { type: "button", className: "bt-soft bt-soft-sm", disabled: busy || pending2 || available !== true, onClick: save },
       busy ? t("Saving…") : t("Save")
     ),
     error === null ? null : (0, import_react64.createElement)("span", { className: "bt-set-hint", role: "alert" }, error)
@@ -44540,9 +46310,9 @@ function PasteGuard({ sessionId, inputActions, useInput, useUi, actions }) {
     const card = anchor.current?.closest("[data-composer-card]");
     if (card === null || card === void 0) return void 0;
     const sync = () => {
-      const { blocks: now, ids: nowIds } = latest.current;
-      if (!now.some((block) => block.attachmentId === null)) return;
-      const links = pasteLinks(now, nowIds, composerLabels(card));
+      const { blocks: now2, ids: nowIds } = latest.current;
+      if (!now2.some((block) => block.attachmentId === null)) return;
+      const links = pasteLinks(now2, nowIds, composerLabels(card));
       if (links.length > 0) actions.linkPastes(sessionId, links);
     };
     sync();
@@ -44566,9 +46336,9 @@ function PasteGuard({ sessionId, inputActions, useInput, useUi, actions }) {
     const timer = setTimeout(() => {
       let currentDraft = latest.current.draft;
       for (const block of waiting) {
-        const now = latest.current.blocks.find((item) => item.id === block.id);
-        if (now === void 0 || now.attachmentId !== null) continue;
-        if (putBackText({ block: now, inputActions, draft: currentDraft })) currentDraft = `${currentDraft}${now.text}`;
+        const now2 = latest.current.blocks.find((item) => item.id === block.id);
+        if (now2 === void 0 || now2.attachmentId !== null) continue;
+        if (putBackText({ block: now2, inputActions, draft: currentDraft })) currentDraft = `${currentDraft}${now2.text}`;
         actions.removePaste(sessionId, [block.id]);
       }
     }, ORPHAN_MS);
@@ -44622,6 +46392,7 @@ function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   const [query, setQuery] = (0, import_react69.useState)("");
   const [picked, setPicked] = (0, import_react69.useState)([]);
   const [group, setGroup] = (0, import_react69.useState)(mode === "group");
+  const [todo, setTodo] = (0, import_react69.useState)(false);
   const [admin, setAdmin] = (0, import_react69.useState)(null);
   const [message, setMessage] = (0, import_react69.useState)("");
   const [pasted, setPasted] = (0, import_react69.useState)(null);
@@ -44635,7 +46406,7 @@ function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   const close = () => actions.closeOverlay();
   useEscape(close);
   const wanted = query.trim().toLowerCase();
-  const matches2 = roster.bots.filter((bot) => !picked.includes(bot.id) && bot.id !== admin && (wanted === "" || bot.name.toLowerCase().includes(wanted) || (bot.role ?? "").toLowerCase().includes(wanted)));
+  const matches2 = todo ? [] : roster.bots.filter((bot) => !picked.includes(bot.id) && bot.id !== admin && (wanted === "" || bot.name.toLowerCase().includes(wanted) || (bot.role ?? "").toLowerCase().includes(wanted)));
   const choosingAdmin = group && admin === null;
   const exact = roster.bots.some((bot) => bot.name.toLowerCase() === wanted);
   const pickedBots = picked.map((id) => roster.byId[id]).filter(Boolean);
@@ -44684,6 +46455,13 @@ function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
     setError("");
     setDraft({ name: query.trim() !== "" && !exact ? query.trim() : "", fromList: true, sectionId });
   };
+  const addTodo = () => run2(async () => {
+    const text = query.trim();
+    if (text === "" || typeof actions.teamTodoAdd !== "function") return;
+    await actions.teamTodoAdd(text);
+    if (typeof window !== "undefined" && typeof window.dispatchEvent === "function") window.dispatchEvent(new Event("bt-todo-changed"));
+    close();
+  });
   const created = (bot) => {
     close();
     actions.openSession(bot.id);
@@ -44698,27 +46476,41 @@ function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
     close();
   };
   const createGroup = () => run2(makeGroup);
-  const sendMessage = () => run2(async () => {
-    const text = draftText().trim();
-    if (group && admin !== null) {
-      await makeGroup();
+  const sendMessage = () => {
+    if (todo) {
+      addTodo();
       return;
     }
-    if (text === "" || picked.length === 0) return;
-    if (picked.length === 1) {
-      if (sectionId) await actions.setFlags(picked[0], { sectionId });
-      await actions.send(picked[0], text);
-      actions.openSession(picked[0]);
+    return run2(async () => {
+      const text = draftText().trim();
+      if (group && admin !== null) {
+        await makeGroup();
+        return;
+      }
+      if (text === "" || picked.length === 0) return;
+      if (picked.length === 1) {
+        if (sectionId) await actions.setFlags(picked[0], { sectionId });
+        await actions.send(picked[0], text);
+        actions.openSession(picked[0]);
+        close();
+        return;
+      }
+      const room2 = await actions.createRoom(picked, sectionId ? { sectionId } : {});
+      await actions.send(room2.id, text);
+      actions.openSession(room2.id);
       close();
-      return;
-    }
-    const room2 = await actions.createRoom(picked, sectionId ? { sectionId } : {});
-    await actions.send(room2.id, text);
-    actions.openSession(room2.id);
-    close();
-  });
+    });
+  };
   const options = [];
-  if (!group && picked.length === 0 && mode !== "search" && wanted === "") {
+  if (!group && picked.length === 0 && mode !== "search" && wanted === "" && !todo) {
+    if (typeof actions.teamTodoAdd === "function") {
+      options.push({ key: "todo", icon: (0, import_react69.createElement)(CheckIcon), label: t("Add to-do"), run: () => {
+        setTodo(true);
+        setQuery("");
+        setCursor(0);
+        inputRef.current?.focus();
+      } });
+    }
     options.push({ key: "new", icon: (0, import_react69.createElement)(PlusIcon), label: t("Create new Bot"), run: createBot });
     options.push({ key: "group", icon: (0, import_react69.createElement)(PeopleIcon), label: t("Create group chat"), run: () => {
       setGroup(true);
@@ -44735,7 +46527,7 @@ function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   for (const bot of matches2) {
     options.push({ key: bot.id, bot, label: bot.name, hint: choosingAdmin ? t("Make admin") : group || picked.length > 0 ? t("Add to group chat") : void 0, run: () => openBot(bot) });
   }
-  if (wanted !== "" && !exact && mode !== "search") options.push({ key: "create", icon: (0, import_react69.createElement)(PlusIcon), label: t("Create new Bot “{name}”", { name: query.trim() }), run: createBot });
+  if (wanted !== "" && !exact && mode !== "search" && !todo) options.push({ key: "create", icon: (0, import_react69.createElement)(PlusIcon), label: t("Create new Bot “{name}”", { name: query.trim() }), run: createBot });
   const active = Math.min(cursor, Math.max(options.length - 1, 0));
   const listed = options.map((option) => option.key).join("\n");
   const glide2 = useGlide(`${active}
@@ -44763,14 +46555,19 @@ ${listed}`, { axis: "y", ...QUICK_EDGES });
   }
   const adminBot = admin === null ? void 0 : roster.byId[admin];
   const recipients = adminBot ? [adminBot, ...pickedBots] : pickedBots;
-  const placeholder = recipients.length > 0 ? t("Message {name}", { name: recipients.map((bot) => bot.name).join(t(" and ")) }) : t("Message Bot");
+  const placeholder = todo ? t("Type a to-do and press Enter") : recipients.length > 0 ? t("Message {name}", { name: recipients.map((bot) => bot.name).join(t(" and ")) }) : t("Message Bot");
   const unpick = () => {
     if (picked.length > 0) setPicked((current2) => current2.slice(0, -1));
     else if (admin !== null) setAdmin(null);
   };
+  const blankPress = (event) => {
+    const node = event?.target;
+    if (node && typeof node.closest === "function" && node.closest(".bt-to, .bt-drop, .bt-nc-compose, .bt-paste-dock")) return;
+    close();
+  };
   return (0, import_react69.createElement)(
     "div",
-    { className: "bt-pane", style: { left: paneLeft } },
+    { className: "bt-pane", style: { left: paneLeft }, onMouseDown: blankPress },
     (0, import_react69.createElement)(
       "div",
       { className: "bt-newchat", role: "dialog", "aria-label": mode === "search" ? t("Search") : t("New chat") },
@@ -44802,7 +46599,7 @@ ${listed}`, { axis: "y", ...QUICK_EDGES });
             autoFocus: true,
             value: query,
             "aria-label": t("Recipient"),
-            placeholder: mode === "search" ? t("Search Bots…") : choosingAdmin ? t("Choose the group admin") : group ? t("Who to chat with…") : t("Start a chat with…"),
+            placeholder: todo ? t("Type a to-do and press Enter") : mode === "search" ? t("Search Bots…") : choosingAdmin ? t("Choose the group admin") : group ? t("Who to chat with…") : t("Start a chat with…"),
             onChange: (event) => {
               setQuery(event.target.value);
               setCursor(0);
@@ -44815,12 +46612,24 @@ ${listed}`, { axis: "y", ...QUICK_EDGES });
               } else if (event.key === "ArrowUp") {
                 event.preventDefault();
                 setCursor(Math.max(active - 1, 0));
+              } else if (event.key === "Enter" && todo) {
+                event.preventDefault();
+                addTodo();
               } else if (event.key === "Enter" && options[active]) {
                 event.preventDefault();
                 options[active].run();
-              } else if (event.key === "Backspace" && query === "") unpick();
+              } else if (event.key === "Backspace" && query === "") {
+                if (todo) setTodo(false);
+                else unpick();
+              }
             }
           }),
+          todo ? (0, import_react69.createElement)("button", {
+            type: "button",
+            className: "bt-send bt-to-create",
+            disabled: busy || query.trim() === "",
+            onClick: addTodo
+          }, t("Add")) : null,
           group && admin !== null ? (0, import_react69.createElement)("button", {
             type: "button",
             className: "bt-send bt-to-create",
@@ -44834,7 +46643,7 @@ ${listed}`, { axis: "y", ...QUICK_EDGES });
           "div",
           { ref: glide2.box, role: "listbox", "aria-label": t("Recipients"), className: "bt-drop-list" },
           (0, import_react69.createElement)("span", { ref: glide2.thumb, className: "bt-thumb", "aria-hidden": true }),
-          options.length === 0 ? (0, import_react69.createElement)("div", { className: "bt-hint" }, mode === "search" ? t("No Bots match") : t("Type a name to create a Bot")) : options.map((option, index) => (0, import_react69.createElement)(
+          options.length === 0 ? (0, import_react69.createElement)("div", { className: "bt-hint" }, todo ? t("Type a to-do and press Enter") : mode === "search" ? t("No Bots match") : t("Type a name to create a Bot")) : options.map((option, index) => (0, import_react69.createElement)(
             "button",
             {
               key: option.key,
@@ -44854,7 +46663,7 @@ ${listed}`, { axis: "y", ...QUICK_EDGES });
       ),
       (0, import_react69.createElement)("div", { className: "bt-nc-spacer" }),
       error ? (0, import_react69.createElement)("div", { className: "bt-error" }, error) : null,
-      (0, import_react69.createElement)(
+      todo ? null : (0, import_react69.createElement)(
         "div",
         { className: "bt-nc-compose" },
         pasted === null ? null : (0, import_react69.createElement)("div", { className: "bt-paste-dock" }, (0, import_react69.createElement)(PasteCard, {
@@ -45383,19 +47192,19 @@ function VoiceMode({ sessionId, paneLeft, roster, actions, useSessions, useSessi
       capture = opened;
       const began = performance.now();
       const tick = () => {
-        const now = performance.now();
+        const now2 = performance.now();
         const level = capture.level();
         smooth = smooth * 0.8 + level * 0.2;
         writeLevel(Math.round(smooth * 100) / 100);
-        const state = detect(level, now);
-        if (state === "done" || state === "speech" && now - began >= limit) {
+        const state = detect(level, now2);
+        if (state === "done" || state === "speech" && now2 - began >= limit) {
           const current2 = capture;
           capture = null;
           writeLevel(0);
           void finish(current2);
           return;
         }
-        if (state === "waiting" && now - began >= limit) {
+        if (state === "waiting" && now2 - began >= limit) {
           setCycle((value) => value + 1);
           return;
         }
@@ -45624,13 +47433,14 @@ function ContextMenu({ menu, roster, actions, useWork, leaving = false }) {
     if (!box) return;
     setPlace({ left: Math.max(8, Math.min(menu.x, window.innerWidth - box.width - 8)), top: Math.max(8, Math.min(menu.y, viewBottom() - box.height - 8)) });
   }, [menu.x, menu.y, tick]);
-  const isSpecial = menu.kind === "agent" || menu.kind === "agent-session" || menu.kind === "section" || menu.kind === "section-add";
+  const isSpecial = menu.kind === "agent" || menu.kind === "agent-session" || menu.kind === "section" || menu.kind === "section-add" || menu.kind === "message";
   const bot = isSpecial ? void 0 : roster.byId[menu.id];
   const room2 = isSpecial ? void 0 : roster.roomsById[menu.id];
   const waitsRaw = useWork ? useWork((work) => JSON.stringify(bot ? work.waiting?.[bot.id] ?? null : null)) : "null";
   const waits = (0, import_react72.useMemo)(() => JSON.parse(waitsRaw), [waitsRaw]);
   if (menu.kind === "agent" || menu.kind === "agent-session") return (0, import_react72.createElement)(AgentMenu, { menu, roster, actions, leaving });
   if (menu.kind === "section" || menu.kind === "section-add") return (0, import_react72.createElement)(SectionMenu, { menu, roster, actions, leaving });
+  if (menu.kind === "message") return (0, import_react72.createElement)(MessageMenu, { menu, roster, actions, leaving });
   const entry = bot ?? room2;
   if (entry === void 0) return null;
   const isMainBot = isMainOf(roster, menu.id);
@@ -45641,7 +47451,13 @@ function ContextMenu({ menu, roster, actions, useWork, leaving = false }) {
     [
       isTile ? null : [entry.pinned ? t("Unpin") : t("Pin"), PinIcon, () => actions.setFlags(menu.id, { pinned: !entry.pinned })],
       [t("Mark as Unread"), UnreadIcon, () => actions.markUnread(menu.id)],
-      [isMuted(entry.id) ? t("Unmute notifications") : t("Mute notifications"), UnreadIcon, () => toggleMuted(entry.id)]
+      [isMuted(entry.id) ? t("Unmute notifications") : t("Mute notifications"), UnreadIcon, () => toggleMuted(entry.id)],
+      // Curating the strip: the face on the strip takes its Bot off, the row in the list
+      // puts it back. A tick marks the one already up there, so the list entry is never a
+      // press that does nothing. A group chat and the Main Bot start off the band and are
+      // put on from here, each through its own list.
+      isTile ? [menu.from === "strip" ? t("Remove from the top bar") : t("Add to the top bar"), SideIcon, () => setMainStripShown(menu.id, menu.from !== "strip"), false, menu.from !== "strip" && isMainOnStrip(menu.id)] : bot ? [menu.from === "strip" ? t("Remove from the top bar") : t("Add to the top bar"), SideIcon, () => setStripShown(bot.id, menu.from !== "strip"), false, menu.from !== "strip" && isOnStrip(bot.id)] : null,
+      room2 ? [menu.from === "strip" ? t("Remove from the top bar") : t("Add to the top bar"), SideIcon, () => setRoomStripShown(room2.id, menu.from !== "strip"), false, menu.from !== "strip" && isRoomOnStrip(room2.id)] : null
     ],
     isTile ? [] : sectionMoveItems(entry, roster, actions),
     [
@@ -45897,6 +47713,89 @@ function AgentMenu({ menu, roster, actions, leaving }) {
     ))
   );
 }
+var MESSAGE_MENU_SHARE = 0.68;
+var MESSAGE_MENU_MIN = 220;
+var menuBottom = () => typeof window === "undefined" ? 800 : viewBottom();
+var messageMenuHeight = () => Math.max(MESSAGE_MENU_MIN, Math.round(menuBottom() * MESSAGE_MENU_SHARE));
+function MessageMenu({ menu, roster, actions, leaving }) {
+  const ref = (0, import_react72.useRef)(null);
+  const scroller = (0, import_react72.useRef)(null);
+  const [place, setPlace] = (0, import_react72.useState)({ left: menu.x, top: menu.y, maxHeight: messageMenuHeight() });
+  const tick = useViewport();
+  (0, import_react72.useLayoutEffect)(() => {
+    const box = ref.current?.getBoundingClientRect();
+    if (!box) return;
+    const maxHeight = messageMenuHeight();
+    const height = Math.min(box.height, maxHeight);
+    setPlace({
+      left: Math.max(8, Math.min(menu.x, window.innerWidth - box.width - 8)),
+      top: Math.max(8, Math.min(menu.y, menuBottom() - height - 8)),
+      maxHeight
+    });
+  }, [menu.x, menu.y, tick]);
+  (0, import_react72.useEffect)(() => {
+    const node = scroller.current;
+    if (node === null) return void 0;
+    const onWheel = (event) => {
+      const room2 = node.scrollHeight - node.clientHeight;
+      if (room2 <= 0) return;
+      event.preventDefault();
+      node.scrollTop = Math.max(0, Math.min(room2, node.scrollTop + event.deltaY));
+    };
+    node.addEventListener("wheel", onWheel, { passive: false });
+    return () => node.removeEventListener("wheel", onWheel);
+  }, []);
+  (0, import_react72.useEffect)(() => {
+    const onKey = (event) => {
+      stepMenuFocus(ref.current, event);
+    };
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, []);
+  const body = menu.from ? `${t("Forwarded from {name}", { name: menu.from })}
+${menu.text}` : menu.text;
+  const sendTo = (id) => {
+    actions.closeMenu();
+    void Promise.resolve(actions.send(id, body)).catch((error) => actions.reportError(error, "forward"));
+  };
+  const bots = (roster.bots ?? []).filter((bot) => bot.hidden !== true && bot.id !== menu.selfId);
+  return (0, import_react72.createElement)(
+    "div",
+    {
+      ref,
+      className: "bt-menu",
+      role: "menu",
+      "aria-label": t("Message actions"),
+      style: place,
+      "data-leaving": leaving || void 0,
+      // The pointer leaving puts it away, the way the to-do card behaves: a menu opened over a
+      // line of the conversation should not sit there once the eye has moved on.
+      onMouseLeave: () => actions.closeMenu()
+    },
+    (0, import_react72.createElement)("button", {
+      type: "button",
+      role: "menuitem",
+      onClick: () => {
+        actions.closeMenu();
+        void navigator.clipboard?.writeText(menu.text);
+      }
+    }, (0, import_react72.createElement)(CopyIcon), (0, import_react72.createElement)("span", { className: "bt-menu-label" }, t("Copy text"))),
+    bots.length > 0 ? (0, import_react72.createElement)("div", { className: "bt-menu-sep", role: "separator" }) : null,
+    bots.length > 0 ? (0, import_react72.createElement)("div", { className: "bt-menu-caption", role: "presentation" }, t("Forward to")) : null,
+    // The copy and the caption stay put; only the list of Bots moves under them.
+    (0, import_react72.createElement)(
+      "div",
+      { className: "bt-menu-scroll", ref: scroller },
+      bots.map((bot) => (0, import_react72.createElement)("button", {
+        key: bot.id,
+        type: "button",
+        role: "menuitem",
+        title: t("Forward to {name}", { name: bot.name }),
+        onClick: () => sendTo(bot.id)
+      }, (0, import_react72.createElement)(SideIcon), (0, import_react72.createElement)("span", { className: "bt-menu-label" }, bot.name)))
+    )
+  );
+}
 
 // src/client/mark-flight.js
 var FLIGHT_ENDS = { tab: ":scope > .bt-ptabs .bt-ptab-bot .bt-mark", drawer: ":scope > .bt-panel-view .bt-drawer-id .bt-mark" };
@@ -45950,7 +47849,7 @@ function createFlight(env) {
     node.remove();
     delete panel.dataset.flying;
   }
-  function place(now) {
+  function place(now2) {
     const { panel, node, end, from, size } = live;
     live.step = null;
     const target = panel.isConnected ? panel.querySelector(FLIGHT_ENDS[end]) : null;
@@ -45959,8 +47858,8 @@ function createFlight(env) {
       finish();
       return;
     }
-    if (live.at === null && now !== null) live.at = now;
-    const elapsed = live.at === null ? 0 : now - live.at;
+    if (live.at === null && now2 !== null) live.at = now2;
+    const elapsed = live.at === null ? 0 : now2 - live.at;
     const done = elapsed >= shape.duration;
     const box = flightBox(from, boxOf(to), done ? 1 : shape.progress(elapsed));
     const edge = panel.getBoundingClientRect();
@@ -46008,6 +47907,45 @@ function createFlight(env) {
     }
   };
 }
+
+// src/client/panel-window.js
+var PANEL_WINDOW_PARAM = "ds-bot-window";
+var EARLY_SEARCH = globalThis.location?.search ?? "";
+function panelWindowRequest(search = EARLY_SEARCH) {
+  let params;
+  try {
+    params = new URLSearchParams(search);
+  } catch {
+    return null;
+  }
+  if (params.get(PANEL_WINDOW_PARAM) !== "panel") return null;
+  const session = params.get("session");
+  const tab = params.get("tab");
+  return {
+    session: session === null || session === "" ? null : session,
+    tab: tab === null || tab === "" ? null : tab
+  };
+}
+function inPanelWindow() {
+  return globalThis.document?.documentElement?.dataset?.btPanelWindow !== void 0;
+}
+function canOpenPanelWindow() {
+  return typeof globalThis.dsBotPanel?.open === "function";
+}
+function openPanelWindow(query) {
+  const api = globalThis.dsBotPanel;
+  if (typeof api?.open !== "function") return false;
+  void api.open(query ?? {});
+  return true;
+}
+var PANEL_WINDOW_CSS = `
+html[data-bt-panel-window]{--dsh-frame-chrome-top:0px;--dsh-windows-titlebar-height:0px}
+html[data-bt-panel-window] body{overflow:hidden;background:var(--bt-main)}
+html[data-bt-panel-window] body>*:not(.bt-panel){display:none !important}
+html[data-bt-panel-window] .bt-panel{top:0;left:0;right:0;bottom:0;width:100%;border-left:0;box-shadow:none;animation:none}
+html[data-bt-panel-window] .bt-panel-grip{display:none}
+html[data-bt-panel-window] .bt-panel-view{animation:none}
+`;
 
 // src/client/task-board.js
 var import_react73 = require("react");
@@ -46292,7 +48230,7 @@ function BrowserCards({ bot, sessionId, roster, actions, useBrowserTabs, useBrow
   );
 }
 function useSaved(value, save) {
-  const [pending, setPending] = (0, import_react74.useState)(null);
+  const [pending2, setPending] = (0, import_react74.useState)(null);
   const commit = (next) => {
     setPending({ next });
     return Promise.resolve(save(next)).then(
@@ -46306,7 +48244,7 @@ function useSaved(value, save) {
       }
     );
   };
-  return [pending ? pending.next : value, commit];
+  return [pending2 ? pending2.next : value, commit];
 }
 function BotLabel({ bot, actions, run: run2 }) {
   const [role, save] = useSaved(bot.role ?? "", (next) => run2(actions.updateBot(bot.id, { role: next })));
@@ -46596,13 +48534,29 @@ function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, roster, a
     canTerminal: actions.canOpenTerminal?.() === true,
     canFiles: actions.canOpenFiles?.() === true
   }).map((key) => menuItemFor(key, actions, sessionId));
+  const poppedOut = inPanelWindow();
+  const popOut = canOpenPanelWindow() || poppedOut ? (0, import_react74.createElement)("button", {
+    type: "button",
+    className: "bt-round",
+    "aria-label": poppedOut ? t("Close this window") : t("Open in its own window"),
+    title: poppedOut ? t("Close this window") : t("Open these details in a window of their own"),
+    "data-info-row": "popout",
+    onClick: () => {
+      if (poppedOut) {
+        globalThis.close?.();
+        return;
+      }
+      if (openPanelWindow({ session: sessionId, tab: activeTab })) close();
+    }
+  }, (0, import_react74.createElement)(PopoutIcon)) : null;
   const top = (0, import_react74.createElement)(
     "div",
     { className: "bt-drawer-top", "data-move": side, "data-window-drag": !hasStrip || void 0 },
     bot || room2 ? (0, import_react74.createElement)("button", { type: "button", className: "bt-round", "aria-label": bot ? t("Edit Bot") : t("Group settings"), title: bot ? t("Edit Bot") : t("Group settings"), "data-info-row": "settings", onClick: () => setView("settings") }, (0, import_react74.createElement)(GearIcon)) : null,
     more.length > 0 ? (0, import_react74.createElement)("span", { "data-info-row": "more" }, (0, import_react74.createElement)(PanelMenu, { items: more, className: "bt-round", "aria-label": t("More") })) : null,
     bot || room2 ? (0, import_react74.createElement)("button", { type: "button", className: "bt-round", "aria-label": copied ? t("Copied conversation") : t("Share conversation"), title: copied ? t("Copied") : t("Copy conversation as Markdown"), onClick: share }, copied ? (0, import_react74.createElement)("span", { key: "copied", className: "bt-pop-in" }, "✓") : (0, import_react74.createElement)(ShareIcon)) : null,
-    hasStrip ? null : (0, import_react74.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("Close details"), onClick: close }, (0, import_react74.createElement)(CloseIcon))
+    popOut,
+    hasStrip || poppedOut ? null : (0, import_react74.createElement)("button", { type: "button", className: "bt-round", "aria-label": t("Close details"), onClick: close }, (0, import_react74.createElement)(CloseIcon))
   );
   if (!bot && !room2) {
     return [
@@ -46680,7 +48634,6 @@ function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, roster, a
           (0, import_react74.createElement)(ModelMenu, { bot, roster, actions, run: run2, wide: true, inline: true }),
           modelOf(bot, roster) ? null : (0, import_react74.createElement)("div", { className: "bt-note" }, t("Pick a model and {name} can start.", { name: bot.name }))
         ),
-        (0, import_react74.createElement)(BotSessions, { key: "sessions", bot, part, run: run2, useSessions, actions, running: roster.partsRunning }),
         (0, import_react74.createElement)(PermissionRow, { key: "permission", bot, roster, actions, run: run2 }),
         (0, import_react74.createElement)(BotConnectors, { key: "connectors", bot, roster, actions, run: run2 }),
         (0, import_react74.createElement)(
@@ -46703,7 +48656,10 @@ function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, roster, a
           (0, import_react74.createElement)("div", { className: "bt-section-title" }, t("Usage")),
           (0, import_react74.createElement)("div", { className: "bt-kv" }, (0, import_react74.createElement)("span", null, bot.name), (0, import_react74.createElement)("span", null, usage))
         ) : null,
-        (0, import_react74.createElement)(ScheduleSummary, { key: "routines", bot, actions })
+        (0, import_react74.createElement)(ScheduleSummary, { key: "routines", bot, actions }),
+        // The Session list closes the page: it grows without bound, and everything above it
+        // is read far more often.
+        (0, import_react74.createElement)(BotSessions, { key: "sessions", bot, part, run: run2, useSessions, actions, running: roster.partsRunning })
       ] : null,
       bot && activeTab === "browser" ? (0, import_react74.createElement)(BrowserCards, { bot, sessionId, roster, actions, useBrowserTabs, useBrowserPages }) : null
     )
@@ -46717,7 +48673,7 @@ function rectsOverlap(a, b) {
 
 // src/client/browser-pane.js
 var import_react75 = require("react");
-var import_react_dom12 = require("react-dom");
+var import_react_dom13 = require("react-dom");
 var PANEL_LINGER_MS = 300;
 var WIDTH_KEY = STORAGE.browserWidth;
 var DEFAULT_WIDTH = 520;
@@ -46796,7 +48752,11 @@ var savedWidth = () => {
     return null;
   }
 };
-var widthRange = (view, room2) => view === "browser" ? [MIN_WIDTH, room2 - MIN_CHAT] : [DETAILS_WIDTH, Math.min(DETAILS_MAX, room2 - MIN_CHAT)];
+var widthRange = (view, room2) => {
+  const shared2 = Math.max(PANEL_TIGHT, room2 - MIN_CHAT);
+  const low = Math.min(view === "browser" ? MIN_WIDTH : DETAILS_WIDTH, shared2);
+  return [low, Math.max(low, view === "browser" ? shared2 : Math.min(DETAILS_MAX, shared2))];
+};
 var fitWidth = (width, [low, high]) => Math.round(Math.max(low, Math.min(width, high)));
 var shortAddress = (url) => String(url ?? "").replace(/^https?:\/\//i, "").replace(/^www\./i, "").replace(/\/$/, "");
 var tabLabel = (page) => page.title || shortAddress(page.url) || t("New tab");
@@ -48110,7 +50070,7 @@ function BotPanel({ pane, leaving, room: room2, overlay, roster, actions, useSes
     leaving || overlay ? null : (0, import_react75.createElement)("div", { className: "bt-panel-grip", role: "separator", "aria-orientation": "vertical", "aria-label": t("Resize panel"), onPointerDown: startResize }),
     // Over the whole window while dragging: the cursor stays a resize cursor and the
     // pages underneath (the chat, the guest) see no pointer.
-    dragging ? (0, import_react_dom12.createPortal)((0, import_react75.createElement)("div", { className: "bt-drag-shield", "aria-hidden": true }), document.body) : null,
+    dragging ? (0, import_react_dom13.createPortal)((0, import_react75.createElement)("div", { className: "bt-drag-shield", "aria-hidden": true }), document.body) : null,
     hasStrip ? (0, import_react75.createElement)(PanelStrip, { bot, roomSubject, subject: pane.id, view, ids: tabState.ids, active, sides: sideChats, side: pane.side, task: taskEntry, canBrowse, reading, onView: switchView, actions: panelActions, useBrowserPages }) : null,
     view === "browser" && bot ? (0, import_react75.createElement)(BrowserView, { key: `browser:${active}`, bot, tabId: active, leaving, landed: landed && !settling, actions, useBrowserPages, hold }) : view === "side" && sideChat ? (0, import_react75.createElement)("div", { key: `side:${sideChat.id}`, className: "bt-panel-view" }, (0, import_react75.createElement)(SideChatView, { subject: pane.id, chat: sideChat, roster, actions: panelActions })) : view === "task" && taskEntry && taskBot ? (0, import_react75.createElement)("div", { key: `task:${taskEntry.id}`, className: "bt-panel-view" }, (0, import_react75.createElement)(TaskReaderView, { bot: taskBot, task: taskEntry, actions: panelActions })) : (0, import_react75.createElement)(
       "div",
@@ -48296,9 +50256,9 @@ var BROWSER_CSS = `
 // src/client/opening.js
 var import_react76 = require("react");
 var OPENING_WAIT_MS = 5e3;
-function openingPastWait(pending, target) {
-  if (!pending || pending.target !== target || pending.slow === true) return pending ?? null;
-  return { ...pending, slow: true };
+function openingPastWait(pending2, target) {
+  if (!pending2 || pending2.target !== target || pending2.slow === true) return pending2 ?? null;
+  return { ...pending2, slow: true };
 }
 function bindOpeningWait(ui, { waitMs = OPENING_WAIT_MS, schedule = setTimeout, clear = clearTimeout, onSlow } = {}) {
   let timer = null;
@@ -48308,10 +50268,10 @@ function bindOpeningWait(ui, { waitMs = OPENING_WAIT_MS, schedule = setTimeout, 
     timer = null;
   };
   return {
-    begin(pending) {
-      ui.set((state) => ({ ...state, pendingOpen: pending }));
+    begin(pending2) {
+      ui.set((state) => ({ ...state, pendingOpen: pending2 }));
       stop();
-      const target = pending?.target;
+      const target = pending2?.target;
       timer = schedule(() => {
         timer = null;
         let held = false;
@@ -48329,17 +50289,17 @@ function bindOpeningWait(ui, { waitMs = OPENING_WAIT_MS, schedule = setTimeout, 
     }
   };
 }
-function openingModel({ pending, current: current2, roster }) {
-  if (!pending || pending.target === void 0) return null;
-  if (current2 === pending.target) return null;
-  const bot = roster?.byId?.[pending.id];
-  const room2 = roster?.roomsById?.[pending.id];
+function openingModel({ pending: pending2, current: current2, roster }) {
+  if (!pending2 || pending2.target === void 0) return null;
+  if (current2 === pending2.target) return null;
+  const bot = roster?.byId?.[pending2.id];
+  const room2 = roster?.roomsById?.[pending2.id];
   return {
-    id: pending.id,
-    name: bot?.name ?? room2?.name ?? pending.name ?? "",
+    id: pending2.id,
+    name: bot?.name ?? room2?.name ?? pending2.name ?? "",
     bot,
     group: room2 !== void 0,
-    slow: pending.slow === true
+    slow: pending2.slow === true
   };
 }
 function OpeningCover({ model, column }) {
@@ -48372,7 +50332,7 @@ var OPENING_CSS = `
 
 // src/client/overlays.js
 var import_react77 = require("react");
-var import_react_dom13 = require("react-dom");
+var import_react_dom14 = require("react-dom");
 var DIALOG_EXIT_MS2 = 160;
 var MENU_EXIT_MS3 = 120;
 function Overlays({ useRoster, useUi, useSessions, useSessionStatus, useActivity, useWork, useComputer, useRegistry, useBrowserPages, useBrowserTabs, useBrowserHolds, useUpdate, useFrame, useSidebarPref, useSettingsShellHeld, actions }) {
@@ -48423,16 +50383,16 @@ function Overlays({ useRoster, useUi, useSessions, useSessionStatus, useActivity
     import_react77.Fragment,
     null,
     (0, import_react77.createElement)(NotificationWatcher, { key: "ds-bot:notifications", useSessions, useSessionStatus, useRoster, useWork, actions }),
-    opening ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(OpeningCover, { model: opening, column: layout.column }), document.body) : null,
-    pane ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(BotPanel, { pane, leaving: shown === null, room: layout.room, overlay: layout.panel === "overlay", roster, actions, useSessions, useSessionStatus, useActivity, useWork, useComputer, useBrowserTabs, useBrowserPages, useBrowserHolds }), document.body) : null,
-    ui.newChat ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(NewChat, { key: `${ui.newChat}:${ui.newChatSection ?? ""}`, mode: ui.newChat, sectionId: ui.newChatSection ?? null, paneLeft: layout.column, roster, actions }), document.body) : null,
-    ui.palette ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(CommandPalette, { key: ui.palette.token, start: ui.palette.query, token: ui.palette.token, roster, actions, useSessions }), document.body) : null,
-    ui.groupSearch && roster.roomsById[ui.groupSearch.roomId] ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(GroupSearch, { key: ui.groupSearch.token, room: roster.roomsById[ui.groupSearch.roomId], roster, token: ui.groupSearch.token, actions }), document.body) : null,
-    ui.exchange ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(ExchangeDialog, { pair: ui.exchange, paneLeft: layout.column, roster, actions }), document.body) : null,
-    ui.voice ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(VoiceMode, { key: ui.voice, sessionId: ui.voice, paneLeft: layout.column, roster, actions, useSessions, useSessionStatus }), document.body) : null,
-    menu ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(ContextMenu, { key: `${menu.kind ?? ""}:${menu.id}:${menu.x}:${menu.y}`, menu, roster, actions, useWork, leaving: menuLeaving }), document.body) : null,
-    settings ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(SettingsDialog, { page: settings.page, id: settings.id, roster, actions, useUpdate, leaving: settingsLeaving }), document.body) : null,
-    owner ? (0, import_react_dom13.createPortal)((0, import_react77.createElement)(MemoryDialog, { key: owner.id, owner, actions, leaving: memoryLeaving }), document.body) : null
+    opening ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(OpeningCover, { model: opening, column: layout.column }), document.body) : null,
+    pane ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(BotPanel, { pane, leaving: shown === null, room: layout.room, overlay: layout.panel === "overlay", roster, actions, useSessions, useSessionStatus, useActivity, useWork, useComputer, useBrowserTabs, useBrowserPages, useBrowserHolds }), document.body) : null,
+    ui.newChat ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(NewChat, { key: `${ui.newChat}:${ui.newChatSection ?? ""}`, mode: ui.newChat, sectionId: ui.newChatSection ?? null, paneLeft: layout.column, roster, actions }), document.body) : null,
+    ui.palette ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(CommandPalette, { key: ui.palette.token, start: ui.palette.query, token: ui.palette.token, roster, actions, useSessions }), document.body) : null,
+    ui.groupSearch && roster.roomsById[ui.groupSearch.roomId] ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(GroupSearch, { key: ui.groupSearch.token, room: roster.roomsById[ui.groupSearch.roomId], roster, token: ui.groupSearch.token, actions }), document.body) : null,
+    ui.exchange ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(ExchangeDialog, { pair: ui.exchange, paneLeft: layout.column, roster, actions }), document.body) : null,
+    ui.voice ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(VoiceMode, { key: ui.voice, sessionId: ui.voice, paneLeft: layout.column, roster, actions, useSessions, useSessionStatus }), document.body) : null,
+    menu ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(ContextMenu, { key: `${menu.kind ?? ""}:${menu.id}:${menu.x}:${menu.y}`, menu, roster, actions, useWork, leaving: menuLeaving }), document.body) : null,
+    settings ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(SettingsDialog, { page: settings.page, id: settings.id, roster, actions, useUpdate, leaving: settingsLeaving }), document.body) : null,
+    owner ? (0, import_react_dom14.createPortal)((0, import_react77.createElement)(MemoryDialog, { key: owner.id, owner, actions, leaving: memoryLeaving }), document.body) : null
   );
 }
 
@@ -48818,9 +50778,9 @@ function setUnread(unread, id, value) {
   else delete next[id];
   return next;
 }
-function noteLeft(seen, ids, now) {
+function noteLeft(seen, ids, now2) {
   const next = { ...seen };
-  for (const id of ids) next[id] = Math.max(Number(next[id]) || 0, now);
+  for (const id of ids) next[id] = Math.max(Number(next[id]) || 0, now2);
   return next;
 }
 
@@ -49078,7 +51038,7 @@ function createBotBrowsers({ bridge: bridge2, createSource: createSource2, stora
   async function create(tabId) {
     const botId = owner.get(tabId);
     const guest = await makeGuest({ bridge: bridge2, document: doc, botId, tabId });
-    const pending = pages.getSnapshot()[tabId]?.url || savedTab(botId, tabId)?.url;
+    const pending2 = pages.getSnapshot()[tabId]?.url || savedTab(botId, tabId)?.url;
     const reservation = guest.appView ? void 0 : await bridge2.acquire(`bot:${botId}`);
     if (disposed) {
       if (reservation) await bridge2.release(reservation.lease).catch(() => {
@@ -49087,7 +51047,7 @@ function createBotBrowsers({ bridge: bridge2, createSource: createSource2, stora
       });
       return void 0;
     }
-    if (guest.appView) await bridge2.views.create(botId, tabId, pending ?? "");
+    if (guest.appView) await bridge2.views.create(botId, tabId, pending2 ?? "");
     const element = guest.element;
     element.dataset.sidebarBrowserFrame = "webview";
     Object.assign(element.style, { position: "fixed", display: "flex", border: "0", pointerEvents: "auto", background: "#fff" });
@@ -49098,7 +51058,7 @@ function createBotBrowsers({ bridge: bridge2, createSource: createSource2, stora
       element.setAttribute("allowpopups", "");
       element.setAttribute("src", `about:blank#${reservation.lease}`);
     }
-    const entry = { botId, tabId, element, lease: reservation?.lease, appView: guest.appView, botAttached: false, ready: false, fresh: !guest.appView, pending: guest.appView ? void 0 : pending, usedAt: Date.now() };
+    const entry = { botId, tabId, element, lease: reservation?.lease, appView: guest.appView, botAttached: false, ready: false, fresh: !guest.appView, pending: guest.appView ? void 0 : pending2, usedAt: Date.now() };
     const lifetime = new AbortController();
     entry.stop = () => lifetime.abort();
     const { signal } = lifetime;
@@ -49841,6 +51801,65 @@ var LEARNING_CSS = `
 .bt-learning-error{font-size:12px;line-height:16px;color:var(--bt-danger)}
 `;
 
+// src/client/nav-history.js
+function createNavHistory({ current: current2, open, layer, closeLayer, openLayer, limit = 50 }) {
+  const past = [];
+  const future = [];
+  let replaying = false;
+  let closed = null;
+  const push = (list, id) => {
+    if (id === void 0 || id === null) return;
+    list.push(id);
+    while (list.length > limit) list.shift();
+  };
+  const jump = (id) => {
+    replaying = true;
+    try {
+      open(id);
+    } finally {
+      replaying = false;
+    }
+  };
+  return {
+    // The view calls this just before opening another conversation, so the one it leaves
+    // is where back returns to. Replayed steps are not steps of their own.
+    remember(next) {
+      if (replaying) return;
+      const previous = current2();
+      if (previous === void 0 || previous === null || next === previous) return;
+      closed = null;
+      future.length = 0;
+      push(past, previous);
+    },
+    back() {
+      const place = layer();
+      if (place !== null && place !== void 0) {
+        closed = place;
+        closeLayer(place);
+        return "layer";
+      }
+      const id = past.pop();
+      if (id === void 0) return null;
+      push(future, current2());
+      jump(id);
+      return "session";
+    },
+    forward() {
+      if (closed !== null) {
+        const place = closed;
+        closed = null;
+        openLayer(place);
+        return "layer";
+      }
+      const id = future.pop();
+      if (id === void 0) return null;
+      push(past, current2());
+      jump(id);
+      return "session";
+    }
+  };
+}
+
 // src/client/read-only-dock.js
 var import_react79 = require("react");
 function ReadOnlyDock({ sessionId, useUi, useRoster, actions }) {
@@ -50018,12 +52037,20 @@ function installBotMentionRule(userText, roster) {
   };
 }
 
+// src/client/queue-layer.js
+function queueLayer({ rect, viewportWidth, viewportHeight }) {
+  if (!rect || !rect.width) return null;
+  const left = Math.max(0, Math.round(rect.left));
+  const width = Math.max(120, Math.min(Math.round(rect.width), Math.round(viewportWidth - left)));
+  const bottom = Math.round(viewportHeight - rect.top + 6);
+  return { left, width, bottom };
+}
+
 // src/client/queue-dock.js
 var import_react80 = require("react");
 var OWN_QUEUE_KINDS = /* @__PURE__ */ new Set(["user", "schedule", "user-question-reply"]);
 var EMPTY_QUEUE = [];
 var QUEUE_TEXT_FACTS = { collapseWhitespace: true, trimWhitespace: true };
-var textOf = (content) => content.every((block) => block.type === "text") ? content.map((block) => block.text).join("") : null;
 function queueAttachments(content) {
   const attachments = [];
   for (const block of content) {
@@ -50068,6 +52095,15 @@ function EditField({ text, onChange, onSave, onCancel }) {
     const node = field.current;
     if (node === null) return;
     node.focus();
+    try {
+      const end = node.value.length;
+      node.setSelectionRange(end, end);
+    } catch {
+    }
+  }, []);
+  (0, import_react80.useEffect)(() => {
+    const node = field.current;
+    if (node === null) return;
     node.style.height = "auto";
     node.style.height = `${node.scrollHeight}px`;
   }, [text]);
@@ -50115,6 +52151,18 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
     if (rowCount === 0 && !collapsed) setCollapsed(true);
     if (editing !== null && (!queueMutable || !queue.some((row) => row.id === editing.id))) setEditing(null);
   }, [collapsed, editing, queue, queueMutable, rowCount]);
+  const panelRef = (0, import_react80.useRef)(null);
+  (0, import_react80.useEffect)(() => {
+    if (editing === null) return void 0;
+    const onDown = (event) => {
+      const target = event.target;
+      if (target === null || typeof target !== "object") return;
+      if (panelRef.current?.contains(target)) return;
+      setEditing(null);
+    };
+    window.addEventListener("mousedown", onDown, true);
+    return () => window.removeEventListener("mousedown", onDown, true);
+  }, [editing]);
   if (rowCount === 0) return null;
   const interactionActive = queueMutable && (editing !== null || busy !== null);
   const expanded = !collapsed || interactionActive;
@@ -50139,15 +52187,58 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
     if (editing === null || editing.text.trim() === "") return;
     if (await applyAction(editing.id, { kind: "edit", content: [{ type: "text", text: editing.text }] }, t("Couldn’t edit the queued message — it may have started already."))) setEditing(null);
   };
+  const [layer, setLayer] = (0, import_react80.useState)(null);
+  (0, import_react80.useLayoutEffect)(() => {
+    if (!(rowCount > 1 && expanded)) {
+      setLayer(null);
+      return void 0;
+    }
+    let frame2 = 0;
+    const place = () => {
+      const next = queueLayer({ rect: panelRef.current?.getBoundingClientRect?.(), viewportWidth: window.innerWidth, viewportHeight: window.innerHeight });
+      if (next === null) return;
+      setLayer((current2) => current2 !== null && current2.left === next.left && current2.width === next.width && current2.bottom === next.bottom ? current2 : next);
+    };
+    const soon = () => {
+      cancelAnimationFrame(frame2);
+      frame2 = requestAnimationFrame(place);
+    };
+    place();
+    frame2 = requestAnimationFrame(place);
+    window.addEventListener?.("resize", soon);
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(soon) : null;
+    if (observer && panelRef.current) observer.observe(panelRef.current);
+    return () => {
+      cancelAnimationFrame(frame2);
+      window.removeEventListener?.("resize", soon);
+      observer?.disconnect();
+    };
+  }, [rowCount, expanded]);
   return (0, import_react80.createElement)(
     "div",
     { className: "bt-queue-dock", "data-queue-dock": "" },
+    // With more than one row the list opens as a layer over the conversation instead of
+    // taking height in the composer stack: unfolding a queue never shoves the chat up.
     (0, import_react80.createElement)(
       "div",
-      { className: "bt-queue-panel" },
+      { className: "bt-queue-panel", ref: panelRef, "data-floating": rowCount > 1 ? "true" : void 0 },
       rowCount > 1 && (0, import_react80.createElement)(
         "button",
-        { type: "button", className: "bt-queue-head", "aria-controls": listId, "aria-expanded": expanded, disabled: interactionActive, onClick: () => setCollapsed((value) => !value) },
+        {
+          type: "button",
+          className: "bt-queue-head",
+          "aria-controls": listId,
+          "aria-expanded": expanded,
+          // While a row is being edited, this is the way out: close the editor and fold the list.
+          onClick: () => {
+            if (editing !== null) {
+              setEditing(null);
+              setCollapsed(true);
+              return;
+            }
+            setCollapsed((value) => !value);
+          }
+        },
         (0, import_react80.createElement)("span", { className: "bt-queue-lead", "aria-hidden": true }, (0, import_react80.createElement)(QueueIcon)),
         (0, import_react80.createElement)("span", { className: "bt-queue-count" }, t("{n} queued messages", { n: rowCount })),
         // The other half of the story: a queued row is parked until this turn ends, and
@@ -50158,15 +52249,28 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
       ),
       (0, import_react80.createElement)(
         "ul",
-        { id: listId, className: "bt-queue-list", hidden: !listVisible },
+        {
+          id: listId,
+          className: "bt-queue-list",
+          hidden: !listVisible,
+          // Measured placement in the window; without it (no layout to measure yet) the stylesheet
+          // hangs the list over the panel's top edge instead.
+          style: layer === null ? void 0 : { position: "fixed", left: `${layer.left}px`, right: "auto", width: `${layer.width}px`, bottom: `${layer.bottom}px` }
+        },
         listVisible && queue.map((row) => {
           const attachments = queueAttachments(row.content);
-          const text = textOf(row.content);
+          const words = row.content.filter((block) => block.type === "text").map((block) => block.text).join("");
+          const dropsAttachments = attachments.length > 0;
           return (0, import_react80.createElement)(
             "li",
             { key: row.id, className: "bt-queue-row" },
             rowCount === 1 && (0, import_react80.createElement)("span", { className: "bt-queue-lead", "aria-hidden": true }, (0, import_react80.createElement)(QueueIcon)),
-            editing?.id === row.id ? (0, import_react80.createElement)(EditField, { text: editing.text, onChange: (text2) => setEditing({ id: row.id, text: text2 }), onSave: saveEdit, onCancel: () => setEditing(null) }) : (0, import_react80.createElement)(
+            editing?.id === row.id ? (0, import_react80.createElement)(
+              "div",
+              { className: "bt-queue-edit-wrap" },
+              (0, import_react80.createElement)(EditField, { text: editing.text, onChange: (text) => setEditing({ id: row.id, text }), onSave: saveEdit, onCancel: () => setEditing(null) }),
+              dropsAttachments ? (0, import_react80.createElement)("span", { className: "bt-queue-edit-warn", role: "note" }, t("Saving keeps the text only — the attachment goes")) : null
+            ) : (0, import_react80.createElement)(
               import_react80.Fragment,
               null,
               attachments.length > 0 && (0, import_react80.createElement)(
@@ -50174,7 +52278,7 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
                 { className: "bt-queue-attachments" },
                 attachments.map((item, index) => item.type === "image" ? (0, import_react80.createElement)(QueueThumb, { key: `${item.attachment.attachmentId}:${index}`, attachment: item.attachment, loadImage, label: t("Queued image") }) : (0, import_react80.createElement)(QueueFile, { key: `${item.attachment.attachmentId}:${item.attachment.name}:${index}`, attachment: item.attachment, label: t("Queued file {name}", { name: item.attachment.name }) }))
               ),
-              (0, import_react80.createElement)(Preview, { text: row.content.filter((block) => block.type === "text").map((block) => block.text).join(""), renderFactorySlot })
+              (0, import_react80.createElement)(Preview, { text: words, renderFactorySlot })
             ),
             // One row renders without the count header, so the parked note rides on the row.
             rowCount === 1 && running && (0, import_react80.createElement)("span", { className: "bt-queue-hint" }, t("Waits for this turn to end")),
@@ -50189,9 +52293,7 @@ function QueueDock({ useSession, useProjection, updateQueue, loadImage, renderFa
               ) : (0, import_react80.createElement)(
                 import_react80.Fragment,
                 null,
-                (0, import_react80.createElement)(RowButton, { label: t("Edit queued message"), title: text === null ? t("Contains non-text content, so editing is not supported yet") : void 0, disabled: busy !== null || text === null, onClick: () => {
-                  if (text !== null) setEditing({ id: row.id, text });
-                } }, (0, import_react80.createElement)(PencilIcon)),
+                (0, import_react80.createElement)(RowButton, { label: t("Edit queued message"), title: dropsAttachments ? t("Saving keeps the text only — the attachment goes") : void 0, disabled: busy !== null, onClick: () => setEditing({ id: row.id, text: words }) }, (0, import_react80.createElement)(PencilIcon)),
                 (0, import_react80.createElement)(RowButton, { label: t("Delete queued message"), disabled: busy !== null, onClick: () => applyAction(row.id, { kind: "remove" }, t("Couldn’t delete the queued message — it may have started already.")) }, (0, import_react80.createElement)(TrashIcon)),
                 (0, import_react80.createElement)(RowButton, { label: t("Steer queued message"), title: running ? void 0 : t("Only while a turn is running"), disabled: busy !== null || !running, onClick: () => applyAction(row.id, { kind: "steer" }, t("Couldn’t steer the queued message. Try again.")) }, (0, import_react80.createElement)(ArrowUpIcon))
               )
@@ -50233,6 +52335,11 @@ var QUEUE_CSS = `
 .bt-queue-count{min-width:0;flex:auto;font-size:13px;font-weight:500;line-height:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-queue-chev{width:14px;height:14px;color:var(--bt-ink-3);flex:none;display:grid;place-items:center}
 .bt-queue-list{max-height:180px;margin:0;padding:0;list-style:none;overflow-y:auto}
+/* An unfolded list leaves the composer stack: it hangs above the header as its own card, so
+   the conversation behind it keeps its place and only the queue moves. */
+.bt-queue-panel[data-floating=true]{overflow:visible}
+.bt-queue-panel[data-floating=true] .bt-queue-list{position:absolute;left:0;right:0;bottom:calc(100% + 6px);z-index:6;max-height:min(240px,32vh);padding:2px 0;border-radius:var(--dsw-radius-lg,14px);background:var(--dsw-specific-menu,var(--bt-main));backdrop-filter:var(--dsw-menu-backdrop-filter,none);border:.5px solid var(--bt-line-2);box-shadow:0 10px 28px rgba(20,22,28,.14)}
+.bt-queue-panel[data-floating=true] .bt-queue-list[hidden]{display:none}
 .bt-queue-row{box-sizing:border-box;min-height:36px;width:100%;border-radius:var(--dsw-radius-md,10px);display:flex;align-items:center;gap:10px;padding:4px 5px 4px 12px}
 .bt-queue-row+.bt-queue-row{box-shadow:inset 0 1px 0 var(--bt-line)}
 .bt-queue-attachments{flex:none;min-width:0;max-width:55%;display:flex;gap:4px;overflow:hidden}
@@ -50244,13 +52351,16 @@ var QUEUE_CSS = `
 .bt-queue-thumb{width:24px;height:24px;border:.5px solid var(--bt-line);border-radius:var(--dsw-radius-xs,4px);background:var(--bt-main);object-fit:cover}
 .bt-queue-preview{min-width:0;flex:auto;font-size:13px;color:var(--bt-ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-queue-edit{min-width:0;flex:auto;box-sizing:border-box;border:0;outline:none;resize:none;background:none;color:var(--bt-ink);font:inherit;font-size:13px;line-height:20px;max-height:120px;padding:4px 0}
+.bt-queue-edit-wrap{flex:auto;min-width:0;display:flex;flex-direction:column;gap:1px;padding:2px 0}
+.bt-queue-edit-wrap .bt-queue-edit{width:100%;padding:0}
+.bt-queue-edit-warn{font-size:11px;line-height:14px;color:var(--bt-danger)}
 .bt-queue-actions{flex:none;display:flex;align-items:center;gap:10px}
 .bt-queue-status{flex:none;font-size:13px;color:var(--bt-ink-3);white-space:nowrap}
-.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-3);white-space:nowrap}
-.bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);cursor:pointer;display:grid;place-items:center;padding:0}
-.bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink-2)}
+.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-2);white-space:nowrap}
+.bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
 .bt-queue-action:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
-.bt-queue-action:disabled{cursor:default;opacity:.45}
+.bt-queue-action:disabled{cursor:default;opacity:.4;color:var(--bt-ink-3)}
 `;
 
 // src/client/approval-notices.js
@@ -50349,14 +52459,14 @@ var boxOf2 = (target) => {
   while (element?.ownerSVGElement) element = element.ownerSVGElement;
   return element;
 };
-function installMotionRest({ doc = document, win = window, restMs = REST_MS, now = () => Date.now() } = {}) {
+function installMotionRest({ doc = document, win = window, restMs = REST_MS, now: now2 = () => Date.now() } = {}) {
   if (typeof doc?.getAnimations !== "function") return () => {
   };
   const loops = /* @__PURE__ */ new Map();
   const held = /* @__PURE__ */ new Set();
   const watched = /* @__PURE__ */ new Map();
   const inView = /* @__PURE__ */ new WeakMap();
-  let last = now();
+  let last = now2();
   let resting = doc.hidden === true;
   let timer = 0;
   let queued = false;
@@ -50416,7 +52526,7 @@ function installMotionRest({ doc = document, win = window, restMs = REST_MS, now
   };
   const check = () => {
     timer = 0;
-    const left = last + restMs - now();
+    const left = last + restMs - now2();
     if (left > 0) {
       timer = win.setTimeout(check, left);
       return;
@@ -50425,7 +52535,7 @@ function installMotionRest({ doc = document, win = window, restMs = REST_MS, now
     sync();
   };
   const touch = () => {
-    last = now();
+    last = now2();
     if (!timer) timer = win.setTimeout(check, restMs);
     if (resting && doc.hidden !== true) {
       resting = false;
@@ -50460,8 +52570,8 @@ function installMotionRest({ doc = document, win = window, restMs = REST_MS, now
 }
 
 // src/client/agent-new.js
-function agentSessionToReuse(list, latest, pending) {
-  if (pending !== void 0 && list.byId[pending] === void 0) return pending;
+function agentSessionToReuse(list, latest, pending2) {
+  if (pending2 !== void 0 && list.byId[pending2] === void 0) return pending2;
   return latest !== void 0 && list.byId[latest]?.blank === true ? latest : void 0;
 }
 function singleFlight(map, key, run2) {
@@ -50495,7 +52605,7 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
   const [sending, setSending] = (0, import_react81.useState)(false);
   const [closing, setClosing] = (0, import_react81.useState)(false);
   const field = (0, import_react81.useRef)(null);
-  const pending = (0, import_react81.useRef)(false);
+  const pending2 = (0, import_react81.useRef)(false);
   const closeTimer = (0, import_react81.useRef)(null);
   (0, import_react81.useEffect)(() => {
     if (!enabled) dismiss();
@@ -50550,8 +52660,8 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
       close();
       return;
     }
-    if (pending.current || closing) return;
-    pending.current = true;
+    if (pending2.current || closing) return;
+    pending2.current = true;
     setSending(true);
     try {
       await actions.send(sessionId, annotatedMessage(text, annotation));
@@ -50559,7 +52669,7 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
     } catch (error) {
       actions.reportError(error, "text-annotation");
       setSending(false);
-      pending.current = false;
+      pending2.current = false;
       field.current?.focus();
     }
   };
@@ -50697,7 +52807,7 @@ var mutateJournal = (storage, update) => {
   } catch {
   }
 };
-function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refresh, report, storage, ready }) {
+function installAgentForks({ sessions, ownerOf, hasAgent, pending: pending2, adopt, refresh, report, storage, ready }) {
   const localJournal = readJournal(storage);
   const inFlight = /* @__PURE__ */ new Map();
   const forks = /* @__PURE__ */ new Set();
@@ -50705,7 +52815,7 @@ function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refres
   const remember = (agentId, sessionId) => {
     const entry = { agentId, sessionId };
     localJournal.set(sessionId, entry);
-    pending.set(sessionId, agentId);
+    pending2.set(sessionId, agentId);
     mutateJournal(storage, (map) => {
       map.set(sessionId, entry);
     });
@@ -50718,7 +52828,7 @@ function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refres
   const persist = (entry) => {
     const running = inFlight.get(entry.sessionId);
     if (running !== void 0) return running;
-    pending.set(entry.sessionId, entry.agentId);
+    pending2.set(entry.sessionId, entry.agentId);
     const task = Promise.resolve().then(() => adopt(entry.agentId, entry.sessionId)).then(async () => {
       forget(entry.sessionId);
       if (!stopped) {
@@ -50729,7 +52839,7 @@ function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refres
         }
       }
     }).catch((error) => {
-      if (pending.get(entry.sessionId) === entry.agentId) pending.delete(entry.sessionId);
+      if (pending2.get(entry.sessionId) === entry.agentId) pending2.delete(entry.sessionId);
       if (!stopped) report(error, "agent-fork-adopt");
     }).finally(() => {
       inFlight.delete(entry.sessionId);
@@ -50742,7 +52852,7 @@ function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refres
   const wrapped = function(options) {
     if (stopped) return Reflect.apply(original, this, [options]);
     const receiver = this;
-    const captured = ownerOf(options.sessionId) ?? pending.get(options.sessionId);
+    const captured = ownerOf(options.sessionId) ?? pending2.get(options.sessionId);
     const task = (async () => {
       if (captured === void 0) {
         try {
@@ -50750,7 +52860,7 @@ function installAgentForks({ sessions, ownerOf, hasAgent, pending, adopt, refres
         } catch {
         }
       }
-      const agentId = captured ?? ownerOf(options.sessionId) ?? pending.get(options.sessionId);
+      const agentId = captured ?? ownerOf(options.sessionId) ?? pending2.get(options.sessionId);
       if (agentId === void 0) return Reflect.apply(original, receiver, [options]);
       let created;
       let adoption;
@@ -50850,7 +52960,7 @@ function apply(ctx) {
     const items = workspaces?.list?.getSnapshot()?.items ?? [];
     return items.find((item) => item.sessionIds?.includes(sessionId))?.workspaceId;
   };
-  let expected2 = null;
+  let expected3 = null;
   const setPlain = (plain) => surface.set((state) => state.plain === plain ? state : { ...state, plain });
   const dropPanels = () => ui.set((state) => state.details || state.renaming ? { ...state, details: null, view: "details", renaming: false, tab: null } : state);
   const seenKey = (id) => roster.getSnapshot().byId?.[id]?.id ?? roster.getSnapshot().roomsById?.[id]?.id ?? id;
@@ -51276,7 +53386,7 @@ function apply(ctx) {
     openingWait.end();
   };
   const show2 = listedOpener({ list: ctx.sessions.list, refresh: () => Promise.resolve(ctx.sessions.refresh?.()).catch(quietly("refresh sessions")), open: (target) => {
-    expected2 = target;
+    expected3 = target;
     ctx.uiWorkspace.openSession(target);
   }, current: mainView, begin: beginOpening, done: endOpening });
   const panelFolded = (view) => {
@@ -51304,6 +53414,89 @@ function apply(ctx) {
       });
     }
   };
+  const topLayer = () => {
+    const state = ui.getSnapshot();
+    if (state.voice) return { kind: "voice", id: state.voice };
+    if (state.taskDeck) return { kind: "taskDeck", targetId: state.taskDeck.targetId, taskId: state.taskDeck.taskId };
+    if (state.palette) return { kind: "palette", query: state.palette.query };
+    if (state.groupSearch) return { kind: "groupSearch", roomId: state.groupSearch.roomId };
+    if (state.newChat) return { kind: "newChat", mode: state.newChat, sectionId: state.newChatSection ?? null };
+    if (state.exchange) return { kind: "exchange", pair: state.exchange };
+    if (state.menu) return { kind: "menu" };
+    if (state.settings) return { kind: "settings", page: state.settings.page, id: state.settings.id };
+    if (state.memory) return { kind: "memory", id: state.memory };
+    if (state.details && state.panelYield !== true) return { kind: "details", id: state.details, tab: state.tab, view: state.view };
+    return null;
+  };
+  const closeLayer = (place) => {
+    switch (place.kind) {
+      case "voice":
+        return actions.closeVoice();
+      case "taskDeck":
+        return actions.closeTaskDeck();
+      case "palette":
+        return actions.closePalette();
+      case "groupSearch":
+        return actions.closeGroupSearch();
+      case "newChat":
+      case "exchange":
+      case "menu":
+        return actions.closeOverlay();
+      case "settings":
+        return actions.closeSettings();
+      case "memory":
+        return actions.closeMemory();
+      case "details":
+        return ui.set((state) => state.details ? { ...state, details: null, view: "details", renaming: false, tab: null } : state);
+      default:
+        return void 0;
+    }
+  };
+  const openLayer = (place) => {
+    switch (place.kind) {
+      case "voice":
+        return actions.openVoice(place.id);
+      case "taskDeck":
+        return actions.openTaskDeck(place.targetId, place.taskId);
+      case "palette":
+        return actions.openPalette(place.query);
+      case "groupSearch":
+        return actions.openGroupSearch(place.roomId);
+      case "newChat":
+        return actions.openNewChat(place.mode, place.sectionId);
+      case "exchange":
+        return actions.openExchange(...place.pair);
+      case "settings":
+        return actions.openSettings(place.page, place.id);
+      case "memory":
+        return actions.openMemory(place.id);
+      case "details":
+        return actions.showDetails(place.id, place.tab);
+      default:
+        return void 0;
+    }
+  };
+  let nav = null;
+  const navHistory = () => {
+    nav ??= createNavHistory({
+      current: mainView,
+      open: (id) => actions.openSession(id),
+      layer: topLayer,
+      closeLayer,
+      openLayer
+    });
+    return nav;
+  };
+  ctx.effect(() => {
+    const onPress = (event) => {
+      if (event.button !== 3 && event.button !== 4) return;
+      event.preventDefault();
+      if (event.button === 3) navHistory().back();
+      else navHistory().forward();
+    };
+    window.addEventListener("mousedown", onPress, true);
+    return () => window.removeEventListener("mousedown", onPress, true);
+  }, "ds-bot: side-button navigation");
   const actions = {
     ...teamActions({ call, after, partFor, roster, ui, live, cards, heldCards, turnClock, panelFolded }),
     // The files a group row names open DSH's own review tab for that turn. The tab reads
@@ -51339,6 +53532,7 @@ function apply(ctx) {
       ui.set((state) => state.newChat || state.exchange || state.menu || state.palette || state.groupSearch ? { ...state, newChat: null, exchange: null, menu: null, palette: null, groupSearch: null } : state);
       setPlain(false);
       const target = partFor(id);
+      navHistory().remember(target);
       show2(target);
     },
     // The conversation replacements withdraw for a plain Session; set the surface
@@ -51346,6 +53540,7 @@ function apply(ctx) {
     openAgentSession: (sessionId) => {
       ui.set((state) => ({ ...state, newChat: null, exchange: null, menu: null, palette: null, groupSearch: null, details: null, view: "details", renaming: false, tab: null, task: null, taskDeck: null }));
       setPlain(true);
+      navHistory().remember(sessionId);
       show2(sessionId);
     },
     addAgent: async () => {
@@ -51367,9 +53562,9 @@ function apply(ctx) {
       return singleFlight(agentNewInFlight, agentId, async () => {
         const list = ctx.sessions.list.getSnapshot();
         const latest = latestAgentSession(agentId, list);
-        const pending = pendingAgentSession.get(agentId);
-        if (pending !== void 0 && list.byId[pending] !== void 0) pendingAgentSession.delete(agentId);
-        const reuse = agentSessionToReuse(list, latest, pending);
+        const pending2 = pendingAgentSession.get(agentId);
+        if (pending2 !== void 0 && list.byId[pending2] !== void 0) pendingAgentSession.delete(agentId);
+        const reuse = agentSessionToReuse(list, latest, pending2);
         if (reuse !== void 0) {
           actions.openAgentSession(reuse);
           return reuse;
@@ -51535,8 +53730,8 @@ function apply(ctx) {
         paste: typeof bridge2.importPaste === "function" ? (text, defaultUrl) => bridge2.importPaste(text, defaultUrl) : null,
         launch: typeof bridge2.importLaunch === "function" ? (source) => bridge2.importLaunch(source) : null,
         live: (source, close, requestId) => bridge2.importLive(source, close, requestId),
-        apply: (botId, pending, options) => bridge2.importApply(`bot:${botId}`, pending, options),
-        cancel: (pending) => bridge2.importCancel(pending)
+        apply: (botId, pending2, options) => bridge2.importApply(`bot:${botId}`, pending2, options),
+        cancel: (pending2) => bridge2.importCancel(pending2)
       } : null
     });
   }
@@ -51701,9 +53896,9 @@ function apply(ctx) {
     return roster.subscribe(() => {
       const snapshot = roster.getSnapshot();
       if (!snapshot.ready) return;
-      const now = /* @__PURE__ */ new Set([...snapshot.bots.map((bot) => bot.id), ...snapshot.rooms.map((room2) => room2.id)]);
-      if (chats !== null) pruneDrafts([...chats].filter((id) => !now.has(id)));
-      chats = now;
+      const now2 = /* @__PURE__ */ new Set([...snapshot.bots.map((bot) => bot.id), ...snapshot.rooms.map((room2) => room2.id)]);
+      if (chats !== null) pruneDrafts([...chats].filter((id) => !now2.has(id)));
+      chats = now2;
     });
   }, "ds-bot: drafts of removed chats");
   ctx.effect(() => noticeApprovals({
@@ -51874,17 +54069,26 @@ function apply(ctx) {
   };
   const installFrameSync = () => {
     let lastDetails = ui.getSnapshot().details;
+    let syncing = false;
     const sync = () => {
-      const s = ui.getSnapshot();
-      const f = frame2.getSnapshot();
-      const opened = s.details !== null && lastDetails === null;
-      lastDetails = s.details;
-      const layout = frameLayout({ viewport: f.viewport, sidebarWidth: f.sidebarWidth, pref: sidebarPref.getSnapshot(), drawer: s.leftDrawer === true, panel: s.details === null ? null : { view: s.view, yielded: false } });
-      if (s.details === null) {
-        if (s.panelYield) actions.setPanelYield(false);
-      } else if (!s.panelYield && opened && layout.panel === "folded") actions.setPanelYield(true);
-      else if (s.panelYield && layout.panel === "shown") actions.setPanelYield(false);
-      if (s.leftDrawer === true && layout.left !== "drawer") actions.setLeftDrawer(false);
+      if (syncing) return;
+      syncing = true;
+      try {
+        const s = ui.getSnapshot();
+        const f = frame2.getSnapshot();
+        const opened = s.details !== null && lastDetails === null;
+        lastDetails = s.details;
+        let viewport = f.viewport;
+        if (grownBy() > 0) restoreWindow();
+        const layout = frameLayout({ viewport, sidebarWidth: f.sidebarWidth, pref: sidebarPref.getSnapshot(), drawer: s.leftDrawer === true, panel: s.details === null ? null : { view: s.view, yielded: false } });
+        if (s.details === null) {
+          if (s.panelYield) actions.setPanelYield(false);
+        } else if (!s.panelYield && opened && layout.panel === "folded") actions.setPanelYield(true);
+        else if (s.panelYield && layout.panel === "shown" && grownBy() === 0) actions.setPanelYield(false);
+        if (s.leftDrawer === true && layout.left !== "drawer") actions.setLeftDrawer(false);
+      } finally {
+        syncing = false;
+      }
     };
     const offs = [ui.subscribe(sync), frame2.subscribe(sync), sidebarPref.subscribe(sync)];
     return () => {
@@ -52047,6 +54251,27 @@ function apply(ctx) {
   ];
   ctx.effect(() => installCompiledStyles(RETURN_TOKENS + RETURN_CSS, "return"), "ds-bot: return styles");
   ctx.effect(() => installCompiledStyles(COMPUTER_CSS, "computer"), "ds-bot: computer styles");
+  ctx.effect(() => installCompiledStyles(PANEL_WINDOW_CSS, "panel-window"), "ds-bot: panel window styles");
+  ctx.effect(() => {
+    const request = panelWindowRequest();
+    if (request === null) return void 0;
+    document.documentElement.dataset.btPanelWindow = "";
+    try {
+      actions.setPanelYield(true);
+      if (request.session !== null) {
+        try {
+          actions.openSession(request.session);
+        } catch {
+        }
+        actions.showDetails(request.session, request.tab ?? null);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return () => {
+      delete document.documentElement.dataset.btPanelWindow;
+    };
+  }, "ds-bot: panel window");
   shadow("sidebar.footer.action", { id: "bot-return", order: -300, inject: face }, BotReturn);
   ctx.effect(() => {
     const forks = installAgentForks({
@@ -52087,8 +54312,8 @@ function apply(ctx) {
       if (main === previous) return;
       const before = previous;
       previous = main;
-      const ours = expected2 !== null && main === expected2;
-      expected2 = null;
+      const ours = expected3 !== null && main === expected3;
+      expected3 = null;
       if (ours || main === void 0) return;
       if (surface.getSnapshot().mode !== "bot") return;
       const agentId = before !== void 0 ? agentOfSession(before) : void 0;

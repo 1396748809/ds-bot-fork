@@ -1,14 +1,20 @@
 // The Bot shell's frame geometry: the left column (open, avatar rail, drawer or
 // hidden), the Bot panel and the conversation share the window. The conversation
 // keeps at least MIN_CHAT px; the column folds to a rail of avatars before the
-// chat is squeezed, and an open panel that no longer fits folds away or covers
-// the chat. These rules are pure so tests can drive them; the DOM side lives in
-// frame-watch.js.
+// chat is squeezed, and an open panel that no longer fits folds away — or, when the
+// user asked for it, stays on its own side and narrows to what the chat leaves it.
+// Only a window too small for both lets it cover the chat. These rules are pure so
+// tests can drive them; the DOM side lives in frame-watch.js.
 import { STORAGE } from './storage.js'
 
 export const MIN_CHAT = 420
 export const RAIL_WIDTH = 88
+// The band the Bot faces take above the conversation, in px.
+export const STRIP_H = 48
 export const PANEL_MIN = { details: 320, browser: 360, side: 320 }
+// The narrowest a panel is squeezed to before a window is simply too small for both: below
+// this the panel covers the conversation instead of standing beside it.
+export const PANEL_TIGHT = 260
 // The shell collapses its own sidebar below this width.
 export const DSH_NARROW = 1024
 // What the shell's collapsed track takes from the window. A phone-width shell parks the
@@ -42,7 +48,7 @@ export const nextCollapsedWidth = ({ measured, collapsed, animating = false, las
  * @param {{viewport: number, sidebarWidth: number,
  *   pref: 'open'|'rail'|'hidden', drawer?: boolean,
  *   panel: null | {view: string, yielded: boolean}}} input
- * @returns {{left: 'open'|'rail'|'drawer'|'hidden', panel: 'none'|'shown'|'folded'|'overlay', column: number, room: number}}
+ * @returns {{left: 'open'|'rail'|'drawer'|'hidden', panel: 'none'|'shown'|'squeezed'|'folded'|'overlay', column: number, room: number}}
  *   `column` is what the left column occupies: its full width when open, nothing
  *   when hidden, else the rail's — a drawer floats over the rail's place, so the
  *   chat does not move under it. New chat, Bot exchanges and voice mode start at
@@ -59,9 +65,13 @@ export function frameLayout({ viewport, sidebarWidth, pref, drawer = false, pane
     if (occupied + need <= viewport) panelState = 'shown'
     else if (panel.yielded === true) {
       // A panel the user asks to see takes the column's room: it falls back to
-      // the rail, and covers the conversation only when even that is not enough.
+      // the rail. It stays on its own side of the window and narrows to whatever the
+      // chat leaves it ('squeezed'), and only covers the chat when even that is too
+      // little — the conversation is never pushed under a panel that still fits.
       if (left !== 'hidden') { left = 'rail'; occupied = RAIL_WIDTH }
-      panelState = occupied + need <= viewport ? 'shown' : 'overlay'
+      panelState = occupied + need <= viewport ? 'shown'
+        : viewport - occupied >= MIN_CHAT + PANEL_TIGHT ? 'squeezed'
+          : 'overlay'
     } else panelState = 'folded'
   }
   return { left, panel: panelState, column: occupied, room: Math.max(0, viewport - occupied) }

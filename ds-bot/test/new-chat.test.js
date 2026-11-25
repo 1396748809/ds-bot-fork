@@ -158,3 +158,79 @@ test('Shift+Enter and IME confirmation keep their default behavior', async () =>
     assert.deepEqual(calls.send, [])
   }
 })
+
+// The list's own entry: the field above becomes a one-line prompt, and what is typed there
+// goes to the team to-do file instead of opening a chat.
+test('the to-do entry writes what is typed to the host and opens no chat', async () => {
+  const calls = { todo: [], sessions: [] }
+  const bots = [{ id: 'chief', name: 'Chief', role: 'main' }]
+  const roster = { ready: true, prefs: {}, bots, byId: { chief: bots[0] }, roomsById: {}, agents: [] }
+  const actions = {
+    closeOverlay() { calls.closed = (calls.closed ?? 0) + 1 },
+    createRoom: async () => ({ id: 'room1' }),
+    send: async () => {},
+    openSession: (id) => { calls.sessions.push(id) },
+    setFlags: async () => {},
+    teamTodoAdd: async (value) => { calls.todo.push(value) },
+  }
+  const view = mount({ mode: 'chat', roster, actions })
+  const entry = options(view.render()).find(child => text(child).includes('Add to-do'))
+  assert.ok(entry, 'no to-do entry in the list')
+  entry.props.onClick()
+  const field = () => all(view.render(), child => child.type === 'input')[0]
+  field().props.onChange({ target: { value: 'buy milk' } })
+  const event = enter()
+  field().props.onKeyDown(event)
+  await tick(); await tick()
+  assert.equal(event.prevented, true)
+  assert.deepEqual(calls.todo, ['buy milk'])
+  assert.deepEqual(calls.sessions, [])
+  assert.equal(calls.closed, 1)
+})
+
+test('an empty field adds nothing on Enter', async () => {
+  const calls = { todo: [] }
+  const bots = [{ id: 'chief', name: 'Chief', role: 'main' }]
+  const roster = { ready: true, prefs: {}, bots, byId: { chief: bots[0] }, roomsById: {}, agents: [] }
+  const actions = {
+    closeOverlay() {}, createRoom: async () => ({ id: 'room1' }), send: async () => {},
+    openSession: () => {}, setFlags: async () => {},
+    teamTodoAdd: async (value) => { calls.todo.push(value) },
+  }
+  const view = mount({ mode: 'chat', roster, actions })
+  options(view.render()).find(child => text(child).includes('Add to-do')).props.onClick()
+  const event = enter()
+  all(view.render(), child => child.type === 'input')[0].props.onKeyDown(event)
+  await tick(); await tick()
+  assert.deepEqual(calls.todo, [])
+})
+
+// The pane has a background of its own: a press on the empty room beside or under the list
+// is a way out, while a press on anything the user can act on leaves the pane open.
+const blankPane = () => {
+  const calls = { closed: 0 }
+  const bots = [{ id: 'chief', name: 'Chief', role: 'main' }]
+  const roster = { ready: true, prefs: {}, bots, byId: { chief: bots[0] }, roomsById: {}, agents: [] }
+  const actions = {
+    closeOverlay() { calls.closed += 1 },
+    createRoom: async () => ({ id: 'room1' }), send: async () => {},
+    openSession: () => {}, setFlags: async () => {},
+  }
+  const view = mount({ mode: 'chat', roster, actions })
+  const pane = () => all(view.render(), child => child.props?.className === 'bt-pane')[0]
+  return { calls, pane }
+}
+
+test('a press on the pane background closes it', () => {
+  const { calls, pane } = blankPane()
+  pane().props.onMouseDown({ target: { closest: () => null } })
+  assert.equal(calls.closed, 1)
+})
+
+test('a press inside the list, the recipient bar or the composer keeps it open', () => {
+  for (const found of ['.bt-drop', '.bt-to', '.bt-nc-compose']) {
+    const { calls, pane } = blankPane()
+    pane().props.onMouseDown({ target: { closest: selector => (selector.includes(found) ? { found } : null) } })
+    assert.equal(calls.closed, 0, `a press in ${found} closed the pane`)
+  }
+})

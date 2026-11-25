@@ -1,7 +1,8 @@
 import { createElement as h, Fragment, useEffect, useRef, useState } from 'react'
 import { isMainOf } from './sources.js'
 import { HEADER, currentPart, runStatsOf, stripHeader, usageOf } from './text.js'
-import { AlertIcon, PlusIcon, ShareIcon, CloseIcon, ChevronLeftIcon, GearIcon } from './icons.js'
+import { AlertIcon, PlusIcon, ShareIcon, CloseIcon, ChevronLeftIcon, GearIcon, PopoutIcon } from './icons.js'
+import { canOpenPanelWindow, inPanelWindow, openPanelWindow } from './panel-window.js'
 import { botState, BotMark, BotAvatar } from './mark.js'
 import { call } from './api.js'
 import { GlobeIcon, Favicon, PanelMenu, menuItemFor } from './browser-pane.js'
@@ -360,11 +361,27 @@ export function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, ro
     canTerminal: actions.canOpenTerminal?.() === true,
     canFiles: actions.canOpenFiles?.() === true,
   }).map(key => menuItemFor(key, actions, sessionId))
+  // A window of its own for this panel (main.mjs opens it, panel-window.js marks the
+  // page); in that window the same button is the way back out of it.
+  const poppedOut = inPanelWindow()
+  const popOut = canOpenPanelWindow() || poppedOut
+    ? h('button', {
+        type: 'button', className: 'bt-round',
+        'aria-label': poppedOut ? t('Close this window') : t('Open in its own window'),
+        title: poppedOut ? t('Close this window') : t('Open these details in a window of their own'),
+        'data-info-row': 'popout',
+        onClick: () => {
+          if (poppedOut) { globalThis.close?.(); return }
+          if (openPanelWindow({ session: sessionId, tab: activeTab })) close()
+        },
+      }, h(PopoutIcon))
+    : null
   const top = h('div', { className: 'bt-drawer-top', 'data-move': side, 'data-window-drag': !hasStrip || undefined },
     bot || room ? h('button', { type: 'button', className: 'bt-round', 'aria-label': bot ? t('Edit Bot') : t('Group settings'), title: bot ? t('Edit Bot') : t('Group settings'), 'data-info-row': 'settings', onClick: () => setView('settings') }, h(GearIcon)) : null,
     more.length > 0 ? h('span', { 'data-info-row': 'more' }, h(PanelMenu, { items: more, className: 'bt-round', 'aria-label': t('More') })) : null,
     bot || room ? h('button', { type: 'button', className: 'bt-round', 'aria-label': copied ? t('Copied conversation') : t('Share conversation'), title: copied ? t('Copied') : t('Copy conversation as Markdown'), onClick: share }, copied ? h('span', { key: 'copied', className: 'bt-pop-in' }, '✓') : h(ShareIcon)) : null,
-    hasStrip ? null : h('button', { type: 'button', className: 'bt-round', 'aria-label': t('Close details'), onClick: close }, h(CloseIcon)))
+    popOut,
+    hasStrip || poppedOut ? null : h('button', { type: 'button', className: 'bt-round', 'aria-label': t('Close details'), onClick: close }, h(CloseIcon)))
   if (!bot && !room) {
     return [h(Fragment, { key: 'top' }, top),
       h('div', { key: 'body', className: 'bt-drawer-body' }, h('div', { className: 'bt-muted' }, t('This conversation is not part of your Bot team.')))]
@@ -422,7 +439,6 @@ export function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, ro
           h(ModelMenu, { bot, roster, actions, run, wide: true, inline: true }),
           modelOf(bot, roster) ? null : h('div', { className: 'bt-note' }, t('Pick a model and {name} can start.', { name: bot.name })),
         ),
-        h(BotSessions, { key: 'sessions', bot, part, run, useSessions, actions, running: roster.partsRunning }),
         h(PermissionRow, { key: 'permission', bot, roster, actions, run }),
         h(BotConnectors, { key: 'connectors', bot, roster, actions, run }),
         h('div', { key: 'folder', className: 'bt-drawer-model' },
@@ -438,6 +454,9 @@ export function DetailsDrawer({ sessionId, startRenaming, startTab, hasStrip, ro
         usage ? h('div', { key: 'usage' }, h('div', { className: 'bt-section-title' }, t('Usage')),
           h('div', { className: 'bt-kv' }, h('span', null, bot.name), h('span', null, usage))) : null,
         h(ScheduleSummary, { key: 'routines', bot, actions }),
+        // The Session list closes the page: it grows without bound, and everything above it
+        // is read far more often.
+        h(BotSessions, { key: 'sessions', bot, part, run, useSessions, actions, running: roster.partsRunning }),
       ] : null,
       bot && activeTab === 'browser' ? h(BrowserCards, { bot, sessionId, roster, actions, useBrowserTabs, useBrowserPages }) : null)]
 }

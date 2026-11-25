@@ -308,7 +308,7 @@ function shell({ platform, collapsed }) {
       <div class="x_root${collapsed ? ' x_collapsed' : ''}">
         ${darwin ? `<div class="x_topStrip">${toggle}</div>` : ''}
         <div class="x_logoRow">${collapsed ? '' : '<button class="x_brand x_wide"></button>'}${darwin ? '' : toggle}</div>
-      <button class="bt-title-toggle"></button>
+      ${collapsed ? '<button class="bt-title-toggle"></button>' : ''}
         <div class="x_newSession"></div>
         <div class="team">${collapsed ? '' : '<div class="bt-side-top"><button class="bt-round bt-side-collapse"></button></div>'}</div>
         <div class="x_footArea"><span class="bt-foot-account"></span></div>
@@ -325,14 +325,14 @@ function shell({ platform, collapsed }) {
   return { document, hidden, switches }
 }
 
-// The switch is always ours. Under a Windows title bar it is the title-band
-// button and the shell's own is hidden (left to the shell, it would expand the
-// shell's sidebar before we pull it back, a flash); elsewhere it is the column's
-// top-row button, or the floating one while the column is hidden.
+// The switch is always ours. Open, it stands in the column's own top row, level with the
+// folder, search and new buttons, and nothing floats over the title band; collapsed, the
+// column is gone, so the floating switch is the way back. The shell's own is hidden in both
+// cases (left to the shell, it would expand the shell's sidebar before we pull it back).
 for (const collapsed of [false, true]) {
   test(`${collapsed ? 'a collapsed' : 'an open'} shell sidebar under a Windows title bar shows only our switch`, () => {
     const { switches } = shell({ platform: 'windows', collapsed })
-    assert.deepEqual(switches.map(node => node.className), ['bt-title-toggle'])
+    assert.deepEqual(switches.map(node => node.className), [collapsed ? 'bt-title-toggle' : 'bt-round bt-side-collapse'])
   })
 }
 
@@ -365,23 +365,28 @@ test('the top strip stays as the window\'s drag area while its switch is hidden'
 
 test('the team view\'s own switches keep the places they had on every platform', () => {
   for (const platform of PLATFORMS) {
-    const titlebar = platform === 'windows' || platform === 'mac-frameless'
     for (const collapsed of [false, true]) {
       const { document, hidden } = shell({ platform, collapsed })
       const title = document.querySelector('.bt-title-toggle')
-      assert.equal(hidden(title), false, `${platform} title-band switch`)
       const side = document.querySelector('.bt-side-collapse')
-      // The column's top row exists while it is open; under a title bar the band's switch replaces it.
-      if (side !== null) assert.equal(hidden(side), titlebar, `${platform} column switch`)
+      if (collapsed) {
+        // Nothing of the column is left on screen, so the floating switch is the way back.
+        assert.equal(side, null, `${platform} column switch`)
+        assert.equal(hidden(title), false, `${platform} floating switch`)
+      } else {
+        // Open, the column's own top row carries the switch and the band stays clear.
+        assert.equal(title, null, `${platform} no switch over the title band`)
+        assert.equal(hidden(side), false, `${platform} column switch`)
+      }
     }
   }
 })
 
-test('off a Windows title bar the column\'s top row and the floating switch are never hidden by style', () => {
+test('off a Windows title bar the column\'s top row carries the only switch while it is open', () => {
   for (const platform of ['web', 'mac']) {
     const { document, hidden } = shell({ platform, collapsed: false })
     assert.equal(hidden(document.querySelector('.bt-side-collapse')), false, platform)
-    assert.equal(hidden(document.querySelector('.bt-title-toggle')), false, platform)
+    assert.equal(document.querySelector('.bt-title-toggle'), null, platform)
   }
 })
 
@@ -509,11 +514,14 @@ test('the column\'s top row hides it, on the rail too, and its edge is a drag gr
     assert.equal(typeof column.props.onGrip, 'function')
   }
   assert.deepEqual(calls, ['toggle', 'toggle'])
-  // Hidden, there is no column at all; the floating switch brings it back.
+  // Hidden, there is no column at all, and the bar stays as the window's own band: the same switch
+  // there names the way back, so nothing floats over the band and its background never changes.
   const hidden = TeamSidebar(props('hidden'))
   assert.equal(find(hidden, node => node.type?.name === 'LeftColumn'), undefined)
-  const toggle = find(hidden, node => node.type?.name === 'TitleToggle')
-  assert.equal(toggle.props.hidden, true)
+  const back = find(hidden, node => node.type === 'button' && node.props['aria-label'] === 'Expand sidebar')
+  assert.ok(back, 'the bar carries the way back')
+  assert.ok(back.props.className.split(' ').includes('bt-side-collapse'), 'the same switch, at the same size')
+  assert.equal(find(hidden, node => node.type?.name === 'TitleToggle').props.hidden, false, 'no floating switch over the band')
   // Reduced motion disables both the column slide and the conversation margin transition.
   assert.match(SHELL_CSS, /@media\s*\(prefers-reduced-motion:reduce\)\{\.bt-leftcol\{animation:none\}\.bt-leftcol\[data-leaving\],\[class\*="_centerCol"\]\{transition:none\}\}/)
 })
@@ -947,4 +955,49 @@ test('TeamSidebar leaves an already-collapsed DSH Desktop sidebar alone', async 
       document.documentElement.removeAttribute('data-bt-collapsing')
     }
   })
+})
+
+// Bots in no section stand together in a group of their own, named "Ungrouped": the list never
+// mixes loose rows with grouped ones, and a Bot created without a section is born into it.
+test('Bots in no section stand together under one Ungrouped group', () => {
+  viewport.innerWidth = 1280
+  const loose = { id: 'writer', name: 'Writer', createdAt: 1 }
+  const kept = { id: 'reader', name: 'Reader', createdAt: 2, sectionId: 'work' }
+  const roster = {
+    bots: [loose, kept], rooms: [], agents: [],
+    byId: { writer: loose, reader: kept }, ready: true, exchangeTurns: {},
+    sections: [{ id: 'work', name: 'Work', collapsed: false }],
+  }
+  const names = ['openSession', 'openAgent', 'openAgentSession', 'newAgentSession', 'openMenu', 'openPalette',
+    'openNewChat', 'toggleSidebar', 'clearUnread', 'saveSection', 'setFlags', 'beginSectionRename',
+    'endSectionRename', 'reorderSections', 'reportError']
+  const tree = TeamSidebar({
+    wide: true,
+    actions: Object.fromEntries(names.map(name => [name, () => {}])),
+    useRoster: pick => pick(roster), useUi: pick => pick({ unread: {} }), useRegistry: pick => pick({}),
+    useSessions: pick => pick({ ids: [], byId: {} }), useUpdate: () => ({}),
+    useSessionStatus: pick => pick(new Map()),
+    useSessionRetainInfo: () => null,
+    useActivity: pick => pick({}),
+    useWork: pick => pick({ waiting: {}, rooms: {}, approvals: [] }),
+  })
+  const flatten = (node, out = []) => {
+    if (Array.isArray(node)) { node.forEach(child => flatten(child, out)); return out }
+    if (!node || typeof node !== 'object') return out
+    out.push(node)
+    flatten(node.props?.children, out)
+    return out
+  }
+  // The blocks carry their rows as an `entries` prop, so the grouping can be read without
+  // rendering every row: only the list's own subtree is walked, never the shell around it.
+  const nodes = flatten(tree)
+  const ungrouped = nodes.find(node => node.type?.name === 'UngroupedBlock')
+  assert.ok(ungrouped, 'the Bots in no section get a header of their own')
+  // The rows live in the vm's realm: Array.from copies them into this one, so deepEqual can
+  // compare two arrays of the same realm.
+  assert.deepEqual(Array.from(ungrouped.props.entries, entry => entry.item.name), ['Writer'], 'only the Bot in no section lives there')
+  const head = flatten(ungrouped.type(ungrouped.props))
+  assert.equal(head.find(node => node.props?.className === 'bt-sec-title').props.children[0], 'Ungrouped', 'the group is called Ungrouped')
+  const work = nodes.find(node => node.type?.name === 'SectionBlock' && node.props?.section?.id === 'work')
+  assert.deepEqual(Array.from(work.props.entries, entry => entry.item.name), ['Reader'], 'a Bot in a section stays in that section')
 })

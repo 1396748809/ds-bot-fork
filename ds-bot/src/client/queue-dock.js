@@ -1,6 +1,7 @@
-import { createElement as h, Fragment, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { createElement as h, Fragment, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { t } from './i18n.js'
 import { ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronUpIcon, CloseIcon, PaperclipIcon, PencilIcon, QueueIcon, TrashIcon } from './icons.js'
+import { queueLayer } from './queue-layer.js'
 
 // The queue dock above the composer, drawn by DS Bot in place of the shell's own
 // (same slot, same id 'queue'). The session inbox also queues the team's mail —
@@ -18,7 +19,8 @@ const OWN_QUEUE_KINDS = new Set(['user', 'schedule', 'user-question-reply'])
 const EMPTY_QUEUE = []
 const QUEUE_TEXT_FACTS = { collapseWhitespace: true, trimWhitespace: true }
 
-const textOf = content => (content.every(block => block.type === 'text') ? content.map(block => block.text).join('') : null)
+// The words a row carries, whatever else rides with them. A parked line that also holds a
+// picture still has text to correct, so the pencil stays usable on it.
 
 // Durable references carried by one queued row. Inbox projections are wire data,
 // so a block without a reference is skipped rather than trusted.
@@ -68,10 +70,24 @@ function Preview({ text, renderFactorySlot }) {
 
 function EditField({ text, onChange, onSave, onCancel }) {
   const field = useRef(null)
+  // The editor opens with the caret at the end of the line: correcting a queued message
+  // usually means adding to it or fixing the tail, and a caret parked before the text sends
+  // the first keystroke to the wrong place. Set once, so typing in the middle stays put.
   useEffect(() => {
     const node = field.current
     if (node === null) return
     node.focus()
+    try {
+      const end = node.value.length
+      node.setSelectionRange(end, end)
+    } catch {
+      // A field that will not take a range still took the focus.
+    }
+  }, [])
+  // The box grows with the text, on the first paint and on every change.
+  useEffect(() => {
+    const node = field.current
+    if (node === null) return
     node.style.height = 'auto'
     node.style.height = `${node.scrollHeight}px`
   }, [text])
@@ -119,6 +135,20 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
     if (rowCount === 0 && !collapsed) setCollapsed(true)
     if (editing !== null && (!queueMutable || !queue.some(row => row.id === editing.id))) setEditing(null)
   }, [collapsed, editing, queue, queueMutable, rowCount])
+  // A press anywhere outside the dock puts the editor away: an editor that only its own two
+  // buttons can close is easy to get stuck in.
+  const panelRef = useRef(null)
+  useEffect(() => {
+    if (editing === null) return undefined
+    const onDown = (event) => {
+      const target = event.target
+      if (target === null || typeof target !== 'object') return
+      if (panelRef.current?.contains(target)) return
+      setEditing(null)
+    }
+    window.addEventListener('mousedown', onDown, true)
+    return () => window.removeEventListener('mousedown', onDown, true)
+  }, [editing])
   if (rowCount === 0) return null
   const interactionActive = queueMutable && (editing !== null || busy !== null)
   const expanded = !collapsed || interactionActive
@@ -147,9 +177,53 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
     if (editing === null || editing.text.trim() === '') return
     if (await applyAction(editing.id, { kind: 'edit', content: [{ type: 'text', text: editing.text }] }, t('Couldn’t edit the queued message — it may have started already.'))) setEditing(null)
   }
+  // The unfolded list is placed against the header it belongs to, in window coordinates: the
+  // composer stack cannot clip what it does not contain, and the conversation under it keeps
+  // its own height instead of being pushed up by the queue.
+  const [layer, setLayer] = useState(null)
+  useLayoutEffect(() => {
+    if (!(rowCount > 1 && expanded)) {
+      setLayer(null)
+      return undefined
+    }
+    let frame = 0
+    const place = () => {
+      const next = queueLayer({ rect: panelRef.current?.getBoundingClientRect?.(), viewportWidth: window.innerWidth, viewportHeight: window.innerHeight })
+      if (next === null) return
+      setLayer(current => (current !== null && current.left === next.left && current.width === next.width && current.bottom === next.bottom ? current : next))
+    }
+    // The header moves and resizes with the window, the sidebar and the column's own layout, and
+    // nothing resizes it by a window event: the measured spot has to follow the element itself,
+    // or the card stays where the header used to be.
+    const soon = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(place)
+    }
+    place()
+    // A second look once this frame is painted: the composer may still be settling when the list
+    // opens, and the first measurement can be a staler one.
+    frame = requestAnimationFrame(place)
+    window.addEventListener?.('resize', soon)
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(soon) : null
+    if (observer && panelRef.current) observer.observe(panelRef.current)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener?.('resize', soon)
+      observer?.disconnect()
+    }
+  }, [rowCount, expanded])
   return h('div', { className: 'bt-queue-dock', 'data-queue-dock': '' },
-    h('div', { className: 'bt-queue-panel' },
-      rowCount > 1 && h('button', { type: 'button', className: 'bt-queue-head', 'aria-controls': listId, 'aria-expanded': expanded, disabled: interactionActive, onClick: () => setCollapsed(value => !value) },
+    // With more than one row the list opens as a layer over the conversation instead of
+    // taking height in the composer stack: unfolding a queue never shoves the chat up.
+    h('div', { className: 'bt-queue-panel', ref: panelRef, 'data-floating': rowCount > 1 ? 'true' : undefined },
+      rowCount > 1 && h('button', {
+        type: 'button', className: 'bt-queue-head', 'aria-controls': listId, 'aria-expanded': expanded,
+        // While a row is being edited, this is the way out: close the editor and fold the list.
+        onClick: () => {
+          if (editing !== null) { setEditing(null); setCollapsed(true); return }
+          setCollapsed(value => !value)
+        },
+      },
         h('span', { className: 'bt-queue-lead', 'aria-hidden': true }, h(QueueIcon)),
         h('span', { className: 'bt-queue-count' }, t('{n} queued messages', { n: rowCount })),
         // The other half of the story: a queued row is parked until this turn ends, and
@@ -157,20 +231,32 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
         running && h('span', { className: 'bt-queue-hint' }, t('Waits for this turn to end')),
         !listVisible && pendingQueue.length > 0 && h('span', { className: 'bt-queue-status', role: 'status' }, t('Sending…')),
         h('span', { className: 'bt-queue-chev', 'aria-hidden': true }, expanded ? h(ChevronDownIcon) : h(ChevronUpIcon))),
-      h('ul', { id: listId, className: 'bt-queue-list', hidden: !listVisible },
+      h('ul', {
+        id: listId, className: 'bt-queue-list', hidden: !listVisible,
+        // Measured placement in the window; without it (no layout to measure yet) the stylesheet
+        // hangs the list over the panel's top edge instead.
+        style: layer === null ? undefined : { position: 'fixed', left: `${layer.left}px`, right: 'auto', width: `${layer.width}px`, bottom: `${layer.bottom}px` },
+      },
         listVisible && queue.map((row) => {
           const attachments = queueAttachments(row.content)
-          const text = textOf(row.content)
+          // The host takes text-only queue edits ("queue edits accept text content only"), so
+          // saving an edited line keeps its words and drops whatever else it carried. The row
+          // says so where the user is editing, instead of hiding the pencil altogether: a
+          // parked line is exactly the one worth correcting before the turn ends.
+          const words = row.content.filter(block => block.type === 'text').map(block => block.text).join('')
+          const dropsAttachments = attachments.length > 0
           return h('li', { key: row.id, className: 'bt-queue-row' },
             rowCount === 1 && h('span', { className: 'bt-queue-lead', 'aria-hidden': true }, h(QueueIcon)),
             editing?.id === row.id
-              ? h(EditField, { text: editing.text, onChange: text => setEditing({ id: row.id, text }), onSave: saveEdit, onCancel: () => setEditing(null) })
+              ? h('div', { className: 'bt-queue-edit-wrap' },
+                h(EditField, { text: editing.text, onChange: text => setEditing({ id: row.id, text }), onSave: saveEdit, onCancel: () => setEditing(null) }),
+                dropsAttachments ? h('span', { className: 'bt-queue-edit-warn', role: 'note' }, t('Saving keeps the text only — the attachment goes')) : null)
               : h(Fragment, null,
                 attachments.length > 0 && h('span', { className: 'bt-queue-attachments' },
                   attachments.map((item, index) => item.type === 'image'
                     ? h(QueueThumb, { key: `${item.attachment.attachmentId}:${index}`, attachment: item.attachment, loadImage, label: t('Queued image') })
                     : h(QueueFile, { key: `${item.attachment.attachmentId}:${item.attachment.name}:${index}`, attachment: item.attachment, label: t('Queued file {name}', { name: item.attachment.name }) }))),
-                h(Preview, { text: row.content.filter(block => block.type === 'text').map(block => block.text).join(''), renderFactorySlot })),
+                h(Preview, { text: words, renderFactorySlot })),
             // One row renders without the count header, so the parked note rides on the row.
             rowCount === 1 && running && h('span', { className: 'bt-queue-hint' }, t('Waits for this turn to end')),
             queueMutable && h('div', { className: 'bt-queue-actions' },
@@ -179,7 +265,7 @@ export function QueueDock({ useSession, useProjection, updateQueue, loadImage, r
                   h(RowButton, { label: t('Save queued message'), disabled: busy !== null || editing.text.trim() === '', onClick: saveEdit }, h(CheckIcon)),
                   h(RowButton, { label: t('Cancel editing'), disabled: busy !== null, onClick: () => setEditing(null) }, h(CloseIcon)))
                 : h(Fragment, null,
-                  h(RowButton, { label: t('Edit queued message'), title: text === null ? t('Contains non-text content, so editing is not supported yet') : undefined, disabled: busy !== null || text === null, onClick: () => { if (text !== null) setEditing({ id: row.id, text }) } }, h(PencilIcon)),
+                  h(RowButton, { label: t('Edit queued message'), title: dropsAttachments ? t('Saving keeps the text only — the attachment goes') : undefined, disabled: busy !== null, onClick: () => setEditing({ id: row.id, text: words }) }, h(PencilIcon)),
                   h(RowButton, { label: t('Delete queued message'), disabled: busy !== null, onClick: () => applyAction(row.id, { kind: 'remove' }, t('Couldn’t delete the queued message — it may have started already.')) }, h(TrashIcon)),
                   h(RowButton, { label: t('Steer queued message'), title: running ? undefined : t('Only while a turn is running'), disabled: busy !== null || !running, onClick: () => applyAction(row.id, { kind: 'steer' }, t('Couldn’t steer the queued message. Try again.')) }, h(ArrowUpIcon)))))
         }),
@@ -209,6 +295,11 @@ export const QUEUE_CSS = `
 .bt-queue-count{min-width:0;flex:auto;font-size:13px;font-weight:500;line-height:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-queue-chev{width:14px;height:14px;color:var(--bt-ink-3);flex:none;display:grid;place-items:center}
 .bt-queue-list{max-height:180px;margin:0;padding:0;list-style:none;overflow-y:auto}
+/* An unfolded list leaves the composer stack: it hangs above the header as its own card, so
+   the conversation behind it keeps its place and only the queue moves. */
+.bt-queue-panel[data-floating=true]{overflow:visible}
+.bt-queue-panel[data-floating=true] .bt-queue-list{position:absolute;left:0;right:0;bottom:calc(100% + 6px);z-index:6;max-height:min(240px,32vh);padding:2px 0;border-radius:var(--dsw-radius-lg,14px);background:var(--dsw-specific-menu,var(--bt-main));backdrop-filter:var(--dsw-menu-backdrop-filter,none);border:.5px solid var(--bt-line-2);box-shadow:0 10px 28px rgba(20,22,28,.14)}
+.bt-queue-panel[data-floating=true] .bt-queue-list[hidden]{display:none}
 .bt-queue-row{box-sizing:border-box;min-height:36px;width:100%;border-radius:var(--dsw-radius-md,10px);display:flex;align-items:center;gap:10px;padding:4px 5px 4px 12px}
 .bt-queue-row+.bt-queue-row{box-shadow:inset 0 1px 0 var(--bt-line)}
 .bt-queue-attachments{flex:none;min-width:0;max-width:55%;display:flex;gap:4px;overflow:hidden}
@@ -220,11 +311,14 @@ export const QUEUE_CSS = `
 .bt-queue-thumb{width:24px;height:24px;border:.5px solid var(--bt-line);border-radius:var(--dsw-radius-xs,4px);background:var(--bt-main);object-fit:cover}
 .bt-queue-preview{min-width:0;flex:auto;font-size:13px;color:var(--bt-ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-queue-edit{min-width:0;flex:auto;box-sizing:border-box;border:0;outline:none;resize:none;background:none;color:var(--bt-ink);font:inherit;font-size:13px;line-height:20px;max-height:120px;padding:4px 0}
+.bt-queue-edit-wrap{flex:auto;min-width:0;display:flex;flex-direction:column;gap:1px;padding:2px 0}
+.bt-queue-edit-wrap .bt-queue-edit{width:100%;padding:0}
+.bt-queue-edit-warn{font-size:11px;line-height:14px;color:var(--bt-danger)}
 .bt-queue-actions{flex:none;display:flex;align-items:center;gap:10px}
 .bt-queue-status{flex:none;font-size:13px;color:var(--bt-ink-3);white-space:nowrap}
-.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-3);white-space:nowrap}
-.bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-3);cursor:pointer;display:grid;place-items:center;padding:0}
-.bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink-2)}
+.bt-queue-hint{flex:none;font-size:11px;line-height:14px;color:var(--bt-ink-2);white-space:nowrap}
+.bt-queue-action{width:28px;height:28px;border:0;border-radius:999px;background:none;color:var(--bt-ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.bt-queue-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
 .bt-queue-action:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
-.bt-queue-action:disabled{cursor:default;opacity:.45}
+.bt-queue-action:disabled{cursor:default;opacity:.4;color:var(--bt-ink-3)}
 `

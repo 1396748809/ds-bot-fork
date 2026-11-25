@@ -12,6 +12,10 @@ export const STORAGE = {
   browserWidth: 'ds-bot:browser-width',
   browserImportSource: 'ds-bot:browser-import-source',
   sidebar: 'ds-bot:sidebar',
+  strip: 'ds-bot:strip',
+  stripHidden: 'ds-bot:strip-hidden',
+  stripRooms: 'ds-bot:strip-rooms',
+  stripMain: 'ds-bot:strip-main',
   browsers: 'ds-bot.browser.v2',
   drafts: 'ds-bot:drafts',
 }

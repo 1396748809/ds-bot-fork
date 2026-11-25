@@ -8,7 +8,7 @@ import { createElement as h, useEffect, useLayoutEffect, useRef, useState } from
 import { createPortal } from 'react-dom'
 import { BotMark } from './mark.js'
 import { STORAGE } from './storage.js'
-import { MIN_CHAT } from './frame-layout.js'
+import { MIN_CHAT, PANEL_TIGHT } from './frame-layout.js'
 import { chatRoom } from './frame-watch.js'
 import { SPRING_LEAD, SPRING_SHAPE, SPRING_TRAIL, reducedMotion, stepMenuFocus, useLinger } from './motion.js'
 import { FLIGHT_ENDS, INTENT_MS, createFlight, flightEnd, flightStart, planFlight, uniqueIds } from './mark-flight.js'
@@ -103,10 +103,13 @@ const savedWidth = () => {
 }
 // `room` is what the panel and the conversation share: the viewport minus the
 // left column's footprint (frame-layout.js). The panel never takes the last
-// MIN_CHAT px of it; below that it covers the conversation instead.
-const widthRange = (view, room) => (view === 'browser'
-  ? [MIN_WIDTH, room - MIN_CHAT]
-  : [DETAILS_WIDTH, Math.min(DETAILS_MAX, room - MIN_CHAT)])
+// MIN_CHAT px of it: a window too tight for its usual width narrows it down to
+// PANEL_TIGHT, so the conversation keeps its own room instead of sliding under the panel.
+const widthRange = (view, room) => {
+  const shared = Math.max(PANEL_TIGHT, room - MIN_CHAT)
+  const low = Math.min(view === 'browser' ? MIN_WIDTH : DETAILS_WIDTH, shared)
+  return [low, Math.max(low, view === 'browser' ? shared : Math.min(DETAILS_MAX, shared))]
+}
 const fitWidth = (width, [low, high]) => Math.round(Math.max(low, Math.min(width, high)))
 // The address as the bar shows it while not editing: no scheme, no trailing slash.
 const shortAddress = url => String(url ?? '').replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/$/, '')

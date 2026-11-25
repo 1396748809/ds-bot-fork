@@ -1,13 +1,14 @@
 import { createElement as h, Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { FishLogo } from './dsh-primitives.js'
-import { TeamTodoPanel } from './todo-panel.js'
+import { TeamTodoSide } from './todo-panel.js'
 import { inkFill } from './inks.js'
 import { isMainOf } from './sources.js'
 import { currentPart, previewOf, relativeShort } from './text.js'
 import { PlusIcon, SearchIcon, SidebarIcon, GaugeIcon, ClockIcon, GearIcon, PinMarkIcon, ConnectorIcon, PlugIcon, SwitchIcon, CloudDownloadIcon, SignInIcon, SignOutIcon, SlidersIcon, ChevronRightIcon, DotsIcon, FolderIcon } from './icons.js'
 import { lookOf, MAIN_LOOK } from './characters.js'
 import { botState, BotMark, BotAvatar, RoomAvatar } from './mark.js'
+import { onStripChange, readStripHidden, readStripMain, readStripRooms } from './strip-bar.js'
 import { AgentBadge } from './agent-badge.js'
 import { SidebarTaskPill, taskCountsOf } from './bot-tasks.js'
 import { reducedMotion } from './activity-row.js'
@@ -17,8 +18,9 @@ import { hostText, t } from './i18n.js'
 import { clientErrors } from './diagnostics.js'
 import { showsDshRow } from './dsh-offer.js'
 import { quietly } from './diagnostics.js'
-import { frameLayout, dragColumn, RAIL_WIDTH, FALLBACK_SIDEBAR_WIDTH, userSidebarToggle } from './frame-layout.js'
+import { frameLayout, dragColumn, RAIL_WIDTH, STRIP_H, FALLBACK_SIDEBAR_WIDTH, userSidebarToggle } from './frame-layout.js'
 import { chatRoom, dshCollapsed } from './frame-watch.js'
+import { STORAGE } from './storage.js'
 import { useEscape } from './overlay-hooks.js'
 
 // -------------------------------------------------------------------------
@@ -67,7 +69,7 @@ const waitingFor = (roster, waits) => {
   return names.length === 0 ? '' : t('Waiting for {names}', { names: names.join(t(' and ')) })
 }
 
-function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessionRetainInfo, useActivity, useWork, useComputer, wide, marked, onDragStart }) {
+function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessionRetainInfo, useActivity, useWork, useComputer, wide, marked, onDragStart, chip, plain }) {
   const id = bot.id
   const part = currentPart(bot)
   const preview = useSessions(list => previewOf(list, part, roster.exchangeTurns[part]))
@@ -102,7 +104,22 @@ function BotRow({ bot, roster, actions, useSessions, useSessionStatus, useSessio
   const taskCounts = taskCountsOf({ bot })
   const openTasks = () => { actions.openSession(id); actions.openTaskDeck?.(id) }
   const label = [bot.name, main ? t('Main Bot') : '', pinned ? t('Pinned') : '', running || away ? t('Working') : '', taskCounts.active > 0 ? t('{count} background tasks running', { count: taskCounts.active }) : '', waitsFor, approval ? t('Waiting for your approval') : alert ? t('Waiting for your answer') : '', unread ? t('Unread activity') : ''].filter(Boolean).join(', ')
-  if (tile && wide) {
+  if (tile && wide && chip) {
+    // The Main Bot sits in the sidebar's own header as a small disc: the big tile spent a
+    // whole card on one Bot the user opens far more often than reads, and the list below it
+    // is what they came for. Its state, unread mark and task count come along unchanged.
+    return h('button', {
+      type: 'button', className: 'bt-main-chip', 'aria-label': label, 'aria-current': active ? 'page' : undefined,
+      'data-bot-id': id, title: preview ? `${bot.name} · ${preview}` : bot.name,
+      onClick: () => actions.openSession(id), onContextMenu,
+    },
+    h(BotAvatar, { bot, size: 32, state, main: true }),
+    taskCounts.active > 0 ? h('span', { className: 'bt-main-chip-tasks', 'aria-hidden': true }, String(taskCounts.active))
+      : unread && !active ? h('span', { className: 'bt-main-chip-dot', 'aria-hidden': true }) : null)
+  }
+  // `plain` keeps the Main Bot an ordinary row when the list pins one at its top; the tile
+  // is the older presentation and has no place there.
+  if (tile && wide && !plain) {
     return h('div', { className: 'bt-tile-wrap' }, h('button', {
       type: 'button', className: 'bt-tile', 'aria-label': label, 'aria-current': active ? 'page' : undefined,
       'data-bot-id': id, title: preview || bot.name, onClick: () => actions.openSession(id), onContextMenu,
@@ -284,9 +301,193 @@ function renderSidebarEntry(entry, rowProps, markedUnread, onDragStart) {
       : h(AgentRow, { key: entry.item.id, ...rowProps, agent: entry.item, marked: markedUnread[entry.item.id] === true, onDragStart })
 }
 
-function SectionBlock({ section, entries, rowProps, markedUnread, renaming, dropTarget, onDragStart, onDragOverSec, onDropSec }) {
+// The faces keep whatever order the user dragged them into. Ids are the only thing saved:
+// a Bot that leaves the team drops out on read, and a new one joins at the end.
+const readStripOrder = () => {
+  try {
+    const saved = JSON.parse(globalThis.localStorage?.getItem(STORAGE.strip) ?? '[]')
+    return Array.isArray(saved) ? saved.filter(id => typeof id === 'string') : []
+  } catch {
+    return []
+  }
+}
+const writeStripOrder = (ids) => {
+  try { globalThis.localStorage?.setItem(STORAGE.strip, JSON.stringify(ids)) } catch { /* storage unavailable */ }
+}
+
+// Every Bot as a face in the window's top band, in the strip the shell leaves empty
+// between the column and the window buttons: a conversation is one click away without
+// costing the page a row of its own.
+//
+// The faces part around the cursor the way a dock does — the one under the cursor grows and
+// its neighbours slide aside, so nothing jumps under the pointer — and they can be dragged
+// into whatever order the user wants.
+function TopBotStrip({ roster, markedUnread, actions, left, useSessions, useWork }) {
+  const dragId = useRef('')
+  // A press opens the conversation when it stays put, and drags the face when it does not:
+  // a `click` never arrives once a draggable element started a drag, so the press itself is
+  // the signal.
+  const pressed = useRef(null)
+  // The Bot whose conversation is open keeps its face raised and on a plate, so the strip
+  // says where the user is as well as offering the way to somewhere else.
+  const watch = typeof useSessions === 'function' ? useSessions : null
+  const shownSession = watch === null
+    ? ''
+    : watch(list => Object.values(list.byId ?? {}).find(session => (session?.retainedBy?.mainView ?? 0) > 0)?.id ?? '')
+  const activeId = shownSession === '' || shownSession === undefined
+    ? undefined
+    : roster.bots.find(bot => currentPart(bot) === shownSession)?.id
+  const [order, setOrder] = useState(readStripOrder)
+  // Which Bots the user keeps off the strip, and which group chats the user put on it: the
+  // band takes both, but a group has to be asked for, since there are usually more of them
+  // than the band has room for.
+  const [offStrip, setOffStrip] = useState(readStripHidden)
+  const [roomIds, setRoomIds] = useState(readStripRooms)
+  const [mainIds, setMainIds] = useState(readStripMain)
+  useEffect(() => onStripChange(() => { setOffStrip(readStripHidden()); setRoomIds(readStripRooms()); setMainIds(readStripMain()) }), [])
+  // The face under the pointer names itself just below the band, where the eye already is.
+  // While it names the conversation on screen, the header's own name capsule steps aside so
+  // the two do not stack on each other.
+  const stripRef = useRef(null)
+  const [named, setNamed] = useState(null)
+  const nameFace = (event, id, entry) => {
+    const box = event.currentTarget.getBoundingClientRect()
+    const host = stripRef.current?.getBoundingClientRect()
+    setNamed({ entry, x: box.left + box.width / 2 - (host?.left ?? 0) })
+    if (typeof document !== 'undefined') {
+      if (id === activeId) document.body.dataset.btStripHover = 'active'
+      else delete document.body.dataset.btStripHover
+    }
+  }
+  const clearName = () => {
+    setNamed(null)
+    if (typeof document !== 'undefined') delete document.body.dataset.btStripHover
+  }
+  // Which Bots are at work right now: a turn running in one of its Sessions, or work it
+  // took on in a group (that runs in a Session of its own, so its own chat stays idle).
+  // The press-mark under the face says so without opening anything.
+  const partsRun = roster.partsRunning ?? {}
+  const roomWorkRaw = useWork
+    ? useWork(work => JSON.stringify(Object.values(work.rooms ?? {}).flatMap(entries => entries.map(entry => entry.botId)).filter(Boolean)))
+    : '[]'
+  const busyInRooms = useMemo(() => new Set(JSON.parse(roomWorkRaw)), [roomWorkRaw])
+  const atWork = (bot) => {
+    const ids = [currentPart(bot), ...(bot.openParts ?? []).map(entry => entry.sessionId)].filter(Boolean)
+    return ids.some(id => partsRun[id] === true) || busyInRooms.has(bot.id)
+  }
+  // The Main Bot takes the same treatment as a group: it is off the band until the user puts
+  // it there, and it keeps its ordinary row at the top of the list either way.
+  const bots = roster.bots.filter((bot) => {
+    if (bot.hidden === true) return false
+    if (bot.id === roster.mainBotId) return mainIds.includes(bot.id)
+    return !offStrip.includes(bot.id)
+  })
+  const rooms = (roster.rooms ?? []).filter(room => room.hidden !== true && roomIds.includes(room.id))
+  const entries = [
+    ...bots.map(bot => ({ kind: 'bot', id: bot.id, item: bot })),
+    ...rooms.map(room => ({ kind: 'room', id: room.id, item: room })),
+  ]
+  const known = order.map(id => entries.find(entry => entry.id === id)).filter(Boolean)
+  const list = [...known, ...entries.filter(entry => !order.includes(entry.id))]
+  if (list.length === 0) return null
+  const place = (from, to) => {
+    if (from === '' || to === '' || from === to) return
+    const ids = list.map(entry => entry.id)
+    const next = ids.slice()
+    next.splice(next.indexOf(from), 1)
+    next.splice(next.indexOf(to), 0, from)
+    setOrder(next)
+    writeStripOrder(next)
+  }
+  const working = entry => (entry.kind === 'bot'
+    ? atWork(entry.item)
+    : partsRun[entry.item.sessionId ?? entry.id] === true)
+  // One face per Bot or group on the band. A Bot wears its character, a group the cluster of
+  // its members, so the band reads like the list it mirrors.
+  const face = (entry, movable) => {
+    const id = entry.id
+    const name = entry.item.name
+    const at = working(entry)
+    return h('button', {
+      key: id, type: 'button', className: 'bt-topstrip-btn', draggable: movable || undefined,
+      // No title: the band names the face itself, at once, and two tooltips would overlap.
+      'aria-label': at ? `${name}, ${t('Working')}` : name,
+      'data-name': name,
+      'data-id': id,
+      'data-kind': entry.kind,
+      'data-active': id === activeId ? 'true' : undefined,
+      'data-running': at ? 'true' : undefined,
+      'data-unread': markedUnread[id] === true ? 'true' : undefined,
+      onMouseEnter: (event) => nameFace(event, id, entry),
+      onMouseLeave: clearName,
+      // The same menu the row in the list opens, from the same call: one Bot, one menu,
+      // wherever the user right-clicked it.
+      onContextMenu: (event) => { event.preventDefault(); pressed.current = null; actions.openMenu({ kind: entry.kind, id, from: 'strip', x: event.clientX, y: event.clientY }) },
+      // Keyboard activation only: a pointer press is handled on pointerup, above.
+      onClick: (event) => { if (event.detail === 0) actions.openSession(id) },
+      onPointerDown: (event) => {
+        // A right press opens the menu; it is not a visit, so it never counts as one.
+        pressed.current = event.button === 0 ? { id, x: event.clientX, y: event.clientY } : null
+      },
+      onPointerUp: (event) => {
+        const start = pressed.current
+        pressed.current = null
+        if (start === null || start.id !== id) return
+        // A drag took the face somewhere else; that press is not a visit.
+        if (Math.abs(event.clientX - start.x) > 4 || Math.abs(event.clientY - start.y) > 4) return
+        actions.openSession(id)
+      },
+      onDragStart: movable
+        ? (event) => {
+            dragId.current = id
+            event.dataTransfer?.setData('text/plain', id)
+            if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move'
+          }
+        : undefined,
+      onDragOver: movable ? (event) => { event.preventDefault(); if (dragId.current !== '') place(dragId.current, id) } : undefined,
+      onDragEnd: movable ? () => { dragId.current = '' } : undefined,
+    }, entry.kind === 'room'
+      ? h(RoomAvatar, { room: entry.item, roster, size: 26 })
+      : h(BotAvatar, { bot: entry.item, size: 26, state: botState(at, undefined, false), main: id === roster.mainBotId, live: false }))
+  }
+  return createPortal(h('div', {
+    className: 'bt-topstrip', role: 'group', 'aria-label': t('Bot list'),
+    ref: stripRef,
+    style: { left: `${Math.max(0, left)}px` },
+    onDragOver: event => event.preventDefault(),
+    // The band takes no presses of its own any more, so a double-click on it never reaches
+    // the window's title strip either. Kept as the guard for the faces' own row.
+    onDoubleClick: (event) => { event.preventDefault(); event.stopPropagation() },
+    onMouseLeave: clearName,
+  },
+  // The Main Bot has its own place in the sidebar's header; this row is the rest of the team.
+  h('div', { className: 'bt-topstrip-row' }, list.map(entry => face(entry, true))),
+  // The band's right end is where the Windows caption buttons stand. The app fills their
+  // background with the colour it samples under them, and the band itself is a gradient with
+  // no surface to sample, so this patch carries the ramp's end colour instead of the white
+  // the frame would otherwise offer. It takes presses only where nothing of ours sits above it.
+  h('div', { className: 'bt-topstrip-tint', 'aria-hidden': true }),
+  // The name of the face under the pointer, hung off the bottom edge of the band, its own
+  // face leading it.
+  named === null ? null : h('span', { className: 'bt-topstrip-name', style: { left: `${named.x}px` } },
+    h('span', { className: 'bt-topstrip-name-mark', 'aria-hidden': true },
+      named.entry.kind === 'room'
+        ? h(RoomAvatar, { room: named.entry.item, roster, size: 24 })
+        : h(BotMark, { bot: named.entry.item, size: 24 })),
+    named.entry.item.name)), document.body)
+}
+
+function SectionBlock({ section, entries, rowProps, markedUnread, renaming, dropTarget, onDragStart, onDragOverSec, onDropSec, secDrag, secOver, onSecDragStart, onSecDragOver, onSecDrop, onSecDragEnd }) {
   const { roster, actions, useSessions, useSessionStatus, useWork, useComputer, wide } = rowProps
   const input = useRef(null)
+  // The click folds the section at once and the file is written behind it: waiting for the
+  // host to answer and come back through the roster made every toggle feel like a pause.
+  // The wish drops away as soon as the section arrives carrying it.
+  const [wish, setWish] = useState(null)
+  const collapsed = wish === null ? section.collapsed : wish
+  useEffect(() => {
+    if (wish !== null && section.collapsed === wish) setWish(null)
+  }, [section.collapsed, wish])
   useLayoutEffect(() => {
     if (!renaming) return
     input.current?.focus()
@@ -350,11 +551,14 @@ function SectionBlock({ section, entries, rowProps, markedUnread, renaming, drop
     || entries.some(entry => markedUnread[entry.item.id] === true && entry !== activeEntry)
   const statusKind = hasAlert ? 'alert' : hasWorking ? 'working' : hasUnread ? 'unread' : null
   const toggle = () => {
-    void Promise.resolve(actions.saveSection({ id: section.id, collapsed: !section.collapsed })).catch(error => actions.reportError(error, 'section'))
+    const next = !collapsed
+    setWish(next)
+    void Promise.resolve(actions.saveSection({ id: section.id, collapsed: next }))
+      .catch((error) => { setWish(null); actions.reportError(error, 'section') })
   }
   const openSecMenu = (kind, x, y) => actions.openMenu({ kind, id: section.id, x, y })
   if (!wide) {
-    if (section.collapsed) {
+    if (collapsed) {
       const folderRoom = { id: section.id, name: section.name, members: botsInSec.map(bot => bot.id) }
       return h('div', { className: 'bt-rail-sec', 'data-sec-id': section.id },
         h('div', { className: 'bt-rail-sec-div', title: section.name, onClick: toggle },
@@ -382,10 +586,13 @@ function SectionBlock({ section, entries, rowProps, markedUnread, renaming, drop
   return h('div', {
     className: 'bt-sec',
     'data-sec-id': section.id,
-    'data-collapsed': section.collapsed ? 'true' : 'false',
+    'data-collapsed': collapsed ? 'true' : 'false',
     'data-drop': dropTarget === section.id ? 'true' : undefined,
-    onDragOver: onDragOverSec ? event => onDragOverSec(event, section.id) : undefined,
-    onDrop: onDropSec ? event => onDropSec(event, section.id) : undefined,
+    // A section being dragged, and the edge the one under the pointer would put it on.
+    'data-sec-dragging': secDrag === section.id ? 'true' : undefined,
+    'data-sec-drop': secOver?.id === section.id ? (secOver.after ? 'after' : 'before') : undefined,
+    onDragOver: (event) => { if (secDrag) onSecDragOver?.(event, section.id); else onDragOverSec?.(event, section.id) },
+    onDrop: (event) => { if (secDrag) onSecDrop?.(event, section.id); else onDropSec?.(event, section.id) },
   },
   renaming
     ? h('div', { className: 'bt-sec-edit' },
@@ -400,7 +607,10 @@ function SectionBlock({ section, entries, rowProps, markedUnread, renaming, drop
         }))
     : h('div', { className: 'bt-sec-head-wrap' },
         h('button', {
-          type: 'button', className: 'bt-sec-head', 'aria-expanded': !section.collapsed,
+          type: 'button', className: 'bt-sec-head', 'aria-expanded': !collapsed,
+          draggable: true,
+          onDragStart: (event) => { event.stopPropagation(); onSecDragStart?.(event, section.id) },
+          onDragEnd: () => onSecDragEnd?.(),
           onClick: toggle,
           onDoubleClick: (event) => { event.stopPropagation(); actions.beginSectionRename(section.id) },
           onContextMenu: (event) => { event.preventDefault(); event.stopPropagation(); openSecMenu('section', event.clientX, event.clientY) },
@@ -408,14 +618,14 @@ function SectionBlock({ section, entries, rowProps, markedUnread, renaming, drop
         h('span', { className: 'bt-sec-chev', 'aria-hidden': true }, h(ChevronRightIcon)),
         section.color ? h('span', { className: 'bt-sec-dot', style: { background: inkFill(section.color) }, 'aria-hidden': true }) : null,
         h('span', { className: 'bt-sec-title' }, section.name),
-        h('span', { className: `bt-sec-count${!section.collapsed ? ' bt-sec-count-hide' : ''}` }, visibleEntries.length),
+        h('span', { className: `bt-sec-count${!collapsed ? ' bt-sec-count-hide' : ''}` }, visibleEntries.length),
         h('span', { className: 'bt-sec-tail' },
-          section.collapsed && botsInSec.length > 0
+          collapsed && botsInSec.length > 0
             ? h('span', { className: 'bt-sec-pile', 'aria-hidden': true },
                 botsInSec.slice(0, 3).map(bot => h('span', { key: bot.id, className: 'bt-sec-pile-item' }, h(BotMark, { bot, size: 18 }))),
                 botsInSec.length > 3 ? h('span', { className: 'bt-sec-pile-more' }, `+${botsInSec.length - 3}`) : null)
             : null,
-          section.collapsed && statusKind
+          collapsed && statusKind
             ? h('span', { className: 'bt-sec-status', 'data-kind': statusKind, 'aria-hidden': true }, statusKind === 'alert' ? '?' : null)
             : null)),
         h('span', { className: 'bt-sec-acts' },
@@ -437,11 +647,101 @@ function SectionBlock({ section, entries, rowProps, markedUnread, renaming, drop
           }, h(DotsIcon)))),
   h('div', {
     className: 'bt-sec-body',
-    inert: section.collapsed ? true : undefined,
-    'aria-hidden': section.collapsed ? true : undefined,
+    inert: collapsed ? true : undefined,
+    'aria-hidden': collapsed ? true : undefined,
   },
     h('div', { className: 'bt-sec-body-in' },
       entries.map(entry => renderSidebarEntry(entry, rowProps, markedUnread, onDragStart)))))
+}
+
+// Bots that belong to no section still form one group of their own, called "Ungrouped": the
+// list never mixes loose rows with grouped ones, the header folds like any other, and a row
+// dropped on it leaves its section. A Bot created without a section is born here, which is
+// what makes the newest Bot easy to find. The fold is remembered, since a section's own fold
+// lives in the roster file and this one has no entry of its own there.
+const UNGROUPED_KEY = 'ds-bot:ungrouped-collapsed'
+function ungroupedFolded() {
+  try {
+    return globalThis.localStorage?.getItem(UNGROUPED_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+// The rows arrive as children, built by the list itself like every other row: the block only
+// owns the header, its fold, and the drop target.
+function UngroupedBlock({ entries, children, dropTarget, onDragOverSec, onDropSec }) {
+  const [collapsed, setCollapsed] = useState(ungroupedFolded())
+  const name = t('Ungrouped')
+  const toggle = () => {
+    const next = !collapsed
+    setCollapsed(next)
+    try {
+      globalThis.localStorage?.setItem(UNGROUPED_KEY, next ? '1' : '0')
+    } catch {
+      // A window that refuses storage folds for this visit only.
+    }
+  }
+  return h('div', {
+    className: 'bt-sec bt-sec-ungrouped',
+    'data-ungrouped': 'true',
+    'data-collapsed': collapsed ? 'true' : 'false',
+    'data-drop': dropTarget === '__none__' ? 'true' : undefined,
+    onDragOver: event => onDragOverSec?.(event, '__none__'),
+    onDrop: event => onDropSec?.(event, null),
+  },
+  h('div', { className: 'bt-sec-head-wrap' },
+    h('button', {
+      type: 'button', className: 'bt-sec-head', 'aria-expanded': !collapsed, title: name,
+      onClick: toggle,
+    },
+    h('span', { className: 'bt-sec-chev', 'aria-hidden': true }, h(ChevronRightIcon)),
+    h('span', { className: 'bt-sec-title' }, name),
+    h('span', { className: `bt-sec-count${!collapsed ? ' bt-sec-count-hide' : ''}` }, entries.length),
+    h('span', { className: 'bt-sec-tail' },
+      collapsed && entries.length > 0
+        ? h('span', { className: 'bt-sec-pile', 'aria-hidden': true },
+            entries.slice(0, 3).map(entry => h('span', { key: entry.item.id, className: 'bt-sec-pile-item' }, h(BotMark, { bot: entry.item, size: 18 }))),
+            entries.length > 3 ? h('span', { className: 'bt-sec-pile-more' }, `+${entries.length - 3}`) : null)
+        : null))),
+  h('div', {
+    className: 'bt-sec-body',
+    inert: collapsed ? true : undefined,
+    'aria-hidden': collapsed ? true : undefined,
+  },
+    h('div', { className: 'bt-sec-body-in' }, children)))
+}
+
+// The pinned Main Bot row sits right above the list, so while rows are still scrolled away
+// under it the boundary needs an edge: it takes a shadow, and drops it again once the list is
+// back at its top. The rows themselves are no longer faded at either edge — a mask there left
+// a see-through band over the first row while scrolling, which read as a hole in the column.
+function useEdgeFade(listRef) {
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return undefined
+    const paint = () => {
+      const overTop = list.scrollTop > 1
+      // The pinned row sits right above the list.
+      const pin = list.previousElementSibling
+      if (pin?.classList?.contains('bt-list-pin')) {
+        if (overTop) pin.dataset.shadow = ''
+        else delete pin.dataset.shadow
+      }
+    }
+    paint()
+    list.addEventListener('scroll', paint, { passive: true })
+    // Rows come and go without the list itself resizing, so every child is watched too.
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(paint) : null
+    if (observer) {
+      observer.observe(list)
+      for (const child of Array.from(list.children)) observer.observe(child)
+    }
+    return () => {
+      list.removeEventListener('scroll', paint)
+      if (observer) observer.disconnect()
+    }
+  })
 }
 
 function useListGlide(listRef, layout, key) {
@@ -470,8 +770,22 @@ function useListGlide(listRef, layout, key) {
 // collapsed sidebar: the open column or the avatar rail push the conversation
 // over, the drawer floats above it. Its right edge drags the open width, and
 // down to the rail.
-function LeftColumn({ mode, width, onGrip, leaving, children }) {
-  return createPortal(h('div', { className: 'bt-leftcol', 'data-left': mode, 'data-leaving': leaving || undefined, 'aria-hidden': leaving || undefined, style: { width: `${width}px` } },
+// The window's top bar: the column's title row hoisted out of the column, so it sits on the
+// window's own edge and never slides with the column. A host without a document (or without a
+// portal in its renderer) simply keeps the row in the column.
+function WindowBar({ children }) {
+  if (typeof document === 'undefined' || typeof createPortal !== 'function') return null
+  return createPortal(h('div', { className: 'bt-topbar' },
+    children,
+    // The window's caption buttons sit at this bar's right end, and the app fills their background
+    // with the colour it samples there. This sliver is what it can sample: the measured point is
+    // the window's top-right corner, and the bar itself is click-through and so invisible to that
+    // sampling. Narrow enough that it takes no press worth having.
+    h('div', { className: 'bt-topbar-tint', 'aria-hidden': true })), document.body)
+}
+
+function LeftColumn({ mode, width, onGrip, leaving, topbar, children }) {
+  return createPortal(h('div', { className: 'bt-leftcol', 'data-left': mode, 'data-topbar': topbar ? '' : undefined, 'data-leaving': leaving || undefined, 'aria-hidden': leaving || undefined, style: { width: `${width}px` } },
     children,
     h('div', { className: 'bt-leftcol-grip', role: 'separator', 'aria-orientation': 'vertical', 'aria-label': t('Resize sidebar'), title: t('Resize sidebar'), onPointerDown: onGrip })), document.body)
 }
@@ -482,8 +796,10 @@ function LeftColumn({ mode, width, onGrip, leaving, children }) {
 // carries it otherwise.
 function TitleToggle({ hidden, onToggle }) {
   if (typeof document === 'undefined') return null
+  // Only while the column is out of sight: open, its own top row carries the switch, in
+  // line with the folder, search and new buttons.
+  if (!hidden) return null
   const titlebar = document.documentElement.hasAttribute('data-windows-titlebar')
-  if (!titlebar && !hidden) return null
   const label = t(hidden ? 'Expand sidebar' : 'Collapse sidebar')
   return createPortal(h('button', {
     type: 'button', className: titlebar ? 'bt-title-toggle' : 'bt-round bt-title-toggle', 'aria-label': label, title: label, onClick: onToggle,
@@ -508,6 +824,89 @@ function BootFailed({ actions }) {
     typeof actions.setSurface === 'function'
       ? h('button', { type: 'button', className: 'bt-soft bt-soft-sm', onClick: () => actions.setSurface('agent') }, t('Switch to classic Agent mode'))
       : null)
+}
+
+// The to-do block's height belongs to the user: drag the line under it to give the Bot list
+// more room or the to-do list more, and the height is kept for the next window. The value
+// rides a CSS variable, so the block itself stays the one that owns its layout.
+const BLOCK_HEIGHT_KEY = 'ds-bot:side-block-h'
+const BLOCK_HEIGHT_MIN = 96
+const BLOCK_HEIGHT_DEFAULT = 220
+// Never so tall that the Bot list has nowhere left to live.
+const blockHeightMax = () => Math.max(BLOCK_HEIGHT_MIN + 80, (typeof window === 'undefined' ? 800 : window.innerHeight) - 320)
+
+function readBlockHeight() {
+  if (typeof localStorage === 'undefined') return BLOCK_HEIGHT_DEFAULT
+  try {
+    const saved = Number(localStorage.getItem(BLOCK_HEIGHT_KEY))
+    if (!Number.isFinite(saved) || saved <= 0) return BLOCK_HEIGHT_DEFAULT
+    return Math.min(Math.max(Math.round(saved), BLOCK_HEIGHT_MIN), blockHeightMax())
+  } catch {
+    // A window that refuses storage just keeps the height for this session.
+    return BLOCK_HEIGHT_DEFAULT
+  }
+}
+
+function saveBlockHeight(value) {
+  try {
+    localStorage.setItem(BLOCK_HEIGHT_KEY, String(Math.round(value)))
+  } catch {
+    /* nothing to keep it in */
+  }
+}
+
+function SideBlockResizer({ children }) {
+  const [height, setHeight] = useState(readBlockHeight())
+  const [dragging, setDragging] = useState(false)
+  // The drag reads the live height from a ref: the pointer handler is bound once, while
+  // every move re-renders with a newer height.
+  const live = useRef(height)
+  live.current = height
+  const clamp = value => Math.min(Math.max(Math.round(value), BLOCK_HEIGHT_MIN), blockHeightMax())
+  const apply = (value) => {
+    const next = clamp(value)
+    setHeight(next)
+    return next
+  }
+  const onDown = (event) => {
+    if (event.button !== 0) return
+    event.preventDefault()
+    const startY = event.clientY
+    const startHeight = live.current
+    setDragging(true)
+    const onMove = (move) => { live.current = apply(startHeight + (move.clientY - startY)) }
+    const onUp = () => {
+      setDragging(false)
+      saveBlockHeight(live.current)
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onUp)
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
+  }
+  const onKey = (event) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      event.preventDefault()
+      saveBlockHeight(live.current + (event.key === 'ArrowUp' ? -16 : 16))
+      apply(live.current + (event.key === 'ArrowUp' ? -16 : 16))
+    } else if (event.key === 'Home') {
+      event.preventDefault()
+      saveBlockHeight(BLOCK_HEIGHT_DEFAULT)
+      apply(BLOCK_HEIGHT_DEFAULT)
+    }
+  }
+  return h('div', {
+    className: 'bt-side-resize', 'data-dragging': dragging ? '' : undefined,
+    style: { '--bt-side-block-h': `${height}px` },
+  },
+  children,
+  h('div', {
+    className: 'bt-side-grip', role: 'separator', 'aria-orientation': 'horizontal',
+    'aria-label': t('Resize the to-do area'), 'aria-valuenow': height, tabIndex: 0,
+    onPointerDown: onDown, onKeyDown: onKey,
+  }))
 }
 
 export function TeamSidebar(props) {
@@ -536,11 +935,19 @@ export function TeamSidebar(props) {
   const [held, leaving] = useLinger(mode === 'hidden' ? null : mode, SPRING_SHAPE.duration)
   const shown = held ?? mode
   const wideContent = shown !== 'rail'
+  // No column, no band. While the column is hidden the strip has nothing to hang from, and
+  // left where it fell it spanned the whole window top — on top of the very switch that
+  // brings the column back, so the sidebar could not be restored.
+  const stripOn = wideContent && shown !== 'hidden'
   const updated = useSessions(list => {
     const stamps = {}
     for (const id of list.ids) stamps[id] = list.byId[id]?.updatedAt ?? 0
     return JSON.stringify(stamps)
   })
+  // A row dropped into a section moves there at once, and the file is written behind it:
+  // waiting for the roster to come back carried made every drop feel like a pause. The wish
+  // drops away as soon as the roster arrives with the row in that section.
+  const [moveWish, setMoveWish] = useState(null)
   const order = useMemo(() => {
     const stamps = JSON.parse(updated)
     const entries = [
@@ -549,29 +956,103 @@ export function TeamSidebar(props) {
       // The Agent sorts by its most recent Session, falling back to when it was added.
       ...(roster.agents ?? []).map(agent => ({ kind: 'agent', item: agent, at: Math.max(0, ...agent.sessions.map(id => stamps[id] ?? 0)) || agent.createdAt })),
     ]
-    return entries.sort((a, b) => Number(Boolean(b.item.pinned)) - Number(Boolean(a.item.pinned)) || b.at - a.at)
-  }, [roster, updated])
-  const sections = roster.sections ?? []
+    const sorted = entries.sort((a, b) => Number(Boolean(b.item.pinned)) - Number(Boolean(a.item.pinned)) || b.at - a.at)
+    if (moveWish === null) return sorted
+    return sorted.map(entry => (
+      entry.item.id === moveWish.id ? { ...entry, item: { ...entry.item, sectionId: moveWish.sectionId } } : entry
+    ))
+  }, [roster, updated, moveWish])
+  useEffect(() => {
+    if (moveWish === null) return
+    const entry = roster.byId[moveWish.id] ?? roster.roomsById?.[moveWish.id]
+    if (entry !== undefined && (entry.sectionId ?? null) === (moveWish.sectionId ?? null)) setMoveWish(null)
+  }, [moveWish, roster])
+  // Dragging a section puts it where it was dropped at once, and the file is written behind
+  // it: waiting for the order to come back through the roster made every drop feel like a
+  // pause. The wish drops away as soon as the roster arrives carrying that order.
+  const [sectionWish, setSectionWish] = useState(null)
+  const sections = useMemo(() => {
+    const stored = roster.sections ?? []
+    if (sectionWish === null) return stored
+    const byId = new Map(stored.map(sec => [sec.id, sec]))
+    const moved = sectionWish.map(id => byId.get(id)).filter(Boolean)
+    const rest = stored.filter(sec => !sectionWish.includes(sec.id))
+    return [...moved, ...rest]
+  }, [roster.sections, sectionWish])
+  useEffect(() => {
+    if (sectionWish === null) return
+    const stored = (roster.sections ?? []).map(sec => sec.id)
+    if (stored.length === sectionWish.length && stored.every((id, index) => id === sectionWish[index])) setSectionWish(null)
+  }, [sectionWish, roster.sections])
   const sectionSet = useMemo(() => new Set(sections.map(sec => sec.id)), [sections])
   const ungrouped = useMemo(
     () => order.filter(entry => !entry.item.sectionId || !sectionSet.has(entry.item.sectionId)),
     [order, sectionSet],
   )
   const main = roster.byId[roster.mainBotId]
+  // The key watches which sections exist and where the rows sit, not whether a section is
+  // open: a fold changes the height on its own, and gliding every row below it at the same
+  // time made the fold look and feel stuck.
   const glideKey = useMemo(
-    () => `${sections.map(s => `${s.id}:${s.collapsed ? 1 : 0}`).join(',')}|${order.map(entry => `${entry.item.id}:${entry.item.sectionId ?? ''}`).join(',')}`,
+    () => `${sections.map(s => s.id).join(',')}|${order.map(entry => `${entry.item.id}:${entry.item.sectionId ?? ''}`).join(',')}`,
     [sections, order],
   )
   useListGlide(listRef, wideContent, glideKey)
+  useEdgeFade(listRef)
   useLandOnMainBot(roster, useSessions, actions)
   useReportReady(roster.ready, roster)
   const [dragId, setDragId] = useState(null)
   const [dropTarget, setDropTarget] = useState(null)
+  // A to-do item names the Bot it came from, so the row can offer that conversation back.
+  // The name is matched exactly: "Chief自测" is a label, not a Bot, and must not open Chief.
+  const openFromTodo = (name, probe) => {
+    const bot = roster.bots.find(candidate => candidate.name === name)
+    if (bot === undefined) return false
+    if (probe !== true) actions.openSession(bot.id)
+    return true
+  }
   const onDragStart = (event, id) => {
     setDragId(id)
     event.dataTransfer?.setData?.('text/plain', id)
     if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move'
   }
+  // Sections move the same way their rows do: the header is the handle, and the block it is
+  // dropped over says whether it lands above or below, by which half the pointer is in.
+  const [secDrag, setSecDrag] = useState(null)
+  const [secOver, setSecOver] = useState(null)
+  const onSecDragStart = (event, id) => {
+    setSecDrag(id)
+    setDragId(null)
+    setDropTarget(null)
+    event.dataTransfer?.setData?.('text/plain', `section:${id}`)
+    if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move'
+  }
+  const onSecDragOver = (event, id) => {
+    if (!secDrag || secDrag === id) return
+    event.preventDefault()
+    const box = event.currentTarget.getBoundingClientRect()
+    const after = event.clientY > box.top + box.height / 2
+    setSecOver(previous => (previous?.id === id && previous?.after === after ? previous : { id, after }))
+  }
+  const onSecDrop = (event, id) => {
+    if (!secDrag) return
+    event.preventDefault()
+    const moving = secDrag
+    const after = secOver?.id === id ? secOver.after : false
+    setSecDrag(null)
+    setSecOver(null)
+    if (moving === id) return
+    const ids = sections.map(sec => sec.id).filter(one => one !== moving)
+    const at = ids.indexOf(id)
+    ids.splice(at < 0 ? ids.length : at + (after ? 1 : 0), 0, moving)
+    setSectionWish(ids)
+    void Promise.resolve(actions.reorderSections(ids)).catch((error) => {
+      // The order did not take, so the rows go back to the one the roster still holds.
+      setSectionWish(null)
+      actions.reportError(error, 'section-order')
+    })
+  }
+  const onSecDragEnd = () => { setSecDrag(null); setSecOver(null) }
   const onDragOverSec = (event, secId) => {
     if (!dragId) return
     event.preventDefault()
@@ -583,7 +1064,12 @@ export function TeamSidebar(props) {
     setDragId(null)
     setDropTarget(null)
     if (!id) return
-    void Promise.resolve(actions.setFlags(id, { sectionId: secId })).catch(error => actions.reportError(error, 'section'))
+    setMoveWish({ id, sectionId: secId ?? null })
+    void Promise.resolve(actions.setFlags(id, { sectionId: secId })).catch((error) => {
+      // The move did not take: the row goes back where the roster still has it.
+      setMoveWish(null)
+      actions.reportError(error, 'section')
+    })
     if (secId && sections.find(s => s.id === secId)?.collapsed) {
       void Promise.resolve(actions.saveSection({ id: secId, collapsed: false })).catch(() => {})
     }
@@ -604,7 +1090,18 @@ export function TeamSidebar(props) {
     if (typeof document === 'undefined') return
     chatRoom.setLeft(Math.max(0, pushed - (frameSnap.collapsedWidth ?? 0)))
   }, [pushed, frameSnap.collapsedWidth])
-  useEffect(() => () => { if (typeof document !== 'undefined') chatRoom.setLeft(null) }, [])
+  // The Bot strip takes a band of its own above the conversation rather than floating over
+  // it: the room is padding on the shell's column, so the header and the first message sit
+  // below the faces instead of under them.
+  useLayoutEffect(() => {
+    if (typeof document === 'undefined') return
+    chatRoom.setTop(stripOn ? STRIP_H : null)
+  }, [stripOn])
+  useEffect(() => () => {
+    if (typeof document === 'undefined') return
+    chatRoom.setLeft(null)
+    chatRoom.setTop(null)
+  }, [])
 
   // The edge drag: live while the pointer moves, the column's new state on release.
   // Per frame the drag writes the column's own inline style and each conversation
@@ -807,19 +1304,23 @@ export function TeamSidebar(props) {
     document.addEventListener('keydown', onKey, true)
     return () => document.removeEventListener('keydown', onKey, true)
   }, [])
-  const top = wideContent
-    ? h('div', { className: 'bt-side-top' },
-        h('span', { className: 'bt-brand' }, h(BrandName)),
-        h(UpdateButton, { useUpdate: props.useUpdate, actions }),
-        h('button', { type: 'button', className: 'bt-round', 'aria-label': t('New section'), title: t('New section'), onClick: createNewSection }, h(FolderIcon)),
-        h('button', { type: 'button', className: 'bt-round', 'aria-label': t('Search'), title: t('Search'), onClick: () => actions.openPalette() }, h(SearchIcon)),
-        h('button', { type: 'button', className: 'bt-round', 'aria-label': t('New…'), title: t('New…'), onClick: () => actions.openNewChat('new') }, h(PlusIcon)),
-        h('button', { type: 'button', className: 'bt-round bt-side-collapse', 'aria-label': t('Collapse sidebar'), title: t('Collapse sidebar'), onClick: onToggle }, h(SidebarIcon)))
-    : h('div', { className: 'bt-rail-top' },
-        h(UpdateButton, { useUpdate: props.useUpdate, actions }),
-        h('button', { type: 'button', className: 'bt-round bt-side-collapse', 'aria-label': t('Collapse sidebar'), title: t('Collapse sidebar'), onClick: onToggle }, h(SidebarIcon)),
-        main ? h(BotRow, { ...rowProps, bot: main, marked: markedUnread[main.id] === true }) : roster.ready ? null : bootFailed ? h(BootFailed, { actions }) : h('div', { className: 'bt-hint' }, t('Setting up your Main Bot…')),
-        h('span', { className: 'bt-rail-sep', 'aria-hidden': true }))
+  // The title row is the window's, in both shapes the column takes: the bar carries the switch,
+  // the name and the window-wide actions, whether the column below it is the open one or the rail.
+  // Collapsed, the same switch is the way back, so it names what it does there.
+  const switchLabel = t(mode === 'hidden' ? 'Expand sidebar' : 'Collapse sidebar')
+  const top = h('div', { className: 'bt-side-top' },
+    // The switch leads the row, level with the buttons across from it.
+    h('button', { type: 'button', className: 'bt-round bt-side-collapse', 'aria-label': switchLabel, title: switchLabel, onClick: onToggle }, h(SidebarIcon)),
+    h('span', { className: 'bt-brand' }, h(BrandName)),
+    h(UpdateButton, { useUpdate: props.useUpdate, actions }),
+    h('button', { type: 'button', className: 'bt-round', 'aria-label': t('New section'), title: t('New section'), onClick: createNewSection }, h(FolderIcon)),
+    h('button', { type: 'button', className: 'bt-round', 'aria-label': t('Search'), title: t('Search'), onClick: () => actions.openPalette() }, h(SearchIcon)),
+    h('button', { type: 'button', className: 'bt-round', 'aria-label': t('New…'), title: t('New…'), onClick: () => actions.openNewChat('new') }, h(PlusIcon)))
+  // What the rail keeps for itself, now that the switch and the actions sit above it: the Main
+  // Bot's face, standing in for the list the rail has no room for.
+  const railTop = h('div', { className: 'bt-rail-top' },
+    main ? h(BotRow, { ...rowProps, bot: main, marked: markedUnread[main.id] === true }) : roster.ready ? null : bootFailed ? h(BootFailed, { actions }) : h('div', { className: 'bt-hint' }, t('Setting up your Main Bot…')),
+    h('span', { className: 'bt-rail-sep', 'aria-hidden': true }))
   // The foot stands in for the shell's hidden footer: the account avatar, and on
   // the rail the new-chat button above it.
   const foot = wideContent
@@ -828,23 +1329,37 @@ export function TeamSidebar(props) {
         h('button', { type: 'button', className: 'bt-round', 'aria-label': t('New…'), title: t('New…'), onClick: () => actions.openNewChat('new') }, h(PlusIcon)),
         h(AccountLauncher, { seat: false, actions }),
         h(PluginsButton, { actions }))
+  // The title row belongs to the window, not to the column: under its own bar at the top edge it
+  // stays put whatever width the column is dragged to — rail or open — and the column starts
+  // below it. A collapsed column takes the column and nothing else: the band above the
+  // conversation keeps its own background and its own switch, so what goes away is the list
+  // under the band. Handing the band to the column's state repainted the whole top edge as the
+  // frame's white and shrank the switch to the floating one.
+  const windowBar = true
   const content = h('div', { className: wideContent ? 'bt-side' : 'bt-side bt-rail', onKeyDown: typeToSearch },
-    top,
-    wideContent ? h(TeamTodoPanel, { actions }) : null,
+    wideContent ? null : railTop,
+    wideContent ? h(SideBlockResizer, null, h(TeamTodoSide, { actions, openFrom: openFromTodo })) : null,
+    // The resizer's own line is the boundary: a second hairline under it only spent height
+    // the Bot list needs.
     wideContent && roster.readOnly ? h('div', { className: 'bt-hint bt-read-only', role: 'status' }, hostText(roster.readOnly)) : null,
+    // The Main Bot keeps an ordinary row of its own above the list: it stands outside the
+    // scroll box, so it cannot move, and the list's own top fade dissolves the rows passing
+    // beneath it at its lower edge.
+    wideContent && main
+      ? h('div', { className: 'bt-list-pin' }, h(BotRow, { ...rowProps, bot: main, plain: true, marked: markedUnread[main.id] === true }))
+      : null,
     h('div', {
       ref: listRef, className: 'bt-list', role: 'region', 'aria-label': t('Bot list'),
       onDragEnd: () => { setDragId(null); setDropTarget(null) },
       onDragLeave: (event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDropTarget(null) },
     },
-      wideContent ? (main ? h(BotRow, { ...rowProps, bot: main, marked: markedUnread[main.id] === true }) : roster.ready ? null : bootFailed ? h(BootFailed, { actions }) : h('div', { className: 'bt-hint' }, t('Setting up your Main Bot…'))) : null,
-      sections.length > 0 && wideContent
-        ? h('div', {
-            className: 'bt-sec-ungrouped',
-            'data-dragging': dragId ? 'true' : undefined,
-            'data-drop': dropTarget === '__none__' ? 'true' : undefined,
-            onDragOver: event => onDragOverSec(event, '__none__'),
-            onDrop: event => onDropSec(event, null),
+      wideContent ? (main || roster.ready ? null : bootFailed ? h(BootFailed, { actions }) : h('div', { className: 'bt-hint' }, t('Setting up your Main Bot…'))) : null,
+      wideContent && (sections.length > 0 || ungrouped.length > 0)
+        ? h(UngroupedBlock, {
+            entries: ungrouped,
+            dropTarget,
+            onDragOverSec,
+            onDropSec,
           }, ungrouped.map(entry => renderSidebarEntry(entry, rowProps, markedUnread, onDragStart)))
         : ungrouped.map(entry => renderSidebarEntry(entry, rowProps, markedUnread, onDragStart)),
       sections.map(section => h(SectionBlock, {
@@ -858,11 +1373,20 @@ export function TeamSidebar(props) {
         onDragStart,
         onDragOverSec,
         onDropSec,
+        secDrag,
+        secOver,
+        onSecDragStart,
+        onSecDragOver,
+        onSecDrop,
+        onSecDragEnd,
       }))),
     foot)
   return h(Fragment, null,
-    h(TitleToggle, { hidden: mode === 'hidden', onToggle }),
-    shown === 'hidden' ? null : h(LeftColumn, { mode: shown, width: ourWidth, onGrip: startDrag, leaving }, content))
+    h(TitleToggle, { hidden: mode === 'hidden' && !windowBar, onToggle }),
+    shown === 'hidden' ? null : h(LeftColumn, { mode: shown, width: ourWidth, onGrip: startDrag, leaving, topbar: windowBar }, content),
+    windowBar ? h(WindowBar, null, top) : null,
+    // The strip starts where the column ends, the same edge the conversation is pushed to.
+    stripOn ? h(TopBotStrip, { roster, markedUnread, actions: rowActions, useSessions, useWork: props.useWork, left: Math.max(0, ourWidth - (frameSnap.collapsedWidth ?? 0)) }) : null)
 }
 
 // The update button at the sidebar's top right: a cloud while a newer DS Bot —
@@ -1280,12 +1804,15 @@ export function BrandMark({ size = 24 }) {
   return h('span', { className: 'bt-brand-whale' }, h(BotMark, { look: MAIN_LOOK, size }))
 }
 export function BrandName() {
-  return h('span', { style: { fontWeight: 600, fontSize: 14 } }, 'DS Bot')
+  return h('span', { style: { fontWeight: 600, fontSize: 14 } }, 'DS Bot-C')
 }
 
 // With the whale holding the settings seat, the Bot row is just the account menu;
 // FooterAccount only shows when the seat went to no one. The shell's footer classes
 // are CSS-module names, so they match on their stems.
+// A section folds on its own shorter clock than the shared 400ms spring: the state already
+// changed under the click, and 400ms of rows rearranging afterwards reads as lag.
+const FOLD_MS = 150
 export const SIDEBAR_CSS = `
 .bt-confirm{width:100%;max-width:260px;box-sizing:border-box;padding:10px 12px 12px;display:flex;flex-direction:column;gap:10px}
 .bt-confirm-text{margin:0;font-size:13px;line-height:19px;color:var(--bt-ink-2)}
@@ -1296,8 +1823,22 @@ export const SIDEBAR_CSS = `
 .bt-confirm-go:hover:not(:disabled){opacity:.9}
 .bt-confirm-go:disabled{opacity:.6;cursor:default}
 .bt-side-top .bt-brand{cursor:default;padding-left:6px}
+/* A hairline between the tab area and the list: it fades at both ends so it reads as a
+   separation rather than a box edge. */
+.bt-side-resize{flex:none;display:flex;flex-direction:column;min-height:0}
+.bt-side-grip{position:relative;flex:none;height:9px;margin:-4px 10px 0;cursor:ns-resize;touch-action:none;border-radius:6px}
+.bt-side-grip::before{content:"";position:absolute;left:14%;right:14%;top:50%;height:1px;margin-top:-.5px;border-radius:2px;background:color-mix(in srgb,var(--bt-ink) 13%,transparent);transition:background-color .12s ease,height .12s ease}
+.bt-side-grip:hover::before,.bt-side-grip:focus-visible::before,.bt-side-resize[data-dragging] .bt-side-grip::before{height:2px;margin-top:-1px;background:color-mix(in srgb,var(--bt-ink) 26%,transparent)}
+.bt-side-grip:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-3px}
+.bt-side-resize[data-dragging]{cursor:ns-resize}
 .bt-side-top .bt-brand:hover{background:none}
 .bt-brand .bt-mark{flex:none}
+.bt-main-chip{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;transition:background-color .12s ease,scale .12s ease}
+.bt-main-chip:hover{background:var(--bt-hover)}
+.bt-main-chip:active{scale:.94}
+.bt-main-chip[aria-current=page]{background:var(--bt-active)}
+.bt-main-chip-dot{position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--bt-green);box-shadow:0 0 0 2px var(--bt-sidebar)}
+.bt-main-chip-tasks{position:absolute;top:-2px;right:-3px;min-width:14px;height:14px;padding:0 3px;border-radius:7px;background:var(--bt-accent);color:var(--bt-accent-ink);font-size:9px;line-height:14px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .bt-pin{flex:none;display:inline-flex;color:var(--bt-ink-3)}
 .bt-rail .bt-row{position:relative}
 .bt-rail .bt-pin{position:absolute;top:1px;left:calc(50% + 14px)}
@@ -1346,7 +1887,7 @@ export const SIDEBAR_CSS = `
 /* .bt-agent-sub-in clips for the expand animation and the rows touch its edges, so the ring goes inside. */
 .bt-agent-sub-row:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
 .bt-agent-sub-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt-agent-sub-time{flex:none;font-size:11px;color:var(--bt-ink-3)}
+.bt-agent-sub-time{flex:none;font-size:12.5px;color:var(--bt-ink-2);font-variant-numeric:tabular-nums}
 .bt-agent-new{color:var(--bt-ink-3)}
 .bt-agent-new svg{width:14px;height:14px;flex:none}
 .bt-agent-edit{padding:3px 10px 3px 4px}
@@ -1360,13 +1901,20 @@ export const SIDEBAR_CSS = `
 .bt-sec-ungrouped{display:flex;flex-direction:column;gap:3px;border-radius:10px;transition:min-height .14s ease,background-color .14s ease,box-shadow .14s ease}
 .bt-sec-ungrouped[data-dragging=true]:empty{min-height:28px;margin-bottom:2px;box-shadow:inset 0 0 0 1px var(--bt-line-2)}
 .bt-sec-ungrouped[data-drop=true]{background:color-mix(in srgb,var(--bt-accent) 9%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--bt-accent) 65%,transparent)}
+/* The Ungrouped header has no rename, colour or add buttons behind it, so nothing needs the
+   room those usually take: the count and the pile stay where they are on hover. */
+.bt-sec-ungrouped .bt-sec-head-wrap:is(:hover,:focus-within) .bt-sec-tail{padding-right:0}
 .bt-sec{display:flex;flex-direction:column;margin-top:6px;border-radius:12px;transition:background-color .14s ease,box-shadow .14s ease}
+/* A section in flight, and the edge the one under the pointer would take it. */
+.bt-sec[data-sec-dragging=true]{opacity:.55}
+.bt-sec[data-sec-drop=before]{box-shadow:inset 0 2px 0 var(--bt-accent)}
+.bt-sec[data-sec-drop=after]{box-shadow:inset 0 -2px 0 var(--bt-accent)}
 .bt-sec[data-drop=true]{background:color-mix(in srgb,var(--bt-accent) 9%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--bt-accent) 65%,transparent)}
 .bt-sec-head-wrap{position:relative;display:flex;align-items:center}
 .bt-sec-head{display:flex;align-items:center;gap:6px;height:30px;padding:0 8px 0 6px;border:0;border-radius:8px;background:transparent;color:var(--bt-ink-2);font-family:var(--bt-font);font-size:12px;line-height:16px;font-weight:600;cursor:pointer;width:100%;text-align:left;transition:background-color .12s ease,color .12s ease}
 .bt-sec-head-wrap:hover .bt-sec-head{background:var(--bt-hover);color:var(--bt-ink)}
 .bt-sec-head:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
-.bt-sec-chev{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex:none;color:var(--bt-ink-3);transition:transform ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing},color .12s ease}
+.bt-sec-chev{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex:none;color:var(--bt-ink-3);transition:transform ${FOLD_MS}ms ease-out,color .12s ease}
 .bt-sec-head-wrap:hover .bt-sec-chev{color:var(--bt-ink-2)}
 .bt-sec[data-collapsed=false] .bt-sec-chev{transform:rotate(90deg)}
 .bt-sec-chev svg{width:12px;height:12px}
@@ -1395,9 +1943,9 @@ export const SIDEBAR_CSS = `
 .bt-sec-act svg{width:13px;height:13px}
 .bt-sec-edit{display:flex;align-items:center;height:30px;padding:0 4px}
 .bt-sec-edit input{width:100%;height:24px;padding:0 8px;border:0;border-radius:6px;background:var(--bt-card);color:var(--bt-ink);font:inherit;font-size:12px;line-height:16px;font-weight:600;outline:none;box-shadow:inset 0 0 0 1.5px var(--bt-accent)}
-.bt-sec-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
+.bt-sec-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows ${FOLD_MS}ms ease-out}
 .bt-sec[data-collapsed=true] .bt-sec-body{grid-template-rows:0fr}
-.bt-sec-body-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;position:relative}
+.bt-sec-body-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;position:relative;contain:layout paint}
 .bt-sec[data-collapsed=false] .bt-sec-body-in{padding-top:2px}
 .bt-sec[data-collapsed=false]:hover .bt-sec-body-in::before{content:'';position:absolute;left:10px;top:6px;bottom:6px;width:1.5px;border-radius:999px;background:var(--bt-line-2);opacity:.55;pointer-events:none}
 .bt-rail-sec{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}

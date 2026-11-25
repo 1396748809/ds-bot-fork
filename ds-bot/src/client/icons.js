@@ -40,7 +40,7 @@ export function CloseIcon() {
 // button reads as one before anyone hovers it. The plate-to-square ratio is what the
 // control is read by, so both are adjustable: a narrow square suits a small glyph, a
 // wider one a tighter plate.
-export const StopIcon = ({ size = 14, inset = 5 } = {}) => h('svg', { width: size, height: size, viewBox: '0 0 20 20', 'aria-hidden': true }, h('rect', { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx: 2.5, fill: 'currentColor' }))
+export const StopIcon = ({ size = 14, inset = 5, rx = 2.5 } = {}) => h('svg', { width: size, height: size, viewBox: '0 0 20 20', 'aria-hidden': true }, h('rect', { x: inset, y: inset, width: 20 - inset * 2, height: 20 - inset * 2, rx, fill: 'currentColor' }))
 
 export const ChevronLeftIcon = () => h('svg', { width: 16, height: 16, viewBox: '0 0 20 20', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }, h('path', { d: 'M12.5 4.5L7 10l5.5 5.5' }))
 export const ChevronRightIcon = () => h('svg', { width: 14, height: 14, viewBox: '0 0 20 20', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }, h('path', { d: 'M7.5 4.5L13 10l-5.5 5.5' }))
@@ -127,4 +127,6 @@ export const ChatsIcon = lineIcon(['M3.5 5.5A1.5 1.5 0 0 1 5 4h7a1.5 1.5 0 0 1 1
 export const ImIcon = lineIcon(['M6.5 3.5h7A1.5 1.5 0 0 1 15 5v10a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 5 15V5a1.5 1.5 0 0 1 1.5-1.5z', 'M8 15.8h4', 'M8 6.5h4A1 1 0 0 1 13 7.5v2a1 1 0 0 1-1 1h-2.5L8 12v-5.5A1 1 0 0 1 8 6.5z'])
 // Stacked lines with a running start: queued messages.
 export const QueueIcon = lineIcon(['M4 6h12', 'M4 10h12', 'M4 14h8', 'M14 12.5l2 1.5-2 1.5'])
+// A panel lifting off into a window of its own: an outlined frame with an arrow leaving it.
+export const PopoutIcon = lineIcon(['M11.5 3.5h5v5', 'M16.5 3.5 9.5 10.5', 'M8.5 5.5H5A1.5 1.5 0 0 0 3.5 7v8A1.5 1.5 0 0 0 5 16.5h8A1.5 1.5 0 0 0 14.5 15v-3.5'])
 export const SETTINGS_ICONS = { general: GearIcon, bots: PeopleIcon, groups: ChatsIcon, im: ImIcon, usage: GaugeIcon }

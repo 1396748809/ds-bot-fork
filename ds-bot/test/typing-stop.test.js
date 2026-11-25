@@ -90,14 +90,15 @@ test('the chat row draws no stop where the host has no stop-chat', () => {
   assert.equal(ChatStop({ bot, actions: {} }), null)
 })
 
-// The square has to fill most of the plate: a small square on a wide pale disc reads as a
-// dot, not as stop. The plate was tightened and the square widened for exactly that.
-test('the square fills most of a tight plate', () => {
+// The square keeps air around it inside the plate: a solid block that nearly fills the disc
+// reads as a blot rather than as a stop. The plate stays 23px and the square sits at nine.
+test('the square sits inside its plate with air around it', () => {
   const tree = TypingStop({ bot, roomId: 'room-1', actions: { stopMemberWork: () => Promise.resolve() } })
   const [glyph] = find(tree, node => node.type === 'svg')
   const [square] = find(tree, node => node.type === 'rect')
   assert.equal(glyph.props.width, 20, 'the glyph is drawn 20px wide')
-  assert.equal(square.props.width, 13, 'the square is 13 of those 20 units')
-  assert.ok(square.props.width / 20 > 0.6, 'the square covers more than three fifths of the glyph')
+  assert.equal(square.props.width, 9, 'the square is 9 of those 20 units')
+  assert.ok(square.props.width / 23 < 0.42, 'the solid part stays under half the plate')
+  assert.ok(square.props.rx < 2.5, 'and its corners stay square enough to read as a stop')
   assert.match(TYPING_STOP_CSS, /\.bt-typing-stop\{[^}]*width:23px/, 'the plate itself stays tight')
 })

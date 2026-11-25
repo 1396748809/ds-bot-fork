@@ -226,7 +226,15 @@ export function UserMessageCell({ node, sessionId, useRoster, useWork, actions, 
     setToolsOpen(value => !value)
   }
   const fold = { data, text, shown, folded, control, onClick: tapTools }
-  return h('div', { ref: row, className: 'bt-umsg', 'data-steering': steering || undefined },
+  return h('div', {
+    ref: row, className: 'bt-umsg', 'data-steering': steering || undefined,
+    // The user's own line offers the same hand-on: copy it, or send it to another Bot.
+    onContextMenu: (event) => {
+      if (typeof actions.openMenu !== 'function' || text === '') return
+      event.preventDefault()
+      actions.openMenu({ kind: 'message', text, from: '', x: event.clientX, y: event.clientY })
+    },
+  },
     h('div', { className: 'bt-ustack' },
       prepared === undefined
         ? h(ProjectedContent, { ...fold, roster, sessionId, actions, renderMessageImages, openFile, openSkill })

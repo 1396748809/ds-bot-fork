@@ -1,6 +1,6 @@
 import { createElement as h, useRef, useState } from 'react'
 import { FishLogo } from './dsh-primitives.js'
-import { PlusIcon, PeopleIcon, ArrowUpIcon } from './icons.js'
+import { PlusIcon, PeopleIcon, ArrowUpIcon, CheckIcon } from './icons.js'
 import { AdminStar, BotMark } from './mark.js'
 import { useEscape } from './overlay-hooks.js'
 import { CreateBot } from './create-bot.js'
@@ -13,6 +13,9 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   const [query, setQuery] = useState('')
   const [picked, setPicked] = useState([])
   const [group, setGroup] = useState(mode === 'group')
+  // The list's own entry for the team to-do file: the field above becomes a one-line
+  // prompt, and what is typed there is written through the host like every other item.
+  const [todo, setTodo] = useState(false)
   // A new group chat picks its admin first, then the other members.
   const [admin, setAdmin] = useState(null)
   const [message, setMessage] = useState('')
@@ -29,7 +32,7 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   const close = () => actions.closeOverlay()
   useEscape(close)
   const wanted = query.trim().toLowerCase()
-  const matches = roster.bots.filter(bot => !picked.includes(bot.id) && bot.id !== admin && (wanted === '' || bot.name.toLowerCase().includes(wanted) || (bot.role ?? '').toLowerCase().includes(wanted)))
+  const matches = todo ? [] : roster.bots.filter(bot => !picked.includes(bot.id) && bot.id !== admin && (wanted === '' || bot.name.toLowerCase().includes(wanted) || (bot.role ?? '').toLowerCase().includes(wanted)))
   const choosingAdmin = group && admin === null
   const exact = roster.bots.some(bot => bot.name.toLowerCase() === wanted)
   const pickedBots = picked.map(id => roster.byId[id]).filter(Boolean)
@@ -66,6 +69,15 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
     setError('')
     setDraft({ name: query.trim() !== '' && !exact ? query.trim() : '', fromList: true, sectionId })
   }
+  // A to-do typed here is the user's own: it lands in the same file the Bots write to, so
+  // the sidebar shows it without waiting for its next poll.
+  const addTodo = () => run(async () => {
+    const text = query.trim()
+    if (text === '' || typeof actions.teamTodoAdd !== 'function') return
+    await actions.teamTodoAdd(text)
+    if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') window.dispatchEvent(new Event('bt-todo-changed'))
+    close()
+  })
   // Close first: closing the new-chat pane keeps the details panel, while closing
   // nothing would clear it.
   const created = (bot) => {
@@ -84,7 +96,9 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
     close()
   }
   const createGroup = () => run(makeGroup)
-  const sendMessage = () => run(async () => {
+  const sendMessage = () => {
+    if (todo) { addTodo(); return }
+    return run(async () => {
     const text = draftText().trim()
     if (group && admin !== null) { await makeGroup(); return }
     if (text === '' || picked.length === 0) return
@@ -99,9 +113,16 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
     await actions.send(room.id, text)
     actions.openSession(room.id)
     close()
-  })
+    })
+  }
   const options = []
-  if (!group && picked.length === 0 && mode !== 'search' && wanted === '') {
+  if (!group && picked.length === 0 && mode !== 'search' && wanted === '' && !todo) {
+    // The team to-do list, written to by Bots and, from here, by the user: same file, so
+    // the item shows up in the sidebar rather than in a chat. It leads the menu: it is the
+    // one entry that leaves no conversation behind.
+    if (typeof actions.teamTodoAdd === 'function') {
+      options.push({ key: 'todo', icon: h(CheckIcon), label: t('Add to-do'), run: () => { setTodo(true); setQuery(''); setCursor(0); inputRef.current?.focus() } })
+    }
     options.push({ key: 'new', icon: h(PlusIcon), label: t('Create new Bot'), run: createBot })
     options.push({ key: 'group', icon: h(PeopleIcon), label: t('Create group chat'), run: () => { setGroup(true); setCursor(0); inputRef.current?.focus() } })
     // A team holds at most one DSH Agent; the entry exists only while there is none.
@@ -112,7 +133,7 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   for (const bot of matches) {
     options.push({ key: bot.id, bot, label: bot.name, hint: choosingAdmin ? t('Make admin') : group || picked.length > 0 ? t('Add to group chat') : undefined, run: () => openBot(bot) })
   }
-  if (wanted !== '' && !exact && mode !== 'search') options.push({ key: 'create', icon: h(PlusIcon), label: t('Create new Bot “{name}”', { name: query.trim() }), run: createBot })
+  if (wanted !== '' && !exact && mode !== 'search' && !todo) options.push({ key: 'create', icon: h(PlusIcon), label: t('Create new Bot “{name}”', { name: query.trim() }), run: createBot })
   const active = Math.min(cursor, Math.max(options.length - 1, 0))
   const listed = options.map(option => option.key).join('\n')
   const glide = useGlide(`${active}\n${listed}`, { axis: 'y', ...QUICK_EDGES })
@@ -129,12 +150,20 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
   }
   const adminBot = admin === null ? undefined : roster.byId[admin]
   const recipients = adminBot ? [adminBot, ...pickedBots] : pickedBots
-  const placeholder = recipients.length > 0 ? t('Message {name}', { name: recipients.map(bot => bot.name).join(t(' and ')) }) : t('Message Bot')
+  const placeholder = todo ? t('Type a to-do and press Enter') : recipients.length > 0 ? t('Message {name}', { name: recipients.map(bot => bot.name).join(t(' and ')) }) : t('Message Bot')
   const unpick = () => {
     if (picked.length > 0) setPicked(current => current.slice(0, -1))
     else if (admin !== null) setAdmin(null)
   }
-  return h('div', { className: 'bt-pane', style: { left: paneLeft } },
+  // The pane's own background is a way out: the empty room beside the list, under it, and
+  // the gap above the composer all close it, so the × is not the only exit. Anything the
+  // user can act on — the recipient bar, the list, the paste dock, the composer — is not.
+  const blankPress = (event) => {
+    const node = event?.target
+    if (node && typeof node.closest === 'function' && node.closest('.bt-to, .bt-drop, .bt-nc-compose, .bt-paste-dock')) return
+    close()
+  }
+  return h('div', { className: 'bt-pane', style: { left: paneLeft }, onMouseDown: blankPress },
     h('div', { className: 'bt-newchat', role: 'dialog', 'aria-label': mode === 'search' ? t('Search') : t('New chat') },
       h('div', { className: 'bt-to-wrap' },
         h('div', { className: 'bt-to' },
@@ -148,16 +177,20 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
             h('button', { type: 'button', 'aria-label': t('Remove {name}', { name: bot.name }), onClick: () => setPicked(current => current.filter(id => id !== bot.id)) }, '×'))),
           h('input', {
             ref: inputRef, autoFocus: true, value: query, 'aria-label': t('Recipient'),
-            placeholder: mode === 'search' ? t('Search Bots…') : choosingAdmin ? t('Choose the group admin') : group ? t('Who to chat with…') : t('Start a chat with…'),
+            placeholder: todo ? t('Type a to-do and press Enter') : mode === 'search' ? t('Search Bots…') : choosingAdmin ? t('Choose the group admin') : group ? t('Who to chat with…') : t('Start a chat with…'),
             onChange: (event) => { setQuery(event.target.value); setCursor(0) },
             onKeyDown: (event) => {
               if (event.nativeEvent.isComposing || event.keyCode === 229) return
               if (event.key === 'ArrowDown') { event.preventDefault(); setCursor(Math.min(active + 1, options.length - 1)) }
               else if (event.key === 'ArrowUp') { event.preventDefault(); setCursor(Math.max(active - 1, 0)) }
+              else if (event.key === 'Enter' && todo) { event.preventDefault(); addTodo() }
               else if (event.key === 'Enter' && options[active]) { event.preventDefault(); options[active].run() }
-              else if (event.key === 'Backspace' && query === '') unpick()
+              else if (event.key === 'Backspace' && query === '') { if (todo) setTodo(false); else unpick() }
             },
           }),
+          todo ? h('button', {
+            type: 'button', className: 'bt-send bt-to-create', disabled: busy || query.trim() === '', onClick: addTodo,
+          }, t('Add')) : null,
           group && admin !== null ? h('button', {
             type: 'button', className: 'bt-send bt-to-create', disabled: busy || picked.length === 0,
             title: picked.length === 0 ? t('Add at least one more Bot') : undefined, onClick: createGroup,
@@ -165,7 +198,7 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
           h('button', { type: 'button', className: 'bt-x', 'aria-label': t('Close new chat'), onClick: close }, '×')),
         h('div', { ref: drop, className: 'bt-drop' }, h('div', { ref: glide.box, role: 'listbox', 'aria-label': t('Recipients'), className: 'bt-drop-list' },
         h('span', { ref: glide.thumb, className: 'bt-thumb', 'aria-hidden': true }),
-        options.length === 0 ? h('div', { className: 'bt-hint' }, mode === 'search' ? t('No Bots match') : t('Type a name to create a Bot'))
+        options.length === 0 ? h('div', { className: 'bt-hint' }, todo ? t('Type a to-do and press Enter') : mode === 'search' ? t('No Bots match') : t('Type a name to create a Bot'))
           : options.map((option, index) => h('button', {
               key: option.key, type: 'button', role: 'option', className: 'bt-option', 'aria-selected': index === active, 'data-flip': option.key,
               onMouseEnter: () => setCursor(index), onClick: option.run,
@@ -175,7 +208,7 @@ export function NewChat({ mode, sectionId = null, paneLeft, roster, actions }) {
             option.hint && index === active ? h('span', { className: 'bt-option-hint' }, option.hint) : null))))),
       h('div', { className: 'bt-nc-spacer' }),
       error ? h('div', { className: 'bt-error' }, error) : null,
-      h('div', { className: 'bt-nc-compose' },
+      todo ? null : h('div', { className: 'bt-nc-compose' },
         pasted === null ? null : h('div', { className: 'bt-paste-dock' }, h(PasteCard, {
           text: pasted.text,
           onPutBack: () => { setMessage(current => `${current}${pasted.text}`); setPasted(null); messageRef.current?.focus() },

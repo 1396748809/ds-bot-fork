@@ -11,7 +11,9 @@ import { lookOf } from './mark.js'
 import { TeamSidebar, YouAvatar, AccountLauncher, FooterAccount, BrandMark, BrandName, BotReturn, SIDEBAR_CSS, RETURN_CSS, holdShellShortcuts } from './sidebar.js'
 import { installSettingsShell, SETTINGS_SHELL_CSS } from './settings-shell.js'
 import { frameLayout, readSidebar, writeSidebar, toggledPref, DSH_NARROW } from './frame-layout.js'
+import { grownBy, restoreWindow } from './window-grow.js'
 import { installFrameWatch } from './frame-watch.js'
+
 import { HeaderPill } from './header.js'
 import { watchAgentTerminals } from './agent-terminals.js'
 import { ComposerPlus, ComposerVoice, DraftKeeper, menuIcons } from './composer.js'
@@ -33,11 +35,13 @@ import { FailureCell, TURN_ERROR_CSS } from './turn-error.js'
 import { Overlays } from './overlays.js'
 import { createBotBrowsers, serveBrowserReads } from './bot-browsers.js'
 import { BROWSER_CSS } from './browser-pane.js'
+import { PANEL_WINDOW_CSS, panelWindowRequest } from './panel-window.js'
 import { SECRET_CSS, SecretDock } from './secret-card.js'
 import { ConnectorDock, MailDock, CONNECTOR_CSS } from './connectors.js'
 import { CONNECTORS_PAGE_CSS } from './connectors-page.js'
 import { PROVIDERS_CSS } from './providers-page.js'
 import { LearningDock, LearningTurnTail, PendingLearning, LEARNING_CSS } from './learning-card.js'
+import { createNavHistory } from './nav-history.js'
 import { MODEL_CSS, ModelChoiceDock, DeepSeekSignIn } from './model-menu.js'
 import { ReadOnlyDock, READ_ONLY_CSS } from './read-only-dock.js'
 import { BOT_SETTINGS_CSS } from './bot-settings.js'
@@ -594,9 +598,80 @@ export function apply(ctx) {
       })
     }
   }
+  // What a side-button press walks back through. Only what covers the conversation is a
+  // layer; the details panel counts last, since closing it uncovers the same conversation
+  // the panel is about.
+  const topLayer = () => {
+    const state = ui.getSnapshot()
+    if (state.voice) return { kind: 'voice', id: state.voice }
+    if (state.taskDeck) return { kind: 'taskDeck', targetId: state.taskDeck.targetId, taskId: state.taskDeck.taskId }
+    if (state.palette) return { kind: 'palette', query: state.palette.query }
+    if (state.groupSearch) return { kind: 'groupSearch', roomId: state.groupSearch.roomId }
+    if (state.newChat) return { kind: 'newChat', mode: state.newChat, sectionId: state.newChatSection ?? null }
+    if (state.exchange) return { kind: 'exchange', pair: state.exchange }
+    if (state.menu) return { kind: 'menu' }
+    if (state.settings) return { kind: 'settings', page: state.settings.page, id: state.settings.id }
+    if (state.memory) return { kind: 'memory', id: state.memory }
+    // A panel folded away for lack of room covers nothing, so it is not a step back.
+    if (state.details && state.panelYield !== true) return { kind: 'details', id: state.details, tab: state.tab, view: state.view }
+    return null
+  }
+  const closeLayer = (place) => {
+    switch (place.kind) {
+      case 'voice': return actions.closeVoice()
+      case 'taskDeck': return actions.closeTaskDeck()
+      case 'palette': return actions.closePalette()
+      case 'groupSearch': return actions.closeGroupSearch()
+      case 'newChat':
+      case 'exchange':
+      case 'menu': return actions.closeOverlay()
+      case 'settings': return actions.closeSettings()
+      case 'memory': return actions.closeMemory()
+      case 'details': return ui.set(state => (state.details ? { ...state, details: null, view: 'details', renaming: false, tab: null } : state))
+      default: return undefined
+    }
+  }
+  const openLayer = (place) => {
+    switch (place.kind) {
+      case 'voice': return actions.openVoice(place.id)
+      case 'taskDeck': return actions.openTaskDeck(place.targetId, place.taskId)
+      case 'palette': return actions.openPalette(place.query)
+      case 'groupSearch': return actions.openGroupSearch(place.roomId)
+      case 'newChat': return actions.openNewChat(place.mode, place.sectionId)
+      case 'exchange': return actions.openExchange(...place.pair)
+      case 'settings': return actions.openSettings(place.page, place.id)
+      case 'memory': return actions.openMemory(place.id)
+      case 'details': return actions.showDetails(place.id, place.tab)
+      default: return undefined
+    }
+  }
+  // Built on first use, so the actions it reaches back into are already there.
+  let nav = null
+  const navHistory = () => {
+    nav ??= createNavHistory({
+      current: mainView,
+      open: id => actions.openSession(id),
+      layer: topLayer,
+      closeLayer,
+      openLayer,
+    })
+    return nav
+  }
+  // The mouse's side buttons are back and forward. Chromium would spend them on the
+  // window's history, which this surface never builds — it never changes the URL — so the
+  // press is spent on the interface's own steps instead.
+  ctx.effect(() => {
+    const onPress = (event) => {
+      if (event.button !== 3 && event.button !== 4) return
+      event.preventDefault()
+      if (event.button === 3) navHistory().back()
+      else navHistory().forward()
+    }
+    window.addEventListener('mousedown', onPress, true)
+    return () => window.removeEventListener('mousedown', onPress, true)
+  }, 'ds-bot: side-button navigation')
   const actions = {
-    ...teamActions({ call, after, partFor, roster, ui, live, cards, heldCards, turnClock, panelFolded }),
-    // The files a group row names open DSH's own review tab for that turn. The tab reads
+    ...teamActions({ call, after, partFor, roster, ui, live, cards, heldCards, turnClock, panelFolded }),    // The files a group row names open DSH's own review tab for that turn. The tab reads
     // the changes of the Session the shell shows, so that Session is opened first; the same
     // call then retries until its right column is mounted. This jump is the one place a
     // different place for the review (in the group, or a review that carries its Session)
@@ -621,6 +696,7 @@ export function apply(ctx) {
       ui.set(state => (state.newChat || state.exchange || state.menu || state.palette || state.groupSearch ? { ...state, newChat: null, exchange: null, menu: null, palette: null, groupSearch: null } : state))
       setPlain(false)
       const target = partFor(id)
+      navHistory().remember(target)
       show(target)
     },
     // The conversation replacements withdraw for a plain Session; set the surface
@@ -628,6 +704,7 @@ export function apply(ctx) {
     openAgentSession: (sessionId) => {
       ui.set(state => ({ ...state, newChat: null, exchange: null, menu: null, palette: null, groupSearch: null, details: null, view: 'details', renaming: false, tab: null, task: null, taskDeck: null }))
       setPlain(true)
+      navHistory().remember(sessionId)
       show(sessionId)
     },
     addAgent: async () => {
@@ -1192,20 +1269,41 @@ export function apply(ctx) {
   // their flags.
   const installFrameSync = () => {
     let lastDetails = ui.getSnapshot().details
+    let syncing = false
     const sync = () => {
-      const s = ui.getSnapshot()
-      const f = frame.getSnapshot()
-      // Only a fresh open counts: a folded panel that just follows the chat to
-      // another subject is not the user asking to see it — the openers in
-      // team-actions carry the yield themselves.
-      const opened = s.details !== null && lastDetails === null
-      lastDetails = s.details
-      const layout = frameLayout({ viewport: f.viewport, sidebarWidth: f.sidebarWidth, pref: sidebarPref.getSnapshot(), drawer: s.leftDrawer === true, panel: s.details === null ? null : { view: s.view, yielded: false } })
-      if (s.details === null) {
-        if (s.panelYield) actions.setPanelYield(false)
-      } else if (!s.panelYield && opened && layout.panel === 'folded') actions.setPanelYield(true)
-      else if (s.panelYield && layout.panel === 'shown') actions.setPanelYield(false)
-      if (s.leftDrawer === true && layout.left !== 'drawer') actions.setLeftDrawer(false)
+      // Reading the frame back here would call this again; one pass is all it takes.
+      if (syncing) return
+      syncing = true
+      try {
+        const s = ui.getSnapshot()
+        const f = frame.getSnapshot()
+        // Only a fresh open counts: a folded panel that just follows the chat to
+        // another subject is not the user asking to see it — the openers in
+        // team-actions carry the yield themselves.
+        const opened = s.details !== null && lastDetails === null
+        lastDetails = s.details
+        // A panel takes its room from the window, not from the conversation: a fresh open widens
+        // the window by the panel's width, so the chat beside it keeps the width it had. Where the
+        // page may not resize the window, or the screen has no room, nothing is gained and the
+        // rules below squeeze and fold exactly as they did.
+        let viewport = f.viewport
+        // The panel takes its room from the conversation, never from the window. Widening the
+        // window moves its right edge, and everything anchored there moves with it — the
+        // native caption buttons, the top strip's right end — which reads as the whole frame
+        // twitching, on the way out as much as on the way in. The panel's margin lands at once
+        // instead (frame-watch.js), so the conversation re-lays out once and
+        // nothing else on screen moves. The room this build gives back is any left from an
+        // earlier grow.
+        if (grownBy() > 0) restoreWindow()
+        const layout = frameLayout({ viewport, sidebarWidth: f.sidebarWidth, pref: sidebarPref.getSnapshot(), drawer: s.leftDrawer === true, panel: s.details === null ? null : { view: s.view, yielded: false } })
+        if (s.details === null) {
+          if (s.panelYield) actions.setPanelYield(false)
+        } else if (!s.panelYield && opened && layout.panel === 'folded') actions.setPanelYield(true)
+        else if (s.panelYield && layout.panel === 'shown' && grownBy() === 0) actions.setPanelYield(false)
+        if (s.leftDrawer === true && layout.left !== 'drawer') actions.setLeftDrawer(false)
+      } finally {
+        syncing = false
+      }
     }
     const offs = [ui.subscribe(sync), frame.subscribe(sync), sidebarPref.subscribe(sync)]
     return () => { for (const off of offs) off() }
@@ -1366,6 +1464,23 @@ export function apply(ctx) {
   // The return button belongs to neither group: it renders only in Agent mode.
   ctx.effect(() => installCompiledStyles(RETURN_TOKENS + RETURN_CSS, 'return'), 'ds-bot: return styles')
   ctx.effect(() => installCompiledStyles(COMPUTER_CSS, 'computer'), 'ds-bot: computer styles')
+  ctx.effect(() => installCompiledStyles(PANEL_WINDOW_CSS, 'panel-window'), 'ds-bot: panel window styles')
+  // A panel window (main.mjs) carries one conversation's panel and nothing else: this page
+  // marks itself for that layout and asks for the details its query names. The panel yields
+  // the room it would take, so in a window this narrow it covers the frame instead of folding.
+  ctx.effect(() => {
+    const request = panelWindowRequest()
+    if (request === null) return undefined
+    document.documentElement.dataset.btPanelWindow = ''
+    try {
+      actions.setPanelYield(true)
+      if (request.session !== null) {
+        try { actions.openSession(request.session) } catch { /* the session may already be the main view */ }
+        actions.showDetails(request.session, request.tab ?? null)
+      }
+    } catch (error) { console.error(error) }
+    return () => { delete document.documentElement.dataset.btPanelWindow }
+  }, 'ds-bot: panel window')
   shadow('sidebar.footer.action', { id: 'bot-return', order: -300, inject: face }, BotReturn)
 
   ctx.effect(() => {

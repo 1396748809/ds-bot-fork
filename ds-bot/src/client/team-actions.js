@@ -344,6 +344,14 @@ export function teamActions({ call, after, partFor, roster, ui, live, cards, hel
     runStats: botId => call('run-stats', { botId }),
     // The team's one to-do file, which any Bot appends to with the team-todo skill.
     teamTodo: () => call('team-todo', {}).catch(() => null),
+    // Ticking one off from the sidebar: the host writes the same file the skill writes.
+    teamTodoCheck: (id, done) => call('team-todo-check', { id, done: done !== false }),
+    // Taking every ticked item out of the list in one click.
+    teamTodoClear: () => call('team-todo-clear', {}),
+    // Taking one ticked item out, from that row's own menu.
+    teamTodoClearOne: id => call('team-todo-clear-one', { id }),
+    // An item of the user's own, added from the sidebar.
+    teamTodoAdd: text => call('team-todo-add', { text }),
     // `summarize` starts a summary when the entries changed; `regenerate` always does.
     memoryView: (id, flags = {}) => call('memory-view', { ...memoryOf(id), ...flags }),
     memoryAsk: (id, text) => call('memory-ask', { ...memoryOf(id), text }),

@@ -18,9 +18,14 @@ const { outputFiles } = await build({
   bundle: true, format: 'cjs', platform: 'browser', write: false, logLevel: 'silent',
   external: ['react', 'react-dom', '@deepseek-ai/dsh-client-ui-primitives'],
 })
+// State is kept between two renders of the same dock, so a press can be followed by the
+// tree it produces; anything else resets, which is what every other test here expects.
+let slots = []
+let cursor = 0
 const react = {
   createElement: (type, props, ...children) => ({ type, props: { ...props, children } }), Fragment: Symbol('Fragment'),
-  useEffect() {}, useLayoutEffect() {}, useState: initial => [initial, () => {}],
+  useEffect() {}, useLayoutEffect() {},
+  useState: initial => { const at = cursor++; if (!(at in slots)) slots[at] = initial; return [slots[at], value => { slots[at] = value }] },
   useMemo: make => make(), useRef: current => ({ current }), useId: () => 'id',
 }
 const dom = new JSDOM('<!doctype html><body></body>')
@@ -35,13 +40,17 @@ const { QueueDock } = module.exports
 
 const row = (id, kind, text) => ({ id, source: { kind }, content: [{ type: 'text', text }] })
 
-const dock = (nextTurn, { running = false, pendingSubmissions = [] } = {}) => QueueDock({
-  useSession: selector => selector({ running, pendingSubmissions, subagent: null }),
-  useProjection: () => ({ 'next-turn': nextTurn }),
-  updateQueue: async () => ({ ok: true }),
-  loadImage: async () => 'about:blank',
-  actions: { reportError: () => {} },
-})
+const dock = (nextTurn, { running = false, pendingSubmissions = [], fresh = true } = {}) => {
+  if (fresh) slots = []
+  cursor = 0
+  return QueueDock({
+    useSession: selector => selector({ running, pendingSubmissions, subagent: null }),
+    useProjection: () => ({ 'next-turn': nextTurn }),
+    updateQueue: async () => ({ ok: true }),
+    loadImage: async () => 'about:blank',
+    actions: { reportError: () => {} },
+  })
+}
 
 // The stub tree holds element objects, function components unevaluated; walk it
 // for one class or text leaf.
@@ -104,4 +113,61 @@ test('the count header carries the same note when several rows are parked', () =
   assert.equal(rows.length, 0)
   assert.ok(texts.includes('2 queued messages'))
   assert.ok(texts.includes('Waits for this turn to end'))
+})
+
+// Unfolding the queue must not take height in the composer stack, or the conversation is
+// pushed up under it: a folded list hangs above the header as its own layer instead.
+test('an unfolded queue is marked to hang over the conversation, a single row is not', () => {
+  const many = byClass(dock([row('u1', 'user', 'a'), row('u2', 'user', 'b')], { running: true }), 'bt-queue-panel')[0]
+  assert.equal(many.props['data-floating'], 'true', 'several rows open as a layer')
+  const one = byClass(dock([row('u1', 'user', 'a')], { running: true }), 'bt-queue-panel')[0]
+  assert.equal(one.props['data-floating'], undefined, 'a single row stays part of the dock')
+})
+
+// The tree walker above, narrowed to elements carrying one aria-label.
+const byLabel = (node, label, found = []) => {
+  if (node === null || node === undefined || typeof node === 'boolean') return found
+  if (typeof node === 'string' || typeof node === 'number') return found
+  if (Array.isArray(node)) { for (const item of node) byLabel(item, label, found); return found }
+  if (typeof node !== 'object') return found
+  if (typeof node.type === 'function') { byLabel(node.type(node.props), label, found); return found }
+  if (node.props?.['aria-label'] === label) found.push(node)
+  byLabel(node.props?.children, label, found)
+  return found
+}
+
+// The same walk, narrowed to one class name.
+const byClass = (node, name, found = []) => {
+  if (node === null || node === undefined || typeof node === 'boolean') return found
+  if (typeof node === 'string' || typeof node === 'number') return found
+  if (Array.isArray(node)) { for (const item of node) byClass(item, name, found); return found }
+  if (typeof node !== 'object') return found
+  if (typeof node.type === 'function') { byClass(node.type(node.props), name, found); return found }
+  if (typeof node.props?.className === 'string' && node.props.className.split(' ').includes(name)) found.push(node)
+  byClass(node.props?.children, name, found)
+  return found
+}
+
+// The host takes text-only queue edits ("queue edits accept text content only"), so a line
+// carrying a picture can still be corrected — its words are what get saved — but the row says
+// what it costs before the user commits.
+test('a queued message that carries a picture still opens its editor, and warns', () => {
+  const picture = { type: 'image', attachment: { name: 'a.png' } }
+  const parked = [{ id: 'u1', source: { kind: 'user' }, content: [{ type: 'text', text: '看图' }, picture] }]
+  const [edit] = byLabel(dock(parked), 'Edit queued message')
+  assert.ok(edit, 'the pencil is drawn')
+  assert.equal(edit.props.disabled, false, 'and it can be pressed while the line is parked')
+  assert.equal(edit.props.title, 'Saving keeps the text only — the attachment goes')
+  edit.props.onClick()
+  const opened = dock(parked, { fresh: false })
+  const [field] = byClass(opened, 'bt-queue-edit')
+  assert.ok(field, 'the editor opens over the row')
+  assert.equal(field.props.value, '看图', 'it starts from the words the line carries')
+  assert.equal(byClass(opened, 'bt-queue-edit-warn').length, 1, 'and it says the picture will go')
+})
+
+test('a plain text row still offers its pencil', () => {
+  const [edit] = byLabel(dock([row('u1', 'user', '只有文字')]), 'Edit queued message')
+  assert.equal(edit.props.disabled, false)
+  assert.equal(edit.props.title, 'Edit queued message', 'nothing is lost, so nothing is warned about')
 })

@@ -3,6 +3,8 @@
 // margins (our own column on the left, the Bot panel on the right).
 import { installStyles } from './styles.js'
 import { nextCollapsedWidth, trackRoom } from './frame-layout.js'
+import { growInFlight, pendingGrow } from './window-grow.js'
+import { createRoomHold } from './room-hold.js'
 
 export const sidebarTrackWidth = () => {
   const column = typeof document === 'undefined' ? null : document.querySelector('[class*="_sidebarCol"]')
@@ -54,11 +56,34 @@ const margin = (side, width, style) => {
   else style.removeProperty('width')
 }
 let roomHold = 0
+// A margin a panel asks for while the window is still answering its resize is held until the read
+// that first sees the new width writes it in that frame (see room-hold.js).
+const rightHold = createRoomHold({
+  write: (width) => { margin('right', width, roomRule().style) },
+  inFlight: () => growInFlight(),
+})
+// Set by installFrameWatch: keeps reading frames while a margin waits for the window, so the hold
+// is cleared even when no resize, observer or mutation ever reports one.
+let holdTick = () => {}
+let holdRaf = 0
 export const chatRoom = {
   /** The margin the Bot panel takes on the right, in px, or null for the shell's own. */
-  setRight(width) { margin('right', width, roomRule().style) },
+  setRight(width) {
+    // It lands at once, never along a spring: a margin gliding for 400 ms re-wraps every line
+    // of the conversation for its whole length, which is the twitch an open kept bringing.
+    chatRoom.hold(true)
+    if (rightHold.set(width)) { holdTick(); return }
+    chatRoom.hold(false)
+  },
   /** The margin our own left column takes while the shell sidebar is collapsed. */
   setLeft(width) { margin('left', width, roomRule().style) },
+  /** Room above the conversation for the Bot strip: padding, so the column keeps its size
+      and nothing under it overflows the window. */
+  setTop(height) {
+    const style = roomRule().style
+    if (height === null) style.removeProperty('padding-top')
+    else style.setProperty('padding-top', `${height}px`, 'important')
+  },
   /** While on, a margin change lands at once instead of gliding. */
   hold(on) {
     cancelAnimationFrame(roomHold)
@@ -77,6 +102,11 @@ export const chatRoom = {
 // shell sidebar's collapsed track width, and its collapsed flag. A resize or a
 // sidebar slide does not always come with a window event, so the track width
 // comes off a ResizeObserver and the flag off a MutationObserver.
+// The last installed reader, so a panel that just widened the window can tell the frame at once
+// instead of waiting for the shell's own resize report.
+let readFrame = () => {}
+export const readFrameNow = () => readFrame()
+
 export function installFrameWatch(frame) {
   let collapsedWidth = collapsedTrackWidth()
   let raf = 0
@@ -92,9 +122,36 @@ export function installFrameWatch(frame) {
     const width = animating ? null : sidebarTrackWidth()
     const collapsed = dshCollapsed()
     collapsedWidth = nextCollapsedWidth({ measured: width, collapsed, animating, last: collapsedWidth })
+    // A window the panel is widening by answers a frame later: laying the panel out on the old
+    // width for that frame put the chat through a squeeze and back, so the width it is about to
+    // get is counted now.
+    const measured = window.innerWidth
+    const pendingWidth = pendingGrow(measured)
+    const viewport = Math.max(0, measured + pendingWidth)
     frame.set((state) => {
-      const next = { ...state, viewport: window.innerWidth, collapsedWidth, collapsed: collapsed === true }
+      const next = { ...state, viewport, collapsedWidth, collapsed: collapsed === true }
       return state.viewport === next.viewport && state.collapsedWidth === next.collapsedWidth && state.collapsed === next.collapsed ? state : next
+    })
+    // The window caught up: the room the panel takes lands with it, in this same frame. It lands
+    // at once too — the column's margin glides over a spring (the _centerCol rule), and a glide
+    // beside a window that has already jumped re-flows every line of the conversation for its
+    // whole length, which is the twitch an open kept bringing.
+    if (pendingWidth === 0 && rightHold.waiting) {
+      chatRoom.hold(true)
+      rightHold.flush()
+      chatRoom.hold(false)
+    }
+  }
+  readFrame = read
+  // While a margin waits for the window, read every frame: the width it waits for may arrive with
+  // no event of its own to announce it.
+  holdTick = () => {
+    if (holdRaf !== 0) return
+    holdRaf = requestAnimationFrame(() => {
+      holdRaf = 0
+      if (!rightHold.waiting) return
+      read()
+      if (rightHold.waiting) holdTick()
     })
   }
   const measure = () => {
@@ -120,8 +177,12 @@ export function installFrameWatch(frame) {
   window.addEventListener('resize', schedule)
   return () => {
     cancelAnimationFrame(raf)
+    cancelAnimationFrame(holdRaf)
+    holdRaf = 0
+    holdTick = () => {}
     mutations.disconnect()
     observer?.disconnect()
     window.removeEventListener('resize', schedule)
+    readFrame = () => {}
   }
 }

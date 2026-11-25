@@ -1,4 +1,4 @@
-import { test } from 'node:test'
+﻿import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
@@ -203,6 +203,35 @@ test('message tools anchor to the bottom of a long reply in both layouts', () =>
   assert.doesNotMatch(css, /\.bt-tools\{position:absolute;top:50%;/)
 })
 
+test('the Bot strip uses a neutral selected key, breathing work light, and one name at a time', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  assert.match(css, /\.bt-topstrip-btn\[data-active=true\]\{[^}]*background:color-mix\(in srgb,var\(--bt-ink\) 9%,var\(--bt-card\)\)/)
+  assert.doesNotMatch(css, /\.bt-topstrip-btn\[data-active=true\]\{[^}]*background:var\(--bt-card\)/)
+  assert.match(css, /\.bt-topstrip-btn\[data-running=true\] \.bt-badge-working\{animation:bt-work-breathe/)
+  assert.match(css, /@keyframes bt-work-breathe\{[^}]*opacity:\.5/)
+  assert.match(css, /body:has\(\.bt-topstrip-name\) \.bt-head>\.bt-pill\{[^}]*visibility:hidden;[^}]*pointer-events:none/)
+})
+
+// The band is Firefox's own tab strip, sampled from a screenshot: flat lavender to 44% of the
+// window, then a straight warm run to peach. Pinned to the window so the picture is the same
+// whatever the column takes, and toned down for the dark theme instead of left light. The colours
+// live on the page because the band and the column's title strip are two pieces of one picture.
+test('the top band carries the Firefox tab-strip gradient, pinned to the window', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  assert.match(css, /\nbody\{--bt-strip-grad:linear-gradient\(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%\)/)
+  assert.match(css, /body\[data-ds-dark-theme\]\{--bt-strip-grad:linear-gradient\(90deg,#2b2542 0%,#2b2542 44%,#3d2925 100%\)/)
+  assert.match(css, /\.bt-topstrip\{[^}]*background-size:100vw 100%;background-attachment:fixed/)
+  // The window bar paints the same picture across the whole top edge, so the band runs on past the
+  // column and no column edge cuts it in two.
+  const strip = /\n\.bt-topbar\{([^}]*)\}/.exec(css)
+  assert.ok(strip, 'the bar paints the band')
+  assert.match(strip[1], /background-image:var\(--bt-strip-grad/)
+  assert.match(strip[1], /background-size:100vw 100%;background-attachment:fixed/)
+  assert.match(strip[1], /height:48px/, 'the same height as the band on the right')
+  assert.match(strip[1], /pointer-events:none/, 'it is a picture, not something to press')
+  assert.doesNotMatch(css, /\.bt-leftcol::before\{/, 'the column no longer paints a band of its own')
+})
+
 test('the tools toolbar keeps its own stacking context for the hover bridge', () => {
   const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
   // Without a stacking context on .bt-tools, the ::after bridge's z-index:-1
@@ -340,4 +369,140 @@ test('send and voice buttons tint background-color on hover, matching their tran
   // The transition lists the property the hover changes, so the tint animates.
   assert.match(css, /_primary"\]\{[^}]*transition:background-color \.15s ease/)
   assert.match(css, /\.bt-voice\{[^}]*;transition:background-color \.15s ease|\.bt-mic,\.bt-voice\{[^}]*transition:background-color \.15s ease/)
+})
+
+// The shell paints the window's drag band across the whole top of its frame, and this column
+// lies over it. Without a no-drag hole every press on the column's top row (switch, new
+// section, search, new) went to the band and looked dead. The column also has to stand above
+// the shell's title-bar switch (z 30), so a press there lands on the column's own switch.
+test('the left column is carved out of the window drag band and stands above the shell switch', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const punch = /html\[data-windows-titlebar\] \.bt-leftcol\{([^}]*)\}/.exec(css)
+  assert.ok(punch, 'the column punches a hole in the drag band')
+  assert.match(punch[1], /-webkit-app-region:no-drag/)
+  assert.doesNotMatch(punch[1], /-webkit-app-region:drag/)
+  const column = /\n\.bt-leftcol\{([^}]*)\}/.exec(css)
+  assert.ok(column, 'the column rule exists')
+  assert.match(column[1], /z-index:31/, 'above the shell switch at z 30')
+})
+
+// Windows ignores the alpha of the caption buttons' colour, so the app samples the surface under
+// them and fills that solid colour in behind them. A band that were only a gradient sampled as
+// transparent and left a white block in the window's corner; it therefore carries the ramp's
+// right end as an opaque background-color, which is exactly what those buttons stand on.
+test('the top band carries an opaque colour for the Windows caption buttons to match', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const band = /\n\.bt-topstrip\{([^}]*)\}/.exec(css)
+  assert.ok(band, 'the band rule exists')
+  assert.match(band[1], /background-color:var\(--bt-strip-edge\)/)
+  assert.match(band[1], /background-image:var\(--bt-strip-grad,linear-gradient\(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%\)\)/)
+  assert.match(css, /\nbody\{--bt-strip-grad:[^}]*--bt-strip-edge:#f4e3de/)
+  assert.match(css, /body\[data-ds-dark-theme\]\{[^}]*--bt-strip-edge:#3d2925/)
+})
+
+// The caption buttons' background is painted from a sampled colour, and Windows ignores its
+// alpha: a band that is only a gradient samples as nothing, which left the frame's white in the
+// corner. A hit-testable patch at the band's right end carries the ramp's end colour instead,
+// and the faces above it keep the presses.
+test('the band carries a sampled surface for the Windows caption buttons', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const tint = /\n\.bt-topstrip-tint\{([^}]*)\}/.exec(css)
+  assert.ok(tint, 'the tint rule exists')
+  assert.match(tint[1], /background-color:var\(--bt-strip-edge\)/, 'it carries the ramp end')
+  assert.match(tint[1], /pointer-events:auto/, 'it is a surface the app can sample')
+  assert.match(tint[1], /z-index:0/)
+  const src = readFileSync(new URL('../src/client/sidebar.js', import.meta.url), 'utf8')
+  assert.match(src, /className: 'bt-topstrip-tint'/, 'the band renders it')
+})
+
+// The list's edges are crisp: a mask on the scrolling list left a see-through band over the
+// first row while scrolling, which read as a hole in the column. The pinned row above keeps its
+// shadow, which is what marks the boundary now.
+test('the bot list scrolls without a mask over its edges', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const list = /\n\.bt-list\{([^}]*)\}/.exec(css)
+  assert.ok(list, 'the list rule exists')
+  assert.doesNotMatch(list[1], /mask-image/)
+  assert.doesNotMatch(list[1], /--bt-fade-top|--bt-fade-bot/)
+  const src = readFileSync(new URL('../src/client/sidebar.js', import.meta.url), 'utf8')
+  assert.doesNotMatch(src, /--bt-fade-top|--bt-fade-bot/, 'nothing sets a fade any more')
+  assert.match(src, /bt-list-pin/, 'the pinned row still takes its shadow')
+})
+
+// The column's title row is the window's, not the column's: it lives in a bar at the window's top
+// edge, so dragging the column wider or narrower never moves it, and the column starts below it.
+// It is a layer only 鈥?the band still drags the window where no control sits.
+test('the title row belongs to a window bar, and the column starts below it', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const bar = /\n\.bt-topbar\{([^}]*)\}/.exec(css)
+  assert.ok(bar, 'the bar rule exists')
+  assert.match(bar[1], /position:fixed;top:var\(--dsh-frame-chrome-top,0px\);left:0;right:0;height:48px/)
+  assert.match(bar[1], /pointer-events:none/, 'a layer, not a surface')
+  // The bar paints the band itself, so the split below never shows through it and no column edge
+  // cuts the band in two.
+  assert.match(bar[1], /background-image:var\(--bt-strip-grad/)
+  assert.match(bar[1], /background-size:100vw 100%;background-attachment:fixed/)
+  assert.match(css, /\.bt-topbar :is\(button,a,\[role=button\]\)\{pointer-events:auto;-webkit-app-region:no-drag;app-region:no-drag\}/)
+  // The column itself starts under the bar: its top edge, fill and divider all begin below the
+  // band, so the split below is only the split below.
+  assert.match(css, /\.bt-leftcol\[data-topbar\]\{top:calc\(var\(--dsh-frame-chrome-top,0px\) \+ 48px\);padding-top:7px\}/)
+  assert.match(css, /\.bt-topbar>\.bt-side-top\{[^}]*container-type:normal/, 'the row sizes itself in the bar')
+  const src = readFileSync(new URL('../src/client/sidebar.js', import.meta.url), 'utf8')
+  assert.match(src, /className: 'bt-topbar'/, 'the bar is rendered')
+  // A collapsed column takes the column alone. Tied to the column's state the bar vanished with
+  // it, repainting the whole top edge as the frame's white and shrinking the switch to the
+  // floating one, so the band now outlives the list under it.
+  assert.match(src, /const windowBar = true/, 'the bar stays when the column is collapsed')
+  assert.match(src, /hidden: mode === 'hidden' && !windowBar/, 'the floating switch only stands where the bar cannot')
+  assert.doesNotMatch(src, /const windowBar = shown !== 'hidden'/, 'nothing hands the band to the column again')
+  assert.match(src, /wideContent \? null : railTop/, 'the column keeps only what is its own')
+})
+
+// The scrollbar's gutter belongs to the column's edge, not to the middle of it: with the list
+// bleeding only the row inset, the whole 12px gutter stood a further 12px short of the edge and
+// the thumb looked like it was floating away from it.
+test('the bot list reaches the column edge, and its scrollbar hugs it', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const list = /\.bt-side:not\(\.bt-rail\)>\.bt-list\{([^}]*)\}/.exec(css)
+  assert.ok(list, 'the list rule exists')
+  assert.match(list[1], /margin-right:-24px;padding-right:12px/, 'both insets bleed, the row inset stays')
+  assert.match(list[1], /scrollbar-gutter:stable/)
+  const thumb = /\.bt-side:not\(\.bt-rail\)>\.bt-list::-webkit-scrollbar-thumb\{([^}]*)\}/.exec(css)
+  assert.ok(thumb, 'the thumb rule exists')
+  assert.match(thumb[1], /border:4px solid transparent/, 'a 4px thumb inside a 12px gutter')
+})
+
+// The panel takes its room from the window, and the window jumps: the conversation's margin must
+// land with it instead of gliding. A glide beside a window that has already moved re-flows every
+// line of the conversation for its whole spring (SPRING_SHAPE, 400 ms).
+test('room taken from the window lands without the margin glide', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  assert.match(css, /\[class\*="_centerCol"\]\{transition:margin-right /, 'the glide it turns off is real')
+  const src = readFileSync(new URL('../src/client/frame-watch.js', import.meta.url), 'utf8')
+  assert.match(src, /rightHold\.waiting\) \{[\s\S]*?chatRoom\.hold\(true\)[\s\S]*?rightHold\.flush\(\)[\s\S]*?chatRoom\.hold\(false\)/, 'the held margin is written with the glide off')
+})
+
+// The shell's own rule gives the conversation 64% of the chat area, clamped to 680..920, which on a
+// wide window is a pair of wide empty margins. The column takes the whole area up to a cap instead;
+// a width the user drags is written inline on a closer element, so that still wins.
+test('the conversation column uses the window instead of a share of it', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const rule = /:root\{--dsh-chat-user-width:min\(calc\(100% - (\d+)px\),(\d+)px\)\}/.exec(css)
+  assert.ok(rule, 'the column width is set for the shell to inherit')
+  assert.ok(Number(rule[1]) / 2 >= 24, `the window keeps a gutter each side, got ${Number(rule[1]) / 2}`)
+  assert.ok(Number(rule[2]) >= 1000, `the cap is wide enough to use a wide window, got ${rule[2]}`)
+})
+
+// The Windows caption buttons are painted with the colour sampled at the window's top-right
+// corner; this bar is click-through, so it is invisible to that sampling and the corner came out
+// as the frame's white. A sliver at the bar's right end is the sample.
+test('the window bar carries a sample surface for the caption buttons at its right end', () => {
+  const css = readFileSync(new URL('../src/client/styles.js', import.meta.url), 'utf8')
+  const tint = /\n\.bt-topbar-tint\{([^}]*)\}/.exec(css)
+  assert.ok(tint, 'the tint rule exists')
+  assert.match(tint[1], /position:absolute;top:0;right:0;/)
+  assert.match(tint[1], /background-color:var\(--bt-strip-edge/)
+  assert.match(tint[1], /pointer-events:auto/, 'the sampling skips what cannot be pressed')
+  const src = readFileSync(new URL('../src/client/sidebar.js', import.meta.url), 'utf8')
+  assert.match(src, /className: 'bt-topbar-tint'/, 'the bar renders it')
 })

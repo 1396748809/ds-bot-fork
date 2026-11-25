@@ -660,7 +660,7 @@ export const TASKS_CSS = `
 .bt-task-bar:focus-visible{outline:2px solid var(--bt-accent);outline-offset:-2px}
 .bt-task-bar[data-approval]{color:var(--bt-ink);font-weight:500}
 .bt-task-bar-label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt-task-bar-time{flex:none;font-size:11px;line-height:16px;color:var(--bt-ink-3);font-variant-numeric:tabular-nums}
+.bt-task-bar-time{flex:none;font-size:12px;line-height:16px;color:var(--bt-ink-2);font-variant-numeric:tabular-nums}
 .bt-task-bar-count{flex:none;min-width:18px;height:18px;padding:0 6px;border-radius:999px;background:color-mix(in srgb,var(--bt-accent) 12%,transparent);color:var(--bt-accent);font-size:11px;line-height:18px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .bt-task-bar[data-approval] .bt-task-bar-count{background:color-mix(in srgb,var(--bt-star) 16%,transparent);color:var(--bt-warn)}
 .bt-task-bar[aria-expanded=true] .bt-task-bar-count,.bt-task-bar[aria-expanded=true] .bt-task-bar-time{display:none}
@@ -680,7 +680,7 @@ export const TASKS_CSS = `
 .bt-btask-status[data-status=completed]{color:var(--bt-green)}
 .bt-btask-status[data-status=failed]{color:var(--bt-danger)}
 .bt-btask-sep{color:var(--bt-ink-3);opacity:.65}
-.bt-btask-time{color:var(--bt-ink-3);font-variant-numeric:tabular-nums}
+.bt-btask-time{color:var(--bt-ink-2);font-size:12.5px;font-variant-numeric:tabular-nums}
 
 /* Unified Left/Right glass stepper pill */
 .bt-task-stepper{flex:none;display:inline-flex;align-items:center;gap:1px;height:24px;padding:1px;border-radius:999px;border:.5px solid var(--bt-line-2);background:var(--bt-island-well)}

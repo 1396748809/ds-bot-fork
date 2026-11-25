@@ -110,7 +110,13 @@ function Bubble({ text, index, roster, selfId, actions, sessionId, msgKey, menti
   }
   const bubble = useRef(null)
   const area = foldArea(body, code, codeHead, actions)
-  return h('div', { ref: row, className: 'bt-msg', onClick: tapTools },
+  // A right press on the line offers to copy it or send it on to another Bot.
+  const openMessageMenu = (event) => {
+    if (typeof actions.openMenu !== 'function') return
+    event.preventDefault()
+    actions.openMenu({ kind: 'message', text, from: roster.byId[selfId]?.name ?? '', selfId, x: event.clientX, y: event.clientY })
+  }
+  return h('div', { ref: row, className: 'bt-msg', onClick: tapTools, onContextMenu: openMessageMenu },
     h('div', { className: 'bt-msg-line' },
       lead,
       h('div', { ref: bubble, className: 'bt-bubble', 'data-folded': folded || undefined, 'data-text-interaction-source': textInteractionSource ? '' : undefined },

@@ -118,7 +118,66 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-stack-more{font-size:11px;line-height:16px;color:var(--bt-ink-3);margin-left:3px!important}
 
 .bt-side{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;gap:2px;padding:0 12px 8px 0;color:var(--bt-ink);font-family:var(--bt-font)}
-.bt-side-top{display:flex;flex-wrap:wrap;container-type:inline-size;container-name:bt-side-top;justify-content:flex-start;align-items:center;gap:8px;padding:6px 5px 0 0}
+.bt-side-top{display:flex;flex-wrap:wrap;container-type:inline-size;container-name:bt-side-top;justify-content:flex-start;align-items:center;gap:8px;padding:0 5px 0 0}
+/* The band's colours are Firefox's own tab strip, sampled off a screenshot of it: a flat
+   #ebe4f7 across the first 44% of the window, then a straight warm run to #f4e3de. They live on
+   the page, not on the band, because the band and the column's own title strip are two pieces of
+   one window-wide picture: both paint the same gradient pinned to the window, so the colour runs
+   on past the column without a seam. The dark theme keeps both hues at a night lightness.
+   The opaque edge colour is not decoration: the app samples the surface under the Windows
+   caption buttons and paints that solid colour behind them (Windows ignores the alpha of that
+   colour), so a band that were only a gradient left a white block in the corner. It carries the
+   ramp's right end, which is what sits under those buttons. */
+body{--bt-strip-grad:linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%);--bt-strip-fill:#f0e4ea;--bt-strip-edge:#f4e3de}
+/* The shell gives the conversation 64% of the chat area (clamped to 680..920), so on a wide window
+   most of the width goes to two empty margins. This is the column's width instead: the whole area
+   less a 30px gutter on each side, up to a cap so a very wide window does not stretch a line out of
+   reading range. The shell's own width handle still wins wherever the user has dragged one, because
+   that width is written inline on a closer element and this is only the inherited default. */
+:root{--dsh-chat-user-width:min(calc(100% - 60px),1180px)}
+body[data-ds-dark-theme]{--bt-strip-grad:linear-gradient(90deg,#2b2542 0%,#2b2542 44%,#3d2925 100%);--bt-strip-fill:#332a36;--bt-strip-edge:#3d2925}
+.bt-topstrip{position:fixed;top:var(--dsh-frame-chrome-top,0px);right:0;height:48px;z-index:35;display:flex;align-items:center;gap:0;padding:0 10px;background-color:var(--bt-strip-edge);background-image:var(--bt-strip-grad,linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%));background-size:100vw 100%;background-attachment:fixed;background-repeat:no-repeat;box-shadow:inset 0 -.5px 0 var(--bt-line);overflow:visible;pointer-events:none;font-family:var(--bt-font);user-select:none;-webkit-user-select:none}
+/* The band is a picture, not a surface: it no longer takes the window's drag, so a press
+   reaches whatever lies under it — the sidebar's own buttons sit in that strip of screen.
+   Only the faces are pressable, so nothing under an empty stretch of band is blocked. */
+.bt-topstrip .bt-topstrip-btn{-webkit-app-region:no-drag;app-region:no-drag;pointer-events:auto}
+/* Windows ignores the alpha of the caption buttons' colour and fills their background with the
+   colour it samples under them. The band is a gradient, which samples as transparent, so the
+   corner came out as the frame's white. This hit-testable patch at the band's right end carries
+   the ramp's end colour, so those buttons sit on the band's own colour; the faces above it are
+   the ones that take the presses. */
+.bt-topstrip-tint{position:absolute;top:0;right:0;width:180px;height:100%;z-index:0;background-color:var(--bt-strip-edge);pointer-events:auto}
+.bt-topstrip-row{position:relative;z-index:1}
+/* The face under the pointer names itself below the band, in the same clothes as the header's
+   name capsule: a card of its own, its own face leading the name. */
+.bt-topstrip-name{position:absolute;top:calc(100% + 12px);transform:translateX(-50%);z-index:40;display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);color:var(--bt-ink);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;pointer-events:none;border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow)}
+.bt-topstrip-name-mark{display:inline-flex;flex:none;align-items:center;justify-content:center}
+/* While that name names the conversation on screen, the header's own capsule steps aside:
+   one name at a time, in the place the eye already is. */
+body[data-bt-strip-hover=active] .bt-pill{opacity:0;pointer-events:none}
+/* The Main Bot has no slot in the strip; it closes the sidebar header row instead. */
+.bt-topstrip-row{flex:1 1 auto;min-width:0;height:100%;display:flex;align-items:center;justify-content:safe center;gap:11px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;pointer-events:none}
+.bt-topstrip-row::-webkit-scrollbar{display:none}
+/* The plate goes on with the growth: the face under the pointer sits on a soft disc rather
+   than floating over its neighbours. Every face keeps its own slot, so nothing else moves. */
+.bt-topstrip-btn{position:relative;flex:none;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:none;color:var(--bt-ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transform-origin:50% 55%;transition:transform .13s cubic-bezier(.2,.7,.3,1.1),background-color .12s ease-out,box-shadow .12s ease-out;-webkit-user-drag:element}
+/* On the grey band the open Bot reads as a neutral keycap with a quiet accent rim, rather
+   than a white card that competes with the character. */
+.bt-topstrip-btn[data-active=true]{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 76%,transparent),inset 0 -1px 2px color-mix(in srgb,var(--bt-ink) 8%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 42%,transparent),0 3px 8px -4px rgba(20,20,20,.3)}
+@media (hover:hover){
+.bt-topstrip-btn:hover:not([data-active=true]){z-index:3;transform:scale(1.24);background:color-mix(in srgb,var(--bt-card) 85%,transparent);box-shadow:0 3px 10px -2px rgba(20,20,20,.24)}
+.bt-topstrip-btn[data-active=true]:hover{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 12%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 82%,transparent),inset 0 -1px 2px color-mix(in srgb,var(--bt-ink) 10%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 68%,transparent),0 4px 10px -4px rgba(20,20,20,.34)}
+.bt-topstrip-btn[data-active=true]:active{transform:scale(1.08);background:color-mix(in srgb,var(--bt-ink) 15%,var(--bt-card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bt-card) 72%,transparent),0 0 0 1px color-mix(in srgb,var(--bt-accent) 82%,transparent),0 1px 4px -1px rgba(20,20,20,.32)}
+}
+.bt-topstrip-btn:active{background:color-mix(in srgb,var(--bt-ink) 16%,transparent)}
+/* A Bot at work wears the same badge its row wears — a breathing green disc at the lower
+   right — rather than a bar under the face. */
+.bt-topstrip-btn .bt-badge{box-shadow:0 0 0 1.5px var(--bt-strip-fill,var(--bt-main))}
+.bt-topstrip-btn[data-running=true] .bt-badge-working{animation:bt-work-breathe 2s ease-in-out infinite}
+@keyframes bt-work-breathe{0%,100%{opacity:.5;transform:scale(.78)}50%{opacity:1;transform:scale(1)}}
+body:is([data-bt-motion=quiet],[data-bt-effects=reduced],[data-bt-effects=off]) .bt-topstrip-btn .bt-badge-working{animation:none;opacity:1;transform:none}
+.bt-topstrip-btn .bt-badge-main path{stroke:var(--bt-strip-fill,var(--bt-main))}
+.bt-topstrip-btn[data-unread=true]::after{content:'';position:absolute;right:2px;top:2px;width:7px;height:7px;border-radius:50%;background:var(--bt-star);box-shadow:0 0 0 2px var(--bt-main)}
 .bt-brand{display:inline-flex;align-items:center;gap:6px;margin-right:auto;padding:4px 8px 4px 4px;border:0;border-radius:8px;background:none;cursor:pointer;font-family:inherit;font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.01em;color:var(--bt-ink);white-space:nowrap}
 .bt-brand-whale{display:inline-flex;color:var(--bt-accent)}
 .bt-round{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--bt-line);background:var(--bt-main);color:var(--bt-ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background-color .12s ease,transform .12s ease}
@@ -127,12 +186,19 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-round:hover{background:var(--bt-hover)}
 .bt-round:active{transform:scale(.94)}
 .bt-list{display:flex;flex-direction:column;gap:3px;overflow-y:auto;min-height:0;flex:1 1 auto}
-/* Chromium ignores ::-webkit-scrollbar when scrollbar-width or scrollbar-color (inherited) is non-auto. */
-.bt-side:not(.bt-rail)>.bt-list{margin-right:-12px;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-color:auto}
+/* Chromium ignores ::-webkit-scrollbar when scrollbar-width or scrollbar-color (inherited) is non-auto.
+   The list bleeds through both right insets above it — the side's 12px and the column's own 12px —
+   and puts the row's 12px back as padding, so the scrollbar's gutter ends on the column's edge
+   instead of a whole gutter short of it. */
+.bt-side:not(.bt-rail)>.bt-list{margin-right:-24px;padding-right:12px;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-color:auto}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar{width:12px}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar-track{background:transparent}
 .bt-side:not(.bt-rail)>.bt-list::-webkit-scrollbar-thumb{border:4px solid transparent;border-radius:6px;background:color-mix(in srgb,var(--bt-ink) 16%,transparent) padding-box}
 .bt-side:not(.bt-rail)>.bt-list:hover::-webkit-scrollbar-thumb{background-color:color-mix(in srgb,var(--bt-ink) 30%,transparent)}
+/* The Main Bot's row stands directly above the list, outside its scroll box: it cannot move,
+   and the list's own top fade dissolves the rows passing under it at its lower edge. */
+.bt-list-pin{flex:none;margin-right:-12px}
+.bt-list-pin[data-shadow]{box-shadow:0 7px 10px -9px rgba(20,20,20,.45)}
 .bt-tile-wrap{display:flex;justify-content:center;padding:20px 0 15px}
 .bt-tile{display:flex;flex-direction:column;align-items:center;gap:4px;width:95px;padding:6px 8px 4px;border-radius:16px;border:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:inherit;transition:background-color .12s ease}
 .bt-tile:hover{background:var(--bt-hover)}
@@ -152,12 +218,37 @@ body[data-bt-motion=quiet] .bt-mark[data-poke]{cursor:default}
 .bt-row-preview{font-size:13px;line-height:18px;color:var(--bt-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt-unread{width:8px;height:8px;border-radius:50%;background:var(--bt-accent);flex:none;margin-right:2px;animation:bt-fade .13s cubic-bezier(.22,1,.36,1)}
 .bt-unread-wait{background:var(--bt-star)}
-/* Our own left column, portalled over the shell's collapsed sidebar. It reaches
-   the window's top edge so the title band and the column share one fill (under
-   Mica the app styles DSH's sidebar the same way, via --bt-leftcol-fill there);
-   it stays under the shell's title-bar switch (z 30) and the popovers (z 60),
-   and the floating drawer keeps the opaque fill over the conversation. */
-.bt-leftcol{position:fixed;left:0;top:0;bottom:0;z-index:25;display:flex;--bt-lc-clear:var(--dsh-frame-top-clearance,var(--dsh-windows-titlebar-height,0px));background:var(--bt-leftcol-fill,var(--bt-sidebar));border-right:.5px solid var(--bt-line);box-sizing:border-box;padding:calc(var(--bt-lc-clear) + 6px) 12px 6px;color:var(--bt-ink);font-family:var(--bt-font)}
+/* Our own left column, portalled over the shell's collapsed sidebar. It sits above the shell's
+   title-bar switch (z 30) so the column's own top row answers the press, and under the popovers
+   (z 60) and the right-hand panes. The floating drawer keeps the opaque fill over the
+   conversation. */
+.bt-leftcol{position:fixed;left:0;top:0;bottom:0;z-index:31;display:flex;--bt-lc-clear:var(--dsh-frame-top-clearance,var(--dsh-windows-titlebar-height,0px));background:var(--bt-leftcol-fill,var(--bt-sidebar));border-right:.5px solid var(--bt-line);box-sizing:border-box;padding:7px 12px 6px;color:var(--bt-ink);font-family:var(--bt-font)}
+/* The shell paints the window's drag band across the whole top of the frame (its own
+   frame::before carries -webkit-app-region:drag), and this column lies over it. Without a
+   hole punched here the band swallows every press on the column's top row — the switch,
+   the new-section, search and new buttons all looked dead. The column is ours and is not a
+   drag handle: the window is still dragged from the band over the conversation. */
+html[data-windows-titlebar] .bt-leftcol{-webkit-app-region:no-drag;app-region:no-drag}
+/* The window's own top bar: the column's title row belongs to the window edge, not to the
+   column, so dragging the column wider or narrower never moves it and the band above the
+   conversation and the band above the column are one picture. It paints that picture itself —
+   the same gradient pinned to the window — so the split below never shows through it and the
+   column's edge does not cut it in two. It is a layer, not a surface: only the controls inside it
+   take a press, so the band still drags the window elsewhere. */
+.bt-topbar{position:fixed;top:var(--dsh-frame-chrome-top,0px);left:0;right:0;height:48px;z-index:34;display:flex;align-items:center;gap:8px;box-sizing:border-box;padding:0 12px;pointer-events:none;font-family:var(--bt-font);background-color:var(--bt-strip-edge,#f4e3de);background-image:var(--bt-strip-grad,linear-gradient(90deg,#ebe4f7 0%,#ebe4f7 44%,#f4e3de 100%));background-size:100vw 100%;background-attachment:fixed;background-repeat:no-repeat;box-shadow:inset 0 -.5px 0 var(--bt-line)}
+.bt-topbar>.bt-side-top{flex:0 1 auto;min-width:0;padding:0;container-type:normal;width:auto;flex-wrap:nowrap}
+.bt-topbar :is(button,a,[role=button]){pointer-events:auto;-webkit-app-region:no-drag;app-region:no-drag}
+/* The caption buttons' background is sampled at the window's top-right corner, and this bar is
+   click-through, so it is invisible to that sampling. This sliver at its right end is the sample:
+   the ramp's end colour, standing where those buttons are drawn. */
+.bt-topbar-tint{position:absolute;top:0;right:0;width:6px;height:100%;background-color:var(--bt-strip-edge,#f4e3de);pointer-events:auto}
+/* The column begins under that bar instead of painting a title row of its own: its top edge, its
+   fill and its divider all start below the band, so the bar is one strip across the window and
+   the split below it is only the split below it. */
+.bt-leftcol[data-topbar]{top:calc(var(--dsh-frame-chrome-top,0px) + 48px);padding-top:7px}
+/* The column's top row sits at the very top of the window on Windows; on macOS the traffic
+   lights own that corner, so the clearance stays there. */
+html[data-platform=darwin] .bt-leftcol{padding-top:var(--bt-lc-clear)}
 html[data-windows-titlebar] .bt-leftcol,html[data-platform=darwin] .bt-leftcol{border-right:none}
 .bt-leftcol{animation:bt-leftcol-in ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
 .bt-leftcol[data-leaving]{transform:translateX(-100%);transition:transform ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing};pointer-events:none}
@@ -209,7 +300,10 @@ html[data-bt-collapsing] [class*="_frame"]:has(>[class*="_sidebarCol"]){transiti
 .bt-dot-wait{background:var(--bt-star)}
 
 .bt-head{position:relative;display:flex;justify-content:center;align-items:center;height:40px;flex:none;pointer-events:none}
-.bt-pill{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;min-width:0;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow);color:var(--bt-ink);font-family:inherit;font-size:14px;line-height:20px;cursor:pointer;max-width:70%;box-sizing:border-box;transition:background-color .12s ease,transform ${SPRING_TAP.duration}ms ${SPRING_TAP.easing}}
+.bt-pill{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;min-width:0;height:40px;padding:7.5px 13.5px 7.5px 7.5px;border-radius:999px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow);color:var(--bt-ink);font-family:inherit;font-size:14px;line-height:20px;cursor:pointer;max-width:70%;box-sizing:border-box;transition:background-color .12s ease,opacity .12s ease,transform ${SPRING_TAP.duration}ms ${SPRING_TAP.easing}}
+/* The strip's name is the label while it is shown; the centred capsule would say the same
+   thing twice. */
+body:has(.bt-topstrip-name) .bt-head>.bt-pill{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px) scale(.97);transition:opacity .12s ease,transform .12s ease,visibility 0s .12s}
 .bt-pill:hover{background:color-mix(in srgb,var(--bt-ink) 5%,var(--bt-glass-bg))}
 .bt-pill:active{transform:scale(.965)}
 .bt-pill-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
@@ -428,12 +522,14 @@ body[data-ds-dark-theme] .bt-q.bt-q-settled[data-expandable]:not([data-open]):ho
 .bt-send:disabled{opacity:.35;cursor:default}
 .bt-error{padding:0 14px 10px;color:var(--bt-danger);font-size:12px}
 
-/* Side panels keep their content clear of the Windows caption buttons. A host may set the
-   chrome top to 0 so that dialog masks also cover the caption band; the panel then reaches
+/* Side panes keep their content clear of the Windows caption buttons. A host may set the
+   chrome top to 0 so that dialog masks also cover the caption band; the pane then reaches
    the top edge, its own surface under the buttons, and the band over it still drags the
-   window. Where the chrome top already clears the title bar the band is 0. */
-html[data-windows-titlebar]:not([data-fullscreen]) :is(.bt-pane,.bt-panel){--bt-caption-band:calc(var(--dsh-windows-titlebar-height,0px) - var(--dsh-frame-chrome-top,0px));padding-top:var(--bt-caption-band)}
-html[data-windows-titlebar]:not([data-fullscreen]) :is(.bt-pane,.bt-panel)::before{content:"";position:absolute;top:0;left:0;right:0;height:var(--bt-caption-band);-webkit-app-region:drag}
+   window. Where the chrome top already clears the title bar the band is 0.
+   The Bot panel is not one of these any more: it starts under the window bar, so it never sits
+   under the caption buttons and opening it cannot move what they stand on. */
+html[data-windows-titlebar]:not([data-fullscreen]) .bt-pane{--bt-caption-band:calc(var(--dsh-windows-titlebar-height,0px) - var(--dsh-frame-chrome-top,0px));padding-top:var(--bt-caption-band)}
+html[data-windows-titlebar]:not([data-fullscreen]) .bt-pane::before{content:"";position:absolute;top:0;left:0;right:0;height:var(--bt-caption-band);-webkit-app-region:drag}
 /* On macOS a side panel reaches the window's top edge, where the window drag strip is.
    Its top row (either .bt-ptabs or, when no strip is shown, the drawer's own top row) is
    that strip: it drags where no chip or button covers it, and controls stay no-drag. The
@@ -477,7 +573,10 @@ html[data-platform=darwin] .bt-panel [data-window-drag] :is(a,button,input,texta
 .bt-soft:hover{background:var(--bt-active)}
 .bt-time{display:block;text-align:center;font-size:12px;line-height:16px;color:var(--bt-ink-2);padding:6px 0}
 
-.bt-panel{position:fixed;top:var(--dsh-frame-chrome-top,0px);right:0;bottom:0;width:var(--bt-panel-w,320px);pointer-events:auto;z-index:40;background:var(--bt-main);border-left:.5px solid var(--bt-line-2);display:flex;flex-direction:column;color:var(--bt-ink);font-family:var(--bt-font);box-sizing:border-box;animation:bt-pane-in .3s cubic-bezier(.2,0,0,1);transition:width ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
+/* The panel hangs under the window bar: the band above it stays the band, whole and untouched,
+   so the caption buttons and the bar itself never move because a panel opened, and the panel's
+   own top row (settings, more, share, close) keeps its place. */
+.bt-panel{position:fixed;top:calc(var(--dsh-frame-chrome-top,0px) + 48px);right:0;bottom:0;width:var(--bt-panel-w,320px);pointer-events:auto;z-index:40;background:var(--bt-main);border-left:.5px solid var(--bt-line-2);display:flex;flex-direction:column;color:var(--bt-ink);font-family:var(--bt-font);box-sizing:border-box;animation:bt-pane-in .3s cubic-bezier(.2,0,0,1);transition:width ${SPRING_SHAPE.duration}ms ${SPRING_SHAPE.easing}}
 .bt-panel[data-leaving]{transform:translateX(100%);transition:transform .3s cubic-bezier(.2,0,0,1);pointer-events:none}
 .bt-panel[data-instant]{transition:none}
 @keyframes bt-pane-in{from{transform:translateX(100%)}}
@@ -790,7 +889,7 @@ button.bt-set-row:hover .bt-chevron{transform:translateX(2px);color:var(--bt-ink
    logo row stays, flattened to nothing. */
 html:not([data-windows-titlebar]) :not([class*="_collapsed"])>[class*="_logoRow"]{display:none!important}
 html[data-windows-titlebar] :not([class*="_collapsed"])>[class*="_logoRow"]{height:0!important;margin:0!important}
-html[data-windows-titlebar] .bt-side-collapse{display:none}
+html[data-windows-titlebar] .bt-side-collapse{display:inline-flex}
 /* The sidebar switch is always the team view's own, so the shell's is hidden wherever it
    sits: in the logo row, or in the top strip of a macOS desktop window. The strip stays,
    as the window's drag area. Left showing, the shell's toggle expands the shell sidebar
@@ -800,7 +899,7 @@ html[data-windows-titlebar] .bt-side-collapse{display:none}
 /* Under a Windows title bar our own switch takes the shell's place in the band. A host
    whose window controls stand at the band's left (the macOS traffic lights) sets
    --bt-caption-start to the room they take. */
-html[data-windows-titlebar] .bt-title-toggle{position:fixed;left:calc(12px + var(--bt-caption-start,0px));top:calc((var(--dsh-windows-titlebar-height,0px) - 28px) / 2);width:28px;height:28px;z-index:30;-webkit-app-region:no-drag;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:6px;padding:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:var(--bt-font)}
+html[data-windows-titlebar] .bt-title-toggle{position:fixed;left:calc(12px + var(--bt-caption-start,0px));top:calc((var(--dsh-windows-titlebar-height,0px) - 28px) / 2);width:28px;height:28px;z-index:40;-webkit-app-region:no-drag;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:6px;padding:0;background:transparent;color:var(--bt-ink);cursor:pointer;font-family:var(--bt-font)}
 html[data-windows-titlebar] .bt-title-toggle:hover{background:var(--bt-hover)}
 /* Elsewhere the switch shows only while the column is hidden, where the column's
    own top row had it. */
@@ -905,6 +1004,7 @@ button:hover .bt-you{background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-side
 .bt-you-wrap{display:inline-flex;padding:0}
 
 .bt-menu{position:fixed;pointer-events:auto;z-index:60;min-width:200px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;padding:6px;border-radius:12px;background:var(--bt-glass-bg);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);border:.5px solid var(--bt-glass-rim);box-shadow:var(--bt-glass-shadow),0 0 0 1px rgba(228,228,228,.04);display:flex;flex-direction:column;gap:2px;transform-origin:var(--bt-origin,top left);animation:bt-pop-drop ${SPRING_TAP.duration}ms ${SPRING_TAP.easing},bt-veil-in .14s ease-out;font-family:var(--bt-font);box-sizing:border-box}
+.bt-menu-scroll{flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:2px;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--bt-ink) 26%,transparent) transparent}
 .bt-menu button{display:flex;align-items:center;gap:4px;width:100%;min-height:30px;text-align:left;border:0;background:none;border-radius:6px;padding:6px 8px;font:inherit;font-size:13px;line-height:18px;color:var(--bt-ink);cursor:pointer;box-sizing:border-box}
 .bt-menu button:hover{background:var(--bt-hover)}
 .bt-menu button svg{flex:none;width:16px;height:16px;margin:0 1px}
@@ -913,6 +1013,7 @@ button:hover .bt-you{background:color-mix(in srgb,var(--bt-ink) 9%,var(--bt-side
 .bt-menu-up{--bt-origin:bottom left;animation-name:bt-pop-lift,bt-veil-in}
 .bt-menu[data-leaving]{pointer-events:none;animation:bt-pop-out .12s cubic-bezier(.4,0,1,1) forwards}
 .bt-menu-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-menu-caption{padding:6px 10px 2px;font-size:11px;line-height:15px;color:var(--bt-ink-3);white-space:nowrap}
 .bt-menu-hint{flex:none;color:var(--bt-ink-3);font-size:12px;font-variant-numeric:tabular-nums}
 .bt-palette-layer{position:fixed;inset:var(--dsh-frame-chrome-top,0px) 0 0;z-index:70;pointer-events:auto;font-family:var(--bt-font)}
 .bt-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.46);animation:bt-fade .22s ease-out}
