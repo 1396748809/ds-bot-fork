@@ -303,7 +303,7 @@ test('the quick actions tab links a typed address and the service rows', async (
   assert.doesNotThrow(() => byClass(draw(), 'bt-quick-input')[0].props.onKeyDown({ key: 'Enter', preventDefault () {}, nativeEvent: {} }))
   // Every service row is its own link.
   const rows = byClass(draw(), 'bt-quick-row')
-  assert.equal(rows.length, 4, 'four service links')
+  assert.equal(rows.length, 6, 'six service links')
   assert.ok(rows.every(row => /^https?:\/\//.test(row.props.href)), 'each carries a web address')
   assert.ok(rows.every(row => row.props.target === '_blank'))
 })
@@ -329,12 +329,12 @@ test('a service row shows whether its service is running', async () => {
   const rows = findElement(tree, node => node.props?.className === 'bt-quick-row')
   assert.deepEqual(
     Array.from(rows, node => node.props['data-service-state']),
-    ['running', 'stopped', 'unknown', 'unknown'],
+    ['running', 'stopped', 'unknown', 'unknown', 'unknown', 'unknown'],
     'a row says up, closed, or nothing yet',
   )
   assert.deepEqual(
     Array.from(findElement(tree, node => node.props?.className === 'bt-quick-dot'), node => node.props['data-state']),
-    ['running', 'stopped', 'unknown', 'unknown'],
+    ['running', 'stopped', 'unknown', 'unknown', 'unknown', 'unknown'],
     'and the dot on the row matches it',
   )
   assert.match(rows[1].props.title, /Not running$/, 'a closed row says so on hover')
