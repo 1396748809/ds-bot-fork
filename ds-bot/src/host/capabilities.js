@@ -6,8 +6,6 @@ const MCP_CLIENT = '@deepseek-ai/dsh-mcp-client'
 const NAME = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/
 const SECRET_REFERENCE = /\$DSH_SECRET_([A-Z][A-Z0-9_]*)/g
 const ENSURE_TIMEOUT_MS = 15_000
-// Quiet time between the Main Bots' mounts and the rest, so the interface can answer first.
-const REST_DELAY_MS = 1_000
 
 // Connector ids are reserved: a capability named like one would collide with
 // its mcp__<id>__* tool prefix. The connectors module registers its ids here.
@@ -533,21 +531,18 @@ export function install(rt) {
   })
   ctx.effect(() => {
     void rt.load().then(async () => {
-      // Mounting waits up to ENSURE_TIMEOUT_MS for a server, so a queue of Bots costs that
-      // much once per Bot: the chat the user opens came minutes late. The Main Bots keep
-      // the first turn, and the rest mount one at a time after a pause, off this path: all
-      // at once they mount in a herd, and the herd starves the interface's first request
-      // (180 s to the first draw, measured 2026-11-26).
-      const waiting = Object.values(state.bots).filter(bot => (bot.capabilities ?? []).length > 0)
-      for (const bot of waiting.filter(bot => rt.isMain(bot.id))) await trackBotAgents(bot)
+      // Only the Main Bots warm up here. Resolving an Agent reads that Bot's whole session
+      // log, and mounting waits up to ENSURE_TIMEOUT_MS for a server, so prewarming a team
+      // of twenty cost a minute of a busy engine while the chat the user opens waited
+      // (110 s to usable, measured 2026-11-27). Every other Bot mounts on demand: its
+      // Agent is created when it first has something to do, and agent/created prepares it.
+      const began = Date.now()
+      for (const bot of Object.values(state.bots)) {
+        if ((bot.capabilities ?? []).length === 0 || !rt.isMain(bot.id)) continue
+        await trackBotAgents(bot).catch(error => rt.warn('ds-bot: capability startup for %s failed: %s', bot.id, error))
+      }
       await scheduleReconcile()
-      void (async () => {
-        await new Promise(resolve => setTimeout(resolve, REST_DELAY_MS))
-        for (const bot of waiting.filter(bot => !rt.isMain(bot.id))) {
-          if (stopped) return
-          await trackBotAgents(bot).catch(error => rt.warn('ds-bot: capability startup for %s failed: %s', bot.id, error))
-        }
-      })()
+      rt.note?.(`capabilities: Main Bots warmed up in ${String(Date.now() - began)} ms`)
     }).catch(error => rt.warn('ds-bot: capability startup failed: %s', error))
     return async () => {
       stopped = true
