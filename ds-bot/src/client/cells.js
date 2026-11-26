@@ -50,7 +50,9 @@ export function Bubbles({ texts, roster, selfId, actions, streaming, sessionId, 
   }
   const cleaned = texts.map(stripToolCallTags).filter(text => text.trim() !== '')
   const reactions = useUi ? useUi(state => (msgKey ? state.reactions?.[msgKey] ?? null : null)) : null
-  return h('div', { className: 'bt-astack', 'data-lead': lead ? '' : undefined, onClickCapture: onClick },
+  // The row's own time doubles as its address in the page: the to-do panel opens a chat and
+  // scrolls to the moment the item was added, and this is what it looks the row up by.
+  return h('div', { className: 'bt-astack', 'data-lead': lead ? '' : undefined, 'data-time': Number.isFinite(time) ? String(time) : undefined, onClickCapture: onClick },
     cleaned.map((text, index) => {
       const last = index === cleaned.length - 1
       return h(Bubble, {
@@ -348,7 +350,7 @@ function EventLine({ prefix, bots, joiner = t('and'), onOpen, whole = false }) {
 
 // The flat layout's head over a Bot's reply in its own chat: avatar, name, time.
 function SpeakerHead({ bot, time }) {
-  return h('div', { className: 'bt-group-name' },
+  return h('div', { className: 'bt-group-name', 'data-time': Number.isFinite(time) ? String(time) : undefined },
     h('span', { className: 'bt-lead' }, h(BotMark, { bot, size: 22 })), bot.name,
     Number.isFinite(time) ? h('span', { className: 'bt-group-time', title: clockLabel(time) }, messageClock(time)) : null)
 }
@@ -420,7 +422,7 @@ export function GroupMessage({ bot, text, texts = [text], room, sessionId, roste
   // The Reply tool quotes into the composer of the chat on screen: a group that has split
   // its public chat keeps going in a new Session, while its room id stays the same.
   const quoteSession = sessionId ?? room?.sessionId ?? room?.id
-  return h('div', { ref, className: 'bt-group-msg', 'data-bot-id': bot.id },
+  return h('div', { ref, className: 'bt-group-msg', 'data-bot-id': bot.id, 'data-time': Number.isFinite(time) ? String(time) : undefined },
     h('span', { className: 'bt-group-name', style: flat ? undefined : { color: inkText(colorOf(bot)) } }, flat ? lead : null, bot.name,
       room?.admin === bot.id ? h('span', { className: 'bt-group-role' }, t('Admin')) : null,
       Number.isFinite(time) ? h('span', { className: 'bt-group-time', title: clockLabel(time) }, messageClock(time)) : null,
@@ -517,7 +519,7 @@ function EarlierUser({ row, actions }) {
   const { shown, folded, control, code, codeHead } = useFold(row.text ?? '')
   const body = row.text && shown !== '' ? h(MarkdownText, { text: shown, labels: mdLabels(), variant: 'compact' }) : null
   const area = foldArea(body, code, codeHead, actions)
-  return h('div', { className: 'bt-urow' }, h('div', { className: 'bt-ububble', 'data-folded': folded || undefined, 'data-text-interaction-source': body || code !== undefined ? '' : undefined },
+  return h('div', { className: 'bt-urow', 'data-time': Number.isFinite(row.time) ? String(row.time) : undefined }, h('div', { className: 'bt-ububble', 'data-folded': folded || undefined, 'data-text-interaction-source': body || code !== undefined ? '' : undefined },
     control ? h('div', { className: 'bt-fold-body' }, area) : area,
     control,
     row.images ? h('span', { className: 'bt-uimages', 'data-text-interaction-exclude': '' }, row.images === 1 ? t('1 image') : t('{count} images', { count: row.images })) : null),

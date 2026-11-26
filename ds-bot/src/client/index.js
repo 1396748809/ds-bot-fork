@@ -70,6 +70,7 @@ import { TASKS_CSS } from './bot-tasks.js'
 import { BotMention, USER_MESSAGE_CSS, UserMessageCell, canDrawUserMessages, installUserBubble } from './user-message.js'
 import { BOT_MENTION_ID, installBotMentionRule } from './user-text-rule.js'
 import { QueueDock, QUEUE_CSS } from './queue-dock.js'
+import { HoldDock, HOLD_CSS } from './hold-dock.js'
 import { TYPING_STOP_CSS } from './typing-stop.js'
 import { TEAM_TODO_CSS } from './todo-panel.js'
 import { PASTE_CSS, PasteDock, PasteGuard } from './paste-card.js'
@@ -1071,6 +1072,36 @@ export function apply(ctx) {
     updateQueue: async (itemId, action) => (await ctx.sessions.binding(sessionId)?.session?.updateQueue(itemId, action)) ?? { ok: false },
     loadImage: (attachment) => ctx.uiConversation.imageUrl(sessionId, attachment),
   })
+  // Holding the queue: the rows are taken out of the inbox first and the turn is
+  // cancelled after, so nothing is left for the loop to drain into a new turn.
+  // Sending a held row back goes in as a queued prompt, which starts a turn when
+  // none is running — the user's arrow is the only thing that starts it.
+  const holdFace = (sessionId) => ({
+    ...face(),
+    sessionId,
+    cancelTurn: async () => {
+      const session = ctx.sessions.binding(sessionId)?.session
+      if (session !== undefined) await session.cancel()
+    },
+    removeQueued: async (itemId) => {
+      const session = ctx.sessions.binding(sessionId)?.session
+      if (session === undefined) return undefined
+      return session.updateQueue(itemId, { kind: 'remove' })
+    },
+    // Text only: an image or a file parked in a queue row has no upload behind it
+    // any more, and the row says so rather than failing here.
+    promptQueued: async (content) => {
+      const session = ctx.sessions.binding(sessionId)?.session
+      if (session === undefined) return false
+      const blocks = (content ?? []).filter(block => block?.type === 'text')
+      const text = blocks.map(block => block.text).join('')
+      if (text.trim() === '') return false
+      const submission = session.beginSubmission({ text, attachments: [], mode: 'queue' })
+      const result = await session.prompt(blocks, 'queue', undefined, submission.requestId)
+      if (result?.ok !== true) submission.abandon()
+      return result?.ok === true
+    },
+  })
   // A deleted Bot or group takes its kept draft with it.
   ctx.effect(() => {
     let chats = null
@@ -1388,6 +1419,7 @@ export function apply(ctx) {
     () => installCompiledStyles(CONVERSATION_CSS + READ_ONLY_CSS, 'conversation'),
     () => installCompiledStyles(TURN_ERROR_CSS, 'turn-errors'),
     () => installCompiledStyles(QUEUE_CSS, 'queue'),
+    () => installCompiledStyles(HOLD_CSS, 'hold'),
     () => installCompiledStyles(ANNOTATION_CSS, 'text-annotation'),
     () => installMentions(),
     () => installAtMenu(),
@@ -1460,6 +1492,9 @@ export function apply(ctx) {
     // drafts — including the team's relayed mail. Reusing its id puts ours in
     // its cell; it lists only the sends the user authored (#663).
     () => shadow('conversation.input.dock', { id: 'queue', order: 20, priority: BOT_PRIORITY, inject: queueFace }, QueueDock),
+    // Sits below the queue dock: "hold" stops the turn without letting the queue
+    // start again, and the parked rows stay here until their arrow is pressed.
+    () => shadow('conversation.input.dock', { id: 'bot-hold', order: 21, inject: holdFace }, HoldDock),
   ]
   // The return button belongs to neither group: it renders only in Agent mode.
   ctx.effect(() => installCompiledStyles(RETURN_TOKENS + RETURN_CSS, 'return'), 'ds-bot: return styles')

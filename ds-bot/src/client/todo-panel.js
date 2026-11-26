@@ -10,7 +10,12 @@ import { t } from './i18n.js'
 //
 // A re-read every half minute is a file read on a local channel, not a model call, so it
 // costs nothing that matters and spares the user from refreshing to see what just landed.
-const POLL_MS = 30_000
+// A Bot writes this list from outside the window, so the window has nothing to listen to:
+// the poll is the only signal that it changed. Five seconds is short enough that a row a Bot
+// just put there is already showing when the user looks over, and long enough that re-reading
+// a small file costs nothing. Anything written from inside the window is handled by the
+// bt-todo-changed event below, which does not wait for a tick.
+const POLL_MS = 5_000
 
 const rowsOf = (list, key) => (Array.isArray(list?.[key]) ? list[key] : [])
 const countOf = (list) => {
@@ -38,10 +43,23 @@ function useTodo(actions) {
     // asks for a re-read at once, instead of waiting for the next poll.
     const asked = () => read()
     if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') window.addEventListener('bt-todo-changed', asked)
+    // Coming back to the window is the one moment the list is most likely to be stale — a Bot
+    // wrote it while the user was elsewhere. One read here means the row is there on arrival
+    // instead of up to five seconds later.
+    const wake = () => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return
+      read()
+    }
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') window.addEventListener('focus', wake)
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') document.addEventListener('visibilitychange', wake)
     return () => {
       live = false
       clearInterval(timer)
-      if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') window.removeEventListener('bt-todo-changed', asked)
+      if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') {
+        window.removeEventListener('bt-todo-changed', asked)
+        window.removeEventListener('focus', wake)
+      }
+      if (typeof document !== 'undefined' && typeof document.removeEventListener === 'function') document.removeEventListener('visibilitychange', wake)
     }
   }, [actions])
   const settle = (promise) => {
@@ -133,8 +151,13 @@ function useTodo(actions) {
 }
 
 function TodoRow({ item, done, onTick, onMenu, onPeek }) {
+  // A row a Bot put here and a row the user typed look the same otherwise, and the list is
+  // mostly read at a glance. `from` is empty only for the oldest rows; anything that is not
+  // the user's own entry came from a Bot, so it is tinted rather than trusted at a glance.
+  const fromBot = Boolean(item.from) && String(item.from) !== 'user'
   return h('li', {
     key: item.id || item.text, className: 'bt-todo-item', 'data-done': done ? '' : undefined,
+    'data-from': fromBot ? 'bot' : undefined,
     onContextMenu: onMenu ? (event) => { event.preventDefault(); onMenu(event, item) } : undefined,
     // A left press opens the whole line: the row is cut to one line, the card holds all of
     // it. The box is the one place a press means something else.
@@ -323,6 +346,8 @@ const QUICK_SERVICES = [
   { id: 'goofish', label: () => t('Goofish monitor'), url: 'http://127.0.0.1:8000/' },
   { id: 'freemodel', label: () => t('Local model chat'), url: 'http://127.0.0.1:18901/' },
   { id: 'floorplan', label: () => t('Floorplan report site'), url: 'http://127.0.0.1:8123/' },
+  { id: 'openmaic', label: () => t('OpenMAIC classroom'), url: 'http://127.0.0.1:3000/' },
+  { id: 'openmaic-public', label: () => t('OpenMAIC classroom (public)'), url: 'https://openmaic.cdymail.top/' },
 ]
 
 // Each service row also says whether its service is up, so a closed one is visible without
@@ -583,7 +608,7 @@ export function TeamTodoSide({ actions, view, onView, openFrom }) {
       : h(QuickActions, { text: address, setText: setAddress, running: serviceStatus, onStarted: refreshServices, notice: actions?.notice }),
     h(TodoMenu, {
       menu, onClose: () => setMenu(null),
-      onOpen: (item) => { if (typeof openFrom === 'function') openFrom(item.from, false) },
+      onOpen: (item) => { if (typeof openFrom === 'function') openFrom(item.from, false, item.at) },
       onClear: clearOne,
       onCopy: copy,
     }),
@@ -696,6 +721,7 @@ export const TEAM_TODO_CSS = `
 .bt-todo-box{flex:none;width:13px;height:13px;margin:0;align-self:center;accent-color:var(--bt-accent);cursor:pointer}
 .bt-todo-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-todo-from{flex:none;font-size:11px;color:var(--bt-ink-2)}
+.bt-todo-item[data-from="bot"] .bt-todo-text{color:var(--bt-accent)}
 .bt-todo-item[data-done]{opacity:.55}
 .bt-todo-item[data-done] .bt-todo-text{text-decoration:line-through}
 .bt-todo-history-head{display:flex;align-items:center;gap:6px;width:100%;padding:5px 8px;border:0;border-top:1px solid var(--bt-line);background:none;color:var(--bt-ink-3);font:inherit;font-size:11px;cursor:pointer;text-align:left}

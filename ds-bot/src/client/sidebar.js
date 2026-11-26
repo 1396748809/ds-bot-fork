@@ -1003,12 +1003,51 @@ export function TeamSidebar(props) {
   useReportReady(roster.ready, roster)
   const [dragId, setDragId] = useState(null)
   const [dropTarget, setDropTarget] = useState(null)
-  // A to-do item names the Bot it came from, so the row can offer that conversation back.
-  // The name is matched exactly: "Chief自测" is a label, not a Bot, and must not open Chief.
-  const openFromTodo = (name, probe) => {
+  // A to-do item names the Bot it came from and the moment it was added. The name is matched
+  // exactly: "Chief自测" is a label, not a Bot, and must not open Chief. The moment is the
+  // row's address inside that chat — every message carries the time it happened, so the
+  // newest message at or before that moment is where the item was raised.
+  const scrollChatTo = (at) => {
+    const target = Date.parse(String(at ?? ''))
+    if (typeof document === 'undefined' || !Number.isFinite(target)) return
+    let tries = 0
+    const attempt = () => {
+      tries += 1
+      const scroller = document.querySelector('[data-conversation-scroll]')
+      const rows = scroller === null ? [] : [...scroller.querySelectorAll('[data-time]')]
+        .map(node => ({ node, time: Number(node.getAttribute('data-time')) }))
+        .filter(row => Number.isFinite(row.time))
+        .sort((left, right) => left.time - right.time)
+      // The chat paints after the session opens, and its earlier parts can arrive later still.
+      if (rows.length === 0) {
+        if (tries < 14) setTimeout(attempt, 120)
+        return
+      }
+      // The last row before the moment; when the item predates everything loaded, the first
+      // row is nearer the truth than the bottom of the page.
+      const before = rows.filter(row => row.time <= target)
+      const pick = before.length > 0 ? before[before.length - 1] : rows[0]
+      pick.node.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      // Marked for a moment so the eye finds the row it was sent to rather than a wall of text.
+      pick.node.style.transition = 'outline-color .3s ease'
+      pick.node.style.outline = '2px solid var(--bt-accent)'
+      pick.node.style.outlineOffset = '4px'
+      pick.node.style.borderRadius = '8px'
+      setTimeout(() => {
+        pick.node.style.outline = 'transparent'
+        pick.node.style.outlineOffset = ''
+        pick.node.style.borderRadius = ''
+      }, 1800)
+    }
+    setTimeout(attempt, 90)
+  }
+  const openFromTodo = (name, probe, at) => {
     const bot = roster.bots.find(candidate => candidate.name === name)
     if (bot === undefined) return false
-    if (probe !== true) actions.openSession(bot.id)
+    if (probe !== true) {
+      actions.openSession(bot.id)
+      scrollChatTo(at)
+    }
     return true
   }
   const onDragStart = (event, id) => {

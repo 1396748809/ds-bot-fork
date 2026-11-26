@@ -104,6 +104,9 @@ test('every --bt-* CSS variable referenced in client styles is defined or an all
     '--bt-fx-blur-5', '--bt-fx-blur-6', '--bt-browser-bar', '--bt-col-w',
     '--bt-tint', '--bt-bg', '--bt-fg', '--bt-ink-mix', '--bt-ring',
     '--bt-hue', '--bt-im-', '--bt-effort-p', '--bt-dot-p',
+    // The sidebar measures its to-do block and writes the height inline (sidebar.js);
+    // todo-panel's stylesheet reads it with a 220px fallback.
+    '--bt-side-block-h',
     '--bt-skin-sidebar', '--bt-skin-main', '--bt-skin-card',
   ])
   const used = new Map()

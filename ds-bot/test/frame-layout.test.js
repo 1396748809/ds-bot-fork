@@ -206,6 +206,34 @@ test('openers keep a yield already given', () => {
   assert.equal(ui.getSnapshot().panelYield, true)
 })
 
+// The header pill is an opener too. Landing on a subject whose panel does not fit used to
+// leave it folded with no yield, so the reader saw nothing and the next click closed a
+// panel that had never been shown — the panel could not be opened again from the pill.
+test('the header pill yields for a folded panel it opens onto another subject', () => {
+  const { ui, actions } = bench(true)
+  ui.set(state => ({ ...state, details: null, view: 'details', panelYield: false }))
+  ui.set(state => ({ ...state, details: 'chief', view: 'browser', panelYield: false }))
+  actions.toggleDetails('chief')
+  assert.equal(ui.getSnapshot().details, 'chief')
+  assert.equal(ui.getSnapshot().view, 'details')
+  assert.equal(ui.getSnapshot().panelYield, true, 'an opener that cannot fit must yield, or it shows nothing')
+})
+
+test('the header pill does not yield for a panel that fits', () => {
+  const { ui, actions } = bench(false)
+  ui.set(state => ({ ...state, details: null, panelYield: false }))
+  actions.toggleDetails('chief')
+  assert.equal(ui.getSnapshot().details, 'chief')
+  assert.equal(ui.getSnapshot().panelYield, false)
+})
+
+test('the header pill closing the panel drops the yield with it', () => {
+  const { ui, actions } = bench(false, true)
+  actions.toggleDetails('chief')
+  assert.equal(ui.getSnapshot().details, null)
+  assert.equal(ui.getSnapshot().panelYield, false)
+})
+
 // New chat, Bot exchanges and voice mode start at the left column's edge, whichever
 // form the column has; the shell's own sidebar plays no part.
 test('the left column reports the edge the full-height panes start at', () => {

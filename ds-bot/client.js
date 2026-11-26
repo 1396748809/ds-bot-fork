@@ -2055,6 +2055,19 @@ var JA = {
   "Context {used} in use — a fresh chat starts empty": "コンテキスト使用量 {used} トークン — 新しい会話は空から始まります",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "コンテキスト使用量 {used} トークン — 27.2 万を超えると 1 回の呼び出しが 2 倍の料金になります。新しい会話をおすすめします",
   "Waits for this turn to end": "このターンの終了を待ちます",
+  "Open in its own window": "専用ウィンドウで開く",
+  "Open these details in a window of their own": "この詳細を専用ウィンドウで開く",
+  "Close this window": "このウィンドウを閉じる",
+  "OpenMAIC classroom": "OpenMAIC 教室",
+  "OpenMAIC classroom (public)": "OpenMAIC 教室（公開）",
+  "Hold": "保留",
+  "Hold this turn and keep the queue": "このターンを停止し、待機中のメッセージは残して ↑ で送ります",
+  "Couldn’t hold the queue. Try again.": "保留できませんでした。もう一度お試しください。",
+  "{n} held messages": "{n} 件を保留中",
+  "Send this held message": "保留中のメッセージを送信",
+  "Drop this held message": "保留中のメッセージを削除",
+  "The attachment does not survive holding": "添付ファイルは保留に残りません",
+  "Couldn’t send the held message. Try again.": "保留中のメッセージを送信できませんでした。もう一度お試しください。",
   "Steered mid-turn": "ターン途中で追加",
   "It went in mid-turn, without starting a new one": "ターンの途中で送られ、新しいターンは始まっていません",
   "Sent while a reply was being written, so that draft was cut": "返答を書いている最中に送られたため、その途中までの文面は打ち切られました",
@@ -4756,6 +4769,19 @@ var KO = {
   "Context {used} in use — a fresh chat starts empty": "컨텍스트 사용량 {used} 토큰 — 새 대화는 비어 있는 상태로 시작합니다",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "컨텍스트 사용량 {used} 토큰 — 27.2만을 넘으면 호출 한 번이 두 배로 과금됩니다. 새 대화를 권합니다",
   "Waits for this turn to end": "이 턴이 끝날 때까지 대기",
+  "Open in its own window": "전용 창에서 열기",
+  "Open these details in a window of their own": "이 세부 정보를 전용 창에서 열기",
+  "Close this window": "이 창 닫기",
+  "OpenMAIC classroom": "OpenMAIC 교실",
+  "OpenMAIC classroom (public)": "OpenMAIC 교실(공개)",
+  "Hold": "보류",
+  "Hold this turn and keep the queue": "이 턴을 멈추고 대기 중인 메시지는 남겨 두었다가 ↑ 로 보냅니다",
+  "Couldn’t hold the queue. Try again.": "보류하지 못했습니다. 다시 시도하세요.",
+  "{n} held messages": "보류된 메시지 {n}개",
+  "Send this held message": "보류된 메시지 보내기",
+  "Drop this held message": "보류된 메시지 삭제",
+  "The attachment does not survive holding": "첨부 파일은 보류에 남지 않습니다",
+  "Couldn’t send the held message. Try again.": "보류된 메시지를 보내지 못했습니다. 다시 시도하세요.",
   "Steered mid-turn": "턴 중간에 추가됨",
   "It went in mid-turn, without starting a new one": "턴 중간에 전달되었고 새 턴은 시작되지 않았습니다",
   "Sent while a reply was being written, so that draft was cut": "답변을 쓰는 중에 보내서 그 초안은 중단되었습니다",
@@ -7458,6 +7484,19 @@ var ES = {
   "Context {used} in use — a fresh chat starts empty": "Contexto en uso: {used} tokens — un chat nuevo empieza vacío",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "Contexto en uso: {used} tokens — por encima de 272k cada llamada se factura al doble; conviene un chat nuevo",
   "Waits for this turn to end": "Espera a que termine este turno",
+  "Open in its own window": "Abrir en su propia ventana",
+  "Open these details in a window of their own": "Abrir estos detalles en una ventana propia",
+  "Close this window": "Cerrar esta ventana",
+  "OpenMAIC classroom": "Aula de OpenMAIC",
+  "OpenMAIC classroom (public)": "Aula de OpenMAIC (pública)",
+  "Hold": "Retener",
+  "Hold this turn and keep the queue": "Retén este turno y conserva la cola hasta que pulses ↑",
+  "Couldn’t hold the queue. Try again.": "No se pudo retener la cola. Inténtalo de nuevo.",
+  "{n} held messages": "{n} mensajes retenidos",
+  "Send this held message": "Enviar este mensaje retenido",
+  "Drop this held message": "Descartar este mensaje retenido",
+  "The attachment does not survive holding": "El adjunto no se conserva al retener",
+  "Couldn’t send the held message. Try again.": "No se pudo enviar el mensaje retenido. Inténtalo de nuevo.",
   "Steered mid-turn": "Añadido a mitad de turno",
   "It went in mid-turn, without starting a new one": "Entró a mitad del turno, sin iniciar uno nuevo",
   "Sent while a reply was being written, so that draft was cut": "Enviado mientras se escribía una respuesta, así que ese borrador se cortó",
@@ -10116,6 +10155,19 @@ var FR = {
   "Context {used} in use — a fresh chat starts empty": "Contexte utilisé : {used} tokens — une nouvelle conversation repart de zéro",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "Contexte utilisé : {used} tokens — au-delà de 272k chaque appel est facturé double ; une nouvelle conversation s’impose",
   "Waits for this turn to end": "Attend la fin de ce tour",
+  "Open in its own window": "Ouvrir dans sa propre fenêtre",
+  "Open these details in a window of their own": "Ouvrir ces détails dans une fenêtre dédiée",
+  "Close this window": "Fermer cette fenêtre",
+  "OpenMAIC classroom": "Classe OpenMAIC",
+  "OpenMAIC classroom (public)": "Classe OpenMAIC (publique)",
+  "Hold": "Retenir",
+  "Hold this turn and keep the queue": "Retiens ce tour et garde la file, à envoyer avec ↑",
+  "Couldn’t hold the queue. Try again.": "Impossible de retenir la file. Réessaie.",
+  "{n} held messages": "{n} messages retenus",
+  "Send this held message": "Envoyer ce message retenu",
+  "Drop this held message": "Supprimer ce message retenu",
+  "The attachment does not survive holding": "La pièce jointe n’est pas conservée",
+  "Couldn’t send the held message. Try again.": "Impossible d’envoyer le message retenu. Réessaie.",
   "Steered mid-turn": "Ajouté en cours de tour",
   "It went in mid-turn, without starting a new one": "Ajouté en cours de tour, sans en démarrer un nouveau",
   "Sent while a reply was being written, so that draft was cut": "Envoyé pendant la rédaction d’une réponse : ce brouillon a été interrompu",
@@ -12817,6 +12869,19 @@ var DE = {
   "Context {used} in use — a fresh chat starts empty": "Kontext belegt: {used} Token — ein neuer Chat startet leer",
   "Context {used} — past 272k a call bills at double, worth a fresh chat": "Kontext belegt: {used} Token — über 272k wird jeder Aufruf doppelt berechnet, ein neuer Chat lohnt sich",
   "Waits for this turn to end": "Wartet, bis dieser Zug endet",
+  "Open in its own window": "In einem eigenen Fenster öffnen",
+  "Open these details in a window of their own": "Diese Details in einem eigenen Fenster öffnen",
+  "Close this window": "Dieses Fenster schließen",
+  "OpenMAIC classroom": "OpenMAIC-Kursraum",
+  "OpenMAIC classroom (public)": "OpenMAIC-Kursraum (öffentlich)",
+  "Hold": "Anhalten",
+  "Hold this turn and keep the queue": "Diesen Zug anhalten und die Warteschlange behalten, bis du ↑ drückst",
+  "Couldn’t hold the queue. Try again.": "Warteschlange konnte nicht angehalten werden. Bitte erneut versuchen.",
+  "{n} held messages": "{n} angehaltene Nachrichten",
+  "Send this held message": "Angehaltene Nachricht senden",
+  "Drop this held message": "Angehaltene Nachricht verwerfen",
+  "The attachment does not survive holding": "Der Anhang bleibt beim Anhalten nicht erhalten",
+  "Couldn’t send the held message. Try again.": "Angehaltene Nachricht konnte nicht gesendet werden. Bitte erneut versuchen.",
   "Steered mid-turn": "Mitten im Zug ergänzt",
   "It went in mid-turn, without starting a new one": "Mitten im Zug eingegangen, ohne einen neuen zu starten",
   "Sent while a reply was being written, so that draft was cut": "Während einer laufenden Antwort gesendet, daher wurde dieser Entwurf abgebrochen",
@@ -13919,6 +13984,15 @@ var ZH = {
   "Couldn’t delete the queued message — it may have started already.": "删除失败：这条消息可能已经开始发送。",
   "Couldn’t steer the queued message. Try again.": "插话发送失败，请重试。",
   "Waits for this turn to end": "等这轮结束",
+  // Holding the queue: stop the turn, keep the parked rows until their arrow.
+  Hold: "停住",
+  "Hold this turn and keep the queue": "停住这一轮，排队消息留着，等你按 ↑ 再发",
+  "Couldn’t hold the queue. Try again.": "停住失败，请重试。",
+  "{n} held messages": "{n} 条已停住",
+  "Send this held message": "发送这条停住的消息",
+  "Drop this held message": "删除这条停住的消息",
+  "The attachment does not survive holding": "附件不会跟着停住保留",
+  "Couldn’t send the held message. Try again.": "发送停住的消息失败，请重试。",
   // A bubble the user steered into the running turn, and the tooltip on its chip.
   "Steered mid-turn": "插话",
   "It went in mid-turn, without starting a new one": "这条是插话：在当前这一轮中途送进去，没有另起一轮",
@@ -15048,6 +15122,8 @@ var ZH = {
   "WeChat saved knowledge base": "微信收藏知识库",
   "Goofish monitor": "闲鱼监控",
   "Floorplan report site": "户型报告站",
+  "OpenMAIC classroom": "OpenMAIC 课堂",
+  "OpenMAIC classroom (public)": "OpenMAIC 课堂（公网）",
   "Not running": "未运行",
   "Starting…": "正在启动…",
   "Status unknown": "状态未知",
@@ -16015,8 +16091,8 @@ function bodyOf(def, paint, flat = false) {
     return "";
   }
 }
-var eyeMarkup = ([cx, cy, w, h79, tilt]) => `<g transform="translate(${cx} ${cy}) rotate(${tilt})"><rect class="bt-eye" x="${-w / 2}" y="${-h79 / 2}" width="${w}" height="${h79}" rx="${w / 2}"/></g>`;
-var happyEyeMarkup = ([cx, cy, w, h79, tilt]) => `<g transform="translate(${cx} ${cy}) rotate(${tilt})"><path class="bt-eye-happy" opacity="0" d="M${-w * 0.62} ${h79 * 0.14}Q0 ${-h79 * 0.42} ${w * 0.62} ${h79 * 0.14}" fill="none" stroke="#000" stroke-width="${w * 0.5}" stroke-linecap="round"/></g>`;
+var eyeMarkup = ([cx, cy, w, h80, tilt]) => `<g transform="translate(${cx} ${cy}) rotate(${tilt})"><rect class="bt-eye" x="${-w / 2}" y="${-h80 / 2}" width="${w}" height="${h80}" rx="${w / 2}"/></g>`;
+var happyEyeMarkup = ([cx, cy, w, h80, tilt]) => `<g transform="translate(${cx} ${cy}) rotate(${tilt})"><path class="bt-eye-happy" opacity="0" d="M${-w * 0.62} ${h80 * 0.14}Q0 ${-h80 * 0.42} ${w * 0.62} ${h80 * 0.14}" fill="none" stroke="#000" stroke-width="${w * 0.5}" stroke-linecap="round"/></g>`;
 var maskBox = (size) => `maskUnits="userSpaceOnUse" x="${-size}" y="${-size}" width="${size * 3}" height="${size * 3}"`;
 var holes = (def, eyes) => `<rect x="${-def.size}" y="${-def.size}" width="${def.size * 3}" height="${def.size * 3}" fill="#fff"/>${eyes}`;
 var MASK_ID = "%MASK%";
@@ -16152,7 +16228,7 @@ function teamActions({ call: call2, after, partFor, roster, ui, live, cards, hel
       ui.set((state) => {
         const details = force || state.details !== id || state.view !== "details" ? id : null;
         if (details === null && panelFolded?.("details") === true) return { ...state, renaming: false, tab: null, details: id, view: "details", panelYield: true };
-        return { ...state, renaming: false, tab: null, details, view: "details" };
+        return { ...state, renaming: false, tab: null, details, view: "details", panelYield: details === null ? false : yieldTo(state, "details") };
       });
     },
     // The open panel follows the main view; a subject with no browser (a group
@@ -17312,12 +17388,12 @@ function liveSprings(apply2) {
     const dt = Math.min(0.5, Math.max(1e-3, (now2 - last) / 1e3));
     last = now2;
     const steps = Math.ceil(dt * 240);
-    const h79 = dt / steps;
+    const h80 = dt / steps;
     let moving = false;
     for (const [key, value] of values) {
       for (let index = 0; index < steps; index += 1) {
-        value.v += (-value.k * (value.x - value.to) - value.c * value.v) * h79;
-        value.x += value.v * h79;
+        value.v += (-value.k * (value.x - value.to) - value.c * value.v) * h80;
+        value.x += value.v * h80;
       }
       if (Math.abs(value.x - value.to) < 0.05 && Math.abs(value.v) < 1) {
         value.x = value.to;
@@ -19876,7 +19952,7 @@ var SETTINGS_ICONS = { general: GearIcon, bots: PeopleIcon, groups: ChatsIcon, i
 // src/client/todo-panel.js
 var import_react4 = require("react");
 var import_react_dom = require("react-dom");
-var POLL_MS = 3e4;
+var POLL_MS = 5e3;
 var rowsOf = (list, key) => Array.isArray(list?.[key]) ? list[key] : [];
 var countOf = (list) => {
   const items = rowsOf(list, "items");
@@ -19900,10 +19976,20 @@ function useTodo(actions) {
     const timer = setInterval(read, POLL_MS);
     const asked = () => read();
     if (typeof window !== "undefined" && typeof window.addEventListener === "function") window.addEventListener("bt-todo-changed", asked);
+    const wake = () => {
+      if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+      read();
+    };
+    if (typeof window !== "undefined" && typeof window.addEventListener === "function") window.addEventListener("focus", wake);
+    if (typeof document !== "undefined" && typeof document.addEventListener === "function") document.addEventListener("visibilitychange", wake);
     return () => {
       live = false;
       clearInterval(timer);
-      if (typeof window !== "undefined" && typeof window.removeEventListener === "function") window.removeEventListener("bt-todo-changed", asked);
+      if (typeof window !== "undefined" && typeof window.removeEventListener === "function") {
+        window.removeEventListener("bt-todo-changed", asked);
+        window.removeEventListener("focus", wake);
+      }
+      if (typeof document !== "undefined" && typeof document.removeEventListener === "function") document.removeEventListener("visibilitychange", wake);
     };
   }, [actions]);
   const settle = (promise) => {
@@ -19987,12 +20073,14 @@ function useTodo(actions) {
   return { list, tick, clear, clearOne, add };
 }
 function TodoRow({ item, done, onTick, onMenu, onPeek }) {
+  const fromBot = Boolean(item.from) && String(item.from) !== "user";
   return (0, import_react4.createElement)(
     "li",
     {
       key: item.id || item.text,
       className: "bt-todo-item",
       "data-done": done ? "" : void 0,
+      "data-from": fromBot ? "bot" : void 0,
       onContextMenu: onMenu ? (event) => {
         event.preventDefault();
         onMenu(event, item);
@@ -20203,7 +20291,9 @@ var QUICK_SERVICES = [
   { id: "anythingllm", label: () => t("WeChat saved knowledge base"), url: "http://localhost:3001/" },
   { id: "goofish", label: () => t("Goofish monitor"), url: "http://127.0.0.1:8000/" },
   { id: "freemodel", label: () => t("Local model chat"), url: "http://127.0.0.1:18901/" },
-  { id: "floorplan", label: () => t("Floorplan report site"), url: "http://127.0.0.1:8123/" }
+  { id: "floorplan", label: () => t("Floorplan report site"), url: "http://127.0.0.1:8123/" },
+  { id: "openmaic", label: () => t("OpenMAIC classroom"), url: "http://127.0.0.1:3000/" },
+  { id: "openmaic-public", label: () => t("OpenMAIC classroom (public)"), url: "https://openmaic.cdymail.top/" }
 ];
 var SERVICE_POLL_MS = 8e3;
 function useServiceStatus(watching) {
@@ -20518,7 +20608,7 @@ function TeamTodoSide({ actions, view, onView, openFrom }) {
       menu,
       onClose: () => setMenu(null),
       onOpen: (item) => {
-        if (typeof openFrom === "function") openFrom(item.from, false);
+        if (typeof openFrom === "function") openFrom(item.from, false, item.at);
       },
       onClear: clearOne,
       onCopy: copy2
@@ -20638,6 +20728,7 @@ var TEAM_TODO_CSS = `
 .bt-todo-box{flex:none;width:13px;height:13px;margin:0;align-self:center;accent-color:var(--bt-accent);cursor:pointer}
 .bt-todo-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bt-todo-from{flex:none;font-size:11px;color:var(--bt-ink-2)}
+.bt-todo-item[data-from="bot"] .bt-todo-text{color:var(--bt-accent)}
 .bt-todo-item[data-done]{opacity:.55}
 .bt-todo-item[data-done] .bt-todo-text{text-decoration:line-through}
 .bt-todo-history-head{display:flex;align-items:center;gap:6px;width:100%;padding:5px 8px;border:0;border-top:1px solid var(--bt-line);background:none;color:var(--bt-ink-3);font:inherit;font-size:11px;cursor:pointer;text-align:left}
@@ -31197,7 +31288,7 @@ function Bubbles({ texts: texts2, roster, selfId, actions, streaming, sessionId,
   const reactions = useUi ? useUi((state) => msgKey ? state.reactions?.[msgKey] ?? null : null) : null;
   return (0, import_react36.createElement)(
     "div",
-    { className: "bt-astack", "data-lead": lead ? "" : void 0, onClickCapture: onClick },
+    { className: "bt-astack", "data-lead": lead ? "" : void 0, "data-time": Number.isFinite(time) ? String(time) : void 0, onClickCapture: onClick },
     cleaned.map((text, index) => {
       const last = index === cleaned.length - 1;
       return (0, import_react36.createElement)(Bubble, {
@@ -31533,7 +31624,7 @@ function EventLine({ prefix, bots, joiner = t("and"), onOpen, whole = false }) {
 function SpeakerHead({ bot, time }) {
   return (0, import_react36.createElement)(
     "div",
-    { className: "bt-group-name" },
+    { className: "bt-group-name", "data-time": Number.isFinite(time) ? String(time) : void 0 },
     (0, import_react36.createElement)("span", { className: "bt-lead" }, (0, import_react36.createElement)(BotMark, { bot, size: 22 })),
     bot.name,
     Number.isFinite(time) ? (0, import_react36.createElement)("span", { className: "bt-group-time", title: clockLabel(time) }, messageClock(time)) : null
@@ -31605,7 +31696,7 @@ function GroupMessage({ bot, text, texts: texts2 = [text], room: room2, sessionI
   const quoteSession = sessionId ?? room2?.sessionId ?? room2?.id;
   return (0, import_react36.createElement)(
     "div",
-    { ref, className: "bt-group-msg", "data-bot-id": bot.id },
+    { ref, className: "bt-group-msg", "data-bot-id": bot.id, "data-time": Number.isFinite(time) ? String(time) : void 0 },
     (0, import_react36.createElement)(
       "span",
       { className: "bt-group-name", style: flat ? void 0 : { color: inkText(colorOf(bot)) } },
@@ -31695,7 +31786,7 @@ function EarlierUser({ row, actions }) {
   const area = foldArea(body, code, codeHead, actions);
   return (0, import_react36.createElement)(
     "div",
-    { className: "bt-urow" },
+    { className: "bt-urow", "data-time": Number.isFinite(row.time) ? String(row.time) : void 0 },
     (0, import_react36.createElement)(
       "div",
       { className: "bt-ububble", "data-folded": folded || void 0, "data-text-interaction-source": body || code !== void 0 ? "" : void 0 },
@@ -34834,10 +34925,40 @@ function TeamSidebar(props) {
   useReportReady(roster.ready, roster);
   const [dragId, setDragId] = (0, import_react39.useState)(null);
   const [dropTarget, setDropTarget] = (0, import_react39.useState)(null);
-  const openFromTodo = (name, probe) => {
+  const scrollChatTo = (at) => {
+    const target = Date.parse(String(at ?? ""));
+    if (typeof document === "undefined" || !Number.isFinite(target)) return;
+    let tries = 0;
+    const attempt = () => {
+      tries += 1;
+      const scroller = document.querySelector("[data-conversation-scroll]");
+      const rows2 = scroller === null ? [] : [...scroller.querySelectorAll("[data-time]")].map((node) => ({ node, time: Number(node.getAttribute("data-time")) })).filter((row) => Number.isFinite(row.time)).sort((left, right) => left.time - right.time);
+      if (rows2.length === 0) {
+        if (tries < 14) setTimeout(attempt, 120);
+        return;
+      }
+      const before = rows2.filter((row) => row.time <= target);
+      const pick2 = before.length > 0 ? before[before.length - 1] : rows2[0];
+      pick2.node.scrollIntoView({ block: "center", behavior: "smooth" });
+      pick2.node.style.transition = "outline-color .3s ease";
+      pick2.node.style.outline = "2px solid var(--bt-accent)";
+      pick2.node.style.outlineOffset = "4px";
+      pick2.node.style.borderRadius = "8px";
+      setTimeout(() => {
+        pick2.node.style.outline = "transparent";
+        pick2.node.style.outlineOffset = "";
+        pick2.node.style.borderRadius = "";
+      }, 1800);
+    };
+    setTimeout(attempt, 90);
+  };
+  const openFromTodo = (name, probe, at) => {
     const bot = roster.bots.find((candidate) => candidate.name === name);
     if (bot === void 0) return false;
-    if (probe !== true) actions.openSession(bot.id);
+    if (probe !== true) {
+      actions.openSession(bot.id);
+      scrollChatTo(at);
+    }
     return true;
   };
   const onDragStart = (event, id) => {
@@ -48719,11 +48840,11 @@ var WindowIcon = icon(["M4 5h12v9.5H4z", "M4 7.5h12"]);
 var PasteIcon = icon(["M7.5 4.5h5v2h-5z", "M6 5.5H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-1"]);
 function siteMatchesHost(site, host) {
   const s = String(site ?? "").replace(/^\.+/, "").toLowerCase();
-  const h79 = String(host ?? "").replace(/^\.+/, "").toLowerCase();
-  if (!s || !h79) return false;
-  if (s === h79) return true;
-  if (s.includes(".") && h79.endsWith(`.${s}`)) return true;
-  if (h79.includes(".") && s.endsWith(`.${h79}`)) return true;
+  const h80 = String(host ?? "").replace(/^\.+/, "").toLowerCase();
+  if (!s || !h80) return false;
+  if (s === h80) return true;
+  if (s.includes(".") && h80.endsWith(`.${s}`)) return true;
+  if (h80.includes(".") && s.endsWith(`.${h80}`)) return true;
   return false;
 }
 var hostOfUrl = (url) => {
@@ -52378,6 +52499,125 @@ var QUEUE_CSS = `
 .bt-queue-action:disabled{cursor:default;opacity:.4;color:var(--bt-ink-3)}
 `;
 
+// src/client/hold-dock.js
+var import_react81 = require("react");
+var OWN_QUEUE_KINDS2 = /* @__PURE__ */ new Set(["user", "schedule", "user-question-reply"]);
+var parkedBySession = /* @__PURE__ */ new Map();
+function parkedOf(sessionId) {
+  return parkedBySession.get(sessionId) ?? [];
+}
+function wordsOf(content) {
+  return (content ?? []).filter((block) => block?.type === "text").map((block) => block.text).join("");
+}
+function carriesMore(content) {
+  return (content ?? []).some((block) => block?.type === "image" || block?.type === "file");
+}
+function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, removeQueued, promptQueued }) {
+  const inbox = useProjection?.("inbox");
+  const running = useSession?.((s) => s.running) === true;
+  const [busy, setBusy] = (0, import_react81.useState)(null);
+  const [revision, setRevision] = (0, import_react81.useState)(0);
+  const queued = (inbox?.["next-turn"] ?? []).filter((row) => OWN_QUEUE_KINDS2.has(row.source?.kind));
+  const parked = parkedOf(sessionId);
+  void revision;
+  if (queued.length === 0 && parked.length === 0) return null;
+  const bump = () => setRevision((value) => value + 1);
+  const holdNow = async () => {
+    if (busy !== null || queued.length === 0) return;
+    setBusy("hold");
+    const taken = queued.map((row) => ({ id: row.id, content: row.content }));
+    parkedBySession.set(sessionId, [...parked, ...taken]);
+    bump();
+    try {
+      for (const row of taken) await removeQueued(row.id);
+      await cancelTurn();
+    } catch {
+      actions.reportError(new Error(t("Couldn’t hold the queue. Try again.")), "hold-queue");
+    } finally {
+      setBusy(null);
+    }
+  };
+  const sendParked = async (row) => {
+    if (busy !== null) return;
+    setBusy(row.id);
+    try {
+      if (await promptQueued(row.content)) {
+        parkedBySession.set(sessionId, parkedOf(sessionId).filter((item) => item.id !== row.id));
+        bump();
+      }
+    } catch {
+      actions.reportError(new Error(t("Couldn’t send the held message. Try again.")), "hold-queue");
+    } finally {
+      setBusy(null);
+    }
+  };
+  const dropParked = (row) => {
+    parkedBySession.set(sessionId, parkedOf(sessionId).filter((item) => item.id !== row.id));
+    bump();
+  };
+  return (0, import_react81.createElement)(
+    "div",
+    { className: "bt-hold-dock", "data-hold-dock": "" },
+    running && queued.length > 0 ? (0, import_react81.createElement)(
+      "div",
+      { className: "bt-hold-bar" },
+      (0, import_react81.createElement)("span", { className: "bt-hold-note" }, t("{n} queued messages", { n: queued.length })),
+      (0, import_react81.createElement)("button", {
+        type: "button",
+        className: "bt-hold-btn",
+        disabled: busy !== null,
+        title: t("Hold this turn and keep the queue"),
+        onClick: holdNow
+      }, t("Hold"))
+    ) : null,
+    parked.length > 0 ? (0, import_react81.createElement)(
+      "div",
+      { className: "bt-hold-panel" },
+      (0, import_react81.createElement)("div", { className: "bt-hold-head" }, t("{n} held messages", { n: parked.length })),
+      (0, import_react81.createElement)("ul", { className: "bt-hold-list" }, parked.map((row) => (0, import_react81.createElement)(
+        "li",
+        { key: row.id, className: "bt-hold-row" },
+        (0, import_react81.createElement)("span", { className: "bt-hold-text" }, wordsOf(row.content)),
+        carriesMore(row.content) ? (0, import_react81.createElement)("span", { className: "bt-hold-warn" }, t("The attachment does not survive holding")) : null,
+        (0, import_react81.createElement)("button", {
+          type: "button",
+          className: "bt-hold-action",
+          "aria-label": t("Send this held message"),
+          title: t("Send this held message"),
+          disabled: busy !== null,
+          onClick: () => void sendParked(row)
+        }, (0, import_react81.createElement)(ArrowUpIcon)),
+        (0, import_react81.createElement)("button", {
+          type: "button",
+          className: "bt-hold-action",
+          "aria-label": t("Drop this held message"),
+          title: t("Drop this held message"),
+          disabled: busy !== null,
+          onClick: () => dropParked(row)
+        }, (0, import_react81.createElement)(TrashIcon))
+      )))
+    ) : null
+  );
+}
+var HOLD_CSS = `
+.bt-hold-dock{box-sizing:border-box;width:100%;margin:0 auto;flex:none;display:flex;flex-direction:column;gap:6px}
+.bt-hold-bar{box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:4px 10px;border-radius:12px;background:var(--bt-main);border:.5px solid var(--bt-line-2)}
+.bt-hold-note{min-width:0;flex:auto;font-size:12px;line-height:18px;color:var(--bt-ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-hold-btn{flex:none;height:26px;padding:0 12px;border:.5px solid var(--bt-line-2);border-radius:999px;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;cursor:pointer}
+.bt-hold-btn:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
+.bt-hold-btn:disabled{opacity:.4;cursor:default}
+.bt-hold-panel{box-sizing:border-box;border-radius:12px;background:var(--bt-main);border:.5px solid var(--bt-line-2);overflow:hidden}
+.bt-hold-head{padding:6px 12px;font-size:12px;font-weight:500;color:var(--bt-ink-3)}
+.bt-hold-list{margin:0;padding:0;list-style:none;max-height:160px;overflow-y:auto}
+.bt-hold-row{box-sizing:border-box;display:flex;align-items:center;gap:10px;min-height:34px;padding:4px 6px 4px 12px}
+.bt-hold-row+.bt-hold-row{box-shadow:inset 0 1px 0 var(--bt-line)}
+.bt-hold-text{min-width:0;flex:auto;font-size:13px;line-height:18px;color:var(--bt-ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-hold-warn{flex:none;font-size:11px;color:var(--bt-ink-3)}
+.bt-hold-action{flex:none;width:26px;height:26px;border:0;border-radius:999px;background:none;color:var(--bt-ink-2);cursor:pointer;display:grid;place-items:center;padding:0}
+.bt-hold-action:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
+.bt-hold-action:disabled{opacity:.4;cursor:default;color:var(--bt-ink-3)}
+`;
+
 // src/client/approval-notices.js
 function noticeApprovals({ work, roster, shownSession, openSession, since = Date.now() }) {
   if (typeof window !== "undefined" && typeof window.dsBotApp?.notify === "function") return () => {
@@ -52601,7 +52841,7 @@ function singleFlight(map, key, run2) {
 }
 
 // src/client/text-annotation.js
-var import_react81 = require("react");
+var import_react82 = require("react");
 var quoteMarkdown = (text) => text.replace(/\r\n?/gu, "\n").split("\n").map((line) => `> ${line}`).join("\n");
 var withAnnotation = (text, annotation) => annotation.trim() ? `${text}
 
@@ -52614,23 +52854,23 @@ function insertAnnotation(inputActions, text, annotation) {
 function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inputActions, useSession, useRoster, actions, t: hostT }) {
   const enabled = useSession((state) => !state.removed && (state.subagent === null || state.subagent.address.mode === "continuable" && state.subagent.parentAvailable === true));
   const team = useRoster((state) => state.byId[sessionId] !== void 0 || state.roomsById[sessionId] !== void 0);
-  const [editing, setEditing] = (0, import_react81.useState)(false);
-  const [excerpt, setExcerpt] = (0, import_react81.useState)(null);
-  const [annotation, setAnnotation] = (0, import_react81.useState)("");
-  const [sending, setSending] = (0, import_react81.useState)(false);
-  const [closing, setClosing] = (0, import_react81.useState)(false);
-  const field = (0, import_react81.useRef)(null);
-  const pending2 = (0, import_react81.useRef)(false);
-  const closeTimer = (0, import_react81.useRef)(null);
-  (0, import_react81.useEffect)(() => {
+  const [editing, setEditing] = (0, import_react82.useState)(false);
+  const [excerpt, setExcerpt] = (0, import_react82.useState)(null);
+  const [annotation, setAnnotation] = (0, import_react82.useState)("");
+  const [sending, setSending] = (0, import_react82.useState)(false);
+  const [closing, setClosing] = (0, import_react82.useState)(false);
+  const field = (0, import_react82.useRef)(null);
+  const pending2 = (0, import_react82.useRef)(false);
+  const closeTimer = (0, import_react82.useRef)(null);
+  (0, import_react82.useEffect)(() => {
     if (!enabled) dismiss();
   }, [enabled, dismiss]);
-  (0, import_react81.useEffect)(() => {
+  (0, import_react82.useEffect)(() => {
     if (!team || !enabled || !editing) return;
     field.current?.focus();
     if (typeof window !== "undefined") window.dispatchEvent(new Event("resize"));
   }, [team, enabled, editing]);
-  (0, import_react81.useEffect)(() => () => clearTimeout(closeTimer.current), []);
+  (0, import_react82.useEffect)(() => () => clearTimeout(closeTimer.current), []);
   if (!enabled) return null;
   const close = () => {
     clearSelection();
@@ -52703,7 +52943,7 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
     else void send();
   };
   if (!team) {
-    return (0, import_react81.createElement)("button", {
+    return (0, import_react82.createElement)("button", {
       type: "button",
       className: "bt-quote-plain",
       "aria-label": hostT("quote.add"),
@@ -52712,17 +52952,17 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
     }, hostT("quote.add"));
   }
   if (!editing) {
-    return (0, import_react81.createElement)(
+    return (0, import_react82.createElement)(
       "div",
       { className: "bt-selection-actions" },
-      (0, import_react81.createElement)("button", {
+      (0, import_react82.createElement)("button", {
         type: "button",
         className: "bt-selection-action",
         "aria-label": hostT("quote.add"),
         onPointerDown: (event) => event.preventDefault(),
         onClick: quoteOnly
       }, hostT("quote.add")),
-      (0, import_react81.createElement)("button", {
+      (0, import_react82.createElement)("button", {
         type: "button",
         className: "bt-selection-action bt-quote-annotate",
         "aria-label": t("Annotate"),
@@ -52731,7 +52971,7 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
       }, t("Annotate"))
     );
   }
-  return (0, import_react81.createElement)(
+  return (0, import_react82.createElement)(
     "section",
     {
       className: "bt-annotation",
@@ -52746,9 +52986,9 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
         }
       }
     },
-    (0, import_react81.createElement)("label", { className: "bt-annotation-label", htmlFor: "bt-annotation-field" }, t("Annotation")),
-    (0, import_react81.createElement)("blockquote", { className: "bt-annotation-quote" }, quoteText()),
-    (0, import_react81.createElement)("textarea", {
+    (0, import_react82.createElement)("label", { className: "bt-annotation-label", htmlFor: "bt-annotation-field" }, t("Annotation")),
+    (0, import_react82.createElement)("blockquote", { className: "bt-annotation-quote" }, quoteText()),
+    (0, import_react82.createElement)("textarea", {
       id: "bt-annotation-field",
       ref: field,
       value: annotation,
@@ -52759,11 +52999,11 @@ function TextSelectionAction({ sessionId, dismiss, readText, clearSelection, inp
       onChange: (event) => setAnnotation(event.target.value),
       onKeyDown
     }),
-    (0, import_react81.createElement)(
+    (0, import_react82.createElement)(
       "div",
       { className: "bt-annotation-actions" },
-      (0, import_react81.createElement)("button", { type: "button", className: "bt-annotation-add", disabled: sending || closing, onClick: add, title: t("Add quote and annotation to the composer · Enter") }, t("Add")),
-      (0, import_react81.createElement)("button", { type: "button", className: "bt-annotation-send", disabled: sending || closing, onClick: () => void send(), title: (() => {
+      (0, import_react82.createElement)("button", { type: "button", className: "bt-annotation-add", disabled: sending || closing, onClick: add, title: t("Add quote and annotation to the composer · Enter") }, t("Add")),
+      (0, import_react82.createElement)("button", { type: "button", className: "bt-annotation-send", disabled: sending || closing, onClick: () => void send(), title: (() => {
         const label = t("Send quote and annotation · Ctrl+Enter");
         return typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || "") ? label.replace("Ctrl+Enter", "⌘↵") : label;
       })() }, sending ? t("Sending…") : t("Send"))
@@ -53906,6 +54146,32 @@ function apply(ctx) {
     updateQueue: async (itemId, action) => await ctx.sessions.binding(sessionId)?.session?.updateQueue(itemId, action) ?? { ok: false },
     loadImage: (attachment) => ctx.uiConversation.imageUrl(sessionId, attachment)
   });
+  const holdFace = (sessionId) => ({
+    ...face(),
+    sessionId,
+    cancelTurn: async () => {
+      const session = ctx.sessions.binding(sessionId)?.session;
+      if (session !== void 0) await session.cancel();
+    },
+    removeQueued: async (itemId) => {
+      const session = ctx.sessions.binding(sessionId)?.session;
+      if (session === void 0) return void 0;
+      return session.updateQueue(itemId, { kind: "remove" });
+    },
+    // Text only: an image or a file parked in a queue row has no upload behind it
+    // any more, and the row says so rather than failing here.
+    promptQueued: async (content) => {
+      const session = ctx.sessions.binding(sessionId)?.session;
+      if (session === void 0) return false;
+      const blocks = (content ?? []).filter((block) => block?.type === "text");
+      const text = blocks.map((block) => block.text).join("");
+      if (text.trim() === "") return false;
+      const submission = session.beginSubmission({ text, attachments: [], mode: "queue" });
+      const result = await session.prompt(blocks, "queue", void 0, submission.requestId);
+      if (result?.ok !== true) submission.abandon();
+      return result?.ok === true;
+    }
+  });
   ctx.effect(() => {
     let chats = null;
     return roster.subscribe(() => {
@@ -54189,6 +54455,7 @@ function apply(ctx) {
     () => installCompiledStyles(CONVERSATION_CSS + READ_ONLY_CSS, "conversation"),
     () => installCompiledStyles(TURN_ERROR_CSS, "turn-errors"),
     () => installCompiledStyles(QUEUE_CSS, "queue"),
+    () => installCompiledStyles(HOLD_CSS, "hold"),
     () => installCompiledStyles(ANNOTATION_CSS, "text-annotation"),
     () => installMentions(),
     () => installAtMenu(),
@@ -54262,7 +54529,10 @@ function apply(ctx) {
     // The shell's own queue dock lists every queued inbox row as the user's
     // drafts — including the team's relayed mail. Reusing its id puts ours in
     // its cell; it lists only the sends the user authored (#663).
-    () => shadow("conversation.input.dock", { id: "queue", order: 20, priority: BOT_PRIORITY, inject: queueFace }, QueueDock)
+    () => shadow("conversation.input.dock", { id: "queue", order: 20, priority: BOT_PRIORITY, inject: queueFace }, QueueDock),
+    // Sits below the queue dock: "hold" stops the turn without letting the queue
+    // start again, and the parked rows stay here until their arrow is pressed.
+    () => shadow("conversation.input.dock", { id: "bot-hold", order: 21, inject: holdFace }, HoldDock)
   ];
   ctx.effect(() => installCompiledStyles(RETURN_TOKENS + RETURN_CSS, "return"), "ds-bot: return styles");
   ctx.effect(() => installCompiledStyles(COMPUTER_CSS, "computer"), "ds-bot: computer styles");
