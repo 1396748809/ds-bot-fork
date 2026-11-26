@@ -531,8 +531,14 @@ export function install(rt) {
   })
   ctx.effect(() => {
     void rt.load().then(async () => {
-      for (const bot of Object.values(state.bots)) {
-        if ((bot.capabilities ?? []).length > 0) await trackBotAgents(bot)
+      // Mounting waits up to ENSURE_TIMEOUT_MS for a server, so a queue of Bots costs that
+      // much once per Bot: after a restart the chat the user opens came minutes late. The
+      // Main Bots keep their turn first, and the others start side by side instead of
+      // standing behind one another.
+      const waiting = Object.values(state.bots).filter(bot => (bot.capabilities ?? []).length > 0)
+      for (const bot of waiting.filter(bot => rt.isMain(bot.id))) await trackBotAgents(bot)
+      for (const bot of waiting.filter(bot => !rt.isMain(bot.id))) {
+        void trackBotAgents(bot).catch(error => rt.warn('ds-bot: capability startup for %s failed: %s', bot.id, error))
       }
       await scheduleReconcile()
     }).catch(error => rt.warn('ds-bot: capability startup failed: %s', error))
