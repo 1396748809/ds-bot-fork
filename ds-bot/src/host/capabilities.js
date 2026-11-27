@@ -6,6 +6,9 @@ const MCP_CLIENT = '@deepseek-ai/dsh-mcp-client'
 const NAME = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/
 const SECRET_REFERENCE = /\$DSH_SECRET_([A-Z][A-Z0-9_]*)/g
 const ENSURE_TIMEOUT_MS = 15_000
+// A mount slower than this is worth a log line: the spawn of an MCP server measured
+// 0.6s at worst on this machine, so a slow mount is ds-bot or DSH work, not the server.
+const SLOW_MOUNT_MS = 1_000
 
 // Connector ids are reserved: a capability named like one would collide with
 // its mcp__<id>__* tool prefix. The connectors module registers its ids here.
@@ -329,6 +332,7 @@ export function install(rt) {
     if (agentMounts.get(name)?.key === key) return
     await drop()
     statusSet(bot.id, name, sessionId, { state: 'connecting' })
+    const began = Date.now()
     try {
       const plugin = item.kind === 'skill'
         ? {
@@ -343,6 +347,8 @@ export function install(rt) {
       const fiber = item.kind === 'skill' ? agent.ctx.plugin(plugin) : agent.ctx.plugin(plugin, config)
       agentMounts.set(name, { key, fiber })
       await fiber.await()
+      const took = Date.now() - began
+      if (took >= SLOW_MOUNT_MS) rt.warn('ds-bot: capability %s (%s) took %dms to mount for %s', name, item.kind, took, sessionId)
       if (stopped || agents.get(sessionId)?.deref() !== agent) return
       statusSet(bot.id, name, sessionId, { state: 'ready' })
     } catch (error) {
@@ -422,7 +428,14 @@ export function install(rt) {
   // same Agent do not wait for it again.
   const stalled = new WeakSet()
   const prepare = async (agent, sessionId) => {
-    const run = loadInputs().then(() => reconcileOne(agent)).then(() => true, error => {
+    const began = Date.now()
+    let loadingMs = 0
+    const run = (async () => {
+      const since = Date.now()
+      await loadInputs()
+      loadingMs = Date.now() - since
+      await reconcileOne(agent)
+    })().then(() => true, error => {
       rt.warn('ds-bot: capability mount for %s failed: %s', sessionId, error)
       return true
     })
@@ -431,7 +444,13 @@ export function install(rt) {
     let timer
     const completed = await Promise.race([run, new Promise(resolve => { timer = setTimeout(resolve, timeoutMs, false) })])
     clearTimeout(timer)
-    if (completed) return
+    if (completed) {
+      // Splits the wait between reading the roster and secrets and the mounts themselves,
+      // so a slow open names the half that is slow.
+      const took = Date.now() - began
+      if (took >= SLOW_MOUNT_MS) rt.warn('ds-bot: capabilities for %s ready in %dms (%dms reading state)', sessionId, took, loadingMs)
+      return
+    }
     stalled.add(agent)
     void run.then(() => stalled.delete(agent))
     rt.warn('ds-bot: capability mount for %s did not finish within %dms; continuing', sessionId, timeoutMs)
