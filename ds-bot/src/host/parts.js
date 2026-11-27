@@ -1425,10 +1425,12 @@ export function install(rt) {
     let folder
     try {
       // A manual fresh part (the sidebar's "New session") must be usable the moment it is
-      // clicked. Mounting the Bot's MCP servers is what that click used to sit on, up to
-      // ENSURE_TIMEOUT_MS each time (the 15000ms stalls in the log), and it is not needed
-      // to read or type: every send path ensures the capabilities again before a message
-      // goes out, so the mount simply finishes in the background here.
+      // clicked. Creating its Agent runs the capability module's agent/created listener,
+      // and that listener waits for the Bot's MCP servers to mount (the 15000ms stalls in
+      // the log), so the mount is deferred for this part: creating it returns at once, the
+      // servers finish in the background, and every send path ensures them again before a
+      // message goes out.
+      if (job.manual === true) rt.mountCapabilitiesLater?.(freshId)
       const ensuring = rt.ensureCapabilities(freshId)
       if (job.manual === true) {
         void ensuring.catch(error => rt.warn('ds-bot: capabilities for the fresh part of %s did not mount: %s', name, error))

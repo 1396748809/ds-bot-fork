@@ -427,7 +427,16 @@ export function install(rt) {
   // A run that outlasts the limit goes on in the background, and later requests for the
   // same Agent do not wait for it again.
   const stalled = new WeakSet()
+  // A manual fresh part must be usable the instant it is clicked, yet Agent creation waits
+  // for its agent/created listener (prepare below). So the mount for such a part is handed
+  // to the next tick: the click returns with the server still starting, and every send path
+  // calls ensureCapabilities again before anything goes out.
+  const mountLater = new Set()
   const prepare = async (agent, sessionId) => {
+    if (mountLater.delete(sessionId)) {
+      setTimeout(() => { void prepare(agent, sessionId) }, 0)
+      return
+    }
     const began = Date.now()
     let loadingMs = 0
     const run = (async () => {
@@ -583,6 +592,9 @@ export function install(rt) {
     reconcileCapabilities: reconcile,
     scheduleCapabilitiesReconcile: scheduleReconcile,
     ensureCapabilities,
+    mountCapabilitiesLater: sessionId => {
+      if (typeof sessionId === 'string') mountLater.add(sessionId)
+    },
     expandCapabilities: names => expandCapabilityNames(names, library()),
     changeCapabilityAttachment: changeAttachment,
   })
