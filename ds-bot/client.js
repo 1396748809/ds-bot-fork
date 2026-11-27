@@ -52560,9 +52560,8 @@ function wordsOf(content) {
 function carriesMore(content) {
   return (content ?? []).some((block) => block?.type === "image" || block?.type === "file");
 }
-function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, removeQueued, promptQueued }) {
+function HoldDock({ sessionId, useProjection, actions, cancelTurn, removeQueued, promptQueued }) {
   const inbox = useProjection?.("inbox");
-  const running = useSession?.((s) => s.running) === true;
   const [busy, setBusy] = (0, import_react81.useState)(null);
   const [revision, setRevision] = (0, import_react81.useState)(0);
   const queued = (inbox?.["next-turn"] ?? []).filter((row) => OWN_QUEUE_KINDS2.has(row.source?.kind));
@@ -52587,7 +52586,7 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
     }
   };
   (0, import_react81.useEffect)(() => registerQueueHold(sessionId, holdNow));
-  if (queued.length === 0 && parked.length === 0) return null;
+  if (parked.length === 0) return null;
   const sendParked = async (row) => {
     if (busy !== null) return;
     setBusy(row.id);
@@ -52609,18 +52608,7 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
   return (0, import_react81.createElement)(
     "div",
     { className: "bt-hold-dock", "data-hold-dock": "" },
-    running && queued.length > 0 ? (0, import_react81.createElement)(
-      "div",
-      { className: "bt-hold-bar" },
-      (0, import_react81.createElement)("button", {
-        type: "button",
-        className: "bt-hold-btn",
-        disabled: busy !== null,
-        title: t("Hold this turn and keep the queue"),
-        onClick: holdNow
-      }, t("Hold"))
-    ) : null,
-    parked.length > 0 ? (0, import_react81.createElement)(
+    (0, import_react81.createElement)(
       "div",
       { className: "bt-hold-panel" },
       (0, import_react81.createElement)("div", { className: "bt-hold-head" }, t("{n} held messages", { n: parked.length })),
@@ -52646,15 +52634,11 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
           onClick: () => dropParked(row)
         }, (0, import_react81.createElement)(TrashIcon))
       )))
-    ) : null
+    )
   );
 }
 var HOLD_CSS = `
 .bt-hold-dock{box-sizing:border-box;width:calc(100% - var(--dsh-composer-side-clearance,0px) - var(--dsh-composer-side-clearance,0px) - var(--dsh-composer-dock-inset,0px) - var(--dsh-composer-dock-inset,0px));max-width:calc(var(--dsh-composer-card-max-width,748px) - var(--dsh-composer-dock-inset,0px) - var(--dsh-composer-dock-inset,0px));margin:0 auto;padding:0 var(--dsh-composer-dock-inset,0px);flex:none;display:flex;flex-direction:column;gap:6px}
-.bt-hold-bar{box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;gap:10px}
-.bt-hold-btn{flex:none;height:26px;padding:0 12px;border:.5px solid var(--bt-line-2);border-radius:999px;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;cursor:pointer}
-.bt-hold-btn:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
-.bt-hold-btn:disabled{opacity:.4;cursor:default}
 .bt-hold-panel{box-sizing:border-box;border-radius:12px;background:var(--bt-main);border:.5px solid var(--bt-line-2);overflow:hidden}
 .bt-hold-head{padding:6px 12px;font-size:12px;font-weight:500;color:var(--bt-ink-3)}
 .bt-hold-list{margin:0;padding:0;list-style:none;max-height:160px;overflow-y:auto}
