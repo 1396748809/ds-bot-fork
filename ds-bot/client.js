@@ -52612,7 +52612,6 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
     running && queued.length > 0 ? (0, import_react81.createElement)(
       "div",
       { className: "bt-hold-bar" },
-      (0, import_react81.createElement)("span", { className: "bt-hold-note" }, t("{n} queued messages", { n: queued.length })),
       (0, import_react81.createElement)("button", {
         type: "button",
         className: "bt-hold-btn",
@@ -52651,9 +52650,8 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
   );
 }
 var HOLD_CSS = `
-.bt-hold-dock{box-sizing:border-box;width:100%;margin:0 auto;flex:none;display:flex;flex-direction:column;gap:6px}
-.bt-hold-bar{box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:4px 10px;border-radius:12px;background:var(--bt-main);border:.5px solid var(--bt-line-2)}
-.bt-hold-note{min-width:0;flex:auto;font-size:12px;line-height:18px;color:var(--bt-ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-hold-dock{box-sizing:border-box;width:calc(100% - var(--dsh-composer-side-clearance,0px) - var(--dsh-composer-side-clearance,0px) - var(--dsh-composer-dock-inset,0px) - var(--dsh-composer-dock-inset,0px));max-width:calc(var(--dsh-composer-card-max-width,748px) - var(--dsh-composer-dock-inset,0px) - var(--dsh-composer-dock-inset,0px));margin:0 auto;padding:0 var(--dsh-composer-dock-inset,0px);flex:none;display:flex;flex-direction:column;gap:6px}
+.bt-hold-bar{box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;gap:10px}
 .bt-hold-btn{flex:none;height:26px;padding:0 12px;border:.5px solid var(--bt-line-2);border-radius:999px;background:none;color:var(--bt-ink-2);font:inherit;font-size:12px;cursor:pointer}
 .bt-hold-btn:hover:not(:disabled){background:var(--bt-hover);color:var(--bt-ink)}
 .bt-hold-btn:disabled{opacity:.4;cursor:default}
