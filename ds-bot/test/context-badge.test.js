@@ -40,8 +40,8 @@ const at = async (tokens, extra = {}) => {
 test('the badge stays quiet until the count is worth reading', async () => {
   slot = undefined
   assert.equal(ContextBadge({ bot, running: false, actions: {} }), null, 'no runStats action, no badge')
-  assert.equal(await at(179_999), null, 'just under eighteen 万 keeps the pill quiet')
-  assert.equal((await at(180_000)).children[0], '18万', 'exactly eighteen 万 is worth saying')
+  assert.equal(await at(149_999), null, 'just under fifteen 万 keeps the pill quiet')
+  assert.equal((await at(150_000)).children[0], '15万', 'exactly fifteen 万 is worth saying')
 })
 
 test('the badge counts tokens, not a share of the window', async () => {
