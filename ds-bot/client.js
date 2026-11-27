@@ -21559,13 +21559,26 @@ body:is([data-bt-effects=reduced],[data-bt-effects=off]) .bt-island::before{disp
 
 // src/client/typing-stop.js
 var import_react9 = require("react");
-function StopButton({ label, onStop, report }) {
+function StopButton({ label, text, onStop, report }) {
   const [stopping, setStopping] = (0, import_react9.useState)(false);
   const press = () => {
     setStopping(true);
     void Promise.resolve(onStop()).catch((error) => report?.(error)).finally(() => setStopping(false));
   };
-  return (0, import_react9.createElement)("button", { type: "button", className: "bt-typing-stop", disabled: stopping, title: label, "aria-label": label, onClick: press }, (0, import_react9.createElement)(StopIcon, { size: 20, inset: 5.5, rx: 2 }));
+  return (0, import_react9.createElement)(
+    "button",
+    {
+      type: "button",
+      className: "bt-typing-stop",
+      "data-wide": text === void 0 ? void 0 : "",
+      disabled: stopping,
+      title: label,
+      "aria-label": label,
+      onClick: press
+    },
+    (0, import_react9.createElement)(StopIcon, text === void 0 ? { size: 20, inset: 5.5, rx: 2 } : { size: 13, inset: 2, rx: 1.6 }),
+    text === void 0 ? null : (0, import_react9.createElement)("span", { className: "bt-typing-stop-text" }, text)
+  );
 }
 function TypingStop({ bot, roomId, actions }) {
   if (typeof actions?.stopMemberWork !== "function") return null;
@@ -21579,6 +21592,7 @@ function ChatStop({ bot, actions }) {
   if (typeof actions?.stopChat !== "function") return null;
   return (0, import_react9.createElement)(StopButton, {
     label: `${t("Stop")} · ${bot.name}`,
+    text: t("Stop"),
     onStop: () => actions.stopChat(bot.id),
     report: (error) => actions.reportError?.(error, "stop")
   });
@@ -21589,6 +21603,8 @@ var TYPING_STOP_CSS = `
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}
 .bt-typing-stop:disabled{opacity:.5;cursor:default}
+.bt-typing-stop[data-wide]{width:auto;padding:0 13px 0 9px;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.bt-typing-stop-text{font-size:12px;line-height:1;letter-spacing:.01em}
 `;
 
 // src/client/cell-empty.js

@@ -11,13 +11,18 @@ import { t } from './i18n.js'
 // Where the host does not offer the action the button is not drawn: an inert control is
 // worse than none.
 
-function StopButton({ label, onStop, report }) {
+function StopButton({ label, text, onStop, report }) {
   const [stopping, setStopping] = useState(false)
   const press = () => {
     setStopping(true)
     void Promise.resolve(onStop()).catch(error => report?.(error)).finally(() => setStopping(false))
   }
-  return h('button', { type: 'button', className: 'bt-typing-stop', disabled: stopping, title: label, 'aria-label': label, onClick: press }, h(StopIcon, { size: 20, inset: 5.5, rx: 2 }))
+  return h('button', {
+    type: 'button', className: 'bt-typing-stop', 'data-wide': text === undefined ? undefined : '',
+    disabled: stopping, title: label, 'aria-label': label, onClick: press,
+  },
+  h(StopIcon, text === undefined ? { size: 20, inset: 5.5, rx: 2 } : { size: 13, inset: 2, rx: 1.6 }),
+  text === undefined ? null : h('span', { className: 'bt-typing-stop-text' }, text))
 }
 
 // One member of a group, stopped from the row that names it.
@@ -33,10 +38,15 @@ export function TypingStop({ bot, roomId, actions }) {
 // The Bot of a chat of one's own, stopped from its activity row: the composer's send
 // button only turns into a stop while the draft is empty, so a half-written message
 // would otherwise have no stop at all.
+//
+// This one is labelled rather than a bare square: the chat's row runs the width of the
+// conversation, which left a lone 23px plate at the far right with a wide empty run before
+// it, and the one control that throws work away was the smallest thing on the row.
 export function ChatStop({ bot, actions }) {
   if (typeof actions?.stopChat !== 'function') return null
   return h(StopButton, {
     label: `${t('Stop')} · ${bot.name}`,
+    text: t('Stop'),
     onStop: () => actions.stopChat(bot.id),
     report: error => actions.reportError?.(error, 'stop'),
   })
@@ -54,4 +64,6 @@ export const TYPING_STOP_CSS = `
 .bt-typing-stop:focus-visible{outline:2px solid var(--bt-accent);outline-offset:2px}
 .bt-typing-stop:active:not(:disabled){scale:.92}
 .bt-typing-stop:disabled{opacity:.5;cursor:default}
+.bt-typing-stop[data-wide]{width:auto;padding:0 13px 0 9px;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.bt-typing-stop-text{font-size:12px;line-height:1;letter-spacing:.01em}
 `
