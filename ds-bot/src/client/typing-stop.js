@@ -1,6 +1,7 @@
 import { createElement as h, useState } from 'react'
 import { StopIcon } from './icons.js'
 import { t } from './i18n.js'
+import { holdQueueOf } from './hold-registry.js'
 
 // The stop on a group's typing row, and its twin on a Bot's own chat: a member that has
 // been at work too long is stopped from where the user is already looking, instead of
@@ -42,12 +43,20 @@ export function TypingStop({ bot, roomId, actions }) {
 // This one is labelled rather than a bare square: the chat's row runs the width of the
 // conversation, which left a lone 23px plate at the far right with a wide empty run before
 // it, and the one control that throws work away was the smallest thing on the row.
-export function ChatStop({ bot, actions }) {
+export function ChatStop({ bot, sessionId, actions }) {
   if (typeof actions?.stopChat !== 'function') return null
   return h(StopButton, {
     label: `${t('Stop')} · ${bot.name}`,
     text: t('Stop'),
-    onStop: () => actions.stopChat(bot.id),
+    onStop: async () => {
+      // Rows the user typed but has not sent are the one thing a stop must not throw
+      // away. The hold dock takes them out of the inbox before the cancel, so the
+      // stopped turn cannot reopen for them; they wait as "N held messages" until one is
+      // sent with its arrow or dropped. Without queued rows it cancels the plain way.
+      const hold = holdQueueOf(sessionId)
+      if (hold !== undefined && await hold() === true) return
+      return actions.stopChat(bot.id)
+    },
     report: error => actions.reportError?.(error, 'stop'),
   })
 }

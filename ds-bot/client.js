@@ -21557,6 +21557,20 @@ body:is([data-bt-effects=reduced],[data-bt-effects=off]) .bt-island::before{disp
 @media (prefers-reduced-motion:reduce){.bt-island,.bt-pill-swap>*,.bt-goal-segs i,.bt-goal-chev svg{transition:none!important}.bt-goal-panel,.bt-apv-panel{animation:none}}
 `;
 
+// src/client/hold-registry.js
+var holders = /* @__PURE__ */ new Map();
+function registerQueueHold(sessionId, hold) {
+  if (typeof sessionId !== "string") return () => {
+  };
+  holders.set(sessionId, hold);
+  return () => {
+    if (holders.get(sessionId) === hold) holders.delete(sessionId);
+  };
+}
+function holdQueueOf(sessionId) {
+  return sessionId === void 0 ? void 0 : holders.get(sessionId);
+}
+
 // src/client/typing-stop.js
 var import_react9 = require("react");
 function StopButton({ label, text, onStop, report }) {
@@ -21588,12 +21602,16 @@ function TypingStop({ bot, roomId, actions }) {
     report: (error) => actions.reportError?.(error, "stop")
   });
 }
-function ChatStop({ bot, actions }) {
+function ChatStop({ bot, sessionId, actions }) {
   if (typeof actions?.stopChat !== "function") return null;
   return (0, import_react9.createElement)(StopButton, {
     label: `${t("Stop")} · ${bot.name}`,
     text: t("Stop"),
-    onStop: () => actions.stopChat(bot.id),
+    onStop: async () => {
+      const hold = holdQueueOf(sessionId);
+      if (hold !== void 0 && await hold() === true) return;
+      return actions.stopChat(bot.id);
+    },
     report: (error) => actions.reportError?.(error, "stop")
   });
 }
@@ -33594,7 +33612,7 @@ function ActivityIndicator({ sessionId, useRoster, useSessionStatus, useLive, us
       (0, import_react38.createElement)("span", { key: `${shown.key}:${shown.at}`, className: "bt-typing-label" }, (0, import_react38.createElement)(Shimmer, null, `${shown.text}…`)),
       (0, import_react38.createElement)(Elapsed, { at: moveAt !== 0 ? moveAt : Math.max(turnAt ?? runAt.current, inputAt), className: "bt-typing-time" })
     ),
-    bot ? (0, import_react38.createElement)(ChatStop, { bot, actions }) : null
+    bot ? (0, import_react38.createElement)(ChatStop, { bot, sessionId, actions }) : null
   ), host);
 }
 
@@ -52541,10 +52559,9 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
   const queued = (inbox?.["next-turn"] ?? []).filter((row) => OWN_QUEUE_KINDS2.has(row.source?.kind));
   const parked = parkedOf(sessionId);
   void revision;
-  if (queued.length === 0 && parked.length === 0) return null;
   const bump = () => setRevision((value) => value + 1);
   const holdNow = async () => {
-    if (busy !== null || queued.length === 0) return;
+    if (busy !== null || queued.length === 0) return false;
     setBusy("hold");
     const taken = queued.map((row) => ({ id: row.id, content: row.content }));
     parkedBySession.set(sessionId, [...parked, ...taken]);
@@ -52552,12 +52569,16 @@ function HoldDock({ sessionId, useSession, useProjection, actions, cancelTurn, r
     try {
       for (const row of taken) await removeQueued(row.id);
       await cancelTurn();
+      return true;
     } catch {
       actions.reportError(new Error(t("Couldn’t hold the queue. Try again.")), "hold-queue");
+      return false;
     } finally {
       setBusy(null);
     }
   };
+  (0, import_react81.useEffect)(() => registerQueueHold(sessionId, holdNow));
+  if (queued.length === 0 && parked.length === 0) return null;
   const sendParked = async (row) => {
     if (busy !== null) return;
     setBusy(row.id);

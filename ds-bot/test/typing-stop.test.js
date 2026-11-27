@@ -9,7 +9,7 @@ import { test } from 'node:test'
 // member running long is visible, and the details panel is two clicks away.
 const PLUGIN = dirname(dirname(fileURLToPath(import.meta.url)))
 const { outputFiles } = await build({
-  stdin: { contents: "export { TypingStop, ChatStop, TYPING_STOP_CSS } from './src/client/typing-stop.js'", resolveDir: PLUGIN },
+  stdin: { contents: "export { TypingStop, ChatStop, TYPING_STOP_CSS } from './src/client/typing-stop.js'; export { registerQueueHold } from './src/client/hold-registry.js'", resolveDir: PLUGIN },
   bundle: true, format: 'cjs', platform: 'browser', write: false, logLevel: 'silent',
   external: ['react', 'react-dom', '@deepseek-ai/dsh-client-ui-primitives'],
 })
@@ -40,7 +40,7 @@ runInNewContext(outputFiles[0].text, {
     throw new Error(`no platform module ${name}`)
   },
 })
-const { TypingStop, ChatStop, TYPING_STOP_CSS } = module.exports
+const { TypingStop, ChatStop, TYPING_STOP_CSS, registerQueueHold } = module.exports
 
 const find = (node, match, found = []) => {
   if (node === null || typeof node !== 'object') return found
@@ -101,4 +101,32 @@ test('the square sits inside its plate with air around it', () => {
   assert.ok(square.props.width / 23 < 0.42, 'the solid part stays under half the plate')
   assert.ok(square.props.rx < 2.5, 'and its corners stay square enough to read as a stop')
   assert.match(TYPING_STOP_CSS, /\.bt-typing-stop\{[^}]*width:23px/, 'the plate itself stays tight')
+})
+
+// A stop while the user has messages waiting must not throw them away: the hold dock takes
+// them out of the inbox first and parks them, and the stop in the row takes that road
+// instead of the plain cancel.
+test('the chat stop keeps a waiting queue instead of cancelling it away', async () => {
+  const calls = []
+  const off = registerQueueHold('session-with-queue', async () => { calls.push('hold'); return true })
+  try {
+    const tree = ChatStop({ bot, sessionId: 'session-with-queue', actions: { stopChat: id => { calls.push(`stop:${id}`); return Promise.resolve() } } })
+    const [button] = find(tree, node => node.props?.className === 'bt-typing-stop')
+    button.props.onClick()
+    await new Promise(resolve => setTimeout(resolve, 0))
+    assert.deepEqual(calls, ['hold'], 'the queue is held, and no plain stop runs after it')
+  } finally { off() }
+})
+
+// With nothing queued the dock declines, so the plain stop runs as it always did.
+test('the chat stop cancels when there is no queue to keep', async () => {
+  const calls = []
+  const off = registerQueueHold('session-without-queue', async () => false)
+  try {
+    const tree = ChatStop({ bot, sessionId: 'session-without-queue', actions: { stopChat: id => { calls.push(`stop:${id}`); return Promise.resolve() } } })
+    const [button] = find(tree, node => node.props?.className === 'bt-typing-stop')
+    button.props.onClick()
+    await new Promise(resolve => setTimeout(resolve, 0))
+    assert.deepEqual(calls, ['stop:b1'])
+  } finally { off() }
 })

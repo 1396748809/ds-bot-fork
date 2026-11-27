@@ -1,6 +1,7 @@
-import { createElement as h, useState } from 'react'
+import { createElement as h, useEffect, useState } from 'react'
 import { t } from './i18n.js'
 import { ArrowUpIcon, TrashIcon } from './icons.js'
+import { registerQueueHold } from './hold-registry.js'
 
 // "Hold" stops the running turn without letting the queue start again. The
 // shell's stop keeps the inbox and the loop drains it into a fresh turn at
@@ -40,10 +41,9 @@ export function HoldDock({ sessionId, useSession, useProjection, actions, cancel
   // `revision` only exists to re-render after the map changes; reading it here
   // keeps the dependency honest without a lint exemption.
   void revision
-  if (queued.length === 0 && parked.length === 0) return null
   const bump = () => setRevision(value => value + 1)
   const holdNow = async () => {
-    if (busy !== null || queued.length === 0) return
+    if (busy !== null || queued.length === 0) return false
     setBusy('hold')
     const taken = queued.map(row => ({ id: row.id, content: row.content }))
     parkedBySession.set(sessionId, [...parked, ...taken])
@@ -53,12 +53,21 @@ export function HoldDock({ sessionId, useSession, useProjection, actions, cancel
       // loop open a new turn for them, which is the behaviour being replaced.
       for (const row of taken) await removeQueued(row.id)
       await cancelTurn()
+      return true
     } catch {
+      // The rows are already parked, so nothing is lost; the plain stop below still
+      // ends the turn.
       actions.reportError(new Error(t('Couldn’t hold the queue. Try again.')), 'hold-queue')
+      return false
     } finally {
       setBusy(null)
     }
   }
+  // The stop in the activity row takes this same road while rows are waiting, so a
+  // stop never throws a typed message away. Re-registered on every render: the move
+  // closes over the queue it saw.
+  useEffect(() => registerQueueHold(sessionId, holdNow))
+  if (queued.length === 0 && parked.length === 0) return null
   const sendParked = async (row) => {
     if (busy !== null) return
     setBusy(row.id)

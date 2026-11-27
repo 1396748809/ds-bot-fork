@@ -210,5 +210,5 @@ export function ActivityIndicator({ sessionId, useRoster, useSessionStatus, useL
     h('span', { className: 'bt-typing-text', 'aria-hidden': true },
       h('span', { key: `${shown.key}:${shown.at}`, className: 'bt-typing-label' }, h(Shimmer, null, `${shown.text}…`)),
       h(Elapsed, { at: moveAt !== 0 ? moveAt : Math.max(turnAt ?? runAt.current, inputAt), className: 'bt-typing-time' })),
-    bot ? h(ChatStop, { bot, actions }) : null), host)
+    bot ? h(ChatStop, { bot, sessionId, actions }) : null), host)
 }
