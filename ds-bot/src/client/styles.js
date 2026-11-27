@@ -1400,6 +1400,11 @@ html[data-platform=darwin] header[class*="_header"]:has(.bt-head) :is(a,button,i
 [data-content-phase=hero] [class*="_scrollBody"]{justify-content:flex-end!important}
 [data-content-phase=hero] [class*="_composerHero"]{align-self:stretch!important;width:auto!important;padding-bottom:0!important}
 [data-content-phase=hero] [class*="_composerHero"]>[class$="_root"],[data-content-phase=hero] [class*="_heroWorkspaceRow"]{display:none!important}
+/* The same row outside the hero phase. A team Session's folder comes from its Bot, so the
+   shell's own workspace row cannot change anything here: it was the picker that appeared
+   as soon as the composer took focus and then ignored the pick. Hidden wherever the shell
+   draws it, the hero column and the floating layer it portals into. */
+[class*="_heroWorkspaceRow"],[class*="_composerHero"] [class*="orkspaceRow"]{display:none!important}
 [data-content-phase=hero] [class*="_composerHero"] [class*="_input"]{min-height:0!important}
 /* The right sides give back the scrollbar gutter so both edges sit 16px from the column. */
 [class*="_scroll"]:has(> [class*="_column"]){padding:calc(60px + env(safe-area-inset-top,0px)) calc(11px + env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-left,0px))!important}

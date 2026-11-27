@@ -1424,7 +1424,17 @@ export function install(rt) {
     const carry = []
     let folder
     try {
-      await rt.ensureCapabilities(freshId)
+      // A manual fresh part (the sidebar's "New session") must be usable the moment it is
+      // clicked. Mounting the Bot's MCP servers is what that click used to sit on, up to
+      // ENSURE_TIMEOUT_MS each time (the 15000ms stalls in the log), and it is not needed
+      // to read or type: every send path ensures the capabilities again before a message
+      // goes out, so the mount simply finishes in the background here.
+      const ensuring = rt.ensureCapabilities(freshId)
+      if (job.manual === true) {
+        void ensuring.catch(error => rt.warn('ds-bot: capabilities for the fresh part of %s did not mount: %s', name, error))
+      } else {
+        await ensuring
+      }
       const fresh = await rt.resolveAgent(freshId)
       const cwd = fresh.session.header?.cwd
       folder = cwd !== undefined && cwd !== session.header?.cwd ? cwd : undefined
