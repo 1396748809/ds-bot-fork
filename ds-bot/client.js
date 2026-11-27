@@ -13989,9 +13989,10 @@ var ZH = {
   "Couldn’t delete the queued message — it may have started already.": "删除失败：这条消息可能已经开始发送。",
   "Couldn’t steer the queued message. Try again.": "插话发送失败，请重试。",
   "Waits for this turn to end": "等这轮结束",
-  // Holding the queue: stop the turn, keep the parked rows until their arrow.
-  Hold: "停住",
-  "Hold this turn and keep the queue": "停住这一轮，排队消息留着，等你按 ↑ 再发",
+  // Holding the queue: stop the turn, keep the parked rows until their arrow. The button
+  // names the act the same way the activity row's own stop does, since it is that stop.
+  Hold: "终止",
+  "Hold this turn and keep the queue": "终止这一轮，排队消息留着，等你按 ↑ 再发",
   "Couldn’t hold the queue. Try again.": "停住失败，请重试。",
   "{n} held messages": "{n} 条已停住",
   "Send this held message": "发送这条停住的消息",
