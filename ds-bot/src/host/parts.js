@@ -934,10 +934,12 @@ export function install(rt) {
         ...earlier,
         ...omitted,
       ]),
-      '',
-      '## Latest messages (oldest first)',
-      recent.length > 0 ? recent.join('\n') : '(none)',
-      ...(room ? omitted : []),
+      ...(recent.length === 0 && earlier.length === 0 ? [] : [
+        '',
+        '## Latest messages (oldest first)',
+        recent.length > 0 ? recent.join('\n') : '(none)',
+        ...(room ? omitted : []),
+      ]),
       '',
       !resume ? 'Every message above has had its answer. Nothing needs an answer now; wait for the next message.'
         : bare ? `Your last turn could not finish because the model request kept failing, also in a fresh conversation with the latest messages carried over, so they are left out this time. First tell ${room ? 'the group' : 'the user'} in one short sentence that the last message could not be sent, and ask for it again.`
@@ -1324,7 +1326,10 @@ export function install(rt) {
     const taskRoom = taskEntry?.roomId !== undefined ? rt.roomOf(taskEntry.roomId) : undefined
     const effectiveRoom = room ?? taskRoom
     const budget = Math.min(RECENT_TOKENS, Math.floor((lines?.check ?? 4 * RECENT_TOKENS) / 4))
-    const readLines = () => (job.bare ? { recent: [], earlier: [], unlisted: 0, complete: true } : handoffLines(agent.id, { budget, group: effectiveRoom !== undefined, number }))
+    // A manual fresh part carries the note and nothing else: the user asked for a new
+    // conversation to be cheap, and the latest messages of the part before are the bulk
+    // of what a fresh one used to start with. Read_own_chat still finds every word.
+    const readLines = () => (job.bare || job.manual === true ? { recent: [], earlier: [], unlisted: 0, complete: true } : handoffLines(agent.id, { budget, group: effectiveRoom !== undefined, number }))
     let carried = job.folder ? await readLines() : undefined
     // A short part with no tool work goes over word for word, so it needs no note.
     const whole = carried?.whole === true && !session.deriveMessages().some(message => message.role === 'tool')
