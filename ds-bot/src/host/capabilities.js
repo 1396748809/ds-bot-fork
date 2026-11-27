@@ -6,6 +6,9 @@ const MCP_CLIENT = '@deepseek-ai/dsh-mcp-client'
 const NAME = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/
 const SECRET_REFERENCE = /\$DSH_SECRET_([A-Z][A-Z0-9_]*)/g
 const ENSURE_TIMEOUT_MS = 15_000
+// How long a quit waits for the mounted servers to end. A server that is gone by then
+// costs nothing more; the app is closing anyway, and the child goes with it.
+const STOP_WAIT_MS = 1_500
 // A mount slower than this is worth a log line: the spawn of an MCP server measured
 // 0.6s at worst on this machine, so a slow mount is ds-bot or DSH work, not the server.
 const SLOW_MOUNT_MS = 1_000
@@ -574,12 +577,19 @@ export function install(rt) {
     }).catch(error => rt.warn('ds-bot: capability startup failed: %s', error))
     return async () => {
       stopped = true
+      const began = Date.now()
       const live = [...mounts.values()]
       mounts.clear()
       agents.clear()
       sessionStatuses.clear()
       statusesCache = undefined
-      await Promise.all(live.flatMap(agentMounts => [...agentMounts.values()].map(disposeMount)))
+      // Quitting waits for this: every mounted server is a child process, and a server
+      // that ignores its end would hold the whole app open. The wait is capped and its
+      // cost is logged, so a slow quit can name this step instead of being guessed at.
+      const stopping = live.flatMap(agentMounts => [...agentMounts.values()].map(mount => Promise.resolve(disposeMount(mount)).catch(() => {})))
+      const cap = new Promise(resolve => { const timer = setTimeout(resolve, STOP_WAIT_MS); timer.unref?.() })
+      const done = await Promise.race([Promise.all(stopping).then(() => true), cap.then(() => false)])
+      rt.warn('ds-bot: stopping the mounted capabilities took %d ms (%d server(s)%s)', Date.now() - began, stopping.length, done ? '' : '; the rest was left behind')
     }
   }, 'ds-bot: capabilities')
   Object.assign(rt, {
