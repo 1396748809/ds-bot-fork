@@ -44225,7 +44225,7 @@ function MemoryNotice({ shown }) {
     (0, import_react61.createElement)("span", { className: "bt-pill-mem-in", ref: inner }, (0, import_react61.createElement)("span", { className: "bt-pill-mem-ico" }, (0, import_react61.createElement)(MemoryIcon)), label)
   );
 }
-var CONTEXT_SHOW_TOKENS = 18e4;
+var CONTEXT_SHOW_TOKENS = 15e4;
 var CONTEXT_HEAVY_TOKENS = 22e4;
 var CONTEXT_DOUBLE_TOKENS = 272e3;
 var samePressure = (a, b) => a?.projectedTokens === b?.projectedTokens && a?.pressureTokens === b?.pressureTokens && a?.contextWindow === b?.contextWindow;

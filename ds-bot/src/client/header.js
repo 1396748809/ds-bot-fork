@@ -53,7 +53,9 @@ function MemoryNotice({ shown }) {
 // percentage says little, and the number that matters is fixed — a request past 272k tokens
 // bills every token in it at twice the rate. So the badge counts tokens, turns orange well
 // before that line, and names the line once a call has crossed it.
-const CONTEXT_SHOW_TOKENS = 180_000
+// The badge starts at 150k: below that a chat is cheap enough that the number is noise,
+// and the user asked to see it from there on rather than from 180k.
+const CONTEXT_SHOW_TOKENS = 150_000
 const CONTEXT_HEAVY_TOKENS = 220_000
 const CONTEXT_DOUBLE_TOKENS = 272_000
 
