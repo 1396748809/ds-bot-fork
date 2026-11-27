@@ -1298,6 +1298,12 @@ export function install(rt) {
 
   async function moveOn(agent, job, signal) {
     job.started = true
+    // A manually started part is the one the user sits and waits for, so its switch is
+    // timed: the click comes back when this ends, and a slow click should name the step
+    // that held it instead of costing another round of guessing from the session files.
+    const t0 = job.since ?? Date.now()
+    const stamps = []
+    const mark = label => { if (job.manual === true) stamps.push(`${label} ${Date.now() - t0}`) }
     const bot = job.botId === undefined ? undefined : rt.botOf(job.botId)
     const room = rt.roomOf(job.roomId)
     if (bot === undefined ? room === undefined
@@ -1353,19 +1359,23 @@ export function install(rt) {
       : job.engine ? { fallback: 'engine', ...earlierNote }
       : { fallback: whole ? 'whole' : job.failed !== undefined ? 'failure' : job.overflow ? 'overflow' : job.cutoff === true ? 'cutoff' : job.manual && failure === undefined ? 'manual' : 'failed', ...earlierNote }
     carried ??= await readLines()
+    mark('lines')
     if (signal.aborted) throw signal.reason
     const dir = taskEntry?.workDir !== undefined
       ? (taskEntry.workDir ?? undefined)
       : rt.workDirOf(effectiveRoom !== undefined && job.roomId === undefined ? { ...job, roomId: effectiveRoom.id } : job)
     const intended = dir !== undefined && await rt.isFolder(dir) ? dir : rt.teamFolder()
     const freshId = await rt.createSession(effectiveRoom === undefined ? name : bot === undefined ? effectiveRoom.name : `${name} · ${effectiveRoom.name}`, { dir })
+    mark('create')
     // The group's own Session never asks the model, so selectRoomSession picks an
     // image-capable route when available; the earlier part's route may no longer be served (#1310).
     if (bot === undefined) await rt.selectRoomSession(freshId, room)
     const picked = bot === undefined ? undefined : await freshRoute(bot, session)
     if (picked !== undefined && !await selectRoute({ name }, freshId, picked) && job.engine) engineRetry.set(freshId, Date.now() + FOLDER_RETRY_MS)
+    mark('route')
     if (bot !== undefined) await rt.applyPermission(bot, freshId, effectiveRoom)
       .catch(error => rt.warn('ds-bot: permission for the fresh part of %s not applied: %s', name, error))
+    mark('permission')
     // The fresh part took several awaits: a Bot or group deleted meanwhile, a member that
     // left, or a part that is no longer the current one gets no fresh part.
     const current = bot === undefined ? rt.sessionOfRoom(room)
@@ -1438,6 +1448,7 @@ export function install(rt) {
         await ensuring
       }
       const fresh = await rt.resolveAgent(freshId)
+      mark('agent')
       const cwd = fresh.session.header?.cwd
       folder = cwd !== undefined && cwd !== session.header?.cwd ? cwd : undefined
       // A fresh part that is not where it was made for would move on at every step.
@@ -1450,8 +1461,10 @@ export function install(rt) {
       freshParts.set(freshId, estimateTokens(text))
       fresh.followup(createUserMessage({ content: [{ type: 'text', text }], source: handoffSource(job, resume) }))
       await ctx.sessions.flush(fresh.session)
+      mark('flush')
       carry.push(...job.carry.splice(0))
       await forward(job, [...carry, ...held], freshId)
+      mark('forward')
     } catch (error) {
       job.kept = true
       try { restore(agent, [...carry, ...job.carry.splice(0)]) } catch {}
@@ -1469,6 +1482,7 @@ export function install(rt) {
     ctx.logger.info('ds-bot: %s%s moved on to part %d at %d tokens (check line %d, hard line %d); %s; %d latest and %d earlier messages carried%s', name, bot !== undefined && room !== undefined ? ` in ${room.name}` : '', number + 1, tokens ?? -1, lines?.check ?? -1, lines?.hard ?? -1,
       written !== undefined ? `note written in ${written.attempts} attempt(s)` : `note put together by DS Bot (${noted.fallback}${noted.note ? `, carries part ${noted.noteFrom}'s` : ', nothing to carry'})`,
       carried.recent.length, carried.earlier.length, folder === undefined ? '' : `; now works in ${folder}`)
+    if (stamps.length > 0) rt.warn('ds-bot: the fresh part of %s took %d ms before the click returned (%s)', name, Date.now() - t0, stamps.join(', '))
   }
 
   // Ends a step DS Bot takes over. Before a turn's first step an empty batch ends the
