@@ -1033,6 +1033,9 @@ const ZH = {
   'in its own chat': '在自己的对话里',
   'Stop all work in this group': '停止本群的所有工作',
   'Stop all': '全部停止',
+  // The chat activity row's stop: it ends the turn the Bot is running right now. Worded
+  // apart from the browser's and a task's Stop, which load and unload rather than end work.
+  'Stop this turn': '终止',
   // Group goals
   Goal: '目标',
   'Set a goal': '设定目标',

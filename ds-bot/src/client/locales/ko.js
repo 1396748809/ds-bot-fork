@@ -1,6 +1,7 @@
 // Korean (ko) localization for DS Bot client and DSH settings namespaces.
 
 export const KO = {
+  "Stop this turn": "중지",
   "Add a to-do": "할 일 추가",
   "What needs doing?": "무엇을 할까요?",
   "New group chat": "새 그룹 채팅",

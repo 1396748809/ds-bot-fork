@@ -1,6 +1,7 @@
 // German (de) localization for DS Bot client and DSH settings namespaces.
 
 export const DE = {
+  "Stop this turn": "Beenden",
   "Add a to-do": "Aufgabe hinzufügen",
   "What needs doing?": "Was ist zu tun?",
   "New group chat": "Neuer Gruppenchat",

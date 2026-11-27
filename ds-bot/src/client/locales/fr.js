@@ -1005,6 +1005,7 @@ export const FR = {
   "in its own chat": "dans sa propre discussion",
   "Stop all work in this group": "Arrêter tout le travail dans ce groupe",
   "Stop all": "Tout arrêter",
+  "Stop this turn": "Arrêter",
   "Goal": "Objectif",
   "Set a goal": "Définir un objectif",
   "This group has no admin": "Ce groupe n’a pas d’admin",

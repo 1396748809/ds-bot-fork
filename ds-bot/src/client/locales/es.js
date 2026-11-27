@@ -1,6 +1,7 @@
 // Spanish (es) localization for DS Bot client and DSH settings namespaces.
 
 export const ES = {
+  "Stop this turn": "Detener",
   "Add a to-do": "Añadir una tarea",
   "What needs doing?": "¿Qué hay que hacer?",
   "New group chat": "Nuevo chat de grupo",

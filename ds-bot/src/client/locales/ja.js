@@ -1005,6 +1005,7 @@ export const JA = {
   "in its own chat": "個別チャット内",
   "Stop all work in this group": "このグループのすべての作業を停止",
   "Stop all": "すべて停止",
+  "Stop this turn": "中止",
   "Goal": "目標",
   "Set a goal": "目標を設定",
   "This group has no admin": "このグループには管理者がいません",

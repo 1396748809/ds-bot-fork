@@ -30,7 +30,7 @@ function StopButton({ label, text, onStop, report }) {
 export function TypingStop({ bot, roomId, actions }) {
   if (typeof actions?.stopMemberWork !== 'function') return null
   return h(StopButton, {
-    label: `${t('Stop')} · ${bot.name}`,
+    label: `${t('Stop this turn')} · ${bot.name}`,
     onStop: () => actions.stopMemberWork(roomId, bot.id),
     report: error => actions.reportError?.(error, 'stop'),
   })
@@ -46,8 +46,8 @@ export function TypingStop({ bot, roomId, actions }) {
 export function ChatStop({ bot, sessionId, actions }) {
   if (typeof actions?.stopChat !== 'function') return null
   return h(StopButton, {
-    label: `${t('Stop')} · ${bot.name}`,
-    text: t('Stop'),
+    label: `${t('Stop this turn')} · ${bot.name}`,
+    text: t('Stop this turn'),
     onStop: async () => {
       // Rows the user typed but has not sent are the one thing a stop must not throw
       // away. The hold dock takes them out of the inbox before the cancel, so the

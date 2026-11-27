@@ -1123,6 +1123,7 @@ var JA = {
   "in its own chat": "個別チャット内",
   "Stop all work in this group": "このグループのすべての作業を停止",
   "Stop all": "すべて停止",
+  "Stop this turn": "中止",
   "Goal": "目標",
   "Set a goal": "目標を設定",
   "This group has no admin": "このグループには管理者がいません",
@@ -2789,6 +2790,7 @@ var DSH_JA = {
 
 // src/client/locales/ko.js
 var KO = {
+  "Stop this turn": "중지",
   "Add a to-do": "할 일 추가",
   "What needs doing?": "무엇을 할까요?",
   "New group chat": "새 그룹 채팅",
@@ -5504,6 +5506,7 @@ var DSH_KO = {
 
 // src/client/locales/es.js
 var ES = {
+  "Stop this turn": "Detener",
   "Add a to-do": "Añadir una tarea",
   "What needs doing?": "¿Qué hay que hacer?",
   "New group chat": "Nuevo chat de grupo",
@@ -9223,6 +9226,7 @@ var FR = {
   "in its own chat": "dans sa propre discussion",
   "Stop all work in this group": "Arrêter tout le travail dans ce groupe",
   "Stop all": "Tout arrêter",
+  "Stop this turn": "Arrêter",
   "Goal": "Objectif",
   "Set a goal": "Définir un objectif",
   "This group has no admin": "Ce groupe n’a pas d’admin",
@@ -10889,6 +10893,7 @@ var DSH_FR = {
 
 // src/client/locales/de.js
 var DE = {
+  "Stop this turn": "Beenden",
   "Add a to-do": "Aufgabe hinzufügen",
   "What needs doing?": "Was ist zu tun?",
   "New group chat": "Neuer Gruppenchat",
@@ -14641,6 +14646,9 @@ var ZH = {
   "in its own chat": "在自己的对话里",
   "Stop all work in this group": "停止本群的所有工作",
   "Stop all": "全部停止",
+  // The chat activity row's stop: it ends the turn the Bot is running right now. Worded
+  // apart from the browser's and a task's Stop, which load and unload rather than end work.
+  "Stop this turn": "终止",
   // Group goals
   Goal: "目标",
   "Set a goal": "设定目标",
@@ -21597,7 +21605,7 @@ function StopButton({ label, text, onStop, report }) {
 function TypingStop({ bot, roomId, actions }) {
   if (typeof actions?.stopMemberWork !== "function") return null;
   return (0, import_react9.createElement)(StopButton, {
-    label: `${t("Stop")} · ${bot.name}`,
+    label: `${t("Stop this turn")} · ${bot.name}`,
     onStop: () => actions.stopMemberWork(roomId, bot.id),
     report: (error) => actions.reportError?.(error, "stop")
   });
@@ -21605,8 +21613,8 @@ function TypingStop({ bot, roomId, actions }) {
 function ChatStop({ bot, sessionId, actions }) {
   if (typeof actions?.stopChat !== "function") return null;
   return (0, import_react9.createElement)(StopButton, {
-    label: `${t("Stop")} · ${bot.name}`,
-    text: t("Stop"),
+    label: `${t("Stop this turn")} · ${bot.name}`,
+    text: t("Stop this turn"),
     onStop: async () => {
       const hold = holdQueueOf(sessionId);
       if (hold !== void 0 && await hold() === true) return;
